@@ -36,7 +36,7 @@ export default function HotelGallery() {
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-2 w-64">
                   <Image
-                    src="/placeholder.svg?height=200&width=300"
+                    src="/public/images/hotel-exterior-main.png"
                     alt="Hotel exterior"
                     fill
                     className="object-cover"
@@ -46,14 +46,14 @@ export default function HotelGallery() {
               </div>
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-2 w-64">
-                  <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Sơn Ca" fill className="object-cover" />
+                  <Image src="/public/images/room-sonca-main.png" alt="Phòng Sơn Ca" fill className="object-cover" />
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Sơn Ca</p>
               </div>
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-2 w-64">
                   <Image
-                    src="/placeholder.svg?height=200&width=300"
+                    src="/public/images/room-nhatban-main.png"
                     alt="Phòng Nhật Bản"
                     fill
                     className="object-cover"
@@ -63,14 +63,14 @@ export default function HotelGallery() {
               </div>
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-2 w-64">
-                  <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Mập Mờ" fill className="object-cover" />
+                  <Image src="/public/images/room-mapmo-main.png" alt="Phòng Mập Mờ" fill className="object-cover" />
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Mập Mờ</p>
               </div>
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-2 w-64">
                   <Image
-                    src="/placeholder.svg?height=200&width=300"
+                    src="/public/images/room-santorini-main.png"
                     alt="Phòng Santorini"
                     fill
                     className="object-cover"
@@ -88,14 +88,14 @@ export default function HotelGallery() {
 
           {/* Large Cinema Image */}
           <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-3">
-            <Image src="/placeholder.svg?height=250&width=400" alt="Cinema area" fill className="object-cover" />
+            <Image src="/public/images/cinema-area.png" alt="Cinema area" fill className="object-cover" />
           </div>
 
           {/* Grid of smaller images */}
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
               <Image
-                src="/placeholder.svg?height=150&width=200"
+                src="/public/images/hotel-exterior-day.png"
                 alt="Hotel exterior day"
                 fill
                 className="object-cover"
@@ -103,7 +103,7 @@ export default function HotelGallery() {
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
               <Image
-                src="/placeholder.svg?height=150&width=200"
+                src="/public/images/hotel-exterior-night.png"
                 alt="Hotel exterior night"
                 fill
                 className="object-cover"
@@ -113,34 +113,34 @@ export default function HotelGallery() {
 
           {/* Bottom large image */}
           <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-3">
-            <Image src="/placeholder.svg?height=250&width=400" alt="Hotel lobby" fill className="object-cover" />
+            <Image src="/public/images/hotel-lobby.png" alt="Hotel lobby" fill className="object-cover" />
           </div>
 
           {/* Additional 6 images */}
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=150&width=200" alt="Restaurant area" fill className="object-cover" />
+              <Image src="/public/images/restaurant-area.png" alt="Restaurant area" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=150&width=200" alt="Swimming pool" fill className="object-cover" />
+              <Image src="/public/images/swimming-pool.png" alt="Swimming pool" fill className="object-cover" />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=150&width=200" alt="Gym area" fill className="object-cover" />
+              <Image src="/public/images/gym-area.png" alt="Gym area" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=150&width=200" alt="Spa area" fill className="object-cover" />
+              <Image src="/public/images/spa-area.png" alt="Spa area" fill className="object-cover" />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=150&width=200" alt="Rooftop terrace" fill className="object-cover" />
+              <Image src="/public/images/rooftop-terrace.png" alt="Rooftop terrace" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=150&width=200" alt="Business center" fill className="object-cover" />
+              <Image src="/public/images/business-center.png" alt="Business center" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -150,34 +150,34 @@ export default function HotelGallery() {
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phòng Sơn Ca</h2>
           <div className="columns-2 gap-3 space-y-3">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Sơn Ca 1" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Sơn Ca 1" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Sơn Ca 2" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Sơn Ca 2" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Sơn Ca 3" fill className="object-cover" />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Sơn Ca 3" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Sơn Ca 4" fill className="object-cover" />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Sơn Ca 4" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Sơn Ca 5" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Sơn Ca 5" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Sơn Ca 6" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Sơn Ca 6" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Sơn Ca 7" fill className="object-cover" />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Sơn Ca 7" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Sơn Ca 8" fill className="object-cover" />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Sơn Ca 8" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Sơn Ca 9" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Sơn Ca 9" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Sơn Ca 10" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Sơn Ca 10" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -187,39 +187,34 @@ export default function HotelGallery() {
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phòng Nhật Bản</h2>
           <div className="columns-2 gap-3 space-y-3">
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Nhật Bản 1" fill className="object-cover" />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Nhật Bản 1" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Nhật Bản 2" fill className="object-cover" />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Nhật Bản 2" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Nhật Bản 3" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Nhật Bản 3" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Nhật Bản 4" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Nhật Bản 4" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Nhật Bản 5" fill className="object-cover" />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Nhật Bản 5" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Nhật Bản 6" fill className="object-cover" />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Nhật Bản 6" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Nhật Bản 7" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Nhật Bản 7" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Nhật Bản 8" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Nhật Bản 8" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Nhật Bản 9" fill className="object-cover" />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Nhật Bản 9" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=300&width=200"
-                alt="Phòng Nhật Bản 10"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Nhật Bản 10" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -229,34 +224,34 @@ export default function HotelGallery() {
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phòng Mập Mờ</h2>
           <div className="columns-2 gap-3 space-y-3">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Mập Mờ 1" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Mập Mờ 1" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Mập Mờ 2" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Mập Mờ 2" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Mập Mờ 3" fill className="object-cover" />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Mập Mờ 3" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Mập Mờ 4" fill className="object-cover" />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Mập Mờ 4" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Mập Mờ 5" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Mập Mờ 5" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Mập Mờ 6" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Mập Mờ 6" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Mập Mờ 7" fill className="object-cover" />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Mập Mờ 7" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Mập Mờ 8" fill className="object-cover" />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Mập Mờ 8" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Phòng Mập Mờ 9" fill className="object-cover" />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Mập Mờ 9" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image src="/placeholder.svg?height=300&width=200" alt="Phòng Mập Mờ 10" fill className="object-cover" />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Mập Mờ 10" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -266,84 +261,34 @@ export default function HotelGallery() {
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phòng Santorini</h2>
           <div className="columns-2 gap-3 space-y-3">
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=300&width=200"
-                alt="Phòng Santorini 1"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Santorini 1" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=200&width=300"
-                alt="Phòng Santorini 2"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Santorini 2" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=300&width=200"
-                alt="Phòng Santorini 3"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Santorini 3" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=200&width=300"
-                alt="Phòng Santorini 4"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Santorini 4" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=300&width=200"
-                alt="Phòng Santorini 5"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Santorini 5" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=200&width=300"
-                alt="Phòng Santorini 6"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Santorini 6" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=300&width=200"
-                alt="Phòng Santorini 7"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-1.png" alt="Phòng Santorini 7" fill className="object-cover" />
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=200&width=300"
-                alt="Phòng Santorini 8"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-2.png" alt="Phòng Santorini 8" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=300&width=200"
-                alt="Phòng Santorini 9"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-3.png" alt="Phòng Santorini 9" fill className="object-cover" />
             </div>
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden break-inside-avoid">
-              <Image
-                src="/placeholder.svg?height=300&width=200"
-                alt="Phòng Santorini 10"
-                fill
-                className="object-cover"
-              />
+              <Image src="/public/images/room-generic-4.png" alt="Phòng Santorini 10" fill className="object-cover" />
             </div>
           </div>
         </div>

@@ -32,13 +32,13 @@ export default function HotelGallery() {
         <div className="grid grid-cols-2 gap-3 mb-6">
           <div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-2">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Hotel exterior" fill className="object-cover" />
+              <Image src="/public/images/hotel-exterior-main.png" alt="Hotel exterior" fill className="object-cover" />
             </div>
             <p className="text-sm font-medium text-[#0a0a0a]">Mặt tiền khách sạn</p>
           </div>
           <div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-2">
-              <Image src="/placeholder.svg?height=200&width=300" alt="Hotel room" fill className="object-cover" />
+              <Image src="/public/images/room-sonca-main.png" alt="Hotel room" fill className="object-cover" />
             </div>
             <p className="text-sm font-medium text-[#0a0a0a]">Phòng Sơn ca</p>
           </div>
@@ -50,14 +50,14 @@ export default function HotelGallery() {
 
           {/* Large Cinema Image */}
           <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-3">
-            <Image src="/placeholder.svg?height=250&width=400" alt="Cinema area" fill className="object-cover" />
+            <Image src="/public/images/cinema-area.png" alt="Cinema area" fill className="object-cover" />
           </div>
 
           {/* Grid of smaller images */}
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
               <Image
-                src="/placeholder.svg?height=150&width=200"
+                src="/public/images/hotel-exterior-day.png"
                 alt="Hotel exterior day"
                 fill
                 className="object-cover"
@@ -65,7 +65,7 @@ export default function HotelGallery() {
             </div>
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
               <Image
-                src="/placeholder.svg?height=150&width=200"
+                src="/public/images/hotel-exterior-night.png"
                 alt="Hotel exterior night"
                 fill
                 className="object-cover"
@@ -75,7 +75,7 @@ export default function HotelGallery() {
 
           {/* Bottom large image */}
           <div className="relative aspect-[16/10] rounded-lg overflow-hidden">
-            <Image src="/placeholder.svg?height=250&width=400" alt="Hotel lobby" fill className="object-cover" />
+            <Image src="/public/images/hotel-lobby.png" alt="Hotel lobby" fill className="object-cover" />
           </div>
         </div>
       </div>
