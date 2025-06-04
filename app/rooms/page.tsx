@@ -164,9 +164,9 @@ export default function RoomSelection() {
 
       {/* Booking Info */}
       <div className="p-4 bg-gray-50">
-        {bookings.map((booking, index) => (
-          <div key={booking.id} className="mb-4">
-            <div className="flex items-center gap-2 mb-2">
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          {bookings.map((booking, index) => (
+            <div key={booking.id} className="flex items-center gap-2">
               <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
                 BOOKING {index + 1}
               </Badge>
@@ -175,26 +175,27 @@ export default function RoomSelection() {
                   <Trash2 className="h-4 w-4" />
                 </Button>
               )}
-              {index === bookings.length - 1 && ( // Only show add button on the last booking
+              {index === bookings.length - 1 && (
                 <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleAddBooking}>
                   <Plus className="h-4 w-4" />
                 </Button>
               )}
             </div>
-            {/* Filter Tags - apply to all bookings for now, could be per-booking */}
-            <div className="flex gap-2 mb-4">
-              <Badge variant="outline" className="rounded-full">
-                Bao gồm bữa sáng
-              </Badge>
-              <Badge variant="outline" className="rounded-full">
-                Hủy miễn phí
-              </Badge>
-              <Badge variant="outline" className="rounded-full cursor-pointer hover:bg-gray-100" onClick={handleReset}>
-                Reset
-              </Badge>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Filter Tags */}
+        <div className="flex gap-2 mb-4">
+          <Badge variant="outline" className="rounded-full">
+            Bao gồm bữa sáng
+          </Badge>
+          <Badge variant="outline" className="rounded-full">
+            Hủy miễn phí
+          </Badge>
+          <Badge variant="outline" className="rounded-full cursor-pointer hover:bg-gray-100" onClick={handleReset}>
+            Reset
+          </Badge>
+        </div>
 
         {/* Loading Overlay */}
         {isLoading && (
