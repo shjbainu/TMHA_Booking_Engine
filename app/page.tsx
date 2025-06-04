@@ -221,7 +221,7 @@ export default function HotelGallery() {
         </div>
           {/* "Phòng Nhật bản" Section */}
         <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
-            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Phòng Nhật Bản</h2>
+            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Nhật Bản</h2>
             <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
@@ -292,7 +292,7 @@ export default function HotelGallery() {
         </div>
           {/* "Phòng Mập Mờ" Section */}
         <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
-            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Phòng Mập Mờ</h2>
+            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Mập Mờ</h2>
             <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
@@ -363,7 +363,7 @@ export default function HotelGallery() {
         </div>
           {/* "Phòng Sanroniti" Section */}
         <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
-            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Phòng Santorini</h2>
+            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Santorini</h2>
             <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
