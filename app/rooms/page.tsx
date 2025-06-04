@@ -231,20 +231,52 @@ export default function RoomSelection() {
                 <div>
                   <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
                   <div className="space-y-2">
-                    <label className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg">
+                    <div
+                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                        roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-gray-200 bg-white"
+                      }`}
+                      onClick={() => updatePolicy(room.id, "breakfast", "Bao gồm bữa sáng")}
+                    >
                       <div className="relative">
-                        <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-gray-300"></div>
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                              ? "bg-blue-500 border-blue-500 shadow-sm"
+                              : "border-gray-300"
+                          }`}
+                        >
+                          {roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                            <Check className="w-3 h-3 text-white" />
+                          )}
+                        </div>
                       </div>
                       <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
-                    </label>
-                    <label className="flex items-center gap-3 p-3 bg-gray-100 border border-gray-200 rounded-lg">
+                    </div>
+                    <div
+                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                        roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-gray-200 bg-white"
+                      }`}
+                      onClick={() => updatePolicy(room.id, "breakfast", "Không gồm bữa sáng")}
+                    >
                       <div className="relative">
-                        <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-blue-500 border-blue-500 shadow-sm">
-                          <Check className="w-3 h-3 text-white" />
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                              ? "bg-blue-500 border-blue-500 shadow-sm"
+                              : "border-gray-300"
+                          }`}
+                        >
+                          {roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                            <Check className="w-3 h-3 text-white" />
+                          )}
                         </div>
                       </div>
                       <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
-                    </label>
+                    </div>
                   </div>
                 </div>
 
@@ -252,20 +284,52 @@ export default function RoomSelection() {
                 <div>
                   <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
                   <div className="space-y-2">
-                    <label className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg">
+                    <div
+                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                        roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-gray-200 bg-white"
+                      }`}
+                      onClick={() => updatePolicy(room.id, "cancellation", "Hủy miễn phí trước 15/06/2025")}
+                    >
                       <div className="relative">
-                        <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-gray-300"></div>
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                              ? "bg-blue-500 border-blue-500 shadow-sm"
+                              : "border-gray-300"
+                          }`}
+                        >
+                          {roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                            <Check className="w-3 h-3 text-white" />
+                          )}
+                        </div>
                       </div>
                       <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
-                    </label>
-                    <label className="flex items-center gap-3 p-3 bg-gray-100 border border-gray-200 rounded-lg">
+                    </div>
+                    <div
+                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                        roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-gray-200 bg-white"
+                      }`}
+                      onClick={() => updatePolicy(room.id, "cancellation", "Không hoàn tiền")}
+                    >
                       <div className="relative">
-                        <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-blue-500 border-blue-500 shadow-sm">
-                          <Check className="w-3 h-3 text-white" />
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                              ? "bg-blue-500 border-blue-500 shadow-sm"
+                              : "border-gray-300"
+                          }`}
+                        >
+                          {roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                            <Check className="w-3 h-3 text-white" />
+                          )}
                         </div>
                       </div>
                       <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
-                    </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -380,20 +444,52 @@ export default function RoomSelection() {
               <div>
                 <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
                 <div className="space-y-2">
-                  <label className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg">
+                  <div
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                      roomPolicies["4"]?.breakfast === "Bao gồm bữa sáng"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 bg-white"
+                    }`}
+                    onClick={() => updatePolicy("4", "breakfast", "Bao gồm bữa sáng")}
+                  >
                     <div className="relative">
-                      <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-gray-300"></div>
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          roomPolicies["4"]?.breakfast === "Bao gồm bữa sáng"
+                            ? "bg-blue-500 border-blue-500 shadow-sm"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {roomPolicies["4"]?.breakfast === "Bao gồm bữa sáng" && (
+                          <Check className="w-3 h-3 text-white" />
+                        )}
+                      </div>
                     </div>
                     <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
-                  </label>
-                  <label className="flex items-center gap-3 p-3 bg-gray-100 border border-gray-200 rounded-lg">
+                  </div>
+                  <div
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                      roomPolicies["4"]?.breakfast === "Không gồm bữa sáng"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 bg-white"
+                    }`}
+                    onClick={() => updatePolicy("4", "breakfast", "Không gồm bữa sáng")}
+                  >
                     <div className="relative">
-                      <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-blue-500 border-blue-500 shadow-sm">
-                        <Check className="w-3 h-3 text-white" />
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          roomPolicies["4"]?.breakfast === "Không gồm bữa sáng"
+                            ? "bg-blue-500 border-blue-500 shadow-sm"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {roomPolicies["4"]?.breakfast === "Không gồm bữa sáng" && (
+                          <Check className="w-3 h-3 text-white" />
+                        )}
                       </div>
                     </div>
                     <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
-                  </label>
+                  </div>
                 </div>
               </div>
 
@@ -401,20 +497,52 @@ export default function RoomSelection() {
               <div>
                 <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
                 <div className="space-y-2">
-                  <label className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg">
+                  <div
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                      roomPolicies["4"]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 bg-white"
+                    }`}
+                    onClick={() => updatePolicy("4", "cancellation", "Hủy miễn phí trước 15/06/2025")}
+                  >
                     <div className="relative">
-                      <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-gray-300"></div>
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          roomPolicies["4"]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                            ? "bg-blue-500 border-blue-500 shadow-sm"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {roomPolicies["4"]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                          <Check className="w-3 h-3 text-white" />
+                        )}
+                      </div>
                     </div>
                     <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
-                  </label>
-                  <label className="flex items-center gap-3 p-3 bg-gray-100 border border-gray-200 rounded-lg">
+                  </div>
+                  <div
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                      roomPolicies["4"]?.cancellation === "Không hoàn tiền"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 bg-white"
+                    }`}
+                    onClick={() => updatePolicy("4", "cancellation", "Không hoàn tiền")}
+                  >
                     <div className="relative">
-                      <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-blue-500 border-blue-500 shadow-sm">
-                        <Check className="w-3 h-3 text-white" />
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          roomPolicies["4"]?.cancellation === "Không hoàn tiền"
+                            ? "bg-blue-500 border-blue-500 shadow-sm"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {roomPolicies["4"]?.cancellation === "Không hoàn tiền" && (
+                          <Check className="w-3 h-3 text-white" />
+                        )}
                       </div>
                     </div>
                     <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
-                  </label>
+                  </div>
                 </div>
               </div>
             </div>
