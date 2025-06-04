@@ -148,6 +148,77 @@ export default function HotelGallery() {
                 </div>
             </div>
         </div>
+        {/* Phòng Sơn Ca*/}
+         <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
+            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Phòng Sơn Ca</h2>
+            <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
+                {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
+                <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
+                    <Image
+                    src={images.aerialView}
+                    alt="Không gian chung - Toàn cảnh resort"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 768px" // Ví dụ sizes, điều chỉnh nếu cần
+                    />
+                </div>
+
+                {/* Lưới 2 ảnh nhỏ (Bàn Bida, Spa) */}
+                <div className="grid grid-cols-2 gap-3">
+                    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                    <Image
+                        src={images.billiards}
+                        alt="Không gian chung - Bàn Bida"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 384px"
+                    />
+                    </div>
+                    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                    <Image
+                        src={images.spa}
+                        alt="Không gian chung - Spa"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 384px"
+                    />
+                    </div>
+                </div>
+
+                {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
+                <div className="relative aspect-video rounded-lg overflow-hidden">
+                    <Image
+                    src={images.poolMain}
+                    alt="Không gian chung - Hồ bơi"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    />
+                </div>
+
+                {/* Lưới 2 ảnh nhỏ khác */}
+                <div className="grid grid-cols-2 gap-3">
+                    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                    <Image
+                        src={images.smallView1}
+                        alt="Không gian chung - View 1"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 384px"
+                    />
+                    </div>
+                    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                    <Image
+                        src={images.smallView2}
+                        alt="Không gian chung - View 2"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 384px"
+                    />
+                    </div>
+                </div>
+            </div>
+        </div>
         
         {/*
           Các section phòng ("Phòng Sơn Ca", "Phòng Nhật Bản", v.v.) từ code gốc đã được comment lại
