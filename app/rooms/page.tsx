@@ -178,7 +178,7 @@ export default function RoomSelection() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-10 w-10"
+                  className="h-10 w-10 border border-gray-300"
                   onClick={() => handleRemoveBooking(booking.id)}
                 >
                   <Trash2 className="h-4 w-4" />
