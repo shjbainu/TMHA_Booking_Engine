@@ -77,6 +77,7 @@ export default function HotelGallery() {
                   />
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Santorini</p>
+                <Image src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d59508.JPG"/>
               </div>
             </div>
           </div>
