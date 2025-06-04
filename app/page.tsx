@@ -188,7 +188,7 @@ export default function HotelGallery() {
                 {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
-                    src={images.poolMain}
+                    src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp"
                     alt="Không gian chung - Hồ bơi"
                     fill
                     className="object-cover"
