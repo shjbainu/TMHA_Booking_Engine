@@ -87,7 +87,7 @@ export default function RoomSelection() {
           <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
             BOOKING 1
           </Badge>
-          <Button variant="ghost" size="icon" className="h-6 w-6">
+          <Button variant="ghost" size="icon" className="h-12 w-12">
             <Plus className="h-4 w-4" />
           </Button>
         </div>
