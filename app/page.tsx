@@ -91,9 +91,15 @@ export default function HotelGallery() {
           <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-3">
             <Image src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d59508.JPG" alt="Cinema area" fill className="object-cover" />
           </div>
-          <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-3">
+          <div>
+           <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-3">
             <Image src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d59508.JPG" alt="Cinema area" fill className="object-cover" />
           </div>
+           <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-3">
+            <Image src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d59508.JPG" alt="Cinema area" fill className="object-cover" />
+          </div>
+          </div>
+         
 
           {/* Grid of smaller images */}
           <div className="grid grid-cols-2 gap-3 mb-3">
