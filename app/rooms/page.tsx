@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react"
 import { ArrowLeft, Plus, Users, Bed, Wifi, Trash2, Loader, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { rooms } from "@/lib/data"
 
@@ -170,27 +169,19 @@ export default function RoomSelection() {
       <div className="p-4 bg-gray-50">
         <div className="flex flex-wrap items-center gap-2 mb-4">
           {bookings.map((booking, index) => (
-            <div key={booking.id} className="flex items-center gap-2">
-              <Badge variant="secondary" className="h-10 px-4 flex items-center justify-center bg-[#0a0a0a] text-white">
-                BOOKING {index + 1}
-              </Badge>
-              {bookings.length > 1 && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-10 w-10 border border-gray-300"
-                  onClick={() => handleRemoveBooking(booking.id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              )}
-              {index === bookings.length - 1 && (
-                <Button variant="ghost" size="icon" className="h-10 w-10" onClick={handleAddBooking}>
-                  <Plus className="h-4 w-4" />
-                </Button>
-              )}
-            </div>
+            <Button
+              key={booking.id}
+              variant="secondary"
+              className="h-10 px-4 flex items-center justify-center bg-[#0a0a0a] text-white rounded-full"
+              onClick={() => bookings.length > 1 && handleRemoveBooking(booking.id)}
+            >
+              BOOKING {index + 1}
+              {bookings.length > 1 && <Trash2 className="h-4 w-4 ml-2 text-white" />}
+            </Button>
           ))}
+          <Button variant="ghost" size="icon" className="h-10 w-10" onClick={handleAddBooking}>
+            <Plus className="h-4 w-4" />
+          </Button>
         </div>
 
         {/* Filter Tags */}
