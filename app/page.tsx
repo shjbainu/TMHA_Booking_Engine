@@ -167,7 +167,7 @@ export default function HotelGallery() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.billiards}
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp"
                         alt="Không gian chung - Bàn Bida"
                         fill
                         className="object-cover"
@@ -176,7 +176,7 @@ export default function HotelGallery() {
                     </div>
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.spa}
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496c812.webp"
                         alt="Không gian chung - Spa"
                         fill
                         className="object-cover"
