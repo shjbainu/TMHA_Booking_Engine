@@ -41,6 +41,10 @@ export default function RoomSelection() {
   }
 
   const handleRemoveBooking = (bookingId: string) => {
+    if (bookings.length === 1 && bookingId === "booking-1") {
+      // Prevent removing the last booking (BOOKING 1)
+      return
+    }
     setBookings((prev) => prev.filter((booking) => booking.id !== bookingId))
   }
 
@@ -173,10 +177,10 @@ export default function RoomSelection() {
               key={booking.id}
               variant="secondary"
               className="h-10 px-4 flex items-center justify-center bg-[#0a0a0a] text-white rounded-full"
-              onClick={() => bookings.length > 1 && handleRemoveBooking(booking.id)}
+              onClick={() => booking.id !== "booking-1" && handleRemoveBooking(booking.id)}
             >
               BOOKING {index + 1}
-              {bookings.length > 1 && <Trash2 className="h-4 w-4 ml-2 text-white" />}
+              {booking.id !== "booking-1" && <Trash2 className="h-4 w-4 ml-2 text-white" />}
             </Button>
           ))}
           <Button variant="ghost" size="icon" className="h-10 w-10" onClick={handleAddBooking}>
