@@ -176,7 +176,7 @@ export default function RoomSelection() {
             <Button
               key={booking.id}
               variant="secondary"
-              className="h-10 px-4 flex items-center justify-center bg-[#0a0a0a] text-white rounded-full"
+              className="h-10 px-4 flex items-center justify-center bg-[#0a0a0a] text-white rounded-full hover:bg-[#0a0a0a]"
               onClick={() => booking.id !== "booking-1" && handleRemoveBooking(booking.id)}
             >
               BOOKING {index + 1}
