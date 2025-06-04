@@ -25,6 +25,8 @@ export default function RoomSelection() {
     },
   ])
   const [isLoading, setIsLoading] = useState(false)
+  const [includeBreakfastFilter, setIncludeBreakfastFilter] = useState(false)
+  const [freeCancellationFilter, setFreeCancellationFilter] = useState(false)
 
   const handleAddBooking = () => {
     const newBookingId = `booking-${bookings.length + 1}`
@@ -130,6 +132,8 @@ export default function RoomSelection() {
           expandedRooms: [],
         },
       ])
+      setIncludeBreakfastFilter(false)
+      setFreeCancellationFilter(false)
     }, 2000)
   }
 
@@ -167,16 +171,21 @@ export default function RoomSelection() {
         <div className="flex flex-wrap items-center gap-2 mb-4">
           {bookings.map((booking, index) => (
             <div key={booking.id} className="flex items-center gap-2">
-              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
+              <Badge variant="secondary" className="h-10 px-4 flex items-center justify-center bg-[#0a0a0a] text-white">
                 BOOKING {index + 1}
               </Badge>
               {bookings.length > 1 && (
-                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleRemoveBooking(booking.id)}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-10 w-10"
+                  onClick={() => handleRemoveBooking(booking.id)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               )}
               {index === bookings.length - 1 && (
-                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleAddBooking}>
+                <Button variant="ghost" size="icon" className="h-10 w-10" onClick={handleAddBooking}>
                   <Plus className="h-4 w-4" />
                 </Button>
               )}
@@ -186,15 +195,35 @@ export default function RoomSelection() {
 
         {/* Filter Tags */}
         <div className="flex gap-2 mb-4">
-          <Badge variant="outline" className="rounded-full">
+          <Button
+            variant="outline"
+            className={`rounded-full h-10 px-4 ${
+              includeBreakfastFilter
+                ? "border-blue-500 bg-blue-50 text-blue-700"
+                : "border-gray-200 bg-white text-[#0a0a0a]"
+            }`}
+            onClick={() => setIncludeBreakfastFilter(!includeBreakfastFilter)}
+          >
             Bao gồm bữa sáng
-          </Badge>
-          <Badge variant="outline" className="rounded-full">
+          </Button>
+          <Button
+            variant="outline"
+            className={`rounded-full h-10 px-4 ${
+              freeCancellationFilter
+                ? "border-blue-500 bg-blue-50 text-blue-700"
+                : "border-gray-200 bg-white text-[#0a0a0a]"
+            }`}
+            onClick={() => setFreeCancellationFilter(!freeCancellationFilter)}
+          >
             Hủy miễn phí
-          </Badge>
-          <Badge variant="outline" className="rounded-full cursor-pointer hover:bg-gray-100" onClick={handleReset}>
+          </Button>
+          <Button
+            variant="outline"
+            className="rounded-full h-10 px-4 cursor-pointer hover:bg-gray-100"
+            onClick={handleReset}
+          >
             Reset
-          </Badge>
+          </Button>
         </div>
 
         {/* Loading Overlay */}
