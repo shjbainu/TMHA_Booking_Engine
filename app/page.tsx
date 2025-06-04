@@ -42,7 +42,7 @@ export default function HotelGallery() {
       <div className="pb-24"> {/* Padding dưới để không bị che bởi thanh điều hướng cố định */}
         
         {/* "Tham quan qua ảnh" Section */}
-        <h1 class="scroll-container-horizontal" className="text-lg font-semibold text-[#0a0a0a] mt-4 mb-3 px-4">Tham quan qua ảnh</h1>
+        <h1  className="text-lg font-semibold text-[#0a0a0a] mt-4 mb-3 px-4">Tham quan qua ảnh</h1>
         <div className="mb-6">
           <div className="overflow-x-auto">
             <div className="flex gap-3 pb-2 px-4"> {/* px-4 để có padding ở hai đầu scroll */}
