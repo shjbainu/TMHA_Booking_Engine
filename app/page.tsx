@@ -150,7 +150,7 @@ export default function HotelGallery() {
         </div>
           {/* "Phòng Sơn Ca" Section */}
         <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
-            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Phòng Sơn Ca</h2>
+            <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Sơn Ca</h2>
             <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
