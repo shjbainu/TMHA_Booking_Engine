@@ -226,7 +226,7 @@ export default function HotelGallery() {
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
                     <Image
-                    src={images.aerialView}
+                    src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae89e19.webp"
                     alt="Không gian chung - Toàn cảnh resort"
                     fill
                     className="object-cover"
@@ -238,7 +238,7 @@ export default function HotelGallery() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.billiards}
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp"
                         alt="Không gian chung - Bàn Bida"
                         fill
                         className="object-cover"
@@ -247,7 +247,7 @@ export default function HotelGallery() {
                     </div>
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.spa}
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp"
                         alt="Không gian chung - Spa"
                         fill
                         className="object-cover"
@@ -259,7 +259,7 @@ export default function HotelGallery() {
                 {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
-                    src={images.poolMain}
+                    src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp"
                     alt="Không gian chung - Hồ bơi"
                     fill
                     className="object-cover"
@@ -271,7 +271,7 @@ export default function HotelGallery() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.smallView1}
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
                         alt="Không gian chung - View 1"
                         fill
                         className="object-cover"
@@ -280,7 +280,7 @@ export default function HotelGallery() {
                     </div>
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.smallView2}
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
                         alt="Không gian chung - View 2"
                         fill
                         className="object-cover"
