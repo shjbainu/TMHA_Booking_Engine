@@ -368,7 +368,7 @@ export default function HotelGallery() {
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
                     <Image
-                    src={images.aerialView}
+                    src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
                     alt="Không gian chung - Toàn cảnh resort"
                     fill
                     className="object-cover"
