@@ -84,7 +84,7 @@ export default function HotelGallery() {
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
                     <Image
-                    src="C:\Users\MINOVA-MKT\Downloads\sảnh cổng (2).jpg"
+                    src="https://pix8.agoda.net/hotelImages/48898017/-1/d138856dca2d16e1a7f6928e2dd65fc9.jpg?ce=0&s=1024x"
                     alt="Không gian chung - Toàn cảnh resort"
                     fill
                     className="object-cover"
