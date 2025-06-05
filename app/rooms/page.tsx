@@ -184,7 +184,12 @@ export default function RoomSelection() {
               {booking.id !== "booking-1" && <Trash2 className="h-4 w-4 ml-2 text-white" />}
             </Button>
           ))}
-          <Button variant="ghost" size="icon" className="h-10 w-10 border border-black" onClick={handleAddBooking}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-10 w-10 border border-black rounded-full"
+            onClick={handleAddBooking}
+          >
             <Plus className="h-4 w-4" />
           </Button>
         </div>
