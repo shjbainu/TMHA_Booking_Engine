@@ -1223,7 +1223,7 @@ export default function RoomSelection() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
             <div>
-             <span className="text-sm bg-gray-100 px-2 py-1 rounded">{totalSelectedRoomsCount} ngày</span>
+             <span className="text-sm bg-gray-100 px-2 py-1 rounded">{totalSelectedRoomsCount}</span>
             </div>
           
              <div>
