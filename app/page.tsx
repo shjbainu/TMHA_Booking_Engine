@@ -484,7 +484,7 @@ export default function HotelPhotosPage() {
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
               <LayoutGrid className="h-5 w-5 mb-0.5" />
-              <span className="text-[11px] leading-tight font-medium">Ảnh</span>
+              <span className="text-[11px] leading-tight font-medium"></span>
             </Button>
             <Button
               variant="ghost"
