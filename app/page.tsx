@@ -476,9 +476,7 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-               <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1713150150_661c98c61561a.jpg"
-                  alt="Tổng quan"/>
+              <Building className="h-10 w-10 " https://media.istockphoto.com/id/1370442812/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-nh%C3%A0-t%E1%BB%91i-thi%E1%BB%83u-b%E1%BA%A5t-%C4%91%E1%BB%99ng-s%E1%BA%A3n-th%E1%BA%BF-ch%E1%BA%A5p-kh%C3%A1i-ni%E1%BB%87m-cho-vay-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-vector-3d-ho%E1%BA%A1t.jpg?s=612x612&w=0&k=20&c=IEJiZbufqZN5er4diTelN7rApf6mf5NgxmHzV8K6pEk= />
               
             </Button>
             <Button
