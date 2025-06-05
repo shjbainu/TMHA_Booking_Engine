@@ -59,7 +59,7 @@ export default function HotelGallery() {
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Không gian chung</p>
               </div>
-              {/* Ảnh 2: Phòng Deluxe */}
+              {/* Ảnh 2: Phòng Sơn Ca */}
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
@@ -70,7 +70,7 @@ export default function HotelGallery() {
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Sơn Ca</p>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
               </div>
               {/* Bạn có thể thêm các ảnh khác vào đây nếu cần */}
             </div>
