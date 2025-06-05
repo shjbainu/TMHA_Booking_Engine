@@ -83,8 +83,8 @@ export default function HotelGallery() {
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
-              </div>{/* Ảnh 2: Phòng Mập Mờ */}
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Nhật Bản</p>
+              </div>{/* Ảnh 4: Phòng Mập Mờ */}
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
@@ -95,8 +95,8 @@ export default function HotelGallery() {
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
-              </div>{/* Ảnh 2: Phòng Sơn Ca */}
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Mập Mờ</p>
+              </div>{/* Ảnh 5: Phòng Santorini */}
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
@@ -107,7 +107,7 @@ export default function HotelGallery() {
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Santorini</p>
               </div>
               {/* Bạn có thể thêm các ảnh khác vào đây nếu cần */}
             </div>
