@@ -158,7 +158,7 @@ export default function PaymentConfirmation() {
               </div>
 
               <div>
-                <span className="font-medium">Link chia sẻ phòng</span>
+                <span className="font-medium">Link chia sẻ phòng:</span>
               </div>
               <div className="bg-gray-100 p-3 rounded flex items-center justify-between">
                 <span className="text-xs text-[#0a0a0a] truncate mr-2">{booking.shareLink}</span>
