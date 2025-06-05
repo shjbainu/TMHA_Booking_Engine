@@ -77,6 +77,8 @@ export default function CalendarSelectionPopup({
   const today = useMemo(() => new Date(), [])
   const currentMonthStart = useMemo(() => startOfMonth(today), [today])
 
+  // The `monthsToDisplay` memoized value generates an array of Date objects for the current month and the next 5 months.
+  // This ensures multiple months are available for display.
   const monthsToDisplay = useMemo(() => {
     const months = []
     for (let i = 0; i < 6; i++) {
