@@ -1223,6 +1223,7 @@ export default function RoomSelection() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="text-sm bg-gray-100 px-2 py-1 rounded">{totalSelectedRoomsCount}</span>
+               <span className="text-sm text-[#0a0a0a]">2 ngày</span>
               <span className="text-sm text-[#0a0a0a]">25/04 - 27/04</span>
             </div>
             <div className="text-right">
