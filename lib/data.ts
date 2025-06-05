@@ -37,6 +37,18 @@ export const rooms: Room[] = [
     price: 500000,
     images: ["/placeholder.svg?height=200&width=300"],
   },
+  {
+    id: "4",
+    name: "Căn hộ hạng thương gia",
+    type: "1 giường king, 2 giường đôi",
+    beds: "1 giường king, 2 giường đôi",
+    amenities: ["Hướng mặt phố", "Còn 3 phòng"],
+    area: "30m2",
+    guests: 3,
+    rooms: 3,
+    price: 500000,
+    images: ["/placeholder.svg?height=200&width=300"],
+  }
 ]
 
 export const paymentMethods: PaymentMethod[] = [
