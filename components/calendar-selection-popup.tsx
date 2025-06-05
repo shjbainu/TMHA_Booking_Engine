@@ -25,29 +25,157 @@ const getPriceCategory = (price: number) => {
 
 // Mock data for prices (replace with actual data fetching in a real app)
 const mockPrices: { [key: string]: number } = {
+  // January 2025
+  "2025-01-01": 650000,
+  "2025-01-02": 650000,
+  "2025-01-03": 500000,
+  "2025-01-04": 400000,
+  "2025-01-05": 400000,
+  "2025-01-06": 275000,
+  "2025-01-07": 275000,
+  "2025-01-08": 275000,
+  "2025-01-09": 275000,
+  "2025-01-10": 400000,
+  "2025-01-11": 500000,
+  "2025-01-12": 500000,
+  "2025-01-13": 275000,
+  "2025-01-14": 275000,
+  "2025-01-15": 275000,
+  "2025-01-16": 400000,
+  "2025-01-17": 400000,
+  "2025-01-18": 500000,
+  "2025-01-19": 500000,
+  "2025-01-20": 275000,
+  "2025-01-21": 275000,
+  "2025-01-22": 275000,
+  "2025-01-23": 400000,
+  "2025-01-24": 400000,
+  "2025-01-25": 650000,
+  "2025-01-26": 650000,
+  "2025-01-27": 275000,
+  "2025-01-28": 275000,
+  "2025-01-29": 275000,
+  "2025-01-30": 400000,
+  "2025-01-31": 650000,
+
+  // February 2025
+  "2025-02-01": 500000,
+  "2025-02-02": 500000,
+  "2025-02-03": 275000,
+  "2025-02-04": 275000,
+  "2025-02-05": 275000,
+  "2025-02-06": 400000,
+  "2025-02-07": 400000,
+  "2025-02-08": 500000,
+  "2025-02-09": 500000,
+  "2025-02-10": 650000,
+  "2025-02-11": 650000,
+  "2025-02-12": 650000,
+  "2025-02-13": 650000,
+  "2025-02-14": 650000,
+  "2025-02-15": 500000,
+  "2025-02-16": 500000,
+  "2025-02-17": 275000,
+  "2025-02-18": 275000,
+  "2025-02-19": 275000,
+  "2025-02-20": 400000,
+  "2025-02-21": 400000,
+  "2025-02-22": 500000,
+  "2025-02-23": 500000,
+  "2025-02-24": 275000,
+  "2025-02-25": 275000,
+  "2025-02-26": 275000,
+  "2025-02-27": 400000,
+  "2025-02-28": 400000,
+
+  // March 2025
+  "2025-03-01": 500000,
+  "2025-03-02": 500000,
+  "2025-03-03": 275000,
+  "2025-03-04": 275000,
+  "2025-03-05": 275000,
+  "2025-03-06": 400000,
+  "2025-03-07": 400000,
+  "2025-03-08": 650000,
+  "2025-03-09": 650000,
+  "2025-03-10": 275000,
+  "2025-03-11": 275000,
+  "2025-03-12": 275000,
+  "2025-03-13": 400000,
+  "2025-03-14": 400000,
+  "2025-03-15": 500000,
+  "2025-03-16": 500000,
+  "2025-03-17": 275000,
+  "2025-03-18": 275000,
+  "2025-03-19": 275000,
+  "2025-03-20": 400000,
+  "2025-03-21": 400000,
+  "2025-03-22": 500000,
+  "2025-03-23": 500000,
+  "2025-03-24": 275000,
+  "2025-03-25": 275000,
+  "2025-03-26": 275000,
+  "2025-03-27": 400000,
+  "2025-03-28": 400000,
+  "2025-03-29": 650000,
+  "2025-03-30": 650000,
+  "2025-03-31": 275000,
+
+  // April 2025
+  "2025-04-01": 275000,
+  "2025-04-02": 275000,
+  "2025-04-03": 400000,
+  "2025-04-04": 400000,
+  "2025-04-05": 500000,
+  "2025-04-06": 500000,
+  "2025-04-07": 275000,
+  "2025-04-08": 275000,
+  "2025-04-09": 275000,
+  "2025-04-10": 400000,
+  "2025-04-11": 400000,
+  "2025-04-12": 500000,
+  "2025-04-13": 500000,
+  "2025-04-14": 275000,
+  "2025-04-15": 275000,
+  "2025-04-16": 275000,
+  "2025-04-17": 400000,
+  "2025-04-18": 400000,
+  "2025-04-19": 500000,
+  "2025-04-20": 500000,
+  "2025-04-21": 275000,
+  "2025-04-22": 275000,
+  "2025-04-23": 275000,
+  "2025-04-24": 400000,
+  "2025-04-25": 400000,
+  "2025-04-26": 500000,
+  "2025-04-27": 500000,
+  "2025-04-28": 650000,
+  "2025-04-29": 650000,
+  "2025-04-30": 650000,
+
   // May 2025
-  "2025-05-01": 400000,
-  "2025-05-02": 400000,
+  "2025-05-01": 650000,
+  "2025-05-02": 650000,
   "2025-05-03": 650000,
   "2025-05-04": 500000,
   "2025-05-05": 400000,
   "2025-05-06": 275000,
-  "2025-05-07": 375000,
-  "2025-05-08": 300000,
+  "2025-05-07": 275000,
+  "2025-05-08": 275000,
   "2025-05-09": 400000,
   "2025-05-10": 650000,
   "2025-05-11": 500000,
   "2025-05-12": 400000,
   "2025-05-13": 275000,
-  "2025-05-14": 375000,
-  "2025-05-15": 300000,
+  "2025-05-14": 275000,
+  "2025-05-15": 275000,
   "2025-05-16": 400000,
   "2025-05-17": 650000,
   "2025-05-18": 500000,
   "2025-05-19": 400000,
   "2025-05-20": 275000,
-  "2025-05-21": 375000,
-  "2025-05-22": 300000,
+  "2025-05-21": 275000,
+  "2025-05-22": 275000,
   "2025-05-23": 400000,
   "2025-05-24": 650000,
   "2025-05-25": 500000,
@@ -57,6 +185,7 @@ const mockPrices: { [key: string]: number } = {
   "2025-05-29": 400000,
   "2025-05-30": 400000,
   "2025-05-31": 650000,
+
   // June 2025
   "2025-06-01": 500000,
   "2025-06-02": 400000,
@@ -88,6 +217,7 @@ const mockPrices: { [key: string]: number } = {
   "2025-06-28": 650000,
   "2025-06-29": 400000,
   "2025-06-30": 400000,
+
   // July 2025
   "2025-07-01": 500000,
   "2025-07-02": 400000,
@@ -120,6 +250,7 @@ const mockPrices: { [key: string]: number } = {
   "2025-07-29": 400000,
   "2025-07-30": 400000,
   "2025-07-31": 400000,
+
   // August 2025
   "2025-08-01": 500000,
   "2025-08-02": 650000,
@@ -152,6 +283,136 @@ const mockPrices: { [key: string]: number } = {
   "2025-08-29": 500000,
   "2025-08-30": 650000,
   "2025-08-31": 650000,
+
+  // September 2025
+  "2025-09-01": 500000,
+  "2025-09-02": 650000,
+  "2025-09-03": 275000,
+  "2025-09-04": 275000,
+  "2025-09-05": 275000,
+  "2025-09-06": 400000,
+  "2025-09-07": 500000,
+  "2025-09-08": 275000,
+  "2025-09-09": 275000,
+  "2025-09-10": 275000,
+  "2025-09-11": 400000,
+  "2025-09-12": 400000,
+  "2025-09-13": 500000,
+  "2025-09-14": 500000,
+  "2025-09-15": 275000,
+  "2025-09-16": 275000,
+  "2025-09-17": 275000,
+  "2025-09-18": 400000,
+  "2025-09-19": 400000,
+  "2025-09-20": 500000,
+  "2025-09-21": 500000,
+  "2025-09-22": 275000,
+  "2025-09-23": 275000,
+  "2025-09-24": 275000,
+  "2025-09-25": 400000,
+  "2025-09-26": 400000,
+  "2025-09-27": 500000,
+  "2025-09-28": 500000,
+  "2025-09-29": 275000,
+  "2025-09-30": 650000,
+
+  // October 2025
+  "2025-10-01": 650000,
+  "2025-10-02": 650000,
+  "2025-10-03": 650000,
+  "2025-10-04": 500000,
+  "2025-10-05": 500000,
+  "2025-10-06": 275000,
+  "2025-10-07": 275000,
+  "2025-10-08": 275000,
+  "2025-10-09": 400000,
+  "2025-10-10": 400000,
+  "2025-10-11": 500000,
+  "2025-10-12": 500000,
+  "2025-10-13": 275000,
+  "2025-10-14": 275000,
+  "2025-10-15": 275000,
+  "2025-10-16": 400000,
+  "2025-10-17": 400000,
+  "2025-10-18": 500000,
+  "2025-10-19": 500000,
+  "2025-10-20": 275000,
+  "2025-10-21": 275000,
+  "2025-10-22": 275000,
+  "2025-10-23": 400000,
+  "2025-10-24": 400000,
+  "2025-10-25": 500000,
+  "2025-10-26": 500000,
+  "2025-10-27": 275000,
+  "2025-10-28": 275000,
+  "2025-10-29": 275000,
+  "2025-10-30": 400000,
+  "2025-10-31": 650000,
+
+  // November 2025
+  "2025-11-01": 500000,
+  "2025-11-02": 500000,
+  "2025-11-03": 275000,
+  "2025-11-04": 275000,
+  "2025-11-05": 275000,
+  "2025-11-06": 400000,
+  "2025-11-07": 400000,
+  "2025-11-08": 500000,
+  "2025-11-09": 500000,
+  "2025-11-10": 275000,
+  "2025-11-11": 275000,
+  "2025-11-12": 275000,
+  "2025-11-13": 400000,
+  "2025-11-14": 400000,
+  "2025-11-15": 500000,
+  "2025-11-16": 500000,
+  "2025-11-17": 275000,
+  "2025-11-18": 275000,
+  "2025-11-19": 275000,
+  "2025-11-20": 400000,
+  "2025-11-21": 400000,
+  "2025-11-22": 500000,
+  "2025-11-23": 500000,
+  "2025-11-24": 275000,
+  "2025-11-25": 275000,
+  "2025-11-26": 275000,
+  "2025-11-27": 400000,
+  "2025-11-28": 400000,
+  "2025-11-29": 500000,
+  "2025-11-30": 500000,
+
+  // December 2025
+  "2025-12-01": 275000,
+  "2025-12-02": 275000,
+  "2025-12-03": 275000,
+  "2025-12-04": 400000,
+  "2025-12-05": 400000,
+  "2025-12-06": 500000,
+  "2025-12-07": 500000,
+  "2025-12-08": 275000,
+  "2025-12-09": 275000,
+  "2025-12-10": 275000,
+  "2025-12-11": 400000,
+  "2025-12-12": 400000,
+  "2025-12-13": 500000,
+  "2025-12-14": 500000,
+  "2025-12-15": 275000,
+  "2025-12-16": 275000,
+  "2025-12-17": 275000,
+  "2025-12-18": 400000,
+  "2025-12-19": 400000,
+  "2025-12-20": 500000,
+  "2025-12-21": 500000,
+  "2025-12-22": 650000,
+  "2025-12-23": 650000,
+  "2025-12-24": 650000,
+  "2025-12-25": 650000,
+  "2025-12-26": 650000,
+  "2025-12-27": 650000,
+  "2025-12-28": 650000,
+  "2025-12-29": 650000,
+  "2025-12-30": 650000,
+  "2025-12-31": 650000,
 }
 
 export default function CalendarSelectionPopup({
@@ -267,34 +528,41 @@ export default function CalendarSelectionPopup({
       let bgColor = "bg-white"
       let textColor = "text-[#0a0a0a]"
       let borderColor = "border-gray-200"
+      let shadowClass = ""
 
       if (isPastDate || isFullyBooked(date)) {
-        if (isFullyBooked(date)) {
-          textColor = "text-gray-500 line-through"
-        }
-        bgColor = "bg-gray-100"
+        bgColor = "bg-gray-200"
         textColor = "text-gray-400"
-        borderColor = "border-gray-100"
+        borderColor = "border-gray-300"
       } else if (isSelected) {
-        bgColor = "bg-[#a3dce8]" // Light blue for selected range
-        textColor = "text-[#0a0a0a]"
-        borderColor = "border-[#a3dce8]"
+        bgColor = "bg-[#4a90e2]" // Blue for selected range
+        textColor = "text-white"
+        borderColor = "border-[#4a90e2]"
+        shadowClass = "shadow-md"
       } else if (price !== undefined) {
         const category = getPriceCategory(price)
-        if (category === "low")
-          bgColor = "bg-[#a2e5b3]" // Light green
-        else if (category === "medium")
-          bgColor = "bg-[#fff2d7]" // Light orange/yellow
-        else if (category === "high") bgColor = "bg-[#ff8b77]" // Light red/orange
+        if (category === "low") {
+          bgColor = "bg-[#e8f5e8]" // Light green
+          borderColor = "border-[#4caf50]"
+          textColor = "text-[#2e7d32]"
+        } else if (category === "medium") {
+          bgColor = "bg-[#fff8e1]" // Light amber
+          borderColor = "border-[#ff9800]"
+          textColor = "text-[#e65100]"
+        } else if (category === "high") {
+          bgColor = "bg-[#ffebee]" // Light red
+          borderColor = "border-[#f44336]"
+          textColor = "text-[#c62828]"
+        }
       }
 
-      return `relative flex flex-col items-center justify-center p-1 rounded-lg aspect-square text-center cursor-pointer transition-colors duration-200
-              ${bgColor} ${textColor} ${borderColor} border
-              ${isPastDate || isFullyBooked(date) ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}
-              ${isStart && !isEnd ? "rounded-r-none" : ""}
-              ${isEnd && !isStart ? "rounded-l-none" : ""}
-              ${isStart && isEnd && !isSameDay(selectedStartDate!, selectedEndDate!) ? "rounded-none" : ""}
-              `
+      return `relative flex flex-col items-center justify-center p-2 rounded-xl aspect-square text-center cursor-pointer transition-all duration-200
+            ${bgColor} ${textColor} ${borderColor} border-2 ${shadowClass}
+            ${isPastDate || isFullyBooked(date) ? "opacity-60 cursor-not-allowed" : "hover:shadow-lg hover:scale-105 active:scale-95"}
+            ${isStart && !isEnd ? "rounded-r-lg" : ""}
+            ${isEnd && !isStart ? "rounded-l-lg" : ""}
+            ${isStart && isEnd && !isSameDay(selectedStartDate!, selectedEndDate!) ? "rounded-lg" : ""}
+            `
     },
     [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked],
   )
@@ -408,7 +676,7 @@ export default function CalendarSelectionPopup({
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 px-6 py-8 space-y-6 flex flex-col">
+        <div className="flex-1 px-4 py-6 space-y-4 flex flex-col">
           {/* Booking Tabs */}
           <div className="flex rounded-full overflow-hidden border-2 border-[#0a0a0a] p-1 bg-[#0a0a0a] shadow-lg">
             <Button
@@ -462,23 +730,39 @@ export default function CalendarSelectionPopup({
                 .concat(Array.from({ length: daysInCurrentMonth }, (_, i) => new Date(year, month, i + 1)))
 
               return (
-                <div key={monthIndex} className="border border-gray-200 rounded-2xl p-4 bg-white shadow-sm">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Calendar className="h-5 w-5 text-[#0a0a0a]" />
-                    <h3 className="text-lg font-semibold text-[#0a0a0a]">
-                      {format(monthDate, "MMMM, yyyy", { locale: vi })}
-                    </h3>
+                <div key={monthIndex} className="border-2 border-gray-100 rounded-3xl p-6 bg-white shadow-lg">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <Calendar className="h-6 w-6 text-[#0a0a0a]" />
+                      <h3 className="text-xl font-bold text-[#0a0a0a]">
+                        {format(monthDate, "MMMM, yyyy", { locale: vi })}
+                      </h3>
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded-full bg-[#4caf50]" />
+                        <span className="text-xs font-medium text-gray-600">Cơ bản</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded-full bg-[#ff9800]" />
+                        <span className="text-xs font-medium text-gray-600">Trung bình</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded-full bg-[#f44336]" />
+                        <span className="text-xs font-medium text-gray-600">Cao điểm</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="grid grid-cols-7 gap-2 text-sm font-medium text-gray-500 mb-2">
-                    <div className="text-center">CN</div>
-                    <div className="text-center">Th.2</div>
-                    <div className="text-center">Th.3</div>
-                    <div className="text-center">Th.4</div>
-                    <div className="text-center">Th.5</div>
-                    <div className="text-center">Th.6</div>
-                    <div className="text-center">Th.7</div>
+                  <div className="grid grid-cols-7 gap-2 text-sm font-bold text-gray-600 mb-4">
+                    <div className="text-center py-2">CN</div>
+                    <div className="text-center py-2">T2</div>
+                    <div className="text-center py-2">T3</div>
+                    <div className="text-center py-2">T4</div>
+                    <div className="text-center py-2">T5</div>
+                    <div className="text-center py-2">T6</div>
+                    <div className="text-center py-2">T7</div>
                   </div>
-                  <div className="grid grid-cols-7 gap-2">
+                  <div className="grid grid-cols-7 gap-3">
                     {calendarDays.map((day, dayIndex) => {
                       if (!day) {
                         return <div key={`empty-${dayIndex}`} className="aspect-square" />
@@ -495,10 +779,8 @@ export default function CalendarSelectionPopup({
                           onClick={() => !(isPastDate || isBooked) && handleDateClick(day)}
                           aria-disabled={isPastDate || isBooked}
                         >
-                          <span className={`font-semibold text-base ${isBooked ? "line-through" : ""}`}>
-                            {format(day, "dd")}
-                          </span>
-                          <span className="text-xs font-medium mt-0.5">{isBooked ? "Hết phòng" : formattedPrice}</span>
+                          <span className={`font-bold text-lg ${isBooked ? "" : ""}`}>{format(day, "dd")}</span>
+                          {!isBooked && <span className="text-xs font-semibold mt-1">{formattedPrice}</span>}
                         </div>
                       )
                     })}
@@ -508,18 +790,18 @@ export default function CalendarSelectionPopup({
             })}
 
             {/* Price Legend */}
-            <div className="flex justify-around gap-4 text-sm text-[#0a0a0a] font-medium mt-4 pb-4">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-sm bg-[#a2e5b3]" />
-                <span>Giá thấp</span>
+            <div className="flex justify-center gap-8 text-sm text-[#0a0a0a] font-semibold mt-6 pb-6 bg-gray-50 rounded-2xl p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-lg bg-[#e8f5e8] border-2 border-[#4caf50]" />
+                <span>Giá cơ bản (≤300k)</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-sm bg-[#fff2d7]" />
-                <span>Giá trung bình</span>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-lg bg-[#fff8e1] border-2 border-[#ff9800]" />
+                <span>Giá trung bình (300k-500k)</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-sm bg-[#ff8b77]" />
-                <span>Giá cao</span>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-lg bg-[#ffebee] border-2 border-[#f44336]" />
+                <span>Giá cao điểm (>500k)</span>
               </div>
             </div>
           </div>
