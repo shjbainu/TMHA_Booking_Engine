@@ -278,7 +278,9 @@ export default function RoomSelection() {
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 40vw, 200px"
+                        
                         />
+                        <button type="button">Xem thêm</button>
                       </div>
                     </div>
                   </div>
