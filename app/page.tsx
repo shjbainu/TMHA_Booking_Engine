@@ -129,7 +129,7 @@ export default function HotelGallery() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.smallView1}
+                        src=""
                         alt="Không gian chung - View 1"
                         fill
                         className="object-cover"
