@@ -50,7 +50,7 @@ export default function HotelGallery() {
               <div className="flex-shrink-0">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
-                    src={images.ensoSign}
+                    src="https://pix8.agoda.net/hotelImages/48898017/-1/9ccca4c717fa39e5a00ec72b8c732c66.jpg?ce=0&s=1024x"
                     alt="Resort - Enso Retreat Hoi An"
                     fill
                     className="object-cover"
