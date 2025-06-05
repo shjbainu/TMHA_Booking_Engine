@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button" // Đảm bảo bạn đã impor
 import Image from "next/image"
 import Link from "next/link"
 
-
-
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
