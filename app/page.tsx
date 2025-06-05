@@ -96,7 +96,7 @@ export default function HotelGallery() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.billiards}
+                        src="https://pix8.agoda.net/hotelImages/48898017/-1/23ffae2b7ab87fc65d78e4b0c95dec3d.jpg?ce=0&s=1024x"
                         alt="Không gian chung - Bàn Bida"
                         fill
                         className="object-cover"
