@@ -70,7 +70,7 @@ export default function HotelGallery() {
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Sơn Ca</p>
               </div>
               {/* Bạn có thể thêm các ảnh khác vào đây nếu cần */}
             </div>
