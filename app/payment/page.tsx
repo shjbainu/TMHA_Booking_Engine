@@ -52,7 +52,7 @@ export default function Payment() {
           {/* Booking 1 */}
           <div className="bg-gray-100 rounded-lg p-4 mb-3">
             <div className="flex items-center justify-between mb-3">
-              <Badge variant="secondary" >
+              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
                 BOOKING 1
               </Badge>
               <div className="flex gap-2">
@@ -81,7 +81,7 @@ export default function Payment() {
           {/* Booking 2 */}
           <div className="bg-gray-100 rounded-lg p-4 mb-3">
             <div className="flex items-center justify-between mb-3">
-              <Badge variant="secondary">
+              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
                 BOOKING 2
               </Badge>
               <div className="flex gap-2">
