@@ -140,7 +140,7 @@ export default function PaymentConfirmation() {
 
             <div className="space-y-3 text-sm">
               <div>
-                <span className="font-medium">Thông tin chuyến đi</span>
+                <span className="font-medium">Thông tin chuyến đi:</span>
               </div>
               <div>
                 <span className="text-[#0a0a0a]">{booking.tripInfo}</span>
