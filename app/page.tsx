@@ -476,7 +476,7 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Image src="/public/images/hotel-icon.png" alt="Hotel Icon" width={24} height={24} className="mb-0.5" />
+              <Image src="https://vi.pngtree.com/freepng/yellow-star-3d-icon_8843657.html" alt="Hotel Icon" width={24} height={24} className="mb-0.5" />
               <span className="text-[11px] leading-tight font-medium">Khách sạn</span>
             </Button>
             <Button
