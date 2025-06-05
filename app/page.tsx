@@ -117,7 +117,7 @@ export default function HotelGallery() {
                 {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
-                    src={images.poolMain}
+                    src="https://pix8.agoda.net/hotelImages/48898017/-1/93e78b4f5286d8e3a6adae4e524c2a6a.png?ce=0&s=1024x"
                     alt="Không gian chung - Hồ bơi"
                     fill
                     className="object-cover"
