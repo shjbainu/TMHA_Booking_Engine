@@ -1,9 +1,30 @@
 "use client"
 
+import { useRef } from 'react'; // 1. Import useRef
 import { Share, Heart, MapPin, Building, Star, MoreHorizontal, ArrowLeft, LayoutGrid } from "lucide-react"
-import { Button } from "@/components/ui/button" // Đảm bảo bạn đã import Button từ đúng vị trí
+import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+
+// Giả sử component của bạn tên là HotelPhotosPage
+export default function HotelPhotosPage() {
+
+  // 2. Tạo Refs
+  const khongGianChungRef = useRef(null);
+  const phongSonCaRef = useRef(null);
+  const phongNhatBanRef = useRef(null);
+  const phongMapMoRef = useRef(null);
+  const phongSantoriniRef = useRef(null);
+
+  // 4. Tạo hàm xử lý cuộn
+  const scrollToSection = (ref) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -26,15 +47,18 @@ import Link from "next/link"
       </div>
 
       {/* Main Content Area */}
-      <div className="pb-24"> {/* Padding dưới để không bị che bởi thanh điều hướng cố định */}
+      <div className="pb-24">
         
         {/* "Tham quan qua ảnh" Section */}
         <h1  className="text-lg font-semibold text-[#0a0a0a] mt-4 mb-3 px-4">Tham quan qua ảnh</h1>
         <div className="mb-6">
           <div className="overflow-x-auto">
-            <div className="flex gap-3 pb-2 px-4"> {/* px-4 để có padding ở hai đầu scroll */}
+            <div className="flex gap-3 pb-2 px-4">
               {/* Ảnh 1: Resort */}
-              <div className="flex-shrink-0">
+              <div
+                className="flex-shrink-0 cursor-pointer"
+                onClick={() => scrollToSection(khongGianChungRef)} // 5. Thêm onClick
+              >
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://pix8.agoda.net/hotelImages/48898017/-1/9ccca4c717fa39e5a00ec72b8c732c66.jpg?ce=0&s=1024x"
@@ -47,11 +71,14 @@ import Link from "next/link"
                 <p className="text-sm font-medium text-[#0a0a0a]">Không gian chung</p>
               </div>
               {/* Ảnh 2: Phòng Sơn Ca */}
-              <div className="flex-shrink-0">
+              <div
+                className="flex-shrink-0 cursor-pointer"
+                onClick={() => scrollToSection(phongSonCaRef)} // 5. Thêm onClick
+              >
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d89d68.JPG"
-                    alt="Phòng Deluxe"
+                    alt="Phòng Sơn Ca Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
@@ -60,35 +87,46 @@ import Link from "next/link"
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Sơn Ca</p>
               </div>
               {/* Ảnh 3: Phòng Nhật Bản */}
-              <div className="flex-shrink-0">
+              <div
+                className="flex-shrink-0 cursor-pointer"
+                onClick={() => scrollToSection(phongNhatBanRef)} // 5. Thêm onClick
+              >
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
-                    alt="Phòng Deluxe"
+                    alt="Phòng Nhật Bản Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Nhật Bản</p>
-              </div>{/* Ảnh 4: Phòng Mập Mờ */}
-              <div className="flex-shrink-0">
+              </div>
+              {/* Ảnh 4: Phòng Mập Mờ */}
+              <div
+                className="flex-shrink-0 cursor-pointer"
+                onClick={() => scrollToSection(phongMapMoRef)} // 5. Thêm onClick
+              >
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp"
-                    alt="Phòng Deluxe"
+                    alt="Phòng Mập Mờ Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Mập Mờ</p>
-              </div>{/* Ảnh 5: Phòng Santorini */}
-              <div className="flex-shrink-0">
+              </div>
+              {/* Ảnh 5: Phòng Santorini */}
+              <div
+                className="flex-shrink-0 cursor-pointer"
+                onClick={() => scrollToSection(phongSantoriniRef)} // 5. Thêm onClick
+              >
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
-                    alt="Phòng Deluxe"
+                    alt="Phòng Santorini Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
@@ -96,27 +134,23 @@ import Link from "next/link"
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Santorini</p>
               </div>
-              {/* Bạn có thể thêm các ảnh khác vào đây nếu cần */}
             </div>
           </div>
         </div>
 
         {/* "Không gian chung" Section */}
-        <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
+        <div ref={khongGianChungRef} id="khong-gian-chung" className="px-4 scroll-mt-20"> {/* 3. Gán ref và id, thêm scroll-mt */}
             <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Không gian chung</h2>
-            <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
-                {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
-                <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
+            <div className="space-y-3">
+                <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://pix8.agoda.net/hotelImages/48898017/-1/d138856dca2d16e1a7f6928e2dd65fc9.jpg?ce=0&s=1024x"
                     alt="Không gian chung - Toàn cảnh resort"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 768px" // Ví dụ sizes, điều chỉnh nếu cần
+                    sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ (Bàn Bida, Spa) */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
@@ -137,8 +171,6 @@ import Link from "next/link"
                     />
                     </div>
                 </div>
-
-                {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://pix8.agoda.net/hotelImages/48898017/-1/93e78b4f5286d8e3a6adae4e524c2a6a.png?ce=0&s=1024x"
@@ -148,8 +180,6 @@ import Link from "next/link"
                     sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ khác */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
@@ -173,26 +203,23 @@ import Link from "next/link"
             </div>
         </div>
           {/* "Phòng Sơn Ca" Section */}
-        <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
+        <div ref={phongSonCaRef} id="phong-son-ca" className="px-4 scroll-mt-20"> {/* 3. Gán ref và id, thêm scroll-mt */}
             <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Sơn Ca</h2>
-            <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
-                {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
-                <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
+            <div className="space-y-3">
+                <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
-                    alt="Không gian chung - Toàn cảnh resort"
+                    alt="Phòng Sơn Ca - Ảnh 1"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 768px" // Ví dụ sizes, điều chỉnh nếu cần
+                    sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ (Bàn Bida, Spa) */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp"
-                        alt="Không gian chung - Bàn Bida"
+                        alt="Phòng Sơn Ca - Ảnh 2"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -201,31 +228,27 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496c812.webp"
-                        alt="Không gian chung - Spa"
+                        alt="Phòng Sơn Ca - Ảnh 3"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
                     />
                     </div>
                 </div>
-
-                {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp"
-                    alt="Không gian chung - Hồ bơi"
+                    alt="Phòng Sơn Ca - Ảnh 4"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ khác */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496b5c0.webp"
-                        alt="Không gian chung - View 1"
+                        alt="Phòng Sơn Ca - Ảnh 5"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -234,7 +257,7 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
-                        alt="Không gian chung - View 2"
+                        alt="Phòng Sơn Ca - Ảnh 6"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -244,26 +267,23 @@ import Link from "next/link"
             </div>
         </div>
           {/* "Phòng Nhật bản" Section */}
-        <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
+        <div ref={phongNhatBanRef} id="phong-nhat-ban" className="px-4 scroll-mt-20"> {/* 3. Gán ref và id, thêm scroll-mt */}
             <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Nhật Bản</h2>
-            <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
-                {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
-                <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
+            <div className="space-y-3">
+                <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae89e19.webp"
-                    alt="Không gian chung - Toàn cảnh resort"
+                    alt="Phòng Nhật Bản - Ảnh 1"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 768px" // Ví dụ sizes, điều chỉnh nếu cần
+                    sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ (Bàn Bida, Spa) */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp"
-                        alt="Không gian chung - Bàn Bida"
+                        alt="Phòng Nhật Bản - Ảnh 2"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -272,31 +292,27 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp"
-                        alt="Không gian chung - Spa"
+                        alt="Phòng Nhật Bản - Ảnh 3"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
                     />
                     </div>
                 </div>
-
-                {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp"
-                    alt="Không gian chung - Hồ bơi"
+                    alt="Phòng Nhật Bản - Ảnh 4"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ khác */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
-                        alt="Không gian chung - View 1"
+                        alt="Phòng Nhật Bản - Ảnh 5"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -305,7 +321,7 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
-                        alt="Không gian chung - View 2"
+                        alt="Phòng Nhật Bản - Ảnh 6"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -315,26 +331,23 @@ import Link from "next/link"
             </div>
         </div>
           {/* "Phòng Mập Mờ" Section */}
-        <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
+        <div ref={phongMapMoRef} id="phong-map-mo" className="px-4 scroll-mt-20"> {/* 3. Gán ref và id, thêm scroll-mt */}
             <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Mập Mờ</h2>
-            <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
-                {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
-                <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
+            <div className="space-y-3">
+                <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp"
-                    alt="Không gian chung - Toàn cảnh resort"
+                    alt="Phòng Mập Mờ - Ảnh 1"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 768px" // Ví dụ sizes, điều chỉnh nếu cần
+                    sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ (Bàn Bida, Spa) */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp"
-                        alt="Không gian chung - Bàn Bida"
+                        alt="Phòng Mập Mờ - Ảnh 2"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -343,31 +356,27 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e78b7b.webp"
-                        alt="Không gian chung - Spa"
+                        alt="Phòng Mập Mờ - Ảnh 3"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
                     />
                     </div>
                 </div>
-
-                {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp"
-                    alt="Không gian chung - Hồ bơi"
+                    alt="Phòng Mập Mờ - Ảnh 4"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ khác */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp"
-                        alt="Không gian chung - View 1"
+                        alt="Phòng Mập Mờ - Ảnh 5"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -376,7 +385,7 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"
-                        alt="Không gian chung - View 2"
+                        alt="Phòng Mập Mờ - Ảnh 6"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -385,27 +394,24 @@ import Link from "next/link"
                 </div>
             </div>
         </div>
-          {/* "Phòng Sanroniti" Section */}
-        <div className="px-4"> {/* Padding ngang cho toàn bộ section */}
+          {/* "Phòng Santorini" Section */}
+        <div ref={phongSantoriniRef} id="phong-santorini" className="px-4 scroll-mt-20"> {/* 3. Gán ref và id, thêm scroll-mt */}
             <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Santorini</h2>
-            <div className="space-y-3"> {/* Khoảng cách giữa các hàng ảnh */}
-                {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
-                <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
+            <div className="space-y-3">
+                <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
-                    alt="Không gian chung - Toàn cảnh resort"
+                    alt="Phòng Santorini - Ảnh 1"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 768px" // Ví dụ sizes, điều chỉnh nếu cần
+                    sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ (Bàn Bida, Spa) */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp"
-                        alt="Không gian chung - Bàn Bida"
+                        alt="Phòng Santorini - Ảnh 2"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -414,31 +420,27 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1713150149_661c98c5d55b2.jpg"
-                        alt="Không gian chung - Spa"
+                        alt="Phòng Santorini - Ảnh 3"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
                     />
                     </div>
                 </div>
-
-                {/* Ảnh 3: Lớn, ngang (Hồ bơi) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4d43b.webp"
-                    alt="Không gian chung - Hồ bơi"
+                    alt="Phòng Santorini - Ảnh 4"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 768px"
                     />
                 </div>
-
-                {/* Lưới 2 ảnh nhỏ khác */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp"
-                        alt="Không gian chung - View 1"
+                        alt="Phòng Santorini - Ảnh 5"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -447,7 +449,7 @@ import Link from "next/link"
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1713150150_661c98c61561a.jpg"
-                        alt="Không gian chung - View 2"
+                        alt="Phòng Santorini - Ảnh 6"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 384px"
@@ -456,33 +458,18 @@ import Link from "next/link"
                 </div>
             </div>
         </div>
-        {/*
-          Các section phòng ("Phòng Sơn Ca", "Phòng Nhật Bản", v.v.) từ code gốc đã được comment lại
-          để giao diện khớp với ảnh tham chiếu. Nếu bạn muốn giữ chúng, hãy bỏ comment và đặt vào đây.
-          Ví dụ:
-          <div className="mt-6 px-4">
-            <div className="mb-6">
-              <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phòng Sơn Ca</h2>
-              <div className="columns-2 gap-3 space-y-3">
-                { // Code lưới ảnh cho Phòng Sơn Ca }
-              </div>
-            </div>
-            { // Các section phòng khác }
-          </div>
-        */}
-
       </div>
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 flex justify-center bg-white z-20 border-t border-gray-200">
         <div className="w-full max-w-md">
-          <div className="flex items-center justify-around px-1 py-1.5"> {/* Giảm py một chút */}
+          <div className="flex items-center justify-around px-1 py-1.5">
             <Button variant="ghost" className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100">
               <Building className="h-5 w-5 mb-0.5" />
               <span className="text-[11px] leading-tight font-medium">Khách sạn</span>
             </Button>
             <Button variant="ghost" className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100">
-              <LayoutGrid className="h-5 w-5 mb-0.5" /> {/* Icon lưới cho Ảnh */}
+              <LayoutGrid className="h-5 w-5 mb-0.5" />
               <span className="text-[11px] leading-tight font-medium">Ảnh</span>
             </Button>
             <Button variant="ghost" className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100">
