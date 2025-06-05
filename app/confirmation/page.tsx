@@ -173,7 +173,7 @@ export default function PaymentConfirmation() {
               </div>
 
               <div>
-                <span className="font-medium">Thông tin ngày nhận trả phòng</span>
+                <span className="font-medium">Thông tin ngày nhận trả phòng:</span>
               </div>
               <div>
                 <span className="text-[#0a0a0a]">Ngày nhận phòng: {booking.checkInDate}</span>
