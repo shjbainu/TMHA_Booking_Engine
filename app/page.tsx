@@ -476,21 +476,23 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Building className="h-10 w-10 " />
+               <Image
+                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1713150150_661c98c61561a.jpg"
+                  alt="Tổng quan"/>
               
             </Button>
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <LayoutGrid className="h-5 w-5 mb-0.5" />
+              <LayoutGrid className="h-5 w-5 " />
               
             </Button>
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Star className="width:150 mb-0.5" />
+              <Star className="h-5 w-5 " />
               
             </Button>
             <Button
