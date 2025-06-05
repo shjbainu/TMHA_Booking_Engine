@@ -314,32 +314,34 @@ export default function CalendarSelectionPopup({
       const endWeekday = format(selectedEndDate, "EEEE", { locale: vi }).split(",")[0]
       const endMonth = format(selectedEndDate, "MMMM", { locale: vi })
 
-      const diffNights = Math.floor((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24))
+      const diffDays = Math.floor((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24)) + 1
 
       return (
         <div className="flex items-center justify-between w-full">
-          <div className="flex flex-col items-center">
-            <span className="text-3xl font-bold">{startDay}</span>
-            <span className="text-sm">{startWeekday}</span>
-            <span className="text-sm capitalize">{startMonth}</span>
+          <div className="flex flex-col items-start">
+            <span className="text-4xl font-bold">{startDay}</span>
+            <span className="text-sm font-medium">{startWeekday}</span>
+            <span className="text-sm font-medium">Tháng {format(selectedStartDate, "M")}</span>
           </div>
-          <span className="text-base text-[#0a0a0a] font-medium">({diffNights} đêm)</span>
-          <div className="flex flex-col items-center">
-            <span className="text-3xl font-bold">{endDay}</span>
-            <span className="text-sm">{endWeekday}</span>
-            <span className="text-sm capitalize">{endMonth}</span>
+          <div className="flex items-center">
+            <span className="text-base font-medium">({diffDays} ngày)</span>
+          </div>
+          <div className="flex flex-col items-end">
+            <span className="text-4xl font-bold">{endDay}</span>
+            <span className="text-sm font-medium">{endWeekday}</span>
+            <span className="text-sm font-medium">Tháng {format(selectedEndDate, "M")}</span>
           </div>
         </div>
       )
     } else if (selectedStartDate) {
       const startDay = format(selectedStartDate, "dd", { locale: vi })
       const startWeekday = format(selectedStartDate, "EEEE", { locale: vi }).split(",")[0]
-      const startMonth = format(selectedStartDate, "MMMM", { locale: vi })
+
       return (
         <div className="flex flex-col items-center w-full">
-          <span className="text-3xl font-bold">{startDay}</span>
-          <span className="text-sm">{startWeekday}</span>
-          <span className="text-sm capitalize">{startMonth}</span>
+          <span className="text-4xl font-bold">{startDay}</span>
+          <span className="text-sm font-medium">{startWeekday}</span>
+          <span className="text-sm font-medium">Tháng {format(selectedStartDate, "M")}</span>
           <span className="text-base text-gray-500 mt-2">Chọn ngày kết thúc</span>
         </div>
       )
@@ -414,7 +416,7 @@ export default function CalendarSelectionPopup({
           </div>
 
           {/* Selected Date Display */}
-          <div className="bg-[#a3dce8] rounded-2xl p-4 flex items-center justify-center text-[#0a0a0a] font-semibold shadow-md">
+          <div className="bg-[#a3dce8] rounded-2xl p-4 flex items-center justify-center text-[#0a0a0a] shadow-md">
             {selectedRangeText}
           </div>
 
