@@ -1222,9 +1222,13 @@ export default function RoomSelection() {
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <span className="text-sm bg-gray-100 px-2 py-1 rounded">{totalSelectedRoomsCount} ngày</span>
-          
-              <span className="text-sm text-[#0a0a0a]">25/04 - 27/04</span>
+            <div>
+             <span className="text-sm bg-gray-100 px-2 py-1 rounded">{totalSelectedRoomsCount} ngày</span>
+            </div>
+             <div>
+             <span className="text-sm text-[#0a0a0a]">25/04 - 27/04</span>
+             </div>
+              
             </div>
             <div className="text-right">
               <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
