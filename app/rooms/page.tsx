@@ -992,7 +992,7 @@ export default function RoomSelection() {
                     <div className="col-span-2 grid grid-rows-2 gap-2">
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <Image
-                          src="/placeholder.svg?height=100&width=100"
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp"
                           alt="Phòng Santorini secondary image 1"
                           fill
                           className="object-cover"
