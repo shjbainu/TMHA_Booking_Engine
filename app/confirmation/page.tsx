@@ -118,10 +118,7 @@ export default function PaymentConfirmation() {
         <div className="text-center mb-6">
           <h2 className="text-xl font-bold text-[#0a0a0a] mb-4">THANH TOÁN THÀNH CÔNG</h2>
           {/* You might want a more generic success image or remove it if it's too room-specific */}
-          <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-4">
-            {/* Ensure the image path is correct if your public folder is the root for static assets */}
-            <Image src="/images/confirmation-room.png" alt="Confirmation success" fill className="object-cover" />
-          </div>
+        
         </div>
 
         {/* Iterate over each confirmed booking */}
