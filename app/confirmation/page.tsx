@@ -117,10 +117,7 @@ export default function PaymentConfirmation() {
         {/* Success Message */}
         <div className="text-center mb-6">
           <h2 className="text-xl font-bold text-[#0a0a0a] mb-4">THANH TOÁN THÀNH CÔNG</h2>
-          {/* You might want a more generic success image or remove it if it's too room-specific */}
-        
         </div>
-
         {/* Iterate over each confirmed booking */}
         {bookings.map((booking) => (
           <div key={booking.id} className="border-2 border-dashed border-gray-300 rounded-lg p-4 mb-6">
