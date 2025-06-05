@@ -307,46 +307,74 @@ export default function CalendarSelectionPopup({
   const selectedRangeText = useMemo(() => {
     if (selectedStartDate && selectedEndDate) {
       const startDay = format(selectedStartDate, "dd", { locale: vi })
-      const startWeekday = format(selectedStartDate, "EEEE", { locale: vi }).split(",")[0]
-      const startMonth = format(selectedStartDate, "MMMM", { locale: vi })
-
+      const startWeekday = format(selectedStartDate, "EEEE", { locale: vi })
       const endDay = format(selectedEndDate, "dd", { locale: vi })
-      const endWeekday = format(selectedEndDate, "EEEE", { locale: vi }).split(",")[0]
-      const endMonth = format(selectedEndDate, "MMMM", { locale: vi })
+      const endWeekday = format(selectedEndDate, "EEEE", { locale: vi })
 
       const diffDays = Math.floor((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24)) + 1
 
       return (
-        <div className="flex items-center justify-between w-full">
-          <div className="flex flex-col items-start">
-            <span className="text-4xl font-bold">{startDay}</span>
-            <span className="text-sm font-medium">{startWeekday}</span>
-            <span className="text-sm font-medium">Tháng {format(selectedStartDate, "M")}</span>
+        <div className="flex items-center justify-between w-full px-2">
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-[#0a0a0a]">{startDay}</span>
+            <span className="text-xs font-medium text-[#0a0a0a] opacity-80">{startWeekday}</span>
+            <span className="text-xs font-medium text-[#0a0a0a] opacity-80">
+              Tháng {format(selectedStartDate, "M")}
+            </span>
           </div>
-          <div className="flex items-center">
-            <span className="text-base font-medium">({diffDays} ngày)</span>
+          <div className="flex flex-col items-center px-4">
+            <span className="text-sm font-semibold text-[#0a0a0a]">({diffDays} ngày)</span>
+            <div className="w-8 h-0.5 bg-[#0a0a0a] opacity-60 mt-1"></div>
           </div>
-          <div className="flex flex-col items-end">
-            <span className="text-4xl font-bold">{endDay}</span>
-            <span className="text-sm font-medium">{endWeekday}</span>
-            <span className="text-sm font-medium">Tháng {format(selectedEndDate, "M")}</span>
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-[#0a0a0a]">{endDay}</span>
+            <span className="text-xs font-medium text-[#0a0a0a] opacity-80">{endWeekday}</span>
+            <span className="text-xs font-medium text-[#0a0a0a] opacity-80">Tháng {format(selectedEndDate, "M")}</span>
           </div>
         </div>
       )
     } else if (selectedStartDate) {
       const startDay = format(selectedStartDate, "dd", { locale: vi })
-      const startWeekday = format(selectedStartDate, "EEEE", { locale: vi }).split(",")[0]
+      const startWeekday = format(selectedStartDate, "EEEE", { locale: vi })
 
       return (
-        <div className="flex flex-col items-center w-full">
-          <span className="text-4xl font-bold">{startDay}</span>
-          <span className="text-sm font-medium">{startWeekday}</span>
-          <span className="text-sm font-medium">Tháng {format(selectedStartDate, "M")}</span>
-          <span className="text-base text-gray-500 mt-2">Chọn ngày kết thúc</span>
+        <div className="flex items-center justify-between w-full px-2">
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-[#0a0a0a]">{startDay}</span>
+            <span className="text-xs font-medium text-[#0a0a0a] opacity-80">{startWeekday}</span>
+            <span className="text-xs font-medium text-[#0a0a0a] opacity-80">
+              Tháng {format(selectedStartDate, "M")}
+            </span>
+          </div>
+          <div className="flex flex-col items-center px-4">
+            <span className="text-sm font-medium text-[#0a0a0a] opacity-60">Chọn ngày kết thúc</span>
+            <div className="w-8 h-0.5 bg-[#0a0a0a] opacity-40 mt-1"></div>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-[#0a0a0a] opacity-40">--</span>
+            <span className="text-xs font-medium text-[#0a0a0a] opacity-40">Ngày kết thúc</span>
+          </div>
         </div>
       )
     }
-    return <div className="text-center text-gray-500">Chọn ngày bắt đầu và kết thúc</div>
+
+    return (
+      <div className="flex items-center justify-center w-full">
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-4">
+            <span className="text-2xl font-bold text-[#0a0a0a] opacity-40">--</span>
+            <div className="flex flex-col items-center">
+              <span className="text-sm font-medium text-[#0a0a0a] opacity-60">Chọn lịch</span>
+              <div className="w-8 h-0.5 bg-[#0a0a0a] opacity-40 mt-1"></div>
+            </div>
+            <span className="text-2xl font-bold text-[#0a0a0a] opacity-40">--</span>
+          </div>
+          <span className="text-xs font-medium text-[#0a0a0a] opacity-50 mt-2">
+            Vui lòng chọn ngày nhận và trả phòng
+          </span>
+        </div>
+      </div>
+    )
   }, [selectedStartDate, selectedEndDate])
 
   const handleApplyClick = () => {
@@ -416,7 +444,7 @@ export default function CalendarSelectionPopup({
           </div>
 
           {/* Selected Date Display */}
-          <div className="bg-[#a3dce8] rounded-2xl p-4 flex items-center justify-center text-[#0a0a0a] shadow-md">
+          <div className="bg-[#a3dce8] rounded-xl p-3 flex items-center justify-center text-[#0a0a0a] shadow-sm border border-[#8cc8d8] min-h-[60px]">
             {selectedRangeText}
           </div>
 
