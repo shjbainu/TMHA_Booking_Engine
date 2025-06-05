@@ -331,7 +331,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, -1)}
                         >
                           <span className="text-lg">-</span>
@@ -340,7 +340,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, 1)}
                         >
                           <span className="text-lg">+</span>
@@ -574,7 +574,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, -1)}
                         >
                           <span className="text-lg">-</span>
@@ -583,7 +583,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, 1)}
                         >
                           <span className="text-lg">+</span>
@@ -817,7 +817,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, -1)}
                         >
                           <span className="text-lg">-</span>
@@ -826,7 +826,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, 1)}
                         >
                           <span className="text-lg">+</span>
@@ -1060,7 +1060,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, -1)}
                         >
                           <span className="text-lg">-</span>
@@ -1069,7 +1069,7 @@ export default function RoomSelection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8 rounded border border-gray-300"
+                          className="h-8 w-8 rounded"
                           onClick={() => updateQuantity(booking.id, room.id, 1)}
                         >
                           <span className="text-lg">+</span>
