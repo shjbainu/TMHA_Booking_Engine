@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react" // 1. Import useRef
-
+import {  MoreHorizontal, ArrowLeft, LayoutGrid } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
