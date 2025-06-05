@@ -514,7 +514,13 @@ export default function RoomSelection() {
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
-                        <span className="text-white text-sm font-semibold">+8</span>
+                       <Image
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp"
+                          alt="Phòng Nhật Bản secondary image 1"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 40vw, 200px"
+                        />
                       </div>
                     </div>
                   </div>
