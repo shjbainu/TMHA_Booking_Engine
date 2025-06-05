@@ -268,6 +268,7 @@ export default function RoomSelection() {
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 40vw, 200px"
+                         
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
