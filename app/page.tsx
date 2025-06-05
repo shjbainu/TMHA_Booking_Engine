@@ -72,6 +72,43 @@ export default function HotelGallery() {
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
               </div>
+              {/* Ảnh 3: Phòng Nhật Bản */}
+              <div className="flex-shrink-0">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
+                  <Image
+                    src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d89d68.JPG"
+                    alt="Phòng Deluxe"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 160px, 192px"
+                  />
+                </div>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
+              </div>{/* Ảnh 2: Phòng Mập Mờ */}
+              <div className="flex-shrink-0">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
+                  <Image
+                    src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d89d68.JPG"
+                    alt="Phòng Deluxe"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 160px, 192px"
+                  />
+                </div>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
+              </div>{/* Ảnh 2: Phòng Sơn Ca */}
+              <div className="flex-shrink-0">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
+                  <Image
+                    src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d89d68.JPG"
+                    alt="Phòng Deluxe"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 160px, 192px"
+                  />
+                </div>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
+              </div>
               {/* Bạn có thể thêm các ảnh khác vào đây nếu cần */}
             </div>
           </div>
