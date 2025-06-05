@@ -947,10 +947,12 @@ export default function RoomSelection() {
                 </div>
               )
             })()}
-
-            {/* Phòng Santorini Card */}
+          </div>
+        ))}
+      </div>
+      {/* Phòng Nhật Bản Card */}
             {(() => {
-              const room = rooms.find((r) => r.id === "4") // Assuming a new room ID for Santorini
+              const room = rooms.find((r) => r.id === "2") // Find the specific room object
               if (!room) return null
               return (
                 <div
@@ -962,8 +964,8 @@ export default function RoomSelection() {
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <Image
-                        src="/placeholder.svg?height=300&width=400"
-                        alt="Phòng Santorini main image"
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
+                        alt="Phòng Nhật Bản main image"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 60vw, 300px"
@@ -975,7 +977,7 @@ export default function RoomSelection() {
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <Image
                           src="/placeholder.svg?height=100&width=100"
-                          alt="Phòng Santorini secondary image 1"
+                          alt="Phòng Nhật Bản secondary image 1"
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 40vw, 200px"
@@ -988,7 +990,7 @@ export default function RoomSelection() {
                   </div>
 
                   {/* Room Info */}
-                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Santorini</h3>
+                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Nhật Bản</h3>
 
                   <div className="mb-3">
                     <span className="text-sm text-gray-600">1 giường king, 2 giường đôi</span>
@@ -1184,9 +1186,6 @@ export default function RoomSelection() {
                 </div>
               )
             })()}
-          </div>
-        ))}
-      </div>
 
       {/* Bottom Summary */}
       {totalSelectedRoomsCount > 0 && (
