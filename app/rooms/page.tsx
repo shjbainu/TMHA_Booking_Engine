@@ -280,9 +280,7 @@ export default function RoomSelection() {
                           sizes="(max-width: 768px) 40vw, 200px"
                         
                         />
-                        <div>
-                         <button type="button">Xem thêm</button></div>
-                       
+
                       </div>
                     </div>
                   </div>
