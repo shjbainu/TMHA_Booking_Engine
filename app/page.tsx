@@ -476,7 +476,7 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Image src="/public/images/hotel-icon.png" alt="Hotel Icon" width={24} height={24} className="mb-0.5" />
+              <Image src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E2%80%94Pngtree%E2%80%94hotel%203d%20icon%20vector_15618156.png-cClhmiROOaSav4dlqfEdmNaXwf08zJ.jpeg" alt="Hotel Icon" width={24} height={24} className="mb-0.5" />
               <span className="text-[11px] leading-tight font-medium">Khách sạn</span>
             </Button>
             <Button
