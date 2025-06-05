@@ -3,8 +3,8 @@
 import { useState, useMemo, useCallback } from "react"
 import { Calendar, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { format } from "date-fns"
-import { vi } from "date-fns/locale" // For Vietnamese locale
+import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore } from "date-fns"
+import { vi } from "date-fns/locale"
 
 interface CalendarSelectionPopupProps {
   isOpen: boolean
@@ -14,22 +14,11 @@ interface CalendarSelectionPopupProps {
   initialEndDate?: Date | null
 }
 
-// Helper to get days in a month
-const getDaysInMonth = (year: number, month: number) => {
-  const date = new Date(year, month, 1)
-  const days = []
-  while (date.getMonth() === month) {
-    days.push(new Date(date))
-    date.setDate(date.getDate() + 1)
-  }
-  return days
-}
-
-// Helper to get price category
+// Helper to get price category based on the provided Figma colors
 const getPriceCategory = (price: number) => {
-  if (price <= 300000) return "low" // Example threshold
-  if (price <= 500000) return "medium" // Example threshold
-  return "high"
+  if (price <= 300000) return "low" // Corresponds to #a2e5b3
+  if (price <= 500000) return "medium" // Corresponds to #fff2d7
+  return "high" // Corresponds to #ff8b77
 }
 
 // Mock data for prices (replace with actual data fetching in a real app)
@@ -84,48 +73,50 @@ export default function CalendarSelectionPopup({
   const [activeTab, setActiveTab] = useState<"day" | "hour" | "overnight">("day")
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(initialStartDate)
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(initialEndDate)
-  const [isMonthDropdownOpen, setIsMonthDropdownOpen] = useState(false)
 
-  const today = new Date()
-  const currentMonth = today.getMonth()
-  const currentYear = today.getFullYear()
+  const today = useMemo(() => new Date(), [])
+  const currentMonthStart = useMemo(() => startOfMonth(today), [today])
 
   const monthsToDisplay = useMemo(() => {
     const months = []
     for (let i = 0; i < 6; i++) {
       // Display current month + next 5 months
-      const date = new Date(currentYear, currentMonth + i, 1)
-      months.push(date)
+      months.push(addMonths(currentMonthStart, i))
     }
     return months
-  }, [currentMonth, currentYear])
+  }, [currentMonthStart])
 
   const handleDateClick = useCallback(
     (date: Date) => {
+      if (isBefore(date, today) && !isSameDay(date, today)) {
+        // Do not allow selecting past dates (unless it's today)
+        return
+      }
+
       if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
         // If no start date or both are selected, start a new selection
         setSelectedStartDate(date)
         setSelectedEndDate(null)
-      } else if (date < selectedStartDate) {
-        // If clicked date is before start date, make it the new start date
+      } else if (isBefore(date, selectedStartDate)) {
+        // If clicked date is before current start date, make it the new start date
         setSelectedStartDate(date)
         setSelectedEndDate(null) // Clear end date to allow new range selection
       } else {
-        // If clicked date is after start date, set it as end date
+        // If clicked date is after or same as start date, set it as end date
         setSelectedEndDate(date)
       }
     },
-    [selectedStartDate, selectedEndDate],
+    [selectedStartDate, selectedEndDate, today],
   )
 
   const isDateSelected = useCallback(
     (date: Date) => {
       if (!selectedStartDate) return false
       if (selectedStartDate && !selectedEndDate) {
-        return format(date, "yyyy-MM-dd") === format(selectedStartDate, "yyyy-MM-dd")
+        return isSameDay(date, selectedStartDate)
       }
       if (selectedStartDate && selectedEndDate) {
-        return date >= selectedStartDate && date <= selectedEndDate
+        return isWithinInterval(date, { start: selectedStartDate, end: selectedEndDate })
       }
       return false
     },
@@ -134,22 +125,21 @@ export default function CalendarSelectionPopup({
 
   const isDateRangeStart = useCallback(
     (date: Date) => {
-      return selectedStartDate && format(date, "yyyy-MM-dd") === format(selectedStartDate, "yyyy-MM-dd")
+      return selectedStartDate && isSameDay(date, selectedStartDate)
     },
     [selectedStartDate],
   )
 
   const isDateRangeEnd = useCallback(
     (date: Date) => {
-      return selectedEndDate && format(date, "yyyy-MM-dd") === format(selectedEndDate, "yyyy-MM-dd")
+      return selectedEndDate && isSameDay(date, selectedEndDate)
     },
     [selectedEndDate],
   )
 
   const getDayClasses = useCallback(
     (date: Date, price: number | undefined) => {
-      const isToday = format(date, "yyyy-MM-dd") === format(today, "yyyy-MM-dd")
-      const isPastDate = date < today && !isToday // Disable past dates
+      const isPastDate = isBefore(date, today) && !isSameDay(date, today)
       const isSelected = isDateSelected(date)
       const isStart = isDateRangeStart(date)
       const isEnd = isDateRangeEnd(date)
@@ -178,13 +168,12 @@ export default function CalendarSelectionPopup({
       return `relative flex flex-col items-center justify-center p-1 rounded-lg aspect-square text-center cursor-pointer transition-colors duration-200
               ${bgColor} ${textColor} ${borderColor} border
               ${isPastDate ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}
-              ${isStart ? "rounded-r-none" : ""}
-              ${isEnd ? "rounded-l-none" : ""}
-              ${isStart && isEnd ? "rounded-lg" : ""}
-              ${isSelected && !isStart && !isEnd ? "rounded-none" : ""}
+              ${isStart && !isEnd ? "rounded-r-none" : ""}
+              ${isEnd && !isStart ? "rounded-l-none" : ""}
+              ${isStart && isEnd && !isSameDay(selectedStartDate!, selectedEndDate!) ? "rounded-none" : ""}
               `
     },
-    [isDateSelected, isDateRangeStart, isDateRangeEnd, today],
+    [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate],
   )
 
   const getDayPrice = (date: Date) => {
@@ -311,11 +300,13 @@ export default function CalendarSelectionPopup({
             {monthsToDisplay.map((monthDate, monthIndex) => {
               const year = monthDate.getFullYear()
               const month = monthDate.getMonth()
-              const daysInMonth = getDaysInMonth(year, month)
+              const daysInCurrentMonth = getDaysInMonth(monthDate)
               const firstDayOfMonth = new Date(year, month, 1).getDay() // 0 for Sunday, 1 for Monday...
 
               // Create an array with empty slots for leading blank days
-              const calendarDays = Array(firstDayOfMonth).fill(null).concat(daysInMonth)
+              const calendarDays = Array(firstDayOfMonth)
+                .fill(null)
+                .concat(Array.from({ length: daysInCurrentMonth }, (_, i) => new Date(year, month, i + 1)))
 
               return (
                 <div key={monthIndex} className="border border-gray-200 rounded-2xl p-4 bg-white shadow-sm">
@@ -341,7 +332,7 @@ export default function CalendarSelectionPopup({
                       }
                       const price = getDayPrice(day)
                       const formattedPrice = price ? `${(price / 1000).toLocaleString()}k` : ""
-                      const isPastDate = day < today && format(day, "yyyy-MM-dd") !== format(today, "yyyy-MM-dd")
+                      const isPastDate = isBefore(day, today) && !isSameDay(day, today)
 
                       return (
                         <div
