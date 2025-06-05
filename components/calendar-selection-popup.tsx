@@ -25,6 +25,7 @@ const getPriceCategory = (price: number) => {
 
 // Mock data for prices (replace with actual data fetching in a real app)
 const mockPrices: { [key: string]: number } = {
+  // May 2025
   "2025-05-01": 400000,
   "2025-05-02": 400000,
   "2025-05-03": 650000,
@@ -56,6 +57,7 @@ const mockPrices: { [key: string]: number } = {
   "2025-05-29": 400000,
   "2025-05-30": 400000,
   "2025-05-31": 650000,
+  // June 2025
   "2025-06-01": 500000,
   "2025-06-02": 400000,
   "2025-06-03": 400000,
@@ -63,6 +65,93 @@ const mockPrices: { [key: string]: number } = {
   "2025-06-05": 400000,
   "2025-06-06": 400000,
   "2025-06-07": 650000,
+  "2025-06-08": 400000,
+  "2025-06-09": 400000,
+  "2025-06-10": 400000,
+  "2025-06-11": 400000,
+  "2025-06-12": 500000,
+  "2025-06-13": 500000,
+  "2025-06-14": 650000,
+  "2025-06-15": 275000,
+  "2025-06-16": 375000,
+  "2025-06-17": 300000,
+  "2025-06-18": 400000,
+  "2025-06-19": 650000,
+  "2025-06-20": 500000,
+  "2025-06-21": 650000,
+  "2025-06-22": 275000,
+  "2025-06-23": 375000,
+  "2025-06-24": 300000,
+  "2025-06-25": 400000,
+  "2025-06-26": 500000,
+  "2025-06-27": 500000,
+  "2025-06-28": 650000,
+  "2025-06-29": 275000,
+  "2025-06-30": 375000,
+  // July 2025
+  "2025-07-01": 500000,
+  "2025-07-02": 400000,
+  "2025-07-03": 650000,
+  "2025-07-04": 500000,
+  "2025-07-05": 650000,
+  "2025-07-06": 275000,
+  "2025-07-07": 375000,
+  "2025-07-08": 300000,
+  "2025-07-09": 400000,
+  "2025-07-10": 650000,
+  "2025-07-11": 500000,
+  "2025-07-12": 650000,
+  "2025-07-13": 275000,
+  "2025-07-14": 375000,
+  "2025-07-15": 300000,
+  "2025-07-16": 400000,
+  "2025-07-17": 650000,
+  "2025-07-18": 500000,
+  "2025-07-19": 650000,
+  "2025-07-20": 275000,
+  "2025-07-21": 375000,
+  "2025-07-22": 300000,
+  "2025-07-23": 400000,
+  "2025-07-24": 650000,
+  "2025-07-25": 500000,
+  "2025-07-26": 650000,
+  "2025-07-27": 400000,
+  "2025-07-28": 400000,
+  "2025-07-29": 400000,
+  "2025-07-30": 400000,
+  "2025-07-31": 650000,
+  // August 2025
+  "2025-08-01": 500000,
+  "2025-08-02": 400000,
+  "2025-08-03": 650000,
+  "2025-08-04": 500000,
+  "2025-08-05": 400000,
+  "2025-08-06": 275000,
+  "2025-08-07": 375000,
+  "2025-08-08": 300000,
+  "2025-08-09": 400000,
+  "2025-08-10": 650000,
+  "2025-08-11": 500000,
+  "2025-08-12": 400000,
+  "2025-08-13": 275000,
+  "2025-08-14": 375000,
+  "2025-08-15": 650000,
+  "2025-08-16": 400000,
+  "2025-08-17": 650000,
+  "2025-08-18": 500000,
+  "2025-08-19": 400000,
+  "2025-08-20": 275000,
+  "2025-08-21": 375000,
+  "2025-08-22": 300000,
+  "2025-08-23": 400000,
+  "2025-08-24": 650000,
+  "2025-08-25": 500000,
+  "2025-08-26": 400000,
+  "2025-08-27": 400000,
+  "2025-08-28": 400000,
+  "2025-08-29": 400000,
+  "2025-08-30": 400000,
+  "2025-08-31": 650000,
 }
 
 export default function CalendarSelectionPopup({
@@ -111,7 +200,7 @@ export default function CalendarSelectionPopup({
   const monthsToDisplay = useMemo(() => {
     const months = []
     for (let i = 0; i < 12; i++) {
-      // Display current month + next 5 months
+      // Display current month + next 11 months
       months.push(addMonths(currentMonthStart, i))
     }
     return months
@@ -330,7 +419,7 @@ export default function CalendarSelectionPopup({
           </div>
 
           {/* Calendar View */}
-          <div className="flex-1 overflow-y-auto space-y-6 pb-4">
+          <div className="flex-1 overflow-y-auto space-y-6 pb-4 scroll-smooth">
             {monthsToDisplay.map((monthDate, monthIndex) => {
               const year = monthDate.getFullYear()
               const month = monthDate.getMonth()
@@ -346,8 +435,8 @@ export default function CalendarSelectionPopup({
                 <div key={monthIndex} className="border border-gray-200 rounded-2xl p-4 bg-white shadow-sm">
                   <div className="flex items-center gap-2 mb-4">
                     <Calendar className="h-5 w-5 text-[#0a0a0a]" />
-                    <h3 className="text-lg font-semibold text-[#0a0a0a]">
-                      {format(monthDate, "MMMM, yyyy", { locale: vi })}
+                    <h3 className="text-lg font-semibold text-[#0a0a0a] capitalize">
+                      tháng {format(monthDate, "MM, yyyy", { locale: vi })}
                     </h3>
                   </div>
                   <div className="grid grid-cols-7 gap-2 text-sm font-medium text-gray-500 mb-2">
@@ -365,18 +454,21 @@ export default function CalendarSelectionPopup({
                         return <div key={`empty-${dayIndex}`} className="aspect-square" />
                       }
                       const price = getDayPrice(day)
-                      const formattedPrice = price ? `${(price / 1000).toLocaleString()}k` : ""
+                      const formattedPrice = price ? `${(price / 1000).toLocaleString()}k` : "N/A"
                       const isPastDate = isBefore(day, today) && !isSameDay(day, today)
+                      const isBooked = isFullyBooked(day)
 
                       return (
                         <div
                           key={dayIndex}
                           className={getDayClasses(day, price)}
-                          onClick={() => !isPastDate && handleDateClick(day)}
-                          aria-disabled={isPastDate}
+                          onClick={() => !(isPastDate || isBooked) && handleDateClick(day)}
+                          aria-disabled={isPastDate || isBooked}
                         >
-                          <span className="font-semibold text-base">{format(day, "dd")}</span>
-                          {price !== undefined && <span className="text-xs font-medium mt-0.5">{formattedPrice}</span>}
+                          <span className={`font-semibold text-base ${isBooked ? "line-through" : ""}`}>
+                            {format(day, "dd")}
+                          </span>
+                          <span className="text-xs font-medium mt-0.5">{isBooked ? "Hết phòng" : formattedPrice}</span>
                         </div>
                       )
                     })}
@@ -386,7 +478,7 @@ export default function CalendarSelectionPopup({
             })}
 
             {/* Price Legend */}
-            <div className="flex justify-around gap-4 text-sm text-[#0a0a0a] font-medium mt-4">
+            <div className="flex justify-around gap-4 text-sm text-[#0a0a0a] font-medium mt-4 bg-white p-4 rounded-lg border border-gray-200">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-sm bg-[#a2e5b3]" />
                 <span>Giá thấp</span>
