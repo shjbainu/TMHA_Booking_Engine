@@ -393,4 +393,15 @@ const mockPrices: { [key: string]: number } = {
   "2025-12-17": 275000,
   "2025-12-18": 400000,
   "2025-12-19": 400000,
-  "2025-12-20": 500000,\
+  "2025-12-20": 500000,
+}
+
+export default function CalendarSelectionPopup({
+  isOpen,
+  onClose,
+  onApply,
+  initialStartDate,
+  initialEndDate,
+}: CalendarSelectionPopupProps) {
+  return null
+}
