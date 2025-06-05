@@ -5,6 +5,7 @@ import { ArrowLeft, Plus, Users, Bed, Wifi, Trash2, Loader, Check } from "lucide
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { rooms } from "@/lib/data"
+import Image from "next/image"
 
 // Define a type for a single booking
 interface Booking {
@@ -245,9 +246,12 @@ export default function RoomSelection() {
                 <div className="grid grid-cols-5 gap-2 mb-4 p-2 border border-gray-100 rounded-2xl bg-gray-50/30">
                   {/* Large image on the left */}
                   <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-3 h-3 bg-gray-400 rounded-full opacity-60"></div>
-                    </div>
+                    <Image
+                      src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
+                      alt="Room main image"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
 
                   {/* Two stacked images on the right */}
