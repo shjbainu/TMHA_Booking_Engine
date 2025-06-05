@@ -84,7 +84,7 @@ export default function HotelGallery() {
                 {/* Ảnh 1: Lớn, ngang (Toàn cảnh) */}
                 <div className="relative aspect-video rounded-lg overflow-hidden"> {/* aspect-video cho tỉ lệ 16:9 */}
                     <Image
-                    src={images.aerialView}
+                    src="C:\Users\MINOVA-MKT\Downloads\sảnh cổng (2).jpg"
                     alt="Không gian chung - Toàn cảnh resort"
                     fill
                     className="object-cover"
