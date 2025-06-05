@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect } from "react"
+
 import { useState, useMemo, useCallback } from "react"
 import { Calendar, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -77,11 +79,38 @@ export default function CalendarSelectionPopup({
   const today = useMemo(() => new Date(), [])
   const currentMonthStart = useMemo(() => startOfMonth(today), [today])
 
+  const [bookedDates, setBookedDates] = useState<Set<string>>(new Set())
+
+  const isFullyBooked = useCallback(
+    (date: Date) => {
+      return bookedDates.has(format(date, "yyyy-MM-dd"))
+    },
+    [bookedDates],
+  )
+
+  useEffect(() => {
+    const dates = new Set<string>()
+    // Randomly book up to 15 dates in the next 12 months
+    for (let i = 0; i < 15; i++) {
+      const randomMonth = addMonths(currentMonthStart, Math.floor(Math.random() * 12))
+      const randomDay = new Date(
+        randomMonth.getFullYear(),
+        randomMonth.getMonth(),
+        Math.floor(Math.random() * getDaysInMonth(randomMonth)) + 1,
+      )
+      // Ensure it's not today or in the past
+      if (!isBefore(randomDay, today) || isSameDay(randomDay, today)) {
+        dates.add(format(randomDay, "yyyy-MM-dd"))
+      }
+    }
+    setBookedDates(dates)
+  }, [currentMonthStart, today])
+
   // The `monthsToDisplay` memoized value generates an array of Date objects for the current month and the next 5 months.
   // This ensures multiple months are available for display.
   const monthsToDisplay = useMemo(() => {
     const months = []
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 12; i++) {
       // Display current month + next 5 months
       months.push(addMonths(currentMonthStart, i))
     }
@@ -90,7 +119,7 @@ export default function CalendarSelectionPopup({
 
   const handleDateClick = useCallback(
     (date: Date) => {
-      if (isBefore(date, today) && !isSameDay(date, today)) {
+      if ((isBefore(date, today) && !isSameDay(date, today)) || isFullyBooked(date)) {
         // Do not allow selecting past dates (unless it's today)
         return
       }
@@ -108,7 +137,7 @@ export default function CalendarSelectionPopup({
         setSelectedEndDate(date)
       }
     },
-    [selectedStartDate, selectedEndDate, today],
+    [selectedStartDate, selectedEndDate, today, isFullyBooked],
   )
 
   const isDateSelected = useCallback(
@@ -150,7 +179,10 @@ export default function CalendarSelectionPopup({
       let textColor = "text-[#0a0a0a]"
       let borderColor = "border-gray-200"
 
-      if (isPastDate) {
+      if (isPastDate || isFullyBooked(date)) {
+        if (isFullyBooked(date)) {
+          textColor = "text-gray-500 line-through"
+        }
         bgColor = "bg-gray-100"
         textColor = "text-gray-400"
         borderColor = "border-gray-100"
@@ -169,13 +201,13 @@ export default function CalendarSelectionPopup({
 
       return `relative flex flex-col items-center justify-center p-1 rounded-lg aspect-square text-center cursor-pointer transition-colors duration-200
               ${bgColor} ${textColor} ${borderColor} border
-              ${isPastDate ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}
+              ${isPastDate || isFullyBooked(date) ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}
               ${isStart && !isEnd ? "rounded-r-none" : ""}
               ${isEnd && !isStart ? "rounded-l-none" : ""}
               ${isStart && isEnd && !isSameDay(selectedStartDate!, selectedEndDate!) ? "rounded-none" : ""}
               `
     },
-    [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate],
+    [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked],
   )
 
   const getDayPrice = (date: Date) => {
@@ -193,8 +225,7 @@ export default function CalendarSelectionPopup({
       const endWeekday = format(selectedEndDate, "EEEE", { locale: vi }).split(",")[0]
       const endMonth = format(selectedEndDate, "MMMM", { locale: vi })
 
-      const diffTime = Math.abs(selectedEndDate.getTime() - selectedStartDate.getTime())
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1 // +1 to include both start and end day
+      const diffNights = Math.floor((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24))
 
       return (
         <div className="flex items-center justify-between w-full">
@@ -203,7 +234,7 @@ export default function CalendarSelectionPopup({
             <span className="text-sm">{startWeekday}</span>
             <span className="text-sm capitalize">{startMonth}</span>
           </div>
-          <span className="text-base text-[#0a0a0a] font-medium">({diffDays} ngày)</span>
+          <span className="text-base text-[#0a0a0a] font-medium">({diffNights} đêm)</span>
           <div className="flex flex-col items-center">
             <span className="text-3xl font-bold">{endDay}</span>
             <span className="text-sm">{endWeekday}</span>
@@ -220,6 +251,7 @@ export default function CalendarSelectionPopup({
           <span className="text-3xl font-bold">{startDay}</span>
           <span className="text-sm">{startWeekday}</span>
           <span className="text-sm capitalize">{startMonth}</span>
+          <span className="text-base text-gray-500 mt-2">Chọn ngày kết thúc</span>
         </div>
       )
     }
@@ -369,20 +401,21 @@ export default function CalendarSelectionPopup({
               </div>
             </div>
           </div>
-
           {/* Bottom Summary and Apply Button */}
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-            <div>
-              <div className="text-lg font-semibold text-[#0a0a0a]">Hiển thị 308 kết quả</div>
-              <div className="text-xs text-[#999999]">Giá trên lịch hiển thị theo đơn vị VND</div>
+          <div className="pt-4 border-t border-gray-100 bg-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-lg font-semibold text-[#0a0a0a]">Hiển thị 308 kết quả</div>
+                <div className="text-xs text-[#999999]">Giá trên lịch hiển thị theo đơn vị VND</div>
+              </div>
+              <Button
+                className="bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 px-8 rounded-lg font-bold text-lg"
+                onClick={handleApplyClick}
+                disabled={!selectedStartDate} // Disable if no start date is selected
+              >
+                ÁP DỤNG
+              </Button>
             </div>
-            <Button
-              className="bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 px-8 rounded-lg font-bold text-lg"
-              onClick={handleApplyClick}
-              disabled={!selectedStartDate} // Disable if no start date is selected
-            >
-              ÁP DỤNG
-            </Button>
           </div>
         </div>
       </div>
