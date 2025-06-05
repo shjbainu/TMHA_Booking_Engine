@@ -476,7 +476,7 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <img src="file:///C:/Users/MINOVA-MKT/Downloads/ks1.png" alt="Ảnh ks1">
+              <Image src="file:///C:/Users/MINOVA-MKT/Downloads/ks1.png" alt="Ảnh ks1"/>
               <span className="text-[11px] leading-tight font-medium">Khách sạn</span>
             </Button>
             <Button
