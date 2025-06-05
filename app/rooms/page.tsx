@@ -184,7 +184,7 @@ export default function RoomSelection() {
               {booking.id !== "booking-1" && <Trash2 className="h-4 w-4 ml-2 text-white" />}
             </Button>
           ))}
-          <Button variant="ghost" size="icon" className="h-10 w-10" onClick={handleAddBooking}>
+          <Button variant="ghost" size="icon" className="h-10 w-10 border border-black" onClick={handleAddBooking}>
             <Plus className="h-4 w-4" />
           </Button>
         </div>
@@ -268,7 +268,6 @@ export default function RoomSelection() {
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 40vw, 200px"
-                         
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
@@ -278,9 +277,7 @@ export default function RoomSelection() {
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 40vw, 200px"
-                        
                         />
-
                       </div>
                     </div>
                   </div>
@@ -517,7 +514,7 @@ export default function RoomSelection() {
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
-                       <Image
+                        <Image
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
                           alt="Phòng Nhật Bản secondary image 1"
                           fill
@@ -760,7 +757,7 @@ export default function RoomSelection() {
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
-                         <Image
+                        <Image
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"
                           alt="Phòng Mập Mờ secondary image 1"
                           fill
