@@ -49,7 +49,6 @@ export default function Payment() {
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Thông tin đặt phòng</h2>
 
-       
           {/* Booking 1 */}
           <div className="bg-gray-100 rounded-lg p-4 mb-3">
             <div className="flex items-center justify-between mb-3">
@@ -57,18 +56,10 @@ export default function Payment() {
                 BOOKING 1
               </Badge>
               <div className="flex gap-2">
-                <Button
-                  variant="ghost" // Giữ ghost để có thể có các style cơ bản khác, nhưng sẽ override hover
-                  size="icon"
-                  className="h-8 w-8 bg-[#0a0a0a] text-white hover:bg-[#0a0a0a] focus-visible:ring-offset-0 focus-visible:ring-0" // Thêm màu nền, màu chữ và ghi đè hover
-                >
+                <Button variant="ghost" size="icon" className="h-8 w-8">
                   <RotateCcw className="h-4 w-4" />
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 bg-[#0a0a0a] text-white hover:bg-[#0a0a0a] focus-visible:ring-offset-0 focus-visible:ring-0" // Thêm màu nền, màu chữ và ghi đè hover
-                >
+                <Button variant="ghost" size="icon" className="h-8 w-8">
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
@@ -94,18 +85,10 @@ export default function Payment() {
                 BOOKING 2
               </Badge>
               <div className="flex gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 bg-[#0a0a0a] text-white hover:bg-[#0a0a0a] focus-visible:ring-offset-0 focus-visible:ring-0"
-                >
+                <Button variant="ghost" size="icon" className="h-8 w-8">
                   <RotateCcw className="h-4 w-4" />
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 bg-[#0a0a0a] text-white hover:bg-[#0a0a0a] focus-visible:ring-offset-0 focus-visible:ring-0"
-                >
+                <Button variant="ghost" size="icon" className="h-8 w-8">
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
