@@ -1225,6 +1225,7 @@ export default function RoomSelection() {
             <div>
              <span className="text-sm bg-gray-100 px-2 py-1 rounded">{totalSelectedRoomsCount} ngày</span>
             </div>
+            <br>
              <div>
              <span className="text-sm text-[#0a0a0a]">25/04 - 27/04</span>
              </div>
