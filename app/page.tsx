@@ -476,7 +476,7 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Image src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Ffreepng%2Fhotel-manager-3d-icon-isolated-on-a-white-background-symbolizing-hospitality-and-management_20168074.html&psig=AOvVaw3W2BBw8kvGe5syjgaJg063&ust=1749178232215000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJjf7Jaj2Y0DFQAAAAAdAAAAABAE" alt="Hotel Icon" width={24} height={24} className="mb-0.5" />
+              <img src="file:///C:/Users/MINOVA-MKT/Downloads/ks1.png" alt="Ảnh ks1">
               <span className="text-[11px] leading-tight font-medium">Khách sạn</span>
             </Button>
             <Button
