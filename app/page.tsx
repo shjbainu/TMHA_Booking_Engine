@@ -51,7 +51,7 @@ export default function HotelPhotosPage() {
         
         {/* "Tham quan qua ảnh" Section */}
         <h1  className="text-lg font-semibold text-[#0a0a0a] mt-4 mb-3 px-4">Tham quan qua ảnh</h1>
-        <div className="mb-6">
+        <div className="overflow-x-auto" className="mb-6">
           <div >
             <div className="flex gap-3 pb-2 px-4">
               {/* Ảnh 1: Resort */}
