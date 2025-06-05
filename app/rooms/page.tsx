@@ -725,7 +725,7 @@ export default function RoomSelection() {
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <Image
-                        src="/placeholder.svg?height=200&width=300"
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp"
                         alt="Phòng Mập Mờ main image"
                         fill
                         className="object-cover"
