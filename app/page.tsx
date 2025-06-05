@@ -105,7 +105,7 @@ export default function HotelGallery() {
                     </div>
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.spa}
+                        src="https://pix8.agoda.net/hotelImages/48898017/-1/77c68141307f1aad7b9f5fdd7b2f2ece.jpg?ce=0&s=1024x"
                         alt="Không gian chung - Spa"
                         fill
                         className="object-cover"
