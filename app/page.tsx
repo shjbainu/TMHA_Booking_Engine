@@ -30,7 +30,7 @@ export default function HotelPhotosPage() {
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white sticky top-0 z-10 border-b border-gray-200">
         <Button variant="ghost" size="icon" className="h-10 w-10">
-          <ArrowLeft className="h-6 w-6 text-[#0a0a0a]" />
+          <Image src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpikbest.com%2Fpng-images%2Fshare-button-icon-3d-illustration_10427096.html&psig=AOvVaw2s9c1TiKgOmjuQ3cvUFkgM&ust=1749182303249000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKiY85Oy2Y0DFQAAAAAdAAAAABAE" alt="Hotel Icon" width={30} height={30} className="mb-0.5" />
         </Button>
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="h-10 w-10">
