@@ -476,7 +476,7 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Building className="h-5 w-5 mb-0.5" />
+              <Building className="h-10 w-10 mb-0.5" />
               
             </Button>
             <Button
