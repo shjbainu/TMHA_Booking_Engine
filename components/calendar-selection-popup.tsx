@@ -72,85 +72,85 @@ const mockPrices: { [key: string]: number } = {
   "2025-06-12": 500000,
   "2025-06-13": 500000,
   "2025-06-14": 650000,
-  "2025-06-15": 275000,
-  "2025-06-16": 375000,
-  "2025-06-17": 300000,
+  "2025-06-15": 400000,
+  "2025-06-16": 400000,
+  "2025-06-17": 400000,
   "2025-06-18": 400000,
-  "2025-06-19": 650000,
+  "2025-06-19": 500000,
   "2025-06-20": 500000,
   "2025-06-21": 650000,
-  "2025-06-22": 275000,
-  "2025-06-23": 375000,
-  "2025-06-24": 300000,
+  "2025-06-22": 400000,
+  "2025-06-23": 400000,
+  "2025-06-24": 400000,
   "2025-06-25": 400000,
   "2025-06-26": 500000,
   "2025-06-27": 500000,
   "2025-06-28": 650000,
-  "2025-06-29": 275000,
-  "2025-06-30": 375000,
+  "2025-06-29": 400000,
+  "2025-06-30": 400000,
   // July 2025
   "2025-07-01": 500000,
   "2025-07-02": 400000,
-  "2025-07-03": 650000,
-  "2025-07-04": 500000,
+  "2025-07-03": 400000,
+  "2025-07-04": 650000,
   "2025-07-05": 650000,
-  "2025-07-06": 275000,
-  "2025-07-07": 375000,
-  "2025-07-08": 300000,
+  "2025-07-06": 650000,
+  "2025-07-07": 500000,
+  "2025-07-08": 400000,
   "2025-07-09": 400000,
-  "2025-07-10": 650000,
+  "2025-07-10": 400000,
   "2025-07-11": 500000,
   "2025-07-12": 650000,
-  "2025-07-13": 275000,
-  "2025-07-14": 375000,
-  "2025-07-15": 300000,
+  "2025-07-13": 650000,
+  "2025-07-14": 500000,
+  "2025-07-15": 400000,
   "2025-07-16": 400000,
-  "2025-07-17": 650000,
+  "2025-07-17": 400000,
   "2025-07-18": 500000,
   "2025-07-19": 650000,
-  "2025-07-20": 275000,
-  "2025-07-21": 375000,
-  "2025-07-22": 300000,
+  "2025-07-20": 650000,
+  "2025-07-21": 500000,
+  "2025-07-22": 400000,
   "2025-07-23": 400000,
-  "2025-07-24": 650000,
+  "2025-07-24": 400000,
   "2025-07-25": 500000,
   "2025-07-26": 650000,
-  "2025-07-27": 400000,
-  "2025-07-28": 400000,
+  "2025-07-27": 650000,
+  "2025-07-28": 500000,
   "2025-07-29": 400000,
   "2025-07-30": 400000,
-  "2025-07-31": 650000,
+  "2025-07-31": 400000,
   // August 2025
   "2025-08-01": 500000,
-  "2025-08-02": 400000,
+  "2025-08-02": 650000,
   "2025-08-03": 650000,
   "2025-08-04": 500000,
   "2025-08-05": 400000,
-  "2025-08-06": 275000,
-  "2025-08-07": 375000,
-  "2025-08-08": 300000,
-  "2025-08-09": 400000,
+  "2025-08-06": 400000,
+  "2025-08-07": 400000,
+  "2025-08-08": 500000,
+  "2025-08-09": 650000,
   "2025-08-10": 650000,
   "2025-08-11": 500000,
   "2025-08-12": 400000,
-  "2025-08-13": 275000,
-  "2025-08-14": 375000,
+  "2025-08-13": 400000,
+  "2025-08-14": 400000,
   "2025-08-15": 650000,
-  "2025-08-16": 400000,
+  "2025-08-16": 650000,
   "2025-08-17": 650000,
   "2025-08-18": 500000,
   "2025-08-19": 400000,
-  "2025-08-20": 275000,
-  "2025-08-21": 375000,
-  "2025-08-22": 300000,
-  "2025-08-23": 400000,
+  "2025-08-20": 400000,
+  "2025-08-21": 400000,
+  "2025-08-22": 500000,
+  "2025-08-23": 650000,
   "2025-08-24": 650000,
   "2025-08-25": 500000,
   "2025-08-26": 400000,
   "2025-08-27": 400000,
   "2025-08-28": 400000,
-  "2025-08-29": 400000,
-  "2025-08-30": 400000,
+  "2025-08-29": 500000,
+  "2025-08-30": 650000,
   "2025-08-31": 650000,
 }
 
@@ -200,7 +200,7 @@ export default function CalendarSelectionPopup({
   const monthsToDisplay = useMemo(() => {
     const months = []
     for (let i = 0; i < 12; i++) {
-      // Display current month + next 11 months
+      // Display current month + next 11 months (total 12 months)
       months.push(addMonths(currentMonthStart, i))
     }
     return months
@@ -419,7 +419,7 @@ export default function CalendarSelectionPopup({
           </div>
 
           {/* Calendar View */}
-          <div className="flex-1 overflow-y-auto space-y-6 pb-4 scroll-smooth">
+          <div className="flex-1 overflow-y-auto space-y-6 pb-20 max-h-[50vh]">
             {monthsToDisplay.map((monthDate, monthIndex) => {
               const year = monthDate.getFullYear()
               const month = monthDate.getMonth()
@@ -435,8 +435,8 @@ export default function CalendarSelectionPopup({
                 <div key={monthIndex} className="border border-gray-200 rounded-2xl p-4 bg-white shadow-sm">
                   <div className="flex items-center gap-2 mb-4">
                     <Calendar className="h-5 w-5 text-[#0a0a0a]" />
-                    <h3 className="text-lg font-semibold text-[#0a0a0a] capitalize">
-                      tháng {format(monthDate, "MM, yyyy", { locale: vi })}
+                    <h3 className="text-lg font-semibold text-[#0a0a0a]">
+                      {format(monthDate, "MMMM, yyyy", { locale: vi })}
                     </h3>
                   </div>
                   <div className="grid grid-cols-7 gap-2 text-sm font-medium text-gray-500 mb-2">
@@ -478,7 +478,7 @@ export default function CalendarSelectionPopup({
             })}
 
             {/* Price Legend */}
-            <div className="flex justify-around gap-4 text-sm text-[#0a0a0a] font-medium mt-4 bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex justify-around gap-4 text-sm text-[#0a0a0a] font-medium mt-4 pb-4">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-sm bg-[#a2e5b3]" />
                 <span>Giá thấp</span>
@@ -494,7 +494,7 @@ export default function CalendarSelectionPopup({
             </div>
           </div>
           {/* Bottom Summary and Apply Button */}
-          <div className="pt-4 border-t border-gray-100 bg-white">
+          <div className="sticky bottom-0 pt-4 border-t border-gray-100 bg-white">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-lg font-semibold text-[#0a0a0a]">Hiển thị 308 kết quả</div>
@@ -503,7 +503,7 @@ export default function CalendarSelectionPopup({
               <Button
                 className="bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 px-8 rounded-lg font-bold text-lg"
                 onClick={handleApplyClick}
-                disabled={!selectedStartDate} // Disable if no start date is selected
+                disabled={!selectedStartDate}
               >
                 ÁP DỤNG
               </Button>
