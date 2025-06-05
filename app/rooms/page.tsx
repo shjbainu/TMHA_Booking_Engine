@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { ArrowLeft, Plus, Users, Bed, Wifi, Trash2, Loader, Check } from "lucide-react"
+import { ArrowLeft, Plus, Users, Bed, Wifi, Trash2, Loader, Check, Calendar } from "lucide-react" // Added Calendar
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { rooms } from "@/lib/data"
 import Image from "next/image"
+import CalendarSelectionPopup from "@/components/calendar-selection-popup" // Import the new component
 
 // Define a type for a single booking
 interface Booking {
@@ -27,6 +28,7 @@ export default function RoomSelection() {
   const [isLoading, setIsLoading] = useState(false)
   const [includeBreakfastFilter, setIncludeBreakfastFilter] = useState(false)
   const [freeCancellationFilter, setFreeCancellationFilter] = useState(false)
+  const [isCalendarPopupOpen, setIsCalendarPopupOpen] = useState(false) // New state for popup
 
   const handleAddBooking = () => {
     const newBookingId = `booking-${bookings.length + 1}`
@@ -156,6 +158,12 @@ export default function RoomSelection() {
       return count + Object.values(booking.roomQuantities).reduce((sum, quantity) => sum + quantity, 0)
     }, 0)
   }, [bookings])
+
+  const handleApplyDates = (startDate: string, endDate: string) => {
+    // Here you would update your booking dates based on the selection
+    console.log(`Selected dates: ${startDate} - ${endDate}`)
+    // You might want to update a state variable for the displayed dates here
+  }
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -1222,26 +1230,13 @@ export default function RoomSelection() {
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
           <div className="max-w-md mx-auto">
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
+                {" "}
+                {/* Added onClick */}
                 <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <Calendar // Changed from svg to Lucide icon
                     className="lucide lucide-calendar text-[#0a0a0a]"
-                  >
-                    <path d="M8 2v4" />
-                    <path d="M16 2v4" />
-                    <path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8" />
-                    <path d="M3 10h18" />
-                    <path d="m19 16-2 2-4-4" />
-                  </svg>
+                  />
                   <span className="absolute text-xs font-bold text-[#0a0a0a]">18</span>
                 </div>
                 <div className="flex flex-col">
@@ -1262,6 +1257,13 @@ export default function RoomSelection() {
       )}
 
       <div className="h-24" />
+
+      {/* Calendar Selection Popup */}
+      <CalendarSelectionPopup
+        isOpen={isCalendarPopupOpen}
+        onClose={() => setIsCalendarPopupOpen(false)}
+        onApply={handleApplyDates}
+      />
     </div>
   )
 }
