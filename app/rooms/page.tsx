@@ -758,7 +758,7 @@ export default function RoomSelection() {
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                          <Image
-                          src=""
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"
                           alt="Phòng Mập Mờ secondary image 1"
                           fill
                           className="object-cover"
