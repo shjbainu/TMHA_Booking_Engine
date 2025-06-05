@@ -129,7 +129,7 @@ export default function HotelGallery() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src=""
+                        src="https://pix8.agoda.net/hotelImages/48898017/-1/54c149e26857b71d1ddd37bd8af57fcb.jpg?ce=0&s=1024x"
                         alt="Không gian chung - View 1"
                         fill
                         className="object-cover"
@@ -138,7 +138,7 @@ export default function HotelGallery() {
                     </div>
                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
-                        src={images.smallView2}
+                        src="https://pix8.agoda.net/hotelImages/48898017/-1/18ef5ac6240e9186c2260536404b04bd.png?ce=0&s=1024x"
                         alt="Không gian chung - View 2"
                         fill
                         className="object-cover"
