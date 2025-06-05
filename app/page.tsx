@@ -5,18 +5,7 @@ import { Button } from "@/components/ui/button" // Đảm bảo bạn đã impor
 import Image from "next/image"
 import Link from "next/link"
 
-export default function HotelGallery() {
-  // THAY THẾ CÁC URL NÀY BẰNG ĐƯỜNG DẪN ẢNH THỰC TẾ CỦA BẠN
-  const images = {
-    ensoSign: "https://i.imgur.com/cMCBitN.jpeg",      // Ảnh biển hiệu "ENSO RETREAT HOI AN"
-    deluxeRoom: "https://i.imgur.com/Xg5y40L.jpeg",    // Ảnh "Phòng Deluxe"
-    aerialView: "https://i.imgur.com/VvR3qfJ.jpeg",    // Ảnh toàn cảnh resort từ trên cao
-    billiards: "https://i.imgur.com/9e7G3jP.jpeg",     // Ảnh bàn bida
-    spa: "https://i.imgur.com/k04t5yh.jpeg",           // Ảnh khu spa
-    poolMain: "https://i.imgur.com/P0mER20.jpeg",      // Ảnh hồ bơi chính
-    smallView1: "https://i.imgur.com/S33sHiR.jpeg",    // Ảnh nhỏ 1 ở cuối phần "Không gian chung"
-    smallView2: "https://i.imgur.com/24Qf0Zz.jpeg",    // Ảnh nhỏ 2 ở cuối phần "Không gian chung"
-  }
+
 
   return (
     <div className="min-h-screen bg-white">
