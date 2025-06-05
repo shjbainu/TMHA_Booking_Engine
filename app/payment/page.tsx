@@ -247,7 +247,7 @@ export default function Payment() {
         {/* Privacy Policy */}
         <div className="flex justify-between items-center text-sm text-[#0a0a0a] mb-6">
           <span>Chính sách hủy</span>
-          <span className="text-blue-600"><a>Xem chi tiết</a></span>
+          <span className="text-blue-600"><a href="#">Xem chi tiết</a></span>
         </div>
 
         {/* Confirm Button */}
