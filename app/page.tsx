@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react" // 1. Import useRef
-import { Share, Heart, MapPin, Building, Star, MoreHorizontal, ArrowLeft, LayoutGrid } from "lucide-react"
+import { Share, Heart, MapPin, Star, MoreHorizontal, ArrowLeft, LayoutGrid } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
@@ -476,29 +476,29 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Building className="h-10 w-10 "  />
-              
+              <Image src="/public/images/hotel-icon.png" alt="Hotel Icon" width={24} height={24} className="mb-0.5" />
+              <span className="text-[11px] leading-tight font-medium">Khách sạn</span>
             </Button>
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
               <LayoutGrid className="h-5 w-5 " />
-              
+              <span className="text-[11px] leading-tight font-medium">Ảnh</span>
             </Button>
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
               <Star className="h-5 w-5 " />
-              
+              <span className="text-[11px] leading-tight font-medium">Đánh giá</span>
             </Button>
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
               <MoreHorizontal className="h-5 w-5 mb-0.5" />
-              
+              <span className="text-[11px] leading-tight font-medium">Thêm</span>
             </Button>
             <Link href="/rooms" passHref legacyBehavior>
               <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
