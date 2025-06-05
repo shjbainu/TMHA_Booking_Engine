@@ -228,7 +228,10 @@ export default function RoomSelection() {
             variant="ghost"
             size="icon"
             className="h-10 w-10 border border-black rounded-full"
-            onClick={handleAddBooking}
+            onClick={() => {
+              handleAddBooking()
+              setIsCalendarPopupOpen(true)
+            }}
           >
             <Plus className="h-4 w-4" />
           </Button>
