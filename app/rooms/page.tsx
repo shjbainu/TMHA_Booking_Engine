@@ -1222,16 +1222,33 @@ export default function RoomSelection() {
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
+              <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-calendar text-[#0a0a0a]"
+                >
+                  <path d="M8 2v4" />
+                  <path d="M16 2v4" />
+                  <path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8" />
+                  <path d="M3 10h18" />
+                  <path d="m19 16-2 2-4-4" />
+                </svg>
+                <span className="absolute text-xs font-bold text-[#0a0a0a]">18</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm text-[#0a0a0a]">25/04 - 27/04</span>
+                <span className="text-xs text-[#999999]">2 ngày</span>
+              </div>
+            </div>
             <div>
-             <span className="text-sm bg-gray-100 px-2 py-1 rounded">{totalSelectedRoomsCount}</span>
-            </div>
-          
-             <div>
-             <span className="text-sm text-[#0a0a0a]">25/04 - 27/04</span>
-             </div>
-              
-            </div>
-            <div className="text-right">
               <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
               <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
             </div>
