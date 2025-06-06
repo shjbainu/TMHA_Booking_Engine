@@ -1,7 +1,9 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
-import { ArrowLeft, RotateCcw, Trash2, X, CreditCard, Lock } from "lucide-react"
+import { ArrowLeft, RotateCcw, Trash2, X, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -13,27 +15,27 @@ import { useRouter } from "next/navigation" // Import useRouter
 
 // Define the new VisaMastercardPaymentPopup component
 interface VisaMastercardPaymentPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
-  amount: string;
+  isOpen: boolean
+  onClose: () => void
+  amount: string
 }
 
 function VisaMastercardPaymentPopup({ isOpen, onClose, amount }: VisaMastercardPaymentPopupProps) {
-  const router = useRouter(); // Initialize router
+  const router = useRouter() // Initialize router
 
-  if (!isOpen) return null;
+  if (!isOpen) return null
 
   const handleConfirmPayment = async () => {
     // Simulate payment processing
-    console.log("Processing payment...");
+    console.log("Processing payment...")
     // Here you would typically call your payment gateway API
     // For demonstration, let's assume it's successful after a short delay
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
 
-    console.log("Payment successful! Navigating to confirmation...");
-    onClose(); // Close the popup
-    router.push('/confirmation'); // Navigate to the confirmation page
-  };
+    console.log("Payment successful! Navigating to confirmation...")
+    onClose() // Close the popup
+    router.push("/confirmation") // Navigate to the confirmation page
+  }
 
   return (
     <div
@@ -41,96 +43,105 @@ function VisaMastercardPaymentPopup({ isOpen, onClose, amount }: VisaMastercardP
       onClick={onClose} // Close on backdrop click
     >
       <div
-        className={`bg-white w-full max-w-md transform transition-transform duration-300 ease-out ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+        className={`bg-white w-full max-w-md transform transition-transform duration-300 ease-out ${isOpen ? "translate-y-0" : "translate-y-full"}`}
         onClick={(e) => e.stopPropagation()} // Prevent click propagation to backdrop
       >
         {/* Handle bar */}
         <div className="pt-3">
-            <div className="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-2"></div>
+          <div className="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-2"></div>
         </div>
 
         <div className="p-5 pt-2">
-            {/* Header with close button and title */}
-            <div className="flex items-center mb-5">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={onClose}
-                    className="h-10 w-10 rounded-full flex items-center justify-center p-0 bg-gray-100 hover:bg-gray-200"
-                >
-                    <X className="h-5 w-5 text-gray-700" />
-                </Button>
-                <h2 className="flex-grow text-center text-[15px] font-semibold text-gray-800 pr-10">
-                    THANH TOÁN BẰNG VISA/MASTER CARD
-                </h2>
-            </div>
-
-            {/* Amount to pay */}
-            <div className="bg-gray-100 p-3 rounded-lg flex items-center mb-6 text-sm border border-gray-200">
-              <div className="w-6 h-4 border-2 border-gray-400 rounded-[3px] flex flex-col items-center justify-center mr-3 shrink-0">
-                <div className="w-[18px] h-[3px] bg-gray-400 mt-[1px]"></div>
-                <div className="w-[14px] h-[2px] bg-gray-400 mt-[1px]"></div>
-              </div>
-              <span className="text-gray-700 text-[13px]">Số tiền phải thanh toán <span className="font-semibold text-gray-800">{amount}</span></span>
-            </div>
-
-            {/* Form */}
-            <div className="space-y-4">
-                <div>
-                    <Label htmlFor="cardNumber" className="text-[13px] font-medium text-gray-800 mb-1 block">SỐ THẺ</Label>
-                    <Input
-                        id="cardNumber"
-                        placeholder="1234 5678 9123 4567"
-                        className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                    />
-                </div>
-                <div>
-                    <Label htmlFor="cardHolderName" className="text-[13px] font-medium text-gray-800 mb-1 block">TÊN CHỦ THẺ</Label>
-                    <Input
-                        id="cardHolderName"
-                        placeholder="DANG VU MINH QUAN"
-                        className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                    />
-                </div>
-                <div className="flex gap-3">
-                    <div className="flex-1">
-                        <Label htmlFor="expiryDate" className="text-[13px] font-medium text-gray-800 mb-1 block">NGÀY HẾT HẠN</Label>
-                        <Input
-                            id="expiryDate"
-                            placeholder="05/2025"
-                            className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                        />
-                    </div>
-                    <div className="w-[30%]">
-                        <Label htmlFor="cvv" className="text-[13px] font-medium text-gray-800 mb-1 block">CVV</Label>
-                        <Input
-                            id="cvv"
-                            placeholder="466"
-                            className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Confirm Button */}
+          {/* Header with close button and title */}
+          <div className="flex items-center mb-5">
             <Button
-              className="w-full bg-black hover:bg-gray-900 text-white py-3 rounded-lg text-[15px] font-semibold mt-8 shadow-md h-12"
-              onClick={handleConfirmPayment} // Use the new handler
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="h-10 w-10 rounded-full flex items-center justify-center p-0 bg-gray-100 hover:bg-gray-200"
             >
-                XÁC NHẬN VÀ THANH TOÁN
+              <X className="h-5 w-5 text-gray-700" />
             </Button>
+            <h2 className="flex-grow text-center text-[15px] font-semibold text-gray-800 pr-10">
+              THANH TOÁN BẰNG VISA/MASTER CARD
+            </h2>
+          </div>
 
-            {/* Security Message */}
-            <div className="flex items-center justify-center mt-4 text-xs text-gray-500">
-                <Lock className="h-3 w-3 mr-1.5 text-gray-500" />
-                <span>Thanh toán bảo mật và an toàn</span>
+          {/* Amount to pay */}
+          <div className="bg-gray-100 p-3 rounded-lg flex items-center mb-6 text-sm border border-gray-200">
+            <div className="w-6 h-4 border-2 border-gray-400 rounded-[3px] flex flex-col items-center justify-center mr-3 shrink-0">
+              <div className="w-[18px] h-[3px] bg-gray-400 mt-[1px]"></div>
+              <div className="w-[14px] h-[2px] bg-gray-400 mt-[1px]"></div>
             </div>
+            <span className="text-gray-700 text-[13px]">
+              Số tiền phải thanh toán <span className="font-semibold text-gray-800">{amount}</span>
+            </span>
+          </div>
+
+          {/* Form */}
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="cardNumber" className="text-[13px] font-medium text-gray-800 mb-1 block">
+                SỐ THẺ
+              </Label>
+              <Input
+                id="cardNumber"
+                placeholder="1234 5678 9123 4567"
+                className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
+              />
+            </div>
+            <div>
+              <Label htmlFor="cardHolderName" className="text-[13px] font-medium text-gray-800 mb-1 block">
+                TÊN CHỦ THẺ
+              </Label>
+              <Input
+                id="cardHolderName"
+                placeholder="DANG VU MINH QUAN"
+                className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
+              />
+            </div>
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <Label htmlFor="expiryDate" className="text-[13px] font-medium text-gray-800 mb-1 block">
+                  NGÀY HẾT HẠN
+                </Label>
+                <Input
+                  id="expiryDate"
+                  placeholder="05/2025"
+                  className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
+                />
+              </div>
+              <div className="w-[30%]">
+                <Label htmlFor="cvv" className="text-[13px] font-medium text-gray-800 mb-1 block">
+                  CVV
+                </Label>
+                <Input
+                  id="cvv"
+                  placeholder="466"
+                  className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Confirm Button */}
+          <Button
+            className="w-full bg-black hover:bg-gray-900 text-white py-3 rounded-lg text-[15px] font-semibold mt-8 shadow-md h-12"
+            onClick={handleConfirmPayment} // Use the new handler
+          >
+            XÁC NHẬN VÀ THANH TOÁN
+          </Button>
+
+          {/* Security Message */}
+          <div className="flex items-center justify-center mt-4 text-xs text-gray-500">
+            <Lock className="h-3 w-3 mr-1.5 text-gray-500" />
+            <span>Thanh toán bảo mật và an toàn</span>
+          </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
-
 
 // The rest of your Payment component remains the same
 export default function Payment() {
@@ -140,36 +151,44 @@ export default function Payment() {
     email: "",
   })
   const [selectedPayment, setSelectedPayment] = useState("")
-  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
+  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false)
+  const [isHotelDetailsPopupOpen, setIsHotelDetailsPopupOpen] = useState(false)
 
   const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
 
   const handleOpenPaymentPopup = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsPaymentPopupOpen(true);
-  };
+    e.preventDefault()
+    setIsPaymentPopupOpen(true)
+  }
 
   const handleClosePaymentPopup = () => {
-    setIsPaymentPopupOpen(false);
-  };
+    setIsPaymentPopupOpen(false)
+  }
+
+  const handleOpenHotelDetailsPopup = () => {
+    setIsHotelDetailsPopupOpen(true)
+  }
+
+  const handleCloseHotelDetailsPopup = () => {
+    setIsHotelDetailsPopupOpen(false)
+  }
 
   useEffect(() => {
-    if (isPaymentPopupOpen) {
-      document.body.style.overflow = 'hidden';
+    if (isPaymentPopupOpen || isHotelDetailsPopupOpen) {
+      document.body.style.overflow = "hidden"
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset"
     }
     return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isPaymentPopupOpen]);
-
+      document.body.style.overflow = "unset"
+    }
+  }, [isPaymentPopupOpen, isHotelDetailsPopupOpen])
 
   // For demonstration, let's use the total amount from your page for the popup
   // You might want to calculate this dynamically or pass the specific booking amount if needed.
   // The image of the popup showed "1.078.000đ", but the total on the page is "3.324.000đ".
   // I'll stick to the popup image's amount for now.
-  const paymentPopupAmount = "1.078.000đ"; // Or "3.324.000đ" from your total
+  const paymentPopupAmount = "1.078.000đ" // Or "3.324.000đ" from your total
 
   return (
     <div className="min-h-screen bg-white">
@@ -257,6 +276,12 @@ export default function Payment() {
               <span className="font-medium">Tổng tiền: 1.078.000đ</span>
             </div>
           </div>
+          <Button
+            onClick={handleOpenHotelDetailsPopup}
+            className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg"
+          >
+            Xem chi tiết khách sạn
+          </Button>
         </div>
 
         {/* Customer Information */}
@@ -416,6 +441,67 @@ export default function Payment() {
         onClose={handleClosePaymentPopup}
         amount={paymentPopupAmount}
       />
+      <HotelDetailsPopup isOpen={isHotelDetailsPopupOpen} onClose={handleCloseHotelDetailsPopup} />
+    </div>
+  )
+}
+
+interface HotelDetailsPopupProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+function HotelDetailsPopup({ isOpen, onClose }: HotelDetailsPopupProps) {
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+
+      {/* Popup Content */}
+      <div
+        className={`relative w-full max-w-md bg-white rounded-t-3xl shadow-lg h-[90vh] flex flex-col transform transition-transform duration-300 ease-out
+          ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+      >
+        {/* Header */}
+        <div className="w-full py-4 bg-[#0a0a0a] text-white flex items-center justify-center relative rounded-t-3xl">
+          <h1 className="text-center text-xl font-semibold">Chi tiết Khách sạn 69 Boutique</h1>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/10"
+            onClick={onClose}
+          >
+            <X className="h-6 w-6" />
+          </Button>
+        </div>
+
+        {/* Main Content - Hotel Details */}
+        <div className="flex-1 p-4 overflow-y-auto">
+          <h2 className="text-lg font-bold mb-2">Về Khách sạn 69 Boutique</h2>
+          <p className="text-sm text-gray-700 mb-4">
+            Khách sạn 69 Boutique tọa lạc tại trung tâm thành phố, mang đến trải nghiệm lưu trú sang trọng và tiện nghi.
+            Với thiết kế hiện đại, các phòng nghỉ rộng rãi và đầy đủ tiện ích, chúng tôi cam kết mang lại sự thoải mái
+            tối đa cho quý khách.
+          </p>
+          <h3 className="text-md font-semibold mb-2">Tiện ích nổi bật:</h3>
+          <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+            <li>Hồ bơi vô cực trên tầng thượng</li>
+            <li>Nhà hàng cao cấp với ẩm thực đa dạng</li>
+            <li>Phòng gym hiện đại 24/7</li>
+            <li>Spa thư giãn với các liệu pháp chuyên sâu</li>
+            <li>Dịch vụ phòng 24 giờ</li>
+            <li>Wi-Fi tốc độ cao miễn phí</li>
+            <li>Bãi đậu xe rộng rãi</li>
+          </ul>
+          <h3 className="text-md font-semibold mt-4 mb-2">Vị trí:</h3>
+          <p className="text-sm text-gray-700">
+            Số 69, Đường ABC, Quận XYZ, Thành phố HCM. Gần các điểm tham quan nổi tiếng và khu mua sắm.
+          </p>
+          {/* Add more details as needed */}
+        </div>
+      </div>
     </div>
   )
 }

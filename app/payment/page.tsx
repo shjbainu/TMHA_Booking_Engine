@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import type React from "react"
+
+import { useState, useEffect } from "react"
 import { ArrowLeft, RotateCcw, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { ProgressIndicator } from "@/components/progress-indicator"
 import Link from "next/link"
 import { paymentMethods } from "@/lib/data"
+import VisaMastercardPaymentPopup from "@/components/visa-mastercard-payment-popup" // Correct default import
 
 export default function Payment() {
   const [customer, setCustomer] = useState({
@@ -17,8 +20,31 @@ export default function Payment() {
     email: "",
   })
   const [selectedPayment, setSelectedPayment] = useState("")
+  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false)
 
   const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
+
+  const handleOpenPaymentPopup = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsPaymentPopupOpen(true)
+  }
+
+  const handleClosePaymentPopup = () => {
+    setIsPaymentPopupOpen(false)
+  }
+
+  useEffect(() => {
+    if (isPaymentPopupOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "unset"
+    }
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [isPaymentPopupOpen])
+
+  const paymentPopupAmount = "1.078.000đ" // Or "3.324.000đ" from your total
 
   return (
     <div className="min-h-screen bg-white">
@@ -250,13 +276,21 @@ export default function Payment() {
           <span className="text-blue-600">Xem chi tiết</span>
         </div>
 
-        {/* Confirm Button */}
-        <Link href="/confirmation">
-          <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg">
-            Xác nhận & thanh toán
-          </Button>
-        </Link>
+        {/* Confirm Button - Modified to open popup */}
+        <Button
+          onClick={handleOpenPaymentPopup}
+          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg"
+        >
+          Xác nhận & thanh toán
+        </Button>
       </div>
+
+      {/* Render the Visa/Mastercard Payment Popup */}
+      <VisaMastercardPaymentPopup
+        isOpen={isPaymentPopupOpen}
+        onClose={handleClosePaymentPopup}
+        amount={paymentPopupAmount}
+      />
     </div>
   )
 }
