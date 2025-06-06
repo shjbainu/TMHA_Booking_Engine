@@ -17,9 +17,9 @@ interface CalendarSelectionPopupProps {
 
 // Helper to get price category
 const getPriceCategory = (price: number) => {
-  if (price <= 400000) return "medium" // Orange/Amber
-  if (price > 500000) return "high"   // Red
-  return "low" // Gray for prices between 400k and 500k in the image
+  if (price > 500000) return "high"   // Cao điểm
+  if (price <= 400000) return "medium" // Trung bình
+  return "low" // Cơ bản (các mức giá còn lại)
 }
 
 // Mock data for prices, adjusted to match the image's color logic better
@@ -27,7 +27,7 @@ const mockPrices: { [key: string]: number } = {
   "2025-06-01": 500000, "2025-06-02": 400000, "2025-06-03": 400000, "2025-06-04": 400000, "2025-06-05": 400000,
   "2025-06-06": 400000, "2025-06-07": 650000, "2025-06-08": 400000, "2025-06-09": 400000, "2025-06-10": 400000,
   "2025-06-11": 400000, "2025-06-12": 500000, "2025-06-13": 500000, "2025-06-14": 650000, "2025-06-15": 400000,
-  "2025-06-16": 400000, "2S-06-17": 400000, "2025-06-18": 400000, "2025-06-19": 500000, "2025-06-20": 500000,
+  "2025-06-16": 400000, "2025-06-17": 400000, "2025-06-18": 400000, "2025-06-19": 500000, "2025-06-20": 500000,
   "2025-06-21": 650000, "2025-06-22": 400000, "2025-06-23": 400000, "2025-06-24": 400000, "2025-06-25": 400000,
   "2025-06-26": 500000, "2025-06-27": 500000, "2025-06-28": 650000, "2025-06-29": 400000, "2025-06-30": 400000,
   // Add other months data here if needed...
@@ -45,9 +45,8 @@ export default function CalendarSelectionPopup({
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(initialStartDate)
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(initialEndDate)
   const today = useMemo(() => new Date(), [])
-  const currentMonthStart = useMemo(() => startOfMonth(new Date()), []) // Start from current month
+  const currentMonthStart = useMemo(() => startOfMonth(new Date()), [])
 
-  // This part is just for mocking disabled dates, not relevant to the fix.
   const [bookedDates, setBookedDates] = useState<Set<string>>(new Set(["2025-06-09", "2025-06-14"]))
   const isFullyBooked = useCallback((date: Date) => bookedDates.has(format(date, "yyyy-MM-dd")), [bookedDates])
   
@@ -85,9 +84,6 @@ export default function CalendarSelectionPopup({
   const isDateRangeStart = useCallback((date: Date) => selectedStartDate && isSameDay(date, selectedStartDate), [selectedStartDate])
   const isDateRangeEnd = useCallback((date: Date) => selectedEndDate && isSameDay(date, selectedEndDate), [selectedEndDate])
 
-  // =================================================================
-  //  BẮT ĐẦU PHẦN SỬA LỖI GIAO DIỆN
-  // =================================================================
   const getDayClasses = useCallback(
     (date: Date, price: number | undefined) => {
       const isPastOrBooked = (isBefore(date, today) && !isSameDay(date, today)) || isFullyBooked(date)
@@ -96,34 +92,26 @@ export default function CalendarSelectionPopup({
       const isEnd = isDateRangeEnd(date)
       const inRange = selectedStartDate && selectedEndDate && isWithinInterval(date, { start: selectedStartDate, end: selectedEndDate }) && !isStart && !isEnd
 
-      // Base classes for a square, rounded, centered cell
       let baseClasses = "aspect-square rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all duration-200"
-
       let dynamicClasses = ""
 
       if (isPastOrBooked) {
         dynamicClasses = "bg-gray-100 text-gray-400 cursor-not-allowed opacity-70"
       } else if (isSelected) {
-        // Styling for selected dates (start, end, in-between)
         dynamicClasses = "bg-blue-500 text-white font-bold"
-        if (isStart && !isEnd) {
-           dynamicClasses += " rounded-r-none" // Start of range
-        } else if (isEnd && !isStart) {
-           dynamicClasses += " rounded-l-none" // End of range
-        } else if(inRange){
-           dynamicClasses += " rounded-none" // In-between range
-        }
+        if (isStart && !isEnd) dynamicClasses += " rounded-r-none"
+        else if (isEnd && !isStart) dynamicClasses += " rounded-l-none"
+        else if(inRange) dynamicClasses += " rounded-none"
       } else {
-        // Styling for available, unselected dates based on price
         const category = price ? getPriceCategory(price) : 'low'
         switch (category) {
-          case "high": // Red for > 500k
+          case "high":
             dynamicClasses = "bg-white border-2 border-red-500 text-red-600"
             break
-          case "medium": // Orange for <= 400k
+          case "medium":
             dynamicClasses = "bg-white border-2 border-orange-400 text-orange-500"
             break
-          default: // Gray for other prices (e.g., 500k)
+          default:
             dynamicClasses = "bg-gray-100 text-gray-600"
         }
          dynamicClasses += " hover:bg-gray-200"
@@ -134,11 +122,6 @@ export default function CalendarSelectionPopup({
     [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked],
   )
   
-  // =================================================================
-  //  KẾT THÚC PHẦN SỬA LỖI GIAO DIỆN
-  // =================================================================
-
-
   const getDayPrice = (date: Date) => {
     const dateKey = format(date, "yyyy-MM-dd")
     return mockPrices[dateKey]
@@ -173,7 +156,6 @@ export default function CalendarSelectionPopup({
         </div>
       )
     }
-    // Fallback text if only start date or no date is selected
     return (
         <div className="flex items-center justify-center w-full">
             <span className="text-base text-gray-700">Vui lòng chọn ngày nhận và trả phòng</span>
@@ -192,31 +174,26 @@ export default function CalendarSelectionPopup({
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white rounded-t-3xl h-[95vh] flex flex-col">
-        {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
-          <div className="w-8"></div> {/* Spacer */}
+          <div className="w-8"></div>
           <h2 className="text-lg font-bold text-center">Thời gian đặt phòng</h2>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-5 w-5" />
           </Button>
         </div>
 
-        {/* Main Content */}
         <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
-           {/* Booking Tabs */}
           <div className="flex rounded-full p-1 bg-black mb-4">
             <Button onClick={() => setActiveTab("day")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "day" ? "bg-white text-black" : "bg-black text-white"}`}>Theo ngày</Button>
             <Button onClick={() => setActiveTab("hour")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "hour" ? "bg-white text-black" : "bg-black text-white"}`}>Theo giờ</Button>
             <Button onClick={() => setActiveTab("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
-          {/* Selected Date Display */}
           <div className="bg-cyan-100 rounded-xl p-2 flex items-center justify-center text-black shadow-inner min-h-[80px] mb-4">
             {selectedRangeText}
           </div>
 
-          {/* Calendar View */}
-          <div className="flex-1 overflow-y-auto space-y-4 pb-24"> {/* Added pb for spacing */}
+          <div className="flex-1 overflow-y-auto space-y-4 pb-24">
             {monthsToDisplay.map((monthDate, monthIndex) => {
               const year = monthDate.getFullYear()
               const month = monthDate.getMonth()
@@ -226,9 +203,32 @@ export default function CalendarSelectionPopup({
 
               return (
                 <div key={monthIndex}>
-                  <h3 className="text-base font-bold text-gray-800 mb-3 px-2">
-                    {format(monthDate, "MMMM yyyy", { locale: vi })}
-                  </h3>
+                  {/* ================================================================= */}
+                  {/*  BẮT ĐẦU PHẦN CODE MỚI: HEADER CỦA THÁNG VỚI CHÚ THÍCH GIÁ      */}
+                  {/* ================================================================= */}
+                  <div className="flex items-center justify-between mb-3 px-2">
+                    <h3 className="text-base font-bold text-gray-800">
+                      {format(monthDate, "MMMM yyyy", { locale: vi })}
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                        <span className="text-xs text-gray-600">Cơ bản</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div>
+                        <span className="text-xs text-gray-600">Trung bình</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                        <span className="text-xs text-gray-600">Cao điểm</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* ================================================================= */}
+                  {/*  KẾT THÚC PHẦN CODE MỚI                                          */}
+                  {/* ================================================================= */}
+                  
                   <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
                     {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
                   </div>
@@ -249,7 +249,6 @@ export default function CalendarSelectionPopup({
                           aria-disabled={isPastOrBooked}
                         >
                           <span className="text-base font-semibold">{format(day, "d")}</span>
-                          {/* SỬA LỖI: Bỏ mt-1 để căn giữa tốt hơn */}
                           {!isPastOrBooked && <span className="text-[10px] font-medium">{formattedPrice}</span>}
                         </div>
                       )
@@ -260,7 +259,6 @@ export default function CalendarSelectionPopup({
             })}
           </div>
 
-          {/* Bottom Summary and Apply Button */}
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
             <div className="flex items-center justify-between">
               <div>
