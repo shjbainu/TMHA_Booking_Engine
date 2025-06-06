@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { ProgressIndicator } from "@/components/progress-indicator"
 import Link from "next/link"
-import { paymentMethods } from "@/lib/data"
+import { paymentMethods as availablePaymentMethods } from "@/lib/data"
 import VisaMastercardPaymentPopup from "@/components/visa-mastercard-payment-popup"
 
 export default function Payment() {
@@ -248,7 +248,7 @@ export default function Payment() {
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
           <div className="space-y-3">
-            {paymentMethods.map((method) => (
+            {availablePaymentMethods.map((method) => (
               <div
                 key={method.id}
                 className={`flex items-center gap-3 p-3 rounded-lg border shadow-sm cursor-pointer ${
