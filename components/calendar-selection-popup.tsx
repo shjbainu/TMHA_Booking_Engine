@@ -168,8 +168,8 @@ export default function CalendarSelectionPopup({
         <div className="flex items-center gap-2">
           <div className="text-4xl font-bold">{format(date, "d")}</div>
           <div>
-            <div className="text-sm font-semibold">{format(date, "EEEE", { locale: vi })}</div>
-            <div className="text-sm text-gray-600">{format(date, "MMMM", { locale: vi })}</div>
+            <div className="text-xs font-semibold">{format(date, "EEEE", { locale: vi })}</div>
+            <div className="text-xs text-gray-600">{format(date, "MMMM", { locale: vi })}</div>
           </div>
         </div>
       );
