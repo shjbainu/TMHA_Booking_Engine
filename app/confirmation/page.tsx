@@ -36,7 +36,7 @@ export default function PaymentConfirmation() {
 
           {/* Room Image */}
           <div className="relative aspect-[16/10] rounded-lg overflow-hidden mb-4">
-            <Image src="/public/images/confirmation-room.png" alt="Hotel room" fill className="object-cover" />
+            <Image src="/images/confirmation-room.png" alt="Hotel room" fill className="object-cover" />
           </div>
         </div>
 

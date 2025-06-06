@@ -35,19 +35,19 @@ export default function HotelPhotosPage() {
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="h-10 w-10">
           <img 
-  src="../images/heart.png" 
+  src="/images/Trái tim.png" 
   alt="Mô tả về hình ảnh khách sạn"
 />
           </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10">
           <img 
-  src="../images/map.png" 
+  src="/images/Bản đồ.png" 
   alt="Mô tả về hình ảnh khách sạn"
 />
           </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10">
           <img 
-  src="../images/share.png" 
+  src="/images/Chia sẻ.png" 
   alt="Mô tả về hình ảnh khách sạn"
 />
           </Button>
@@ -485,14 +485,14 @@ export default function HotelPhotosPage() {
   <div className="w-full max-w-md">
     {/* Dùng flex và justify-around để tự động căn chỉnh khoảng cách */}
     <div className="flex items-center justify-around px-1 py-1.5">
-      
+
       {/* Button Tổng quan */}
       <Button
         variant="ghost"
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-gray-600 hover:bg-gray-100 focus:bg-orange-50 focus:text-orange-500 rounded-lg"
       >
-        <img 
-          src="/images/gen.png" // Sửa đường dẫn
+        <img
+          src="/images/Tổng quan.png" // Sửa đường dẫn
           alt="Tổng quan"
           className="h-7 w-7 mb-1" // Thêm class để chỉnh kích thước và khoảng cách
         />
@@ -504,12 +504,12 @@ export default function HotelPhotosPage() {
         variant="ghost"
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-gray-600 hover:bg-gray-100 focus:bg-orange-50 focus:text-orange-500 rounded-lg"
       >
-        <img 
-          src="/images/amenliti.png" 
+        <img
+          src="/images/amenliti.png"
           alt="Tiện ích"
           className="h-7 w-7 mb-1"
         />
-         <span className="text-xs font-medium">Tiện ích</span>
+        <span className="text-xs font-medium">Tiện ích</span>
       </Button>
 
       {/* Button Đánh giá */}
@@ -517,25 +517,25 @@ export default function HotelPhotosPage() {
         variant="ghost"
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-gray-600 hover:bg-gray-100 focus:bg-orange-50 focus:text-orange-500 rounded-lg"
       >
-        <img 
-          src="/images/star.jpg" 
+        <img
+          src="/images/star.jpg"
           alt="Đánh giá"
           className="h-7 w-7 mb-1"
         />
-         <span className="text-xs font-medium">Đánh giá</span>
+        <span className="text-xs font-medium">Đánh giá</span>
       </Button>
 
       {/* Button Xem thêm */}
-       <Button
+      <Button
         variant="ghost"
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-gray-600 hover:bg-gray-100 focus:bg-orange-50 focus:text-orange-500 rounded-lg"
       >
-        <img 
-          src="/images/more.png" 
+        <img
+          src="/images/more.png"
           alt="Xem thêm"
           className="h-7 w-7 mb-1"
         />
-         <span className="text-xs font-medium">Xem thêm</span>
+        <span className="text-xs font-medium">Xem thêm</span>
       </Button>
 
       {/* Nút Đặt phòng */}
@@ -549,9 +549,9 @@ export default function HotelPhotosPage() {
           </svg>
         </a>
       </Link>
-      
+
     </div>
   </div>
 </div>
-  )
+  );
 }
