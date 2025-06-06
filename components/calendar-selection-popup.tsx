@@ -176,7 +176,7 @@ export default function CalendarSelectionPopup({
       <div className="relative w-full max-w-md bg-white rounded-t-3xl h-[95vh] flex flex-col">
         <div className="flex items-center justify-between p-4 border-b">
           <div className="w-8"></div>
-          <h2 className="text-lg font-bold text-center">Thời gian đặt phòng</h2>
+          
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-5 w-5" />
           </Button>
