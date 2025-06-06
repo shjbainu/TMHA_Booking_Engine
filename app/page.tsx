@@ -507,7 +507,7 @@ export default function HotelPhotosPage() {
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
             <img 
-  src="../images/star.png" 
+  src="../images/star.jpg" 
   alt="Mô tả về hình ảnh khách sạn"
 />
             </Button>
