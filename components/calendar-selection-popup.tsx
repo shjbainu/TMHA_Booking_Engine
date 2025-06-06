@@ -4,9 +4,6 @@ import { useEffect } from "react"
 import { useState, useMemo, useCallback } from "react"
 import { Calendar, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-// =================================================================
-//  THAY ĐỔI 1: Thêm 'addDays' vào import
-// =================================================================
 import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay, addDays } from "date-fns"
 import { vi } from "date-fns/locale"
 
@@ -36,29 +33,34 @@ export default function CalendarSelectionPopup({
   const [activeTab, setActiveTab] = useState<"day" | "hour" | "overnight">("day")
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(initialStartDate)
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(initialEndDate)
+  
+  // =================================================================
+  //  THAY ĐỔI 1: Thêm state cho các dropdown "Theo giờ"
+  // =================================================================
+  const [checkInTime, setCheckInTime] = useState<string>("14:00");
+  const [hoursOfUse, setHoursOfUse] = useState<number>(2);
+
+  // Dữ liệu cho các dropdown
+  const checkInTimeOptions = useMemo(() => Array.from({ length: 15 }, (_, i) => `${String(i + 8).padStart(2, '0')}:00`), []);
+  const hoursOfUseOptions = useMemo(() => [2, 3, 4, 5, 6], []);
+
+
   const today = useMemo(() => new Date(), [])
   const currentMonthStart = useMemo(() => startOfMonth(new Date()), [])
 
   const generatedPrices = useMemo(() => {
     const prices: { [key: string]: number } = {}
     const startDate = new Date()
-
     for (let i = 0; i < 12; i++) {
       const currentMonth = addMonths(startDate, i)
       const daysInMonth = getDaysInMonth(currentMonth)
-
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)
         const dayOfWeek = getDay(date)
         const dateKey = format(date, "yyyy-MM-dd")
-        
-        if (dayOfWeek === 5 || dayOfWeek === 6) {
-          prices[dateKey] = 650000
-        } else if (dayOfWeek === 0) {
-          prices[dateKey] = 500000
-        } else {
-          prices[dateKey] = 400000
-        }
+        if (dayOfWeek === 5 || dayOfWeek === 6) prices[dateKey] = 650000
+        else if (dayOfWeek === 0) prices[dateKey] = 500000
+        else prices[dateKey] = 400000
       }
     }
     return prices
@@ -69,43 +71,35 @@ export default function CalendarSelectionPopup({
     return generatedPrices[dateKey]
   }, [generatedPrices])
 
-  const [bookedDates, setBookedDates] = useState<Set<string>>(new Set()) // Simulating some booked dates
+  const [bookedDates, setBookedDates] = useState<Set<string>>(new Set())
   const isFullyBooked = useCallback((date: Date) => bookedDates.has(format(date, "yyyy-MM-dd")), [bookedDates])
   
   const monthsToDisplay = useMemo(() => {
     return Array.from({ length: 12 }, (_, i) => addMonths(currentMonthStart, i));
   }, [currentMonthStart]);
 
-
-  // =================================================================
-  //  THAY ĐỔI 2: Cập nhật `handleDateClick` với logic "Qua đêm"
-  // =================================================================
   const handleDateClick = useCallback(
     (date: Date) => {
-      // Ngày không hợp lệ (quá khứ hoặc đã được đặt)
       if ((isBefore(date, today) && !isSameDay(date, today)) || isFullyBooked(date)) {
         return
       }
-
-      // Logic cho tab "Qua đêm"
+      
+      // =================================================================
+      //  THAY ĐỔI 2: Cập nhật logic click cho từng tab
+      // =================================================================
       if (activeTab === 'overnight') {
         const nextDay = addDays(date, 1);
-        
-        // Kiểm tra xem ngày tiếp theo có hợp lệ không
         if (isFullyBooked(nextDay)) {
-          // Có thể hiển thị thông báo cho người dùng ở đây
           console.warn("Ngày hôm sau đã được đặt, không thể chọn qua đêm.");
-          setSelectedStartDate(null); // Xóa lựa chọn cũ nếu có
-          setSelectedEndDate(null);
           return;
         }
-
-        // Nếu hợp lệ, chọn luôn 1 đêm
         setSelectedStartDate(date);
         setSelectedEndDate(nextDay);
-      
-      // Logic cho tab "Theo ngày"
-      } else {
+      } else if (activeTab === 'hour') {
+        // Ở chế độ theo giờ, chỉ cần chọn 1 ngày
+        setSelectedStartDate(date);
+        setSelectedEndDate(null);
+      } else { // 'day'
         if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
           setSelectedStartDate(date)
           setSelectedEndDate(null)
@@ -117,12 +111,9 @@ export default function CalendarSelectionPopup({
         }
       }
     },
-    [activeTab, selectedStartDate, selectedEndDate, today, isFullyBooked], // Thêm activeTab vào dependencies
+    [activeTab, selectedStartDate, selectedEndDate, today, isFullyBooked],
   )
 
-  // =================================================================
-  //  THAY ĐỔI 3: Thêm hàm xử lý chuyển tab để xóa ngày đã chọn
-  // =================================================================
   const handleTabChange = (tab: "day" | "hour" | "overnight") => {
     setActiveTab(tab);
     setSelectedStartDate(null);
@@ -131,13 +122,16 @@ export default function CalendarSelectionPopup({
 
   const isDateSelected = useCallback((date: Date) => {
     if (!selectedStartDate) return false
+    // Chế độ "Theo giờ" chỉ highlight 1 ngày
+    if (activeTab === 'hour') return isSameDay(date, selectedStartDate);
+    
     if (selectedStartDate && !selectedEndDate) return isSameDay(date, selectedStartDate)
     if (selectedStartDate && selectedEndDate) return isWithinInterval(date, { start: selectedStartDate, end: selectedEndDate })
     return false
-  }, [selectedStartDate, selectedEndDate])
+  }, [activeTab, selectedStartDate, selectedEndDate])
 
-  const isDateRangeStart = useCallback((date: Date) => selectedStartDate && isSameDay(date, selectedStartDate), [selectedStartDate])
-  const isDateRangeEnd = useCallback((date: Date) => selectedEndDate && isSameDay(date, selectedEndDate), [selectedEndDate])
+  const isDateRangeStart = useCallback((date: Date) => activeTab !== 'hour' && selectedStartDate && isSameDay(date, selectedStartDate), [activeTab, selectedStartDate])
+  const isDateRangeEnd = useCallback((date: Date) => activeTab !== 'hour' && selectedEndDate && isSameDay(date, selectedEndDate), [activeTab, selectedEndDate])
 
   const getDayClasses = useCallback(
     (date: Date, price: number | undefined) => {
@@ -145,7 +139,7 @@ export default function CalendarSelectionPopup({
       const isSelected = isDateSelected(date)
       const isStart = isDateRangeStart(date)
       const isEnd = isDateRangeEnd(date)
-      const inRange = selectedStartDate && selectedEndDate && isWithinInterval(date, { start: selectedStartDate, end: selectedEndDate }) && !isStart && !isEnd
+      const inRange = activeTab !== 'hour' && selectedStartDate && selectedEndDate && isWithinInterval(date, { start: selectedStartDate, end: selectedEndDate }) && !isStart && !isEnd
 
       let baseClasses = "aspect-square rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all duration-200"
       let dynamicClasses = ""
@@ -160,58 +154,61 @@ export default function CalendarSelectionPopup({
       } else {
         const category = price ? getPriceCategory(price) : 'low'
         switch (category) {
-          case "high":
-            dynamicClasses = "bg-white border-2 border-red-500 text-red-600"
-            break
-          case "medium":
-            dynamicClasses = "bg-white border-2 border-orange-400 text-orange-500"
-            break
-          default:
-            dynamicClasses = "bg-green-50 border-2 border-green-500 text-green-700"
+          case "high": dynamicClasses = "bg-white border-2 border-red-500 text-red-600"; break
+          case "medium": dynamicClasses = "bg-white border-2 border-orange-400 text-orange-500"; break
+          default: dynamicClasses = "bg-green-50 border-2 border-green-500 text-green-700"; break
         }
          dynamicClasses += " hover:bg-gray-200"
       }
-
       return `${baseClasses} ${dynamicClasses}`
     },
-    [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked],
+    [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked, activeTab],
   )
   
   const selectedRangeText = useMemo(() => {
-    if (selectedStartDate && selectedEndDate) {
-      const startDay = format(selectedStartDate, "d")
-      const startWeekday = format(selectedStartDate, "EEEE", { locale: vi })
-      const startMonth = format(selectedStartDate, "MMMM", { locale: vi })
-      const endDay = format(selectedEndDate, "d")
-      const endWeekday = format(selectedEndDate, "EEEE", { locale: vi })
-      const endMonth = format(selectedEndDate, "MMMM", { locale: vi })
-      const diffDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24))
+    // =================================================================
+    //  THAY ĐỔI 3: Thêm hiển thị cho tab "Theo giờ"
+    // =================================================================
+    if (activeTab === 'hour' && selectedStartDate) {
+      return (
+        <div className="flex items-center justify-center w-full text-center">
+          <span className="font-semibold">
+            {format(selectedStartDate, "EEEE, dd/MM/yyyy", { locale: vi })}
+            <br />
+            lúc {checkInTime} (sử dụng {hoursOfUse} giờ)
+          </span>
+        </div>
+      )
+    }
 
+    if ((activeTab === 'day' || activeTab === 'overnight') && selectedStartDate && selectedEndDate) {
+      const diffDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24))
       return (
         <div className="flex items-center justify-between w-full px-2">
           <div className="text-center">
-            <div className="text-3xl font-bold">{startDay}</div>
-            <div className="text-xs">{startWeekday}</div>
-            <div className="text-xs text-gray-600">{startMonth}</div>
+            <div className="text-3xl font-bold">{format(selectedStartDate, "d")}</div>
+            <div className="text-xs">{format(selectedStartDate, "EEEE", { locale: vi })}</div>
+            <div className="text-xs text-gray-600">{format(selectedStartDate, "MMMM", { locale: vi })}</div>
           </div>
           <div className="text-center">
             <div className="text-sm font-semibold text-black">({diffDays} đêm)</div>
             <div className="w-12 h-px bg-black mx-auto mt-1"></div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold">{endDay}</div>
-            <div className="text-xs">{endWeekday}</div>
-            <div className="text-xs text-gray-600">{endMonth}</div>
+            <div className="text-3xl font-bold">{format(selectedEndDate, "d")}</div>
+            <div className="text-xs">{format(selectedEndDate, "EEEE", { locale: vi })}</div>
+            <div className="text-xs text-gray-600">{format(selectedEndDate, "MMMM", { locale: vi })}</div>
           </div>
         </div>
       )
     }
+    
     return (
         <div className="flex items-center justify-center w-full">
-            <span className="text-base text-gray-700">Vui lòng chọn ngày nhận và trả phòng</span>
+            <span className="text-base text-gray-700">Vui lòng chọn ngày</span>
         </div>
     )
-  }, [selectedStartDate, selectedEndDate])
+  }, [activeTab, selectedStartDate, selectedEndDate, checkInTime, hoursOfUse])
 
   const handleApplyClick = () => {
     onApply(selectedStartDate, selectedEndDate)
@@ -228,19 +225,53 @@ export default function CalendarSelectionPopup({
         <div className="flex items-center justify-between p-4 border-b">
           <div className="w-8"></div>
           <h2 className="text-lg font-bold text-center">Thời gian đặt phòng</h2>
-          <Button variant="ghost" size="icon" onClick={onClose}>
-            <X className="h-5 w-5" />
-          </Button>
+          <Button variant="ghost" size="icon" onClick={onClose}><X className="h-5 w-5" /></Button>
         </div>
 
         <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
           <div className="flex rounded-full p-1 bg-black mb-4">
-            {/* Sử dụng hàm handleTabChange mới */}
             <Button onClick={() => handleTabChange("day")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "day" ? "bg-white text-black" : "bg-black text-white"}`}>Theo ngày</Button>
             <Button onClick={() => handleTabChange("hour")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "hour" ? "bg-white text-black" : "bg-black text-white"}`}>Theo giờ</Button>
             <Button onClick={() => handleTabChange("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
+          {/* ================================================================= */}
+          {/*  THAY ĐỔI 4: Thêm khối dropdown hiển thị có điều kiện
+          {/* ================================================================= */}
+          {activeTab === 'hour' && (
+            <div className="flex items-center gap-4 mb-4">
+              {/* Dropdown Giờ nhận phòng */}
+              <div className="flex-1">
+                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">
+                  Giờ nhận phòng
+                </label>
+                <select
+                  id="check-in-time"
+                  value={checkInTime}
+                  onChange={(e) => setCheckInTime(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                >
+                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
+                </select>
+              </div>
+
+              {/* Dropdown Số giờ sử dụng */}
+              <div className="flex-1">
+                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">
+                  Số giờ sử dụng
+                </label>
+                <select
+                  id="hours-of-use"
+                  value={hoursOfUse}
+                  onChange={(e) => setHoursOfUse(Number(e.target.value))}
+                  className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                >
+                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
+                </select>
+              </div>
+            </div>
+          )}
+
           <div className="bg-orange-100 rounded-xl p-2 flex items-center justify-center text-black shadow-inner min-h-[80px] mb-4">
             {selectedRangeText}
           </div>
@@ -256,22 +287,11 @@ export default function CalendarSelectionPopup({
               return (
                 <div key={monthIndex}>
                   <div className="flex items-center justify-between mb-3 px-2">
-                    <h3 className="text-base font-bold text-gray-800">
-                      {format(monthDate, "MMMM yyyy", { locale: vi })}
-                    </h3>
+                    <h3 className="text-base font-bold text-gray-800">{format(monthDate, "MMMM yyyy", { locale: vi })}</h3>
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                        <span className="text-xs text-gray-600">Cơ bản</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div>
-                        <span className="text-xs text-gray-600">Trung bình</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-                        <span className="text-xs text-gray-600">Cao điểm</span>
-                      </div>
+                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div><span className="text-xs text-gray-600">Cơ bản</span></div>
+                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div><span className="text-xs text-gray-600">Trung bình</span></div>
+                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div><span className="text-xs text-gray-600">Cao điểm</span></div>
                     </div>
                   </div>
                   
@@ -280,13 +300,10 @@ export default function CalendarSelectionPopup({
                   </div>
                   <div className="grid grid-cols-7 gap-1">
                     {calendarDays.map((day, dayIndex) => {
-                      if (!day) {
-                        return <div key={`empty-${dayIndex}`} />
-                      }
+                      if (!day) return <div key={`empty-${dayIndex}`} />
                       const price = getDayPrice(day)
                       const formattedPrice = price ? `${Math.round(price / 1000)}k` : ""
                       const isPastOrBooked = (isBefore(day, today) && !isSameDay(day, today)) || isFullyBooked(day)
-
                       return (
                         <div
                           key={day.toISOString()}
@@ -314,7 +331,7 @@ export default function CalendarSelectionPopup({
               <Button
                 className="bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-lg font-bold text-base"
                 onClick={handleApplyClick}
-                disabled={!selectedStartDate || !selectedEndDate}
+                disabled={!selectedStartDate}
               >
                 ÁP DỤNG
               </Button>
