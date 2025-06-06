@@ -33,7 +33,12 @@ export default function HotelPhotosPage() {
           <ArrowLeft className="h-6 w-6 text-[#0a0a0a]" />
         </Button>
         <div className="flex items-center">
-          <Button variant="ghost" size="icon" className="h-10 w-10"></Button>
+          <Button variant="ghost" size="icon" className="h-10 w-10">
+          <img 
+  src="../images/hotel_8375675.png" 
+  alt="Mô tả về hình ảnh khách sạn"
+/>
+          </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10"></Button>
           <Button variant="ghost" size="icon" className="h-10 w-10"></Button>
         </div>
