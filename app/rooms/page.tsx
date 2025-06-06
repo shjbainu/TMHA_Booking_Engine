@@ -1286,7 +1286,8 @@ export default function RoomSelection() {
               <div className="flex flex-col">{displayDateRange}</div>
             </div>
             {totalSelectedRoomsCount > 0 && (
-             <div className="ml-[40px]"> {/* <-- Cú pháp này cho phép bạn dùng giá trị bất kỳ */}
+             {/* Thay thế khối div cũ của bạn bằng khối này */}
+<div className="ml-10"> {/* <-- THÊM ml-10 (margin-left: 40px) VÀO ĐÂY */}
   <div className="text-lg font-medium text-[#0a0a0a]">
     {totalOverallPrice.toLocaleString()}đ
   </div>
