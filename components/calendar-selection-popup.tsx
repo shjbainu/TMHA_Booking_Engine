@@ -203,22 +203,7 @@ export default function CalendarSelectionPopup({
             <Button onClick={() => handleTabChange("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
-          {activeTab === 'hour' && (
-            <div className="flex items-center gap-4 mb-4">
-              <div className="flex-1">
-                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">Giờ nhận phòng</label>
-                <select id="check-in-time" value={checkInTime} onChange={(e) => setCheckInTime(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
-                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
-                </select>
-              </div>
-              <div className="flex-1">
-                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">Số giờ sử dụng</label>
-                <select id="hours-of-use" value={hoursOfUse} onChange={(e) => setHoursOfUse(Number(e.target.value))} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
-                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
-                </select>
-              </div>
-            </div>
-          )}
+         
 
           <div className="bg-cyan-100 rounded-xl px-4 py-2 flex items-center justify-center text-black shadow-inner mb-4 h-16">
             {selectedRangeText}
@@ -269,7 +254,23 @@ export default function CalendarSelectionPopup({
               );
             })}
           </div>
-
+            <div className="mb-12 pt-10">
+             {activeTab === 'hour' && (
+            <div className="flex items-center gap-4 mb-4">
+              <div className="flex-1">
+                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">Giờ nhận phòng</label>
+                <select id="check-in-time" value={checkInTime} onChange={(e) => setCheckInTime(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
+                </select>
+              </div>
+              <div className="flex-1">
+                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">Số giờ sử dụng</label>
+                <select id="hours-of-use" value={hoursOfUse} onChange={(e) => setHoursOfUse(Number(e.target.value))} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
+                </select>
+              </div>
+            </div>
+          )}</div>
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
             <div className="flex items-center justify-between">
               <div>
