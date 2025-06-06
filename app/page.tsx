@@ -499,36 +499,8 @@ export default function HotelPhotosPage() {
               <span className="text-xs mt-1">Thêm</span>
             </Button>
             <Link href="/rooms" passHref legacyBehavior>
-              <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="text-white"
-                >
-                  <rect
-                    x="4"
-                    y="3"
-                    width="12"
-                    height="18"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                  />
-                  <circle cx="13" cy="12" r="1" fill="currentColor" />
-                  <path d="M6 8H14M6 16H14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  <path
-                    d="M18 9L21 12L18 15M21 12H16"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                  <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
+                <BedDouble className="h-6 w-6 text-white" />
               </a>
             </Link>
           </div>
