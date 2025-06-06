@@ -39,8 +39,18 @@ export default function HotelPhotosPage() {
   alt="Mô tả về hình ảnh khách sạn"
 />
           </Button>
-          <Button variant="ghost" size="icon" className="h-10 w-10"></Button>
-          <Button variant="ghost" size="icon" className="h-10 w-10"></Button>
+          <Button variant="ghost" size="icon" className="h-10 w-10">
+           <img 
+  src="../images/heart.png" 
+  alt="Mô tả về hình ảnh khách sạn"
+/>
+</Button>
+          <Button variant="ghost" size="icon" className="h-10 w-10">
+           <img 
+  src="../images/heart.png" 
+  alt="Mô tả về hình ảnh khách sạn"
+/>
+</Button>
         </div>
       </div>
 
