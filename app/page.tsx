@@ -30,13 +30,13 @@ export default function HotelPhotosPage() {
         </Button>
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="h-10 w-10">
-            <Image src="/images/Trái tim.png" alt="Biểu tượng trái tim" width={24} height={24} />
+            <Image src="/images/favorite_navigation.png" alt="Biểu tượng trái tim" width={24} height={24} />
           </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10">
-            <Image src="/images/Bản đồ.png" alt="Biểu tượng bản đồ" width={24} height={24} />
+            <Image src="/images/location_navigation.png" alt="Biểu tượng bản đồ" width={24} height={24} />
           </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10">
-            <Image src="/images/Chia sẻ.png" alt="Biểu tượng chia sẻ" width={24} height={24} />
+            <Image src="/images/share_navigation.png" alt="Biểu tượng chia sẻ" width={24} height={24} />
           </Button>
         </div>
       </div>
