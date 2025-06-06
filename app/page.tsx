@@ -500,7 +500,7 @@ export default function HotelPhotosPage() {
             </Button>
             <Link href="/rooms" passHref legacyBehavior>
                   <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
-                <BedDouble className="h-6 w-6 text-white" />
+                <div className="h-6 w-6 text-white" />
               </a>
             </Link>
           </div>
