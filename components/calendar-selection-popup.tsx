@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 interface CalendarSelectionPopupProps {
   isOpen: boolean
   onClose: () => void
@@ -393,4 +395,218 @@ const mockPrices: { [key: string]: number } = {
   "2025-12-17": 275000,
   "2025-12-18": 400000,
   "2025-12-19": 400000,
-  "2025-12-20": 500000,\
+  "2025-12-20": 500000,
+}
+
+import {
+  add,
+  eachDayOfInterval,
+  endOfMonth,
+  format,
+  isAfter,
+  isBefore,
+  isSameDay,
+  isToday,
+  startOfMonth,
+} from "date-fns"
+import { useState } from "react"
+
+interface Day {
+  date: Date
+  isToday: boolean
+  isSelected: boolean
+  isWithinRange: boolean
+  isStart: boolean
+  isEnd: boolean
+  priceCategory: "low" | "medium" | "high" | null
+}
+
+const CalendarSelectionPopup: React.FC<CalendarSelectionPopupProps> = ({
+  isOpen,
+  onClose,
+  onApply,
+  initialStartDate,
+  initialEndDate,
+}) => {
+  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(initialStartDate || null)
+  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(initialEndDate || null)
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
+
+  const daysInMonth = eachDayOfInterval({
+    start: startOfMonth(currentMonth),
+    end: endOfMonth(currentMonth),
+  })
+
+  const isPastDate = (date: Date) => {
+    return isBefore(date, new Date())
+  }
+
+  const isFullyBooked = (date: Date) => {
+    const dateKey = format(date, "yyyy-MM-dd")
+    return mockPrices[dateKey] === 650000
+  }
+
+  const generateDays = (): Day[] => {
+    return daysInMonth.map((day) => {
+      const isSelected =
+        (selectedStartDate && isSameDay(day, selectedStartDate)) || (selectedEndDate && isSameDay(day, selectedEndDate))
+      const isWithinRange =
+        selectedStartDate && selectedEndDate && isAfter(day, selectedStartDate) && isBefore(day, selectedEndDate)
+      const isStart = selectedStartDate && isSameDay(day, selectedStartDate)
+      const isEnd = selectedEndDate && isSameDay(day, selectedEndDate)
+      const dateKey = format(day, "yyyy-MM-dd")
+      const price = mockPrices[dateKey]
+      const priceCategory = price ? getPriceCategory(price) : null
+
+      return {
+        date: day,
+        isToday: isToday(day),
+        isSelected,
+        isWithinRange,
+        isStart,
+        isEnd,
+        priceCategory,
+      }
+    })
+  }
+
+  const days = generateDays()
+
+  const handleDateSelection = (date: Date) => {
+    if (isPastDate(date) || isFullyBooked(date)) {
+      return // Do not allow selection of past dates
+    }
+
+    if (selectedStartDate && selectedEndDate) {
+      // Reset selection if both dates are already selected
+      setSelectedStartDate(date)
+      setSelectedEndDate(null)
+    } else if (selectedStartDate) {
+      if (isBefore(date, selectedStartDate)) {
+        setSelectedEndDate(selectedStartDate)
+        setSelectedStartDate(date)
+      } else {
+        setSelectedEndDate(date)
+      }
+    } else {
+      setSelectedStartDate(date)
+    }
+  }
+
+  const handleApply = () => {
+    onApply(selectedStartDate, selectedEndDate)
+    onClose()
+  }
+
+  const handleClose = () => {
+    setSelectedStartDate(initialStartDate || null)
+    setSelectedEndDate(initialEndDate || null)
+    onClose()
+  }
+
+  const goToPreviousMonth = () => {
+    setCurrentMonth(add(currentMonth, { months: -1 }))
+  }
+
+  const goToNextMonth = () => {
+    setCurrentMonth(add(currentMonth, { months: 1 }))
+  }
+
+  const getDayClasses = (date: Date, day: Day) => {
+    const { isSelected, isWithinRange, isStart, isEnd } = day
+
+    let bgColor = ""
+    let textColor = "text-gray-700"
+    let borderColor = "border-transparent"
+    let shadowClass = ""
+
+    if (isSelected) {
+      bgColor = "bg-blue-500"
+      textColor = "text-white"
+      shadowClass = "shadow-md"
+    } else if (isWithinRange) {
+      bgColor = "bg-blue-100"
+    }
+
+    if (isStart || isEnd) {
+      borderColor = "border-blue-500"
+    }
+
+    const isPastDate = isBefore(date, new Date())
+
+    return `relative flex flex-col items-center justify-center p-2 rounded-lg aspect-square text-center cursor-pointer transition-all duration-200
+        ${bgColor} ${textColor} ${borderColor} border-2 ${shadowClass}
+        ${isPastDate || isFullyBooked(date) ? "opacity-60 cursor-not-allowed" : "hover:shadow-lg hover:scale-105 active:scale-95"}
+        ${isStart && !isEnd ? "rounded-r-lg" : ""}
+        ${isEnd && !isStart ? "rounded-l-lg" : ""}
+        ${isStart && isEnd && !isSameDay(selectedStartDate!, selectedEndDate!) ? "rounded-lg" : ""}
+        `
+  }
+
+  return (
+    <>
+      {isOpen && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Select Dates</h2>
+              <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="flex justify-between items-center mb-4">
+              <button onClick={goToPreviousMonth}>Previous</button>
+              <h2>{format(currentMonth, "MMMM yyyy")}</h2>
+              <button onClick={goToNextMonth}>Next</button>
+            </div>
+
+            <div className="grid grid-cols-7 gap-2">
+              {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+                <div key={day} className="text-center text-gray-500">
+                  {day}
+                </div>
+              ))}
+
+              {days.map((day) => (
+                <div
+                  key={day.date.toISOString()}
+                  className={getDayClasses(day.date, day)}
+                  onClick={() => handleDateSelection(day.date)}
+                >
+                  <span>{format(day.date, "d")}</span>
+                  {day.priceCategory && (
+                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-xs">
+                      {day.priceCategory === "low" && <div className="w-2 h-2 rounded-full bg-[#a2e5b3]"></div>}
+                      {day.priceCategory === "medium" && <div className="w-2 h-2 rounded-full bg-[#fff2d7]"></div>}
+                      {day.priceCategory === "high" && <div className="w-2 h-2 rounded-full bg-[#ff8b77]"></div>}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-end mt-4">
+              <button
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
+                onClick={handleClose}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleApply}
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+export default CalendarSelectionPopup
