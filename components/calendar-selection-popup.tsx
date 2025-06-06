@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { useState, useMemo, useCallback } from "react"
 import { Calendar, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore } from "date-fns"
+import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay } from "date-fns"
 import { vi } from "date-fns/locale"
 
 interface CalendarSelectionPopupProps {
@@ -18,19 +18,8 @@ interface CalendarSelectionPopupProps {
 // Helper to get price category
 const getPriceCategory = (price: number) => {
   if (price > 500000) return "high"   // Cao điểm
-  if (price <= 400000) return "medium" // Trung bình
-  return "low" // Cơ bản (các mức giá còn lại)
-}
-
-// Mock data for prices, adjusted to match the image's color logic better
-const mockPrices: { [key: string]: number } = {
-  "2025-06-01": 500000, "2025-06-02": 400000, "2025-06-03": 400000, "2025-06-04": 400000, "2025-06-05": 400000,
-  "2025-06-06": 400000, "2025-06-07": 650000, "2025-06-08": 400000, "2025-06-09": 400000, "2025-06-10": 400000,
-  "2025-06-11": 400000, "2025-06-12": 500000, "2025-06-13": 500000, "2025-06-14": 650000, "2025-06-15": 400000,
-  "2025-06-16": 400000, "2025-06-17": 400000, "2025-06-18": 400000, "2025-06-19": 500000, "2025-06-20": 500000,
-  "2025-06-21": 650000, "2025-06-22": 400000, "2025-06-23": 400000, "2025-06-24": 400000, "2025-06-25": 400000,
-  "2025-06-26": 500000, "2025-06-27": 500000, "2025-06-28": 650000, "2025-06-29": 400000, "2025-06-30": 400000,
-  // Add other months data here if needed...
+  if (price > 400000) return "medium" // Trung bình
+  return "low" // Cơ bản
 }
 
 
@@ -46,6 +35,47 @@ export default function CalendarSelectionPopup({
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(initialEndDate)
   const today = useMemo(() => new Date(), [])
   const currentMonthStart = useMemo(() => startOfMonth(new Date()), [])
+
+  // =================================================================
+  //  BẮT ĐẦU PHẦN CODE MỚI: TỰ ĐỘNG TẠO GIÁ CHO TẤT CẢ CÁC THÁNG   
+  // =================================================================
+  const generatedPrices = useMemo(() => {
+    const prices: { [key: string]: number } = {}
+    const startDate = new Date()
+
+    for (let i = 0; i < 12; i++) {
+      const currentMonth = addMonths(startDate, i)
+      const daysInMonth = getDaysInMonth(currentMonth)
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)
+        const dayOfWeek = getDay(date) // 0 for Sunday, 6 for Saturday
+        const dateKey = format(date, "yyyy-MM-dd")
+        
+        // Weekend prices (Friday, Saturday)
+        if (dayOfWeek === 5 || dayOfWeek === 6) {
+          prices[dateKey] = 650000
+        } 
+        // Sunday price
+        else if (dayOfWeek === 0) {
+          prices[dateKey] = 500000
+        } 
+        // Weekday prices
+        else {
+          prices[dateKey] = 400000
+        }
+      }
+    }
+    return prices
+  }, [])
+
+  const getDayPrice = useCallback((date: Date) => {
+    const dateKey = format(date, "yyyy-MM-dd")
+    return generatedPrices[dateKey]
+  }, [generatedPrices])
+  // =================================================================
+  //  KẾT THÚC PHẦN CODE MỚI                                          
+  // =================================================================
 
   const [bookedDates, setBookedDates] = useState<Set<string>>(new Set(["2025-06-09", "2025-06-14"]))
   const isFullyBooked = useCallback((date: Date) => bookedDates.has(format(date, "yyyy-MM-dd")), [bookedDates])
@@ -111,8 +141,11 @@ export default function CalendarSelectionPopup({
           case "medium":
             dynamicClasses = "bg-white border-2 border-orange-400 text-orange-500"
             break
-          default:
-            dynamicClasses = "bg-gray-100 text-gray-600"
+          default: // 'low' - Giá cơ bản
+            // =================================================================
+            //  SỬA MÀU SẮC CHO GIÁ CƠ BẢN THÀNH MÀU XANH LÁ
+            // =================================================================
+            dynamicClasses = "bg-green-50 border-2 border-green-500 text-green-700"
         }
          dynamicClasses += " hover:bg-gray-200"
       }
@@ -122,11 +155,6 @@ export default function CalendarSelectionPopup({
     [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked],
   )
   
-  const getDayPrice = (date: Date) => {
-    const dateKey = format(date, "yyyy-MM-dd")
-    return mockPrices[dateKey]
-  }
-
   const selectedRangeText = useMemo(() => {
     if (selectedStartDate && selectedEndDate) {
       const startDay = format(selectedStartDate, "d")
@@ -175,13 +203,15 @@ export default function CalendarSelectionPopup({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white rounded-t-3xl h-[95vh] flex flex-col">
        
-          
+        <div className="flex items-center justify-between p-4 border-b">
+          <div className="w-8"></div>
+          <h2 className="text-lg font-bold text-center">Thời gian đặt phòng</h2>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-5 w-5" />
           </Button>
-       
+        </div>
 
-        <div className="flex-1 px-4 py-0 flex flex-col overflow-hidden">
+        <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
           <div className="flex rounded-full p-1 bg-black mb-4">
             <Button onClick={() => setActiveTab("day")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "day" ? "bg-white text-black" : "bg-black text-white"}`}>Theo ngày</Button>
             <Button onClick={() => setActiveTab("hour")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "hour" ? "bg-white text-black" : "bg-black text-white"}`}>Theo giờ</Button>
@@ -202,16 +232,16 @@ export default function CalendarSelectionPopup({
 
               return (
                 <div key={monthIndex}>
-                  {/* ================================================================= */}
-                  {/*  BẮT ĐẦU PHẦN CODE MỚI: HEADER CỦA THÁNG VỚI CHÚ THÍCH GIÁ      */}
-                  {/* ================================================================= */}
                   <div className="flex items-center justify-between mb-3 px-2">
                     <h3 className="text-base font-bold text-gray-800">
                       {format(monthDate, "MMMM yyyy", { locale: vi })}
                     </h3>
                     <div className="flex items-center gap-3">
+                      {/* ================================================================= */}
+                      {/*  SỬA MÀU CHẤM TRÒN CỦA GIÁ CƠ BẢN THÀNH MÀU XANH LÁ             */}
+                      {/* ================================================================= */}
                       <div className="flex items-center gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                         <span className="text-xs text-gray-600">Cơ bản</span>
                       </div>
                       <div className="flex items-center gap-1.5">
@@ -224,9 +254,6 @@ export default function CalendarSelectionPopup({
                       </div>
                     </div>
                   </div>
-                  {/* ================================================================= */}
-                  {/*  KẾT THÚC PHẦN CODE MỚI                                          */}
-                  {/* ================================================================= */}
                   
                   <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
                     {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
