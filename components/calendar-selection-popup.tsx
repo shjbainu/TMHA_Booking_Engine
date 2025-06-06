@@ -194,6 +194,12 @@ export default function CalendarSelectionPopup({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white rounded-t-3xl h-[95vh] flex flex-col">
        
+        <div className="flex items-center justify-between p-4 border-b">
+          <div className="w-8"></div>
+          <h2 className="text-lg font-bold text-center">Thời gian đặt phòng</h2>
+          <Button variant="ghost" size="icon" onClick={onClose}><X className="h-5 w-5" /></Button>
+        </div>
+
         <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
           <div className="flex rounded-full p-1 bg-black mb-4">
             <Button onClick={() => handleTabChange("day")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "day" ? "bg-white text-black" : "bg-black text-white"}`}>Theo ngày</Button>
@@ -201,7 +207,22 @@ export default function CalendarSelectionPopup({
             <Button onClick={() => handleTabChange("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
-          
+          {activeTab === 'hour' && (
+            <div className="flex items-center gap-4 mb-4">
+              <div className="flex-1">
+                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">Giờ nhận phòng</label>
+                <select id="check-in-time" value={checkInTime} onChange={(e) => setCheckInTime(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
+                </select>
+              </div>
+              <div className="flex-1">
+                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">Số giờ sử dụng</label>
+                <select id="hours-of-use" value={hoursOfUse} onChange={(e) => setHoursOfUse(Number(e.target.value))} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
+                </select>
+              </div>
+            </div>
+          )}
 
           <div className="bg-cyan-100 rounded-xl px-4 py-2 flex items-center justify-center text-black shadow-inner mb-4 h-16">
             {selectedRangeText}
@@ -216,12 +237,14 @@ export default function CalendarSelectionPopup({
               const calendarDays = Array(firstDayOfMonth).fill(null).concat(Array.from({ length: daysInCurrentMonth }, (_, i) => new Date(year, month, i + 1)));
 
               return (
-                // =================================================================
-                //  THAY ĐỔI 1: Thêm padding ngang (px-2) để làm các ô nhỏ lại
-                // =================================================================
                 <div key={monthIndex} className="pt-2 px-2">
                   <div className="flex items-center justify-between mb-3 px-2">
-                    <h3 className="text-base font-bold text-gray-800">{format(monthDate, "MMMM yyyy", { locale: vi })}</h3>
+                    {/* ================================================================= */}
+                    {/* THAY ĐỔI: Cập nhật định dạng tháng từ "MMMM yyyy" thành "M/yyyy"  */}
+                    {/* ================================================================= */}
+                    <h3 className="text-base font-bold text-gray-800">
+                      {format(monthDate, "M/yyyy", { locale: vi })}
+                    </h3>
                     <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div><span className="text-xs text-gray-600">Cơ bản</span></div>
                       <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div><span className="text-xs text-gray-600">Trung bình</span></div>
@@ -232,9 +255,6 @@ export default function CalendarSelectionPopup({
                   <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
                     {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
                   </div>
-                  {/* ================================================================= */}
-                  {/*  THAY ĐỔI 2: Tăng khoảng cách (gap) giữa các ô từ gap-1 -> gap-2 */}
-                  {/* ================================================================= */}
                   <div className="grid grid-cols-7 gap-2">
                     {calendarDays.map((day, dayIndex) => {
                       if (!day) return <div key={`empty-${dayIndex}`} />;
@@ -253,24 +273,7 @@ export default function CalendarSelectionPopup({
               );
             })}
           </div>
-              <div className="mb-12 pt-3">
-              {activeTab === 'hour' && (
-            <div className="flex items-center gap-4 mb-4">
-              <div className="flex-1">
-                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">Giờ nhận phòng</label>
-                <select id="check-in-time" value={checkInTime} onChange={(e) => setCheckInTime(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
-                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
-                </select>
-              </div>
-              <div className="flex-1">
-                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">Số giờ sử dụng</label>
-                <select id="hours-of-use" value={hoursOfUse} onChange={(e) => setHoursOfUse(Number(e.target.value))} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
-                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
-                </select>
-              </div>
-            </div>
-          )}
-              </div>
+
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
             <div className="flex items-center justify-between">
               <div>
