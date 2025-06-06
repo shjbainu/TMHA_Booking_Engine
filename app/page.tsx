@@ -35,7 +35,7 @@ export default function HotelPhotosPage() {
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="h-10 w-10">
           <img 
-  src="../images/hotel_8375675.png" 
+  src="../images/Trái tim.png" 
   alt="Mô tả về hình ảnh khách sạn"
 />
           </Button>
