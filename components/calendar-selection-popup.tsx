@@ -225,9 +225,9 @@ export default function CalendarSelectionPopup({
           )}
 
           {/* ================================================================= */}
-          {/* THAY ĐỔI: Giảm chiều cao từ h-24 xuống h-20 (80px)                 */}
+          {/* THAY ĐỔI: Giảm chiều cao từ h-20 xuống h-16 và giảm padding       */}
           {/* ================================================================= */}
-          <div className="bg-cyan-100 rounded-xl p-4 flex items-center justify-center text-black shadow-inner mb-4 h-15">
+          <div className="bg-cyan-100 rounded-xl px-4 py-2 flex items-center justify-center text-black shadow-inner mb-4 h-16">
             {selectedRangeText}
           </div>
 
