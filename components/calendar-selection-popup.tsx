@@ -207,9 +207,6 @@ export default function CalendarSelectionPopup({
             <Button onClick={() => handleTabChange("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
-          {/* ================================================================= */}
-          {/* THAY ĐỔI 1: DI CHUYỂN DROPDOWN RA NGOÀI VÀ ĐẶT TRƯỚC VÙNG HIỂN THỊ */}
-          {/* ================================================================= */}
           {activeTab === 'hour' && (
             <div className="flex items-center gap-4 mb-4">
               <div className="flex-1">
@@ -228,9 +225,9 @@ export default function CalendarSelectionPopup({
           )}
 
           {/* ================================================================= */}
-          {/* THAY ĐỔI 2: THÊM LỚP h-24 ĐỂ CỐ ĐỊNH CHIỀU CAO */}
+          {/* THAY ĐỔI: Giảm chiều cao từ h-24 xuống h-20 (80px)                 */}
           {/* ================================================================= */}
-          <div className="bg-cyan-100 rounded-xl p-4 flex items-center justify-center text-black shadow-inner mb-4 h-24">
+          <div className="bg-cyan-100 rounded-xl p-4 flex items-center justify-center text-black shadow-inner mb-4 h-20">
             {selectedRangeText}
           </div>
 
