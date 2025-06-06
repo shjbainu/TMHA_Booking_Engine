@@ -4,7 +4,10 @@ import { useEffect } from "react"
 import { useState, useMemo, useCallback } from "react"
 import { Calendar, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay } from "date-fns"
+// =================================================================
+//  THAY ĐỔI 1: Thêm 'addDays' vào import
+// =================================================================
+import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay, addDays } from "date-fns"
 import { vi } from "date-fns/locale"
 
 interface CalendarSelectionPopupProps {
@@ -36,9 +39,6 @@ export default function CalendarSelectionPopup({
   const today = useMemo(() => new Date(), [])
   const currentMonthStart = useMemo(() => startOfMonth(new Date()), [])
 
-  // =================================================================
-  //  BẮT ĐẦU PHẦN CODE MỚI: TỰ ĐỘNG TẠO GIÁ CHO TẤT CẢ CÁC THÁNG   
-  // =================================================================
   const generatedPrices = useMemo(() => {
     const prices: { [key: string]: number } = {}
     const startDate = new Date()
@@ -49,19 +49,14 @@ export default function CalendarSelectionPopup({
 
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)
-        const dayOfWeek = getDay(date) // 0 for Sunday, 6 for Saturday
+        const dayOfWeek = getDay(date)
         const dateKey = format(date, "yyyy-MM-dd")
         
-        // Weekend prices (Friday, Saturday)
         if (dayOfWeek === 5 || dayOfWeek === 6) {
           prices[dateKey] = 650000
-        } 
-        // Sunday price
-        else if (dayOfWeek === 0) {
+        } else if (dayOfWeek === 0) {
           prices[dateKey] = 500000
-        } 
-        // Weekday prices
-        else {
+        } else {
           prices[dateKey] = 400000
         }
       }
@@ -73,11 +68,8 @@ export default function CalendarSelectionPopup({
     const dateKey = format(date, "yyyy-MM-dd")
     return generatedPrices[dateKey]
   }, [generatedPrices])
-  // =================================================================
-  //  KẾT THÚC PHẦN CODE MỚI                                          
-  // =================================================================
 
-  const [bookedDates, setBookedDates] = useState<Set<string>>(new Set(["2025-06-09", "2025-06-14"]))
+  const [bookedDates, setBookedDates] = useState<Set<string>>(new Set()) // Simulating some booked dates
   const isFullyBooked = useCallback((date: Date) => bookedDates.has(format(date, "yyyy-MM-dd")), [bookedDates])
   
   const monthsToDisplay = useMemo(() => {
@@ -85,24 +77,57 @@ export default function CalendarSelectionPopup({
   }, [currentMonthStart]);
 
 
+  // =================================================================
+  //  THAY ĐỔI 2: Cập nhật `handleDateClick` với logic "Qua đêm"
+  // =================================================================
   const handleDateClick = useCallback(
     (date: Date) => {
+      // Ngày không hợp lệ (quá khứ hoặc đã được đặt)
       if ((isBefore(date, today) && !isSameDay(date, today)) || isFullyBooked(date)) {
         return
       }
 
-      if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-        setSelectedStartDate(date)
-        setSelectedEndDate(null)
-      } else if (isBefore(date, selectedStartDate)) {
-        setSelectedStartDate(date)
-        setSelectedEndDate(null)
+      // Logic cho tab "Qua đêm"
+      if (activeTab === 'overnight') {
+        const nextDay = addDays(date, 1);
+        
+        // Kiểm tra xem ngày tiếp theo có hợp lệ không
+        if (isFullyBooked(nextDay)) {
+          // Có thể hiển thị thông báo cho người dùng ở đây
+          console.warn("Ngày hôm sau đã được đặt, không thể chọn qua đêm.");
+          setSelectedStartDate(null); // Xóa lựa chọn cũ nếu có
+          setSelectedEndDate(null);
+          return;
+        }
+
+        // Nếu hợp lệ, chọn luôn 1 đêm
+        setSelectedStartDate(date);
+        setSelectedEndDate(nextDay);
+      
+      // Logic cho tab "Theo ngày"
       } else {
-        setSelectedEndDate(date)
+        if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+          setSelectedStartDate(date)
+          setSelectedEndDate(null)
+        } else if (isBefore(date, selectedStartDate)) {
+          setSelectedStartDate(date)
+          setSelectedEndDate(null)
+        } else {
+          setSelectedEndDate(date)
+        }
       }
     },
-    [selectedStartDate, selectedEndDate, today, isFullyBooked],
+    [activeTab, selectedStartDate, selectedEndDate, today, isFullyBooked], // Thêm activeTab vào dependencies
   )
+
+  // =================================================================
+  //  THAY ĐỔI 3: Thêm hàm xử lý chuyển tab để xóa ngày đã chọn
+  // =================================================================
+  const handleTabChange = (tab: "day" | "hour" | "overnight") => {
+    setActiveTab(tab);
+    setSelectedStartDate(null);
+    setSelectedEndDate(null);
+  }
 
   const isDateSelected = useCallback((date: Date) => {
     if (!selectedStartDate) return false
@@ -141,10 +166,7 @@ export default function CalendarSelectionPopup({
           case "medium":
             dynamicClasses = "bg-white border-2 border-orange-400 text-orange-500"
             break
-          default: // 'low' - Giá cơ bản
-            // =================================================================
-            //  SỬA MÀU SẮC CHO GIÁ CƠ BẢN THÀNH MÀU XANH LÁ
-            // =================================================================
+          default:
             dynamicClasses = "bg-green-50 border-2 border-green-500 text-green-700"
         }
          dynamicClasses += " hover:bg-gray-200"
@@ -213,9 +235,10 @@ export default function CalendarSelectionPopup({
 
         <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
           <div className="flex rounded-full p-1 bg-black mb-4">
-            <Button onClick={() => setActiveTab("day")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "day" ? "bg-white text-black" : "bg-black text-white"}`}>Theo ngày</Button>
-            <Button onClick={() => setActiveTab("hour")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "hour" ? "bg-white text-black" : "bg-black text-white"}`}>Theo giờ</Button>
-            <Button onClick={() => setActiveTab("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
+            {/* Sử dụng hàm handleTabChange mới */}
+            <Button onClick={() => handleTabChange("day")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "day" ? "bg-white text-black" : "bg-black text-white"}`}>Theo ngày</Button>
+            <Button onClick={() => handleTabChange("hour")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "hour" ? "bg-white text-black" : "bg-black text-white"}`}>Theo giờ</Button>
+            <Button onClick={() => handleTabChange("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
           <div className="bg-orange-100 rounded-xl p-2 flex items-center justify-center text-black shadow-inner min-h-[80px] mb-4">
@@ -237,9 +260,6 @@ export default function CalendarSelectionPopup({
                       {format(monthDate, "MMMM yyyy", { locale: vi })}
                     </h3>
                     <div className="flex items-center gap-3">
-                      {/* ================================================================= */}
-                      {/*  SỬA MÀU CHẤM TRÒN CỦA GIÁ CƠ BẢN THÀNH MÀU XANH LÁ             */}
-                      {/* ================================================================= */}
                       <div className="flex items-center gap-1.5">
                         <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                         <span className="text-xs text-gray-600">Cơ bản</span>
