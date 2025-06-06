@@ -177,7 +177,7 @@ export default function CalendarSelectionPopup({
       return (
         <div className="flex items-center justify-between w-full px-4">
           {renderDateBlock(selectedStartDate)}
-          <div className="text-sm font-semibold text-gray-700">{diffText}</div>
+          <div className="text-xs font-semibold text-gray-700">{diffText}</div>
           {renderDateBlock(selectedEndDate)}
         </div>
       );
