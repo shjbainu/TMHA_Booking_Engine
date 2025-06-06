@@ -8,8 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { ProgressIndicator } from "@/components/progress-indicator"
 import Link from "next/link"
-import { paymentMethods as availablePaymentMethods } from "@/lib/data"
-import VisaMastercardPaymentPopup from "@/components/visa-mastercard-payment-popup"
+import { paymentMethods } from "@/lib/data"
 
 export default function Payment() {
   const [customer, setCustomer] = useState({
@@ -18,29 +17,32 @@ export default function Payment() {
     email: "",
   })
   const [selectedPayment, setSelectedPayment] = useState("")
-  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false)
-
-  const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
+  const [timeLeft, setTimeLeft] = useState(600) // 10 minutes in seconds
 
   useEffect(() => {
-    if (isPaymentPopupOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-    return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [isPaymentPopupOpen])
+    if (timeLeft <= 0) return
 
-  const handleOpenPaymentPopup = (e) => {
-    e.preventDefault()
-    setIsPaymentPopupOpen(true)
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [timeLeft])
+
+  // Format time as MM:SS
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`
   }
 
-  const handleClosePaymentPopup = () => {
-    setIsPaymentPopupOpen(false)
-  }
+  const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
 
   return (
     <div className="min-h-screen bg-white">
@@ -63,7 +65,7 @@ export default function Payment() {
         <div className="bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4 text-center mb-6">
           <p className="text-sm text-[#0a0a0a] mb-2">Chúng tôi đang giữ phòng cho bạn</p>
           <div className="inline-flex items-center gap-1 bg-white px-3 py-1 rounded border-2 border-dashed border-gray-400">
-            <span className="text-sm font-mono">10:00</span>
+            <span className="text-sm font-mono">{formatTime(timeLeft)}</span>
           </div>
         </div>
 
@@ -248,7 +250,7 @@ export default function Payment() {
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
           <div className="space-y-3">
-            {availablePaymentMethods.map((method) => (
+            {paymentMethods.map((method) => (
               <div
                 key={method.id}
                 className={`flex items-center gap-3 p-3 rounded-lg border shadow-sm cursor-pointer ${
@@ -273,14 +275,11 @@ export default function Payment() {
         </div>
 
         {/* Confirm Button */}
-        <Button
-          onClick={handleOpenPaymentPopup}
-          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg"
-        >
-          Xác nhận & thanh toán
-        </Button>
-        {/* Render the Visa/Mastercard Payment Popup */}
-        <VisaMastercardPaymentPopup isOpen={isPaymentPopupOpen} onClose={handleClosePaymentPopup} amount="1.078.000đ" />
+        <Link href="/confirmation">
+          <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg">
+            Xác nhận & thanh toán
+          </Button>
+        </Link>
       </div>
     </div>
   )
