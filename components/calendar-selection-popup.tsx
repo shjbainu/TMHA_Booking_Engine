@@ -290,7 +290,7 @@ export default function CalendarSelectionPopup({
               
 
           </div>
-            <div className="mb-10">
+            <div className="mb-15">
  {activeTab === 'hour' && (
             <div className="flex items-center gap-4 mb-4">
               {/* Dropdown Giờ nhận phòng */}
