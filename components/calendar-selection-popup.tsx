@@ -238,7 +238,39 @@ export default function CalendarSelectionPopup({
           {/* ================================================================= */}
           {/*  THAY ĐỔI 4: Thêm khối dropdown hiển thị có điều kiện
           {/* ================================================================= */}
-          
+          {activeTab === 'hour' && (
+            <div className="flex items-center gap-4 mb-4">
+              {/* Dropdown Giờ nhận phòng */}
+              <div className="flex-1">
+                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">
+                  Giờ nhận phòng
+                </label>
+                <select
+                  id="check-in-time"
+                  value={checkInTime}
+                  onChange={(e) => setCheckInTime(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                >
+                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
+                </select>
+              </div>
+
+              {/* Dropdown Số giờ sử dụng */}
+              <div className="flex-1">
+                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">
+                  Số giờ sử dụng
+                </label>
+                <select
+                  id="hours-of-use"
+                  value={hoursOfUse}
+                  onChange={(e) => setHoursOfUse(Number(e.target.value))}
+                  className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                >
+                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
+                </select>
+              </div>
+            </div>
+          )}
 
           <div className="bg-orange-100 rounded-xl p-2 flex items-center justify-center text-black shadow-inner min-h-[80px] mb-4">
             {selectedRangeText}
@@ -289,39 +321,7 @@ export default function CalendarSelectionPopup({
               )
             })}
           </div>
-{activeTab === 'hour' && (
-            <div className="flex items-center gap-4 mb-4">
-              {/* Dropdown Giờ nhận phòng */}
-              <div className="flex-1">
-                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">
-                  Giờ nhận phòng
-                </label>
-                <select
-                  id="check-in-time"
-                  value={checkInTime}
-                  onChange={(e) => setCheckInTime(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                >
-                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
-                </select>
-              </div>
 
-              {/* Dropdown Số giờ sử dụng */}
-              <div className="flex-1">
-                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">
-                  Số giờ sử dụng
-                </label>
-                <select
-                  id="hours-of-use"
-                  value={hoursOfUse}
-                  onChange={(e) => setHoursOfUse(Number(e.target.value))}
-                  className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                >
-                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
-                </select>
-              </div>
-            </div>
-          )}
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
             <div className="flex items-center justify-between">
               <div>
