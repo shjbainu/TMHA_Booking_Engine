@@ -119,7 +119,7 @@ export default function RoomSelection() {
         // Tìm đúng booking cần cập nhật
         if (booking.id === bookingId) {
           // Lấy chính sách hiện tại của phòng, nếu chưa có thì dùng đối tượng rỗng
-          const currentRoomPolicy = booking.roomPolicies[roomId] || { breakfast: null, cancellation: null };
+          const currentRoomPolicy = booking.roomPolicies[roomId] || { breakfast: null, cancellation: null }
 
           // Trả về booking mới với các state được cập nhật một cách bất biến
           return {
@@ -127,21 +127,20 @@ export default function RoomSelection() {
             roomPolicies: {
               ...booking.roomPolicies, // 2. Sao chép tất cả chính sách của các phòng khác
               [roomId]: {
-                ...currentRoomPolicy,   // 3. Sao chép chính sách cũ của phòng này (không làm mất giá trị còn lại)
-                [type]: value,           // 4. Đặt giá trị mới cho chính sách được chọn
+                ...currentRoomPolicy, // 3. Sao chép chính sách cũ của phòng này (không làm mất giá trị còn lại)
+                [type]: value, // 4. Đặt giá trị mới cho chính sách được chọn
               },
             },
-          };
+          }
         }
         // Trả về booking không thay đổi nếu không khớp ID
-        return booking;
+        return booking
       }),
-    );
-  };
+    )
+  }
   // =================================================================
   //  KẾT THÚC PHẦN SỬA LỖI
   // =================================================================
-
 
   const handleReset = () => {
     setIsLoading(true)
@@ -1274,30 +1273,32 @@ export default function RoomSelection() {
       </div>
 
       {/* Bottom Summary */}
-      {totalSelectedRoomsCount > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
-          <div className="max-w-md mx-auto">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
-                <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                  <Calendar className="lucide lucide-calendar text-[#0a0a0a]" />
-                  <span className="absolute text-xs font-bold text-[#0a0a0a]">
-                    {selectedBookingStartDate ? format(selectedBookingStartDate, "dd") : "Chọn"}
-                  </span>
-                </div>
-                <div className="flex flex-col">{displayDateRange}</div>
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+        <div className="max-w-md mx-auto">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
+              <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                <Calendar className="lucide lucide-calendar text-[#0a0a0a]" />
+                <span className="absolute text-xs font-bold text-[#0a0a0a]">
+                  {selectedBookingStartDate ? format(selectedBookingStartDate, "dd") : "Chọn"}
+                </span>
               </div>
+              <div className="flex flex-col">{displayDateRange}</div>
+            </div>
+            {totalSelectedRoomsCount > 0 && (
               <div>
                 <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
                 <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
               </div>
-            </div>
+            )}
+          </div>
+          {totalSelectedRoomsCount > 0 && (
             <Link href="/payment">
               <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
             </Link>
-          </div>
+          )}
         </div>
-      )}
+      </div>
 
       <div className="h-24" />
 
