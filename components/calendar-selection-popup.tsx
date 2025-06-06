@@ -218,7 +218,7 @@ export default function CalendarSelectionPopup({
             <Button onClick={() => setActiveTab("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
-          <div className="bg-blue-100 rounded-xl p-2 flex items-center justify-center text-black shadow-inner min-h-[80px] mb-4">
+          <div className="bg-deepblue-100 rounded-xl p-2 flex items-center justify-center text-black shadow-inner min-h-[80px] mb-4">
             {selectedRangeText}
           </div>
 
