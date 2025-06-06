@@ -254,7 +254,7 @@ export default function CalendarSelectionPopup({
               );
             })}
           </div>
-            <div className="mb-12 pt-3">
+            <div className="mb-12 pt-3 bg-black" >
              {activeTab === 'hour' && (
             <div className="flex items-center gap-4 mb-4">
               <div className="flex-1">
