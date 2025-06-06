@@ -105,6 +105,9 @@ export default function RoomSelection() {
     )
   }
 
+  // =================================================================
+  //  PHẦN CODE ĐÃ ĐƯỢC SỬA LỖI
+  // =================================================================
   const updatePolicy = (
     bookingId: string,
     roomId: string,
@@ -113,19 +116,32 @@ export default function RoomSelection() {
   ) => {
     setBookings((prevBookings) =>
       prevBookings.map((booking) => {
+        // Tìm đúng booking cần cập nhật
         if (booking.id === bookingId) {
+          // Lấy chính sách hiện tại của phòng, nếu chưa có thì dùng đối tượng rỗng
+          const currentRoomPolicy = booking.roomPolicies[roomId] || { breakfast: null, cancellation: null };
+
+          // Trả về booking mới với các state được cập nhật một cách bất biến
           return {
-            ...booking,
+            ...booking, // 1. Sao chép booking
             roomPolicies: {
-              ...booking.roomPolicies[roomId],
-              [type]: value,
+              ...booking.roomPolicies, // 2. Sao chép tất cả chính sách của các phòng khác
+              [roomId]: {
+                ...currentRoomPolicy,   // 3. Sao chép chính sách cũ của phòng này (không làm mất giá trị còn lại)
+                [type]: value,           // 4. Đặt giá trị mới cho chính sách được chọn
+              },
             },
-          }
+          };
         }
-        return booking
+        // Trả về booking không thay đổi nếu không khớp ID
+        return booking;
       }),
-    )
-  }
+    );
+  };
+  // =================================================================
+  //  KẾT THÚC PHẦN SỬA LỖI
+  // =================================================================
+
 
   const handleReset = () => {
     setIsLoading(true)
