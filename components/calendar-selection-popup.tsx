@@ -1,5 +1,4 @@
 "use client"
-import "react-day-picker/dist/style.css"
 
 interface CalendarSelectionPopupProps {
   isOpen: boolean
@@ -394,6 +393,4 @@ const mockPrices: { [key: string]: number } = {
   "2025-12-17": 275000,
   "2025-12-18": 400000,
   "2025-12-19": 400000,
-  "2025-12-20": 500000,
-  "2025-12-21": 500000,\
-"2025-12-
+  "2025-12-20": 500000,\
