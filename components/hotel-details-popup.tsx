@@ -1,421 +1,129 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { ArrowLeft, RotateCcw, Trash2, X, CreditCard, Lock } from "lucide-react"
+import { X, Wifi, Car, Coffee, Utensils, Dumbbell, Waves, Shield, Phone, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
-import { ProgressIndicator } from "@/components/progress-indicator"
-import Link from "next/link"
-import { paymentMethods } from "@/lib/data"
-import { useRouter } from "next/navigation" // Import useRouter
 
-// Define the new VisaMastercardPaymentPopup component
-interface VisaMastercardPaymentPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
-  amount: string;
+interface HotelDetailsPopupProps {
+  isOpen: boolean
+  onClose: () => void
 }
 
-function VisaMastercardPaymentPopup({ isOpen, onClose, amount }: VisaMastercardPaymentPopupProps) {
-  const router = useRouter(); // Initialize router
+export default function HotelDetailsPopup({ isOpen, onClose }: HotelDetailsPopupProps) {
+  if (!isOpen) return null
 
-  if (!isOpen) return null;
-
-  const handleConfirmPayment = async () => {
-    // Simulate payment processing
-    console.log("Processing payment...");
-    // Here you would typically call your payment gateway API
-    // For demonstration, let's assume it's successful after a short delay
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-
-    console.log("Payment successful! Navigating to confirmation...");
-    onClose(); // Close the popup
-    router.push('/confirmation'); // Navigate to the confirmation page
-  };
+  const amenities = [
+    { icon: Wifi, name: "WiFi miễn phí", description: "Tốc độ cao trong toàn bộ khách sạn" },
+    { icon: Car, name: "Bãi đỗ xe", description: "Miễn phí cho khách lưu trú" },
+    { icon: Coffee, name: "Quầy bar", description: "Phục vụ 24/7" },
+    { icon: Utensils, name: "Nhà hàng", description: "Ẩm thực Việt Nam và quốc tế" },
+    { icon: Dumbbell, name: "Phòng gym", description: "Trang thiết bị hiện đại" },
+    { icon: Waves, name: "Hồ bơi", description: "Hồ bơi ngoài trời trên sân thượng" },
+    { icon: Shield, name: "An ninh 24/7", description: "Camera giám sát và bảo vệ" },
+    { icon: Phone, name: "Lễ tân 24/7", description: "Hỗ trợ khách hàng mọi lúc" },
+  ]
 
   return (
-    <div
-      className={`fixed inset-0 bg-black bg-opacity-60 flex justify-center items-end z-50 transition-opacity duration-300 ease-out ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-      onClick={onClose} // Close on backdrop click
-    >
+    <div className="fixed inset-0 z-50 flex items-end justify-center">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+
+      {/* Popup Content */}
       <div
-        className={`bg-white w-full max-w-md transform transition-transform duration-300 ease-out ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
-        onClick={(e) => e.stopPropagation()} // Prevent click propagation to backdrop
+        className={`relative w-full max-w-md bg-white rounded-t-3xl shadow-lg h-[90vh] flex flex-col transform transition-transform duration-300 ease-out
+          ${isOpen ? "translate-y-0" : "translate-y-full"}`}
       >
         {/* Handle bar */}
         <div className="pt-3">
-            <div className="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-2"></div>
+          <div className="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-2"></div>
         </div>
 
-        <div className="p-5 pt-2">
-            {/* Header with close button and title */}
-            <div className="flex items-center mb-5">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={onClose}
-                    className="h-10 w-10 rounded-full flex items-center justify-center p-0 bg-gray-100 hover:bg-gray-200"
-                >
-                    <X className="h-5 w-5 text-gray-700" />
-                </Button>
-                <h2 className="flex-grow text-center text-[15px] font-semibold text-gray-800 pr-10">
-                    THANH TOÁN BẰNG VISA/MASTER CARD
-                </h2>
-            </div>
-
-            {/* Amount to pay */}
-            <div className="bg-gray-100 p-3 rounded-lg flex items-center mb-6 text-sm border border-gray-200">
-              <div className="w-6 h-4 border-2 border-gray-400 rounded-[3px] flex flex-col items-center justify-center mr-3 shrink-0">
-                <div className="w-[18px] h-[3px] bg-gray-400 mt-[1px]"></div>
-                <div className="w-[14px] h-[2px] bg-gray-400 mt-[1px]"></div>
-              </div>
-              <span className="text-gray-700 text-[13px]">Số tiền phải thanh toán <span className="font-semibold text-gray-800">{amount}</span></span>
-            </div>
-
-            {/* Form */}
-            <div className="space-y-4">
-                <div>
-                    <Label htmlFor="cardNumber" className="text-[13px] font-medium text-gray-800 mb-1 block">SỐ THẺ</Label>
-                    <Input
-                        id="cardNumber"
-                        placeholder="1234 5678 9123 4567"
-                        className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                    />
-                </div>
-                <div>
-                    <Label htmlFor="cardHolderName" className="text-[13px] font-medium text-gray-800 mb-1 block">TÊN CHỦ THẺ</Label>
-                    <Input
-                        id="cardHolderName"
-                        placeholder="DANG VU MINH QUAN"
-                        className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                    />
-                </div>
-                <div className="flex gap-3">
-                    <div className="flex-1">
-                        <Label htmlFor="expiryDate" className="text-[13px] font-medium text-gray-800 mb-1 block">NGÀY HẾT HẠN</Label>
-                        <Input
-                            id="expiryDate"
-                            placeholder="05/2025"
-                            className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                        />
-                    </div>
-                    <div className="w-[30%]">
-                        <Label htmlFor="cvv" className="text-[13px] font-medium text-gray-800 mb-1 block">CVV</Label>
-                        <Input
-                            id="cvv"
-                            placeholder="466"
-                            className="bg-gray-100 border-gray-100 placeholder-gray-400 text-gray-700 focus:bg-gray-200 focus:ring-0 focus:border-gray-200 rounded-md h-11 text-[14px]"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Confirm Button */}
-            <Button
-              className="w-full bg-black hover:bg-gray-900 text-white py-3 rounded-lg text-[15px] font-semibold mt-8 shadow-md h-12"
-              onClick={handleConfirmPayment} // Use the new handler
-            >
-                XÁC NHẬN VÀ THANH TOÁN
-            </Button>
-
-            {/* Security Message */}
-            <div className="flex items-center justify-center mt-4 text-xs text-gray-500">
-                <Lock className="h-3 w-3 mr-1.5 text-gray-500" />
-                <span>Thanh toán bảo mật và an toàn</span>
-            </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-// The rest of your Payment component remains the same
-export default function Payment() {
-  const [customer, setCustomer] = useState({
-    name: "",
-    phone: "",
-    email: "",
-  })
-  const [selectedPayment, setSelectedPayment] = useState("")
-  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
-
-  const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
-
-  const handleOpenPaymentPopup = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsPaymentPopupOpen(true);
-  };
-
-  const handleClosePaymentPopup = () => {
-    setIsPaymentPopupOpen(false);
-  };
-
-  useEffect(() => {
-    if (isPaymentPopupOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isPaymentPopupOpen]);
-
-
-  // For demonstration, let's use the total amount from your page for the popup
-  // You might want to calculate this dynamically or pass the specific booking amount if needed.
-  // The image of the popup showed "1.078.000đ", but the total on the page is "3.324.000đ".
-  // I'll stick to the popup image's amount for now.
-  const paymentPopupAmount = "1.078.000đ"; // Or "3.324.000đ" from your total
-
-  return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100">
-        <Link href="/rooms">
-          <Button variant="ghost" size="icon" className="h-10 w-10">
-            <ArrowLeft className="h-6 w-6 text-[#0a0a0a]" />
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-100">
+          <h2 className="text-xl font-bold text-[#0a0a0a]">Khách sạn 69 Boutique</h2>
+          <Button variant="ghost" size="icon" onClick={onClose} className="h-10 w-10">
+            <X className="h-6 w-6" />
           </Button>
-        </Link>
-        <h1 className="text-lg font-medium text-[#0a0a0a]">THANH TOÁN</h1>
-        <div className="w-10" />
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto p-4">
+          {/* Hotel Description */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-[#0a0a0a] mb-3">Về khách sạn</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Khách sạn 69 Boutique tọa lạc tại trung tâm phố cổ Hà Nội, mang đến trải nghiệm lưu trú độc đáo với thiết
+              kế hiện đại kết hợp nét truyền thống Việt Nam. Với vị trí thuận lợi, quý khách có thể dễ dàng khám phá các
+              điểm du lịch nổi tiếng của thủ đô.
+            </p>
+          </div>
+
+          {/* Location */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-[#0a0a0a] mb-3">Vị trí</h3>
+            <div className="flex items-start gap-3">
+              <MapPin className="h-5 w-5 text-gray-500 mt-0.5" />
+              <div>
+                <p className="text-sm text-gray-600">123 Phố Cổ, Hoàn Kiếm, Hà Nội</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  • 2 phút đi bộ đến Hồ Hoàn Kiếm
+                  <br />• 5 phút đi bộ đến Chợ Đồng Xuân
+                  <br />• 15 phút lái xe đến sân bay Nội Bài
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Amenities */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-[#0a0a0a] mb-4">Tiện ích</h3>
+            <div className="space-y-4">
+              {amenities.map((amenity, index) => (
+                <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                  <amenity.icon className="h-5 w-5 text-[#0a0a0a] mt-0.5" />
+                  <div>
+                    <h4 className="font-medium text-[#0a0a0a] text-sm">{amenity.name}</h4>
+                    <p className="text-xs text-gray-600 mt-1">{amenity.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Policies */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-[#0a0a0a] mb-3">Chính sách</h3>
+            <div className="space-y-2 text-sm text-gray-600">
+              <div className="flex justify-between">
+                <span>Giờ nhận phòng:</span>
+                <span className="font-medium">14:00</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Giờ trả phòng:</span>
+                <span className="font-medium">12:00</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Hủy miễn phí:</span>
+                <span className="font-medium">Trước 18:00 ngày nhận phòng</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Cho phép hút thuốc:</span>
+                <span className="font-medium">Không</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Cho phép thú cưng:</span>
+                <span className="font-medium">Không</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-gray-100">
+          <Button onClick={onClose} className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">
+            Đóng
+          </Button>
+        </div>
       </div>
-
-      <div className="p-4">
-        {/* Progress Indicator */}
-        <ProgressIndicator currentStep={2} steps={steps} />
-
-        {/* Holding Message */}
-        <div className="bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4 text-center mb-6">
-          <p className="text-sm text-[#0a0a0a] mb-2">Chúng tôi đang giữ phòng cho bạn</p>
-          <div className="inline-flex items-center gap-1 bg-white px-3 py-1 rounded border-2 border-dashed border-gray-400">
-            <span className="text-sm font-mono">10:00</span>
-          </div>
-        </div>
-
-        {/* Booking Information */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Thông tin đặt phòng</h2>
-
-          {/* Booking 1 */}
-          <div className="bg-white border border-gray-200 shadow-sm rounded-lg p-4 mb-3">
-            <div className="flex items-center justify-between mb-3">
-              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
-                BOOKING 1
-              </Badge>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <RotateCcw className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 text-sm mb-2">
-              <span className="bg-white px-2 py-1 rounded">25/04/2025</span>
-              <span className="bg-white px-2 py-1 rounded">2 đêm</span>
-              <span className="bg-white px-2 py-1 rounded">27/04/2025</span>
-            </div>
-            <div className="text-sm text-[#0a0a0a] space-y-1">
-              <div>• Phòng Standard x2</div>
-              <div>• Phòng Luxury x1</div>
-            </div>
-            <div className="text-right mt-2">
-              <span className="font-medium">Tổng tiền: 1.078.000đ</span>
-            </div>
-          </div>
-
-          {/* Booking 2 */}
-          <div className="bg-white border border-gray-200 shadow-sm rounded-lg p-4 mb-3">
-            <div className="flex items-center justify-between mb-3">
-              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
-                BOOKING 2
-              </Badge>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <RotateCcw className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 text-sm mb-2">
-              <span className="bg-white px-2 py-1 rounded">25/04/2025</span>
-              <span className="bg-white px-2 py-1 rounded">2 đêm</span>
-              <span className="bg-white px-2 py-1 rounded">27/04/2025</span>
-            </div>
-            <div className="text-sm text-[#0a0a0a] space-y-1">
-              <div>• Phòng Standard x2</div>
-              <div>• Phòng Luxury x1</div>
-            </div>
-            <div className="text-right mt-2">
-              <span className="font-medium">Tổng tiền: 1.078.000đ</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Customer Information */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Thông tin khách hàng</h2>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="name" className="text-sm font-medium text-[#0a0a0a]">
-                Họ tên *
-              </Label>
-              <Input
-                id="name"
-                placeholder="Vui lòng nhập họ tên"
-                value={customer.name}
-                onChange={(e) => setCustomer((prev) => ({ ...prev, name: e.target.value }))}
-                className="mt-1 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <Label htmlFor="phone" className="text-sm font-medium text-[#0a0a0a]">
-                Số điện thoại *
-              </Label>
-              <Input
-                id="phone"
-                placeholder="Vui lòng nhập số điện thoại"
-                value={customer.phone}
-                onChange={(e) => setCustomer((prev) => ({ ...prev, phone: e.target.value }))}
-                className="mt-1 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <Label htmlFor="email" className="text-sm font-medium text-[#0a0a0a]">
-                Email *
-              </Label>
-              <Input
-                id="email"
-                placeholder="Vui lòng nhập email"
-                value={customer.email}
-                onChange={(e) => setCustomer((prev) => ({ ...prev, email: e.target.value }))}
-                className="mt-1 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Payment Details */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Chi tiết thanh toán</h2>
-
-          <div className="space-y-4">
-            {/* Booking 1 Details */}
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-[#0a0a0a]">Thông tin giá</span>
-                <span className="font-medium text-[#0a0a0a]">Tổng tiền</span>
-              </div>
-              <div className="bg-gray-50 border border-gray-200 shadow-sm p-3 rounded-lg">
-                <div className="font-medium mb-2">BOOKING 1</div>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Phòng Standard x2</span>
-                    <span>980.000đ</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Phòng Luxury x1</span>
-                    <span>490.000đ</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Phí VAT (Thuế 10%)</span>
-                    <span>147.000đ</span>
-                  </div>
-                  <div className="flex justify-between font-medium border-t border-gray-200 pt-2">
-                    <span>TỔNG BOOKING 1:</span>
-                    <span>1.617.000đ</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Booking 2 Details */}
-            <div className="bg-gray-50 border border-gray-200 shadow-sm p-3 rounded-lg">
-              <div className="font-medium mb-2">BOOKING 2</div>
-              <div className="space-y-1 text-sm">
-                <div className="flex justify-between">
-                  <span>Phòng Standard x2</span>
-                  <span>980.000đ</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Phòng Luxury x1</span>
-                  <span>490.000đ</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Phí VAT (Thuế 10%)</span>
-                  <span>147.000đ</span>
-                </div>
-                <div className="flex justify-between font-medium border-t border-gray-200 pt-2">
-                  <span>TỔNG BOOKING 2:</span>
-                  <span>1.617.000đ</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Voucher */}
-            <div className="flex items-center justify-between py-2 border-b border-dashed">
-              <span className="text-sm">Áp dụng voucher</span>
-              <span className="text-sm">0đ</span>
-            </div>
-
-            {/* Total */}
-            <div className="flex justify-between items-center text-lg font-bold">
-              <span>TỔNG TIỀN THANH TOÁN (VNĐ)</span>
-              <span>3.324.000đ</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Payment Methods */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
-          <div className="space-y-3">
-            {paymentMethods.map((method) => (
-              <div
-                key={method.id}
-                className={`flex items-center gap-3 p-3 rounded-lg border shadow-sm cursor-pointer ${
-                  selectedPayment === method.id ? "border-blue-500 bg-blue-50" : "border-gray-300"
-                }`}
-                onClick={() => setSelectedPayment(method.id)}
-              >
-                <div className="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                  {selectedPayment === method.id && <div className="w-3 h-3 rounded-full bg-blue-500" />}
-                </div>
-                <span className="text-2xl">{method.icon}</span>
-                <span className="text-sm text-[#0a0a0a]">{method.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Privacy Policy */}
-        <div className="flex justify-between items-center text-sm text-[#0a0a0a] mb-6">
-          <span>Chính sách hủy</span>
-          <span className="text-blue-600">Xem chi tiết</span>
-        </div>
-
-        {/* Confirm Button - Modified to open popup */}
-        <Button
-          onClick={handleOpenPaymentPopup}
-          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg"
-        >
-          Xác nhận & thanh toán
-        </Button>
-      </div>
-
-      {/* Render the Visa/Mastercard Payment Popup */}
-      <VisaMastercardPaymentPopup
-        isOpen={isPaymentPopupOpen}
-        onClose={handleClosePaymentPopup}
-        amount={paymentPopupAmount}
-      />
     </div>
   )
 }
