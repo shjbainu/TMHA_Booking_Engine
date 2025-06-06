@@ -485,7 +485,12 @@ export default function HotelPhotosPage() {
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
-            ></Button>
+            >
+                     <img 
+  src="../images/gen.png" 
+  alt="Mô tả về hình ảnh khách sạn"
+/>
+            </Button>
             {/* Button Tiện ích */}
             <Button
               variant="ghost"
