@@ -57,3 +57,20 @@ export const paymentMethods: PaymentMethod[] = [
   { id: "zalopay", name: "ZaloPay", icon: "💰" },
   { id: "crypto", name: "Crypto", icon: "₿" },
 ]
+export const paymentMethods = [
+  {
+    id: "momo",
+    name: "Thanh toán bằng MOMO",
+    icon: "🇲", // Using an emoji as a simple icon placeholder
+  },
+  {
+    id: "visa",
+    name: "Thẻ Tín dụng/Ghi nợ (Visa, Master)",
+    icon: "💳",
+  },
+  {
+    id: "bank",
+    name: "Chuyển khoản ngân hàng",
+    icon: "🏦",
+  },
+];
