@@ -488,7 +488,7 @@ export default function HotelPhotosPage() {
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
             >
-              <Image src="/images/star.jpg" alt="Biểu tượng đánh giá" width={24} height={24} />
+              <Image src="/images/comment1.jpg" alt="Biểu tượng đánh giá" width={24} height={24} />
               <span className="text-xs mt-1">Đánh giá</span>
             </Button>
             <Button
