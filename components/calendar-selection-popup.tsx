@@ -181,7 +181,7 @@ export default function CalendarSelectionPopup({
           </Button>
        
 
-        <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
+        <div className="flex-1 px-4 py-2 flex flex-col overflow-hidden">
           <div className="flex rounded-full p-1 bg-black mb-4">
             <Button onClick={() => setActiveTab("day")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "day" ? "bg-white text-black" : "bg-black text-white"}`}>Theo ngày</Button>
             <Button onClick={() => setActiveTab("hour")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "hour" ? "bg-white text-black" : "bg-black text-white"}`}>Theo giờ</Button>
