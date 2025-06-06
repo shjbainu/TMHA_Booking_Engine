@@ -222,7 +222,7 @@ export default function CalendarSelectionPopup({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white rounded-t-3xl h-[95vh] flex flex-col">
        
-        
+       
 
         <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
           <div className="flex rounded-full p-1 bg-black mb-4">
@@ -286,7 +286,7 @@ export default function CalendarSelectionPopup({
               
 
           </div>
-            <div className=" pb-12 pt-3">
+            <div className=" pb-12 pt-10">
  {activeTab === 'hour' && (
             <div className="flex items-center gap-4 mb-4">
               {/* Dropdown Giờ nhận phòng */}
