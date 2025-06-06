@@ -130,16 +130,12 @@ export default function CalendarSelectionPopup({
     }, [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked, activeTab]
   );
   
-  // =================================================================
-  //  BẮT ĐẦU PHẦN CODE ĐƯỢC TÁI CẤU TRÚC
-  // =================================================================
   const selectedRangeText = useMemo(() => {
     // ---- Chế độ "Theo giờ" ----
     if (activeTab === 'hour' && selectedStartDate) {
       const [startHour, startMinute] = checkInTime.split(':').map(Number);
       const endHour = startHour + hoursOfUse;
       const formattedEndTime = `${String(endHour % 24).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
-
       const renderTimeBlock = (time: string) => (
         <div className="flex items-center gap-2">
           <div className="text-4xl font-bold">{time}</div>
@@ -149,7 +145,6 @@ export default function CalendarSelectionPopup({
           </div>
         </div>
       );
-
       return (
         <div className="flex items-center justify-between w-full px-4">
           {renderTimeBlock(checkInTime)}
@@ -158,31 +153,27 @@ export default function CalendarSelectionPopup({
         </div>
       );
     }
-
     // ---- Chế độ "Theo ngày" & "Qua đêm" ----
     if ((activeTab === 'day' || activeTab === 'overnight') && selectedStartDate && selectedEndDate) {
       const diffInDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24));
       const diffText = activeTab === 'day' ? `(${diffInDays + 1} ngày)` : `(${diffInDays} đêm)`;
-      
       const renderDateBlock = (date: Date) => (
         <div className="flex items-center gap-2">
           <div className="text-4xl font-bold">{format(date, "d")}</div>
           <div>
-            <div className="text-xs font-regular">{format(date, "EEEE", { locale: vi })}</div>
+            <div className="text-xs font-semibold">{format(date, "EEEE", { locale: vi })}</div>
             <div className="text-xs text-gray-600">{format(date, "MMMM", { locale: vi })}</div>
           </div>
         </div>
       );
-
       return (
         <div className="flex items-center justify-between w-full px-4">
           {renderDateBlock(selectedStartDate)}
-          <div className="text-xs font-semibold text-gray-700">{diffText}</div>
+          <div className="text-sm font-semibold text-gray-700">{diffText}</div>
           {renderDateBlock(selectedEndDate)}
         </div>
       );
     }
-    
     // ---- Trạng thái mặc định ----
     return (
         <div className="flex items-center justify-center w-full">
@@ -190,9 +181,6 @@ export default function CalendarSelectionPopup({
         </div>
     )
   }, [activeTab, selectedStartDate, selectedEndDate, checkInTime, hoursOfUse]);
-  // =================================================================
-  //  KẾT THÚC PHẦN CODE ĐƯỢC TÁI CẤU TRÚC
-  // =================================================================
 
   const handleApplyClick = () => {
     onApply(selectedStartDate, selectedEndDate);
@@ -206,7 +194,11 @@ export default function CalendarSelectionPopup({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white rounded-t-3xl h-[95vh] flex flex-col">
        
-       
+        <div className="flex items-center justify-between p-4 border-b">
+          <div className="w-8"></div>
+          <h2 className="text-lg font-bold text-center">Thời gian đặt phòng</h2>
+          <Button variant="ghost" size="icon" onClick={onClose}><X className="h-5 w-5" /></Button>
+        </div>
 
         <div className="flex-1 px-4 py-4 flex flex-col overflow-hidden">
           <div className="flex rounded-full p-1 bg-black mb-4">
@@ -215,30 +207,34 @@ export default function CalendarSelectionPopup({
             <Button onClick={() => handleTabChange("overnight")} className={`flex-1 rounded-full text-sm h-10 ${activeTab === "overnight" ? "bg-white text-black" : "bg-black text-white"}`}>Qua đêm</Button>
           </div>
           
-          {/* Vùng hiển thị kết quả được cập nhật */}
-          <div className="bg-cyan-100 rounded-xl p-4 flex items-center justify-center text-black shadow-inner mb-4">
+          {/* ================================================================= */}
+          {/* THAY ĐỔI 1: DI CHUYỂN DROPDOWN RA NGOÀI VÀ ĐẶT TRƯỚC VÙNG HIỂN THỊ */}
+          {/* ================================================================= */}
+          {activeTab === 'hour' && (
+            <div className="flex items-center gap-4 mb-4">
+              <div className="flex-1">
+                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">Giờ nhận phòng</label>
+                <select id="check-in-time" value={checkInTime} onChange={(e) => setCheckInTime(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                  {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
+                </select>
+              </div>
+              <div className="flex-1">
+                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">Số giờ sử dụng</label>
+                <select id="hours-of-use" value={hoursOfUse} onChange={(e) => setHoursOfUse(Number(e.target.value))} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                  {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
+                </select>
+              </div>
+            </div>
+          )}
+
+          {/* ================================================================= */}
+          {/* THAY ĐỔI 2: THÊM LỚP h-24 ĐỂ CỐ ĐỊNH CHIỀU CAO */}
+          {/* ================================================================= */}
+          <div className="bg-cyan-100 rounded-xl p-4 flex items-center justify-center text-black shadow-inner mb-4 h-24">
             {selectedRangeText}
           </div>
 
           <div className="flex-1 overflow-y-auto space-y-4 pb-40">
-             {/* Khối dropdown chỉ hiển thị khi ở tab "Theo giờ" */}
-             {activeTab === 'hour' && (
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">Giờ nhận phòng</label>
-                  <select id="check-in-time" value={checkInTime} onChange={(e) => setCheckInTime(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
-                    {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
-                  </select>
-                </div>
-                <div className="flex-1">
-                  <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">Số giờ sử dụng</label>
-                  <select id="hours-of-use" value={hoursOfUse} onChange={(e) => setHoursOfUse(Number(e.target.value))} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
-                    {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
-                  </select>
-                </div>
-              </div>
-            )}
-            
             {monthsToDisplay.map((monthDate, monthIndex) => {
               const year = monthDate.getFullYear();
               const month = monthDate.getMonth();
