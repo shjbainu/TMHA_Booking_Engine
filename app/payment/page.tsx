@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { ArrowLeft, RotateCcw, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -8,8 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { ProgressIndicator } from "@/components/progress-indicator"
 import Link from "next/link"
-import { paymentMethods as availablePaymentMethods } from "@/lib/data"
-import VisaMastercardPaymentPopup from "@/components/visa-mastercard-payment-popup"
+import { paymentMethods } from "@/lib/data"
 
 export default function Payment() {
   const [customer, setCustomer] = useState({
@@ -18,29 +17,8 @@ export default function Payment() {
     email: "",
   })
   const [selectedPayment, setSelectedPayment] = useState("")
-  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false)
 
   const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
-
-  useEffect(() => {
-    if (isPaymentPopupOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-    return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [isPaymentPopupOpen])
-
-  const handleOpenPaymentPopup = (e) => {
-    e.preventDefault()
-    setIsPaymentPopupOpen(true)
-  }
-
-  const handleClosePaymentPopup = () => {
-    setIsPaymentPopupOpen(false)
-  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -248,7 +226,7 @@ export default function Payment() {
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
           <div className="space-y-3">
-            {availablePaymentMethods.map((method) => (
+            {paymentMethods.map((method) => (
               <div
                 key={method.id}
                 className={`flex items-center gap-3 p-3 rounded-lg border shadow-sm cursor-pointer ${
@@ -273,14 +251,11 @@ export default function Payment() {
         </div>
 
         {/* Confirm Button */}
-        <Button
-          onClick={handleOpenPaymentPopup}
-          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg"
-        >
-          Xác nhận & thanh toán
-        </Button>
-        {/* Render the Visa/Mastercard Payment Popup */}
-        <VisaMastercardPaymentPopup isOpen={isPaymentPopupOpen} onClose={handleClosePaymentPopup} amount="1.078.000đ" />
+        <Link href="/confirmation">
+          <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg">
+            Xác nhận & thanh toán
+          </Button>
+        </Link>
       </div>
     </div>
   )
