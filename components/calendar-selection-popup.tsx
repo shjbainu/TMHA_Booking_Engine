@@ -144,7 +144,7 @@ export default function CalendarSelectionPopup({
         <div className="flex items-center gap-2">
           <div className="text-4xl font-bold">{time}</div>
           <div>
-            <div className="text-sm font-semibold">Ngày {format(selectedStartDate, "d")}</div>
+            <div className="text-xs font-semibold">Ngày {format(selectedStartDate, "d")}</div>
             <div className="text-sm text-gray-600">Tháng {format(selectedStartDate, "M")}</div>
           </div>
         </div>
