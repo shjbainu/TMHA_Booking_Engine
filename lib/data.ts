@@ -48,7 +48,7 @@ export const rooms: Room[] = [
     rooms: 3,
     price: 500000,
     images: ["/placeholder.svg?height=200&width=300"],
-  }
+  },
 ]
 
 export const paymentMethods: PaymentMethod[] = [
