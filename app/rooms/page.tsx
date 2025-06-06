@@ -1286,10 +1286,14 @@ export default function RoomSelection() {
               <div className="flex flex-col">{displayDateRange}</div>
             </div>
             {totalSelectedRoomsCount > 0 && (
-              <div>
-                <div className="text-lg padding-left:35px font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
-                <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
-              </div>
+             <div className="ml-[40px]"> {/* <-- Cú pháp này cho phép bạn dùng giá trị bất kỳ */}
+  <div className="text-lg font-medium text-[#0a0a0a]">
+    {totalOverallPrice.toLocaleString()}đ
+  </div>
+  <div className="text-xs text-[#999999]">
+    Giá trên đã bao gồm thuế và phí dịch vụ
+  </div>
+</div>
             )}
           </div>
           {totalSelectedRoomsCount > 0 && (
