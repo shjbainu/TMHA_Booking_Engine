@@ -351,9 +351,7 @@ export default function RoomSelection() {
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp",
-                              // Add more image URLs for each room here if available
-                              // For demonstration, I'm using the existing three images.
-                              // In a real app, you'd fetch these from `room.images` or similar.
+                              // Thêm các URL ảnh khác của Phòng Sơn Ca nếu có
                             ])
                           }}
                         >
@@ -613,6 +611,7 @@ export default function RoomSelection() {
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp",
+                              // Thêm các URL ảnh khác của Phòng Nhật Bản nếu có
                             ])
                           }}
                         >
@@ -625,6 +624,526 @@ export default function RoomSelection() {
 
                   {/* Room Info */}
                   <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Nhật Bản</h3>
+
+                  <div className="mb-3">
+                    <span className="text-sm text-gray-600">1 giường king, 2 giường đôi</span>
+                  </div>
+
+                  {/* Amenities */}
+                  <div className="grid grid-cols-2 gap-2 text-sm text-[#0a0a0a] mb-4">
+                    <div className="flex items-center gap-2">
+                      <Bed className="h-4 w-4" />
+                      <span>Hướng mặt phố</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>Tối đa 3 người</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Bed className="h-4 w-4" />
+                      <span>Còn 3 phòng</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Wifi className="h-4 w-4" />
+                      <span>Diện tích 30m2</span>
+                    </div>
+                  </div>
+
+                  {/* Price and Select */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 500.000đ</span>
+                    </div>
+                    {!booking.expandedRooms.includes(room.id) ? (
+                      <Button
+                        className="bg-[#0a0a0a] hover:bg-[#000000] text-white px-6 py-2 rounded-full text-sm font-medium"
+                        onClick={() => handleRoomExpand(booking.id, room.id)}
+                      >
+                        Chọn phòng
+                      </Button>
+                    ) : (
+                      <div className="flex items-center gap-3 border border-gray-200 rounded-lg px-3 py-2 bg-white">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded"
+                          onClick={() => updateQuantity(booking.id, room.id, -1)}
+                        >
+                          <span className="text-lg">-</span>
+                        </Button>
+                        <span className="w-8 text-center font-medium">{booking.roomQuantities[room.id] || 1}</span>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded"
+                          onClick={() => updateQuantity(booking.id, room.id, 1)}
+                        >
+                          <span className="text-lg">+</span>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded border border-gray-300 text-gray-500"
+                          onClick={() => {
+                            setBookings((prevBookings) =>
+                              prevBookings.map((b) => {
+                                if (b.id === booking.id) {
+                                  const newExpandedRooms = b.expandedRooms.filter((id) => id !== room.id)
+                                  const newRoomQuantities = { ...b.roomQuantities }
+                                  delete newRoomQuantities[room.id]
+                                  return { ...b, expandedRooms: newExpandedRooms, roomQuantities: newRoomQuantities }
+                                }
+                                return b
+                              }),
+                            )
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Inline Options */}
+                  {booking.expandedRooms.includes(room.id) && (
+                    <div className="space-y-4 pt-2">
+                      {/* Breakfast Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() => updatePolicy(booking.id, room.id, "breakfast", "Bao gồm bữa sáng")}
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
+                          </div>
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() => updatePolicy(booking.id, room.id, "breakfast", "Không gồm bữa sáng")}
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Cancellation Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(booking.id, room.id, "cancellation", "Hủy miễn phí trước 15/06/2025")
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
+                          </div>
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() => updatePolicy(booking.id, room.id, "cancellation", "Không hoàn tiền")}
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )
+            })()}
+
+            {/* Phòng Mập Mờ Card */}
+            {(() => {
+              const room = rooms.find((r) => r.id === "3") // Find the specific room object
+              if (!room) return null
+              return (
+                <div
+                  key={`${booking.id}-${room.id}`}
+                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                >
+                  {/* Room Images */}
+                  <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
+                    {/* Large image on the left */}
+                    <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
+                      <Image
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp"
+                        alt="Phòng Mập Mờ main image"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 60vw, 300px"
+                      />
+                    </div>
+
+                    {/* Two stacked images on the right */}
+                    <div className="col-span-2 grid grid-rows-2 gap-2">
+                      <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
+                        <Image
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7cfea.webp"
+                          alt="Phòng Mập Mờ secondary image 1"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 40vw, 200px"
+                        />
+                      </div>
+                      <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
+                        <Image
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"
+                          alt="Phòng Mập Mờ secondary image 1"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 40vw, 200px"
+                        />
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
+                          onClick={() => {
+                            setIsGalleryOpen(true)
+                            setCurrentGalleryImages([
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7cfea.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp",
+                              // Thêm các URL ảnh khác của Phòng Mập Mờ nếu có
+                            ])
+                          }}
+                        >
+                          <GalleryHorizontal className="h-3 w-3" />
+                          <span>10+</span>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Room Info */}
+                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Mập Mờ</h3>
+
+                  <div className="mb-3">
+                    <span className="text-sm text-gray-600">1 giường king, 2 giường đôi</span>
+                  </div>
+
+                  {/* Amenities */}
+                  <div className="grid grid-cols-2 gap-2 text-sm text-[#0a0a0a] mb-4">
+                    <div className="flex items-center gap-2">
+                      <Bed className="h-4 w-4" />
+                      <span>Hướng mặt phố</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>Tối đa 3 người</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Bed className="h-4 w-4" />
+                      <span>Còn 3 phòng</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Wifi className="h-4 w-4" />
+                      <span>Diện tích 30m2</span>
+                    </div>
+                  </div>
+
+                  {/* Price and Select */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 500.000đ</span>
+                    </div>
+                    {!booking.expandedRooms.includes(room.id) ? (
+                      <Button
+                        className="bg-[#0a0a0a] hover:bg-[#000000] text-white px-6 py-2 rounded-full text-sm font-medium"
+                        onClick={() => handleRoomExpand(booking.id, room.id)}
+                      >
+                        Chọn phòng
+                      </Button>
+                    ) : (
+                      <div className="flex items-center gap-3 border border-gray-200 rounded-lg px-3 py-2 bg-white">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded"
+                          onClick={() => updateQuantity(booking.id, room.id, -1)}
+                        >
+                          <span className="text-lg">-</span>
+                        </Button>
+                        <span className="w-8 text-center font-medium">{booking.roomQuantities[room.id] || 1}</span>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded"
+                          onClick={() => updateQuantity(booking.id, room.id, 1)}
+                        >
+                          <span className="text-lg">+</span>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded border border-gray-300 text-gray-500"
+                          onClick={() => {
+                            setBookings((prevBookings) =>
+                              prevBookings.map((b) => {
+                                if (b.id === booking.id) {
+                                  const newExpandedRooms = b.expandedRooms.filter((id) => id !== room.id)
+                                  const newRoomQuantities = { ...b.roomQuantities }
+                                  delete newRoomQuantities[room.id]
+                                  return { ...b, expandedRooms: newExpandedRooms, roomQuantities: newRoomQuantities }
+                                }
+                                return b
+                              }),
+                            )
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Inline Options */}
+                  {booking.expandedRooms.includes(room.id) && (
+                    <div className="space-y-4 pt-2">
+                      {/* Breakfast Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() => updatePolicy(booking.id, room.id, "breakfast", "Bao gồm bữa sáng")}
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
+                          </div>
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() => updatePolicy(booking.id, room.id, "breakfast", "Không gồm bữa sáng")}
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Cancellation Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(booking.id, room.id, "cancellation", "Hủy miễn phí trước 15/06/2025")
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
+                          </div>
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                              booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() => updatePolicy(booking.id, room.id, "cancellation", "Không hoàn tiền")}
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )
+            })()}
+
+            {/* Phòng Santorini Card */}
+            {(() => {
+              const room = rooms.find((r) => r.id === "4") // Assuming a new room ID for Santorini
+              if (!room) return null
+              return (
+                <div
+                  key={`${booking.id}-${room.id}`}
+                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                >
+                  {/* Room Images */}
+                  <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
+                    {/* Large image on the left */}
+                    <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
+                      <Image
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
+                        alt="Phòng Santorini main image"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 60vw, 300px"
+                      />
+                    </div>
+
+                    {/* Two stacked images on the right */}
+                    <div className="col-span-2 grid grid-rows-2 gap-2">
+                      <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
+                        <Image
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp"
+                          alt="Phòng Santorini secondary image 1"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 40vw, 200px"
+                        />
+                      </div>
+                      <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
+                        <Image
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp"
+                          alt="Phòng Santorini secondary image 1"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 40vw, 200px"
+                        />
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
+                          onClick={() => {
+                            setIsGalleryOpen(true)
+                            setCurrentGalleryImages([
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp",
+                              // Thêm các URL ảnh khác của Phòng Santorini nếu có
+                            ])
+                          }}
+                        >
+                          <GalleryHorizontal className="h-3 w-3" />
+                          <span>10+</span>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Room Info */}
+                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Santorini</h3>
 
                   <div className="mb-3">
                     <span className="text-sm text-gray-600">1 giường king, 2 giường đôi</span>
@@ -1143,265 +1662,6 @@ export default function RoomSelection() {
 
                   {/* Room Info */}
                   <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Santorini</h3>
-
-                  <div className="mb-3">
-                    <span className="text-sm text-gray-600">1 giường king, 2 giường đôi</span>
-                  </div>
-
-                  {/* Amenities */}
-                  <div className="grid grid-cols-2 gap-2 text-sm text-[#0a0a0a] mb-4">
-                    <div className="flex items-center gap-2">
-                      <Bed className="h-4 w-4" />
-                      <span>Hướng mặt phố</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4" />
-                      <span>Tối đa 3 người</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Bed className="h-4 w-4" />
-                      <span>Còn 3 phòng</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Wifi className="h-4 w-4" />
-                      <span>Diện tích 30m2</span>
-                    </div>
-                  </div>
-
-                  {/* Price and Select */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 500.000đ</span>
-                    </div>
-                    {!booking.expandedRooms.includes(room.id) ? (
-                      <Button
-                        className="bg-[#0a0a0a] hover:bg-[#000000] text-white px-6 py-2 rounded-full text-sm font-medium"
-                        onClick={() => handleRoomExpand(booking.id, room.id)}
-                      >
-                        Chọn phòng
-                      </Button>
-                    ) : (
-                      <div className="flex items-center gap-3 border border-gray-200 rounded-lg px-3 py-2 bg-white">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 rounded"
-                          onClick={() => updateQuantity(booking.id, room.id, -1)}
-                        >
-                          <span className="text-lg">-</span>
-                        </Button>
-                        <span className="w-8 text-center font-medium">{booking.roomQuantities[room.id] || 1}</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 rounded"
-                          onClick={() => updateQuantity(booking.id, room.id, 1)}
-                        >
-                          <span className="text-lg">+</span>
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 rounded border border-gray-300 text-gray-500"
-                          onClick={() => {
-                            setBookings((prevBookings) =>
-                              prevBookings.map((b) => {
-                                if (b.id === booking.id) {
-                                  const newExpandedRooms = b.expandedRooms.filter((id) => id !== room.id)
-                                  const newRoomQuantities = { ...b.roomQuantities }
-                                  delete newRoomQuantities[room.id]
-                                  return { ...b, expandedRooms: newExpandedRooms, roomQuantities: newRoomQuantities }
-                                }
-                                return b
-                              }),
-                            )
-                          }}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Inline Options */}
-                  {booking.expandedRooms.includes(room.id) && (
-                    <div className="space-y-4 pt-2">
-                      {/* Breakfast Policy */}
-                      <div>
-                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
-                        <div className="space-y-2">
-                          <div
-                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                              booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                ? "border-blue-500 bg-blue-50"
-                                : "border-gray-200 bg-white"
-                            }`}
-                            onClick={() => updatePolicy(booking.id, room.id, "breakfast", "Bao gồm bữa sáng")}
-                          >
-                            <div className="relative">
-                              <div
-                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                    ? "bg-blue-500 border-blue-500 shadow-sm"
-                                    : "border-gray-300"
-                                }`}
-                              >
-                                {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
-                                  <Check className="w-3 h-3 text-white" />
-                                )}
-                              </div>
-                            </div>
-                            <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
-                          </div>
-                          <div
-                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                              booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                ? "border-blue-500 bg-blue-50"
-                                : "border-gray-200 bg-white"
-                            }`}
-                            onClick={() => updatePolicy(booking.id, room.id, "breakfast", "Không gồm bữa sáng")}
-                          >
-                            <div className="relative">
-                              <div
-                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                    ? "bg-blue-500 border-blue-500 shadow-sm"
-                                    : "border-gray-300"
-                                }`}
-                              >
-                                {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
-                                  <Check className="w-3 h-3 text-white" />
-                                )}
-                              </div>
-                            </div>
-                            <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Cancellation Policy */}
-                      <div>
-                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
-                        <div className="space-y-2">
-                          <div
-                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                              booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                ? "border-blue-500 bg-blue-50"
-                                : "border-gray-200 bg-white"
-                            }`}
-                            onClick={() =>
-                              updatePolicy(booking.id, room.id, "cancellation", "Hủy miễn phí trước 15/06/2025")
-                            }
-                          >
-                            <div className="relative">
-                              <div
-                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                    ? "bg-blue-500 border-blue-500 shadow-sm"
-                                    : "border-gray-300"
-                                }`}
-                              >
-                                {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
-                                  <Check className="w-3 h-3 text-white" />
-                                )}
-                              </div>
-                            </div>
-                            <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
-                          </div>
-                          <div
-                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                              booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                ? "border-blue-500 bg-blue-50"
-                                : "border-gray-200 bg-white"
-                            }`}
-                            onClick={() => updatePolicy(booking.id, room.id, "cancellation", "Không hoàn tiền")}
-                          >
-                            <div className="relative">
-                              <div
-                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                    ? "bg-blue-500 border-blue-500 shadow-sm"
-                                    : "border-gray-300"
-                                }`}
-                              >
-                                {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
-                                  <Check className="w-3 h-3 text-white" />
-                                )}
-                              </div>
-                            </div>
-                            <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )
-            })()}
-
-            {/* Phòng Mập Mờ Card */}
-            {(() => {
-              const room = rooms.find((r) => r.id === "3") // Find the specific room object
-              if (!room) return null
-              return (
-                <div
-                  key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
-                >
-                  {/* Room Images */}
-                  <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
-                    {/* Large image on the left */}
-                    <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                      <Image
-                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp"
-                        alt="Phòng Mập Mờ main image"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 60vw, 300px"
-                      />
-                    </div>
-
-                    {/* Two stacked images on the right */}
-                    <div className="col-span-2 grid grid-rows-2 gap-2">
-                      <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                        <Image
-                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7cfea.webp"
-                          alt="Phòng Mập Mờ secondary image 1"
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 40vw, 200px"
-                        />
-                      </div>
-                      <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
-                        <Image
-                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"
-                          alt="Phòng Mập Mờ secondary image 1"
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 40vw, 200px"
-                        />
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
-                          onClick={() => {
-                            setIsGalleryOpen(true)
-                            setCurrentGalleryImages([
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp",
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7cfea.webp",
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp",
-                            ])
-                          }}
-                        >
-                          <GalleryHorizontal className="h-3 w-3" />
-                          <span>10+</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Room Info */}
-                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Mập Mờ</h3>
 
                   <div className="mb-3">
                     <span className="text-sm text-gray-600">1 giường king, 2 giường đôi</span>
