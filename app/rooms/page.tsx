@@ -55,8 +55,6 @@ export default function RoomSelection() {
   const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
   const [showScrollToTopButton, setShowScrollToTopButton] = useState(false) // New state for scroll to top button
 
-  const hotelName = "69 Boutique by Minova"
-  const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
 
   // Effect to handle scroll event for the scroll-to-top button
   useEffect(() => {
