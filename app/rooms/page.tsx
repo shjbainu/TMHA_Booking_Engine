@@ -166,8 +166,11 @@ export default function RoomSelection() {
           return {
             ...booking,
             roomPolicies: {
-              ...currentRoomPolicy,
-              bedType: value,
+              ...booking.roomPolicies,
+              [roomId]: {
+                ...currentRoomPolicy,
+                bedType: value,
+              },
             },
           }
         }
@@ -277,7 +280,10 @@ export default function RoomSelection() {
             variant="ghost"
             size="icon"
             className="h-10 w-10 border border-black rounded-full"
-            onClick={handleAddBooking}
+            onClick={() => {
+              handleAddBooking()
+              setIsCalendarPopupOpen(true)
+            }}
           >
             <Plus className="h-4 w-4" />
           </Button>
@@ -1347,13 +1353,11 @@ export default function RoomSelection() {
 
       {/* Bottom Summary */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
-        <div className="w-full">
-          {" "}
-          {/* Removed max-w-md mx-auto */}
+        <div className="max-w-md mx-auto">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
               <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                <CalendarDays className="lucide-calendar" />
+                <CalendarDays className="lucide-calendar" /> {/* This is the updated icon */}
               </div>
               <div className="flex flex-col">{displayDateRange}</div>
             </div>
