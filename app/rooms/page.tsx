@@ -329,7 +329,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4 bg-gradient-to-br from-sonca-start to-sonca-end"
                 >
                   {/* Room Images */}
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
@@ -631,7 +631,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4 bg-gradient-to-br from-nhatban-start to-nhatban-end"
                 >
                   {/* Room Images */}
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
@@ -716,7 +716,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "2 giường đôi"
-                            ? "border-blue-500 bg-blue-50"
+                            ? "border-blue-500 bg-blue-50 text-blue-700"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -933,7 +933,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4 bg-gradient-to-br from-nhatban-start to-nhatban-end" // Reusing Nhat Ban gradient for Map Mo
                 >
                   {/* Room Images */}
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
@@ -1235,7 +1235,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4 bg-gradient-to-br from-santorini-start to-santorini-end"
                 >
                   {/* Room Images */}
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
