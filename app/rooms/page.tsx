@@ -307,7 +307,7 @@ export default function RoomSelection() {
                   className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                 >
                   {/* Room Images */}
-                  <div className="grid grid-cols-5 gap-2 mb-4 p-2 rounded-2xl bg-gray-50/30">
+                  <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <Image
@@ -550,7 +550,7 @@ export default function RoomSelection() {
                   className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                 >
                   {/* Room Images */}
-                  <div className="grid grid-cols-5 gap-2 mb-4 p-2 rounded-2xl bg-gray-50/30">
+                  <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <Image
@@ -793,7 +793,7 @@ export default function RoomSelection() {
                   className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                 >
                   {/* Room Images */}
-                  <div className="grid grid-cols-5 gap-2 mb-4 p-2 rounded-2xl bg-gray-50/30">
+                  <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <Image
@@ -1036,7 +1036,7 @@ export default function RoomSelection() {
                   className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                 >
                   {/* Room Images */}
-                  <div className="grid grid-cols-5 gap-2 mb-4 p-2 rounded-2xl bg-gray-50/30">
+                  <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <Image
