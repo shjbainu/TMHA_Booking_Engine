@@ -11,14 +11,14 @@ import {
   Loader,
   Check,
   CalendarDays,
-  GalleryHorizontal,
+  ImageIcon,
   Building,
   Info,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { rooms } from "@/lib/data"
-import Image from "next/image"
+import ImageComponent from "next/image"
 import CalendarSelectionPopup from "@/components/calendar-selection-popup"
 import { format } from "date-fns"
 import { vi } from "date-fns/locale"
@@ -263,15 +263,7 @@ export default function RoomSelection() {
           </Button>
         </Link>
         <h1 className="text-lg font-medium text-[#0a0a0a]">CHỌN PHÒNG</h1>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-10 w-10"
-          onClick={() => {
-            console.log("Info button clicked, setting isHotelIntroDrawerOpen to true")
-            setIsHotelIntroDrawerOpen(true)
-          }}
-        >
+        <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsHotelIntroDrawerOpen(true)}>
           <Info className="h-6 w-6 text-[#0a0a0a]" />
         </Button>
       </div>
@@ -365,7 +357,7 @@ export default function RoomSelection() {
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                      <Image
+                      <ImageComponent
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
                         alt="Phòng Sơn Ca main image"
                         fill
@@ -377,7 +369,7 @@ export default function RoomSelection() {
                     {/* Two stacked images on the right */}
                     <div className="col-span-2 grid grid-rows-2 gap-2">
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                        <Image
+                        <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp"
                           alt="Phòng Sơn Ca secondary image 1"
                           fill
@@ -386,7 +378,7 @@ export default function RoomSelection() {
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
-                        <Image
+                        <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp"
                           alt="Phòng Sơn Ca secondary image 1"
                           fill
@@ -406,7 +398,7 @@ export default function RoomSelection() {
                             ])
                           }}
                         >
-                          <GalleryHorizontal className="h-3 w-3" />
+                          <ImageIcon className="h-3 w-3" />
                           <span>3</span>
                         </Button>
                       </div>
@@ -702,7 +694,7 @@ export default function RoomSelection() {
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                      <Image
+                      <ImageComponent
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
                         alt="Phòng Nhật Bản main image"
                         fill
@@ -714,7 +706,7 @@ export default function RoomSelection() {
                     {/* Two stacked images on the right */}
                     <div className="col-span-2 grid grid-rows-2 gap-2">
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                        <Image
+                        <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp"
                           alt="Phòng Nhật Bản secondary image 1"
                           fill
@@ -723,7 +715,7 @@ export default function RoomSelection() {
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
-                        <Image
+                        <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
                           alt="Phòng Nhật Bản secondary image 1"
                           fill
@@ -743,7 +735,7 @@ export default function RoomSelection() {
                             ])
                           }}
                         >
-                          <GalleryHorizontal className="h-3 w-3" />
+                          <ImageIcon className="h-3 w-3" />
                           <span>3</span>
                         </Button>
                       </div>
@@ -1039,7 +1031,7 @@ export default function RoomSelection() {
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                      <Image
+                      <ImageComponent
                         src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
                         alt="Phòng Santorini main image"
                         fill
@@ -1051,7 +1043,7 @@ export default function RoomSelection() {
                     {/* Two stacked images on the right */}
                     <div className="col-span-2 grid grid-rows-2 gap-2">
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
-                        <Image
+                        <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp"
                           alt="Phòng Santorini secondary image 1"
                           fill
@@ -1060,7 +1052,7 @@ export default function RoomSelection() {
                         />
                       </div>
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
-                        <Image
+                        <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp"
                           alt="Phòng Santorini secondary image 1"
                           fill
@@ -1080,7 +1072,7 @@ export default function RoomSelection() {
                             ])
                           }}
                         >
-                          <GalleryHorizontal className="h-3 w-3" />
+                          <ImageIcon className="h-3 w-3" />
                           <span>3</span>
                         </Button>
                       </div>
