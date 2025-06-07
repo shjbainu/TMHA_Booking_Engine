@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef } from "react" // Import useRef
+import { useState, useMemo } from "react"
 import {
   ArrowLeft,
   Plus,
@@ -14,7 +14,6 @@ import {
   ImageIcon,
   Building,
   Info,
-  ArrowUpCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -25,7 +24,7 @@ import { format } from "date-fns"
 import { vi } from "date-fns/locale"
 import ImageGalleryModal from "@/components/image-gallery-modal"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import HotelIntroDrawer from "@/components/hotel-intro-drawer"
+import HotelIntroDrawer from "@/components/hotel-intro-drawer" // Import the new component
 
 // Define a type for a single booking
 interface Booking {
@@ -52,41 +51,10 @@ export default function RoomSelection() {
   const [selectedBookingEndDate, setSelectedBookingEndDate] = useState<Date | null>(new Date(2025, 3, 27))
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [currentGalleryImages, setCurrentGalleryImages] = useState<string[]>([])
-  const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
-  const [showScrollToTopButton, setShowScrollToTopButton] = useState(false)
-
-  const roomListRef = useRef<HTMLDivElement>(null) // Add useRef
+  const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false) // New state for hotel intro drawer
 
   const hotelName = "69 Boutique by Minova"
   const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
-
-  // Effect to handle scroll event for the scroll-to-top button
-  useEffect(() => {
-    const handleScroll = () => {
-      if (roomListRef.current) {
-        const roomListBottom = roomListRef.current.offsetTop + roomListRef.current.offsetHeight
-        // Show button if the user has scrolled past the bottom of the room list
-        if (window.scrollY + window.innerHeight > roomListBottom + 100) {
-          // Add a small offset
-          setShowScrollToTopButton(true)
-        } else {
-          setShowScrollToTopButton(false)
-        }
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, []) // Dependency array is empty as roomListRef.current is stable after initial render
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
 
   const handleAddBooking = () => {
     const newBookingId = `booking-${bookings.length + 1}`
@@ -177,8 +145,11 @@ export default function RoomSelection() {
           return {
             ...booking,
             roomPolicies: {
-              ...currentRoomPolicy,
-              [type]: value,
+              ...booking.roomPolicies,
+              [roomId]: {
+                ...currentRoomPolicy,
+                [type]: value,
+              },
             },
           }
         }
@@ -199,8 +170,11 @@ export default function RoomSelection() {
           return {
             ...booking,
             roomPolicies: {
-              ...currentRoomPolicy,
-              bedType: value,
+              ...booking.roomPolicies,
+              [roomId]: {
+                ...currentRoomPolicy,
+                bedType: value,
+              },
             },
           }
         }
@@ -366,7 +340,7 @@ export default function RoomSelection() {
       </div>
 
       {/* Room List */}
-      <div className="p-4 space-y-4" ref={roomListRef}> {/* Attach ref here */}
+      <div className="p-4 space-y-4">
         {bookings.map((booking) => (
           <div key={booking.id}>
             {/* Phòng Sơn Ca Card */}
@@ -1380,62 +1354,51 @@ export default function RoomSelection() {
               )
             })()}
           </div>
+        ))}
+      </div>
 
-          {/* Bottom Summary */}
-          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
-            <div className="max-w-md mx-auto">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
-                  <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                    <CalendarDays className="lucide-calendar" />
-                  </div>
-                  <div className="flex flex-col">{displayDateRange}</div>
-                </div>\
-                {totalSelectedRoomsCount > 0 && (
-                  <div>
-                    <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
-                    <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
-                  </div>
-                )}
+      {/* Bottom Summary */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+        <div className="max-w-md mx-auto">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
+              <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                <CalendarDays className="lucide-calendar" />
               </div>
-              {totalSelectedRoomsCount > 0 && (
-                <Link href="/payment">
-                  <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
-                </Link>
-              )}
+              <div className="flex flex-col">{displayDateRange}</div>
             </div>
+            {totalSelectedRoomsCount > 0 && (
+              <div>
+                <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
+                <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
+              </div>
+            )}
           </div>
-
-          <div className="h-24" />
-
-          {/* Scroll to Top Button */}
-          {showScrollToTopButton && (
-            <Button
-              variant="secondary"
-              size="icon"
-              className="fixed bottom-28 right-4 z-50 rounded-full shadow-lg transition-opacity duration-300 bg-[#0a0a0a] text-white hover:bg-[#000000]"
-              onClick={scrollToTop}
-              aria-label="Scroll to top"
-            >
-              <ArrowUpCircle className="h-6 w-6" />
-            </Button>
+          {totalSelectedRoomsCount > 0 && (
+            <Link href="/payment">
+              <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
+            </Link>
           )}
-
-          {/* Calendar Selection Popup */}
-          <CalendarSelectionPopup
-            isOpen={isCalendarPopupOpen}
-            onClose={() => setIsCalendarPopupOpen(false)}
-            onApply={handleApplyDates}
-            initialStartDate={selectedBookingStartDate}
-            initialEndDate={selectedBookingEndDate}
-          />
-          <ImageGalleryModal isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} images={currentGalleryImages} />
-          <HotelIntroDrawer
-            isOpen={isHotelIntroDrawerOpen}
-            onClose={() => setIsHotelIntroDrawerOpen(false)}
-            hotelName={hotelName}
-            hotelAddress={hotelAddress}
-          />
         </div>
-      )
+      </div>
+
+      <div className="h-24" />
+
+      {/* Calendar Selection Popup */}
+      <CalendarSelectionPopup
+        isOpen={isCalendarPopupOpen}
+        onClose={() => setIsCalendarPopupOpen(false)}
+        onApply={handleApplyDates}
+        initialStartDate={selectedBookingStartDate}
+        initialEndDate={selectedBookingEndDate}
+      />
+      <ImageGalleryModal isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} images={currentGalleryImages} />
+      <HotelIntroDrawer
+        isOpen={isHotelIntroDrawerOpen}
+        onClose={() => setIsHotelIntroDrawerOpen(false)}
+        hotelName={hotelName}
+        hotelAddress={hotelAddress}
+      />
+    </div>
+  )
 }
