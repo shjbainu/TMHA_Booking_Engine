@@ -263,7 +263,15 @@ export default function RoomSelection() {
           </Button>
         </Link>
         <h1 className="text-lg font-medium text-[#0a0a0a]">CHỌN PHÒNG</h1>
-        <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsHotelIntroDrawerOpen(true)}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-10 w-10"
+          onClick={() => {
+            console.log("Info button clicked, setting isHotelIntroDrawerOpen to true")
+            setIsHotelIntroDrawerOpen(true)
+          }}
+        >
           <Info className="h-6 w-6 text-[#0a0a0a]" />
         </Button>
       </div>
