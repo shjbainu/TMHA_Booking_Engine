@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation" // Import useRouter
 import { ArrowLeft, RotateCcw, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,19 +10,25 @@ import { Badge } from "@/components/ui/badge"
 import { ProgressIndicator } from "@/components/progress-indicator"
 import Link from "next/link"
 import { paymentMethods } from "@/lib/data"
+// THAY ĐỔI: Import các component popup mới
+import { VisaPaymentPopup } from "@/components/popups/VisaPaymentPopup"
+import { MomoPaymentPopup } from "@/components/popups/MomoPaymentPopup"
 
 export default function Payment() {
+  const router = useRouter(); // Khởi tạo router
   const [customer, setCustomer] = useState({
     name: "",
     phone: "",
     email: "",
-  })
-  const [selectedPayment, setSelectedPayment] = useState("")
-  const [timeLeft, setTimeLeft] = useState(600) // 10 minutes in seconds
+  });
+  const [selectedPayment, setSelectedPayment] = useState("visa_mastercard") // Đặt giá trị mặc định nếu muốn
+  const [timeLeft, setTimeLeft] = useState(600)
+  
+  // THAY ĐỔI: State mới để quản lý popup nào đang mở
+  const [activePopup, setActivePopup] = useState<string | null>(null);
 
   useEffect(() => {
     if (timeLeft <= 0) return
-
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -31,11 +38,9 @@ export default function Payment() {
         return prev - 1
       })
     }, 1000)
-
     return () => clearInterval(timer)
   }, [timeLeft])
 
-  // Format time as MM:SS
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
@@ -43,6 +48,35 @@ export default function Payment() {
   }
 
   const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
+  const totalAmount = "3.234.000đ"; 
+  const popupAmount = "1.078.000đ";
+
+  // THAY ĐỔI: Hàm xử lý khi nhấn nút "Xác nhận & thanh toán"
+  const handlePaymentConfirmation = () => {
+    if (!selectedPayment) {
+      alert("Vui lòng chọn phương thức thanh toán!");
+      return;
+    }
+    if (!customer.name || !customer.phone || !customer.email) {
+      alert("Vui lòng điền đầy đủ thông tin khách hàng!");
+      return;
+    }
+    
+    // Mở popup tương ứng với lựa chọn
+    setActivePopup(selectedPayment);
+  };
+
+  // THAY ĐỔI: Hàm để đóng popup
+  const handleClosePopup = () => {
+    setActivePopup(null);
+  };
+  
+  // THAY ĐỔI: Hàm để xác nhận thanh toán từ popup và chuyển trang
+  const handleFinalizePayment = () => {
+      console.log("Payment confirmed, navigating to confirmation page...");
+      setActivePopup(null); // Đóng popup
+      router.push('/confirmation'); // Chuyển trang đến trang xác nhận
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -72,41 +106,10 @@ export default function Payment() {
         {/* Booking Information */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Thông tin đặt phòng</h2>
-
-          {/* Booking 1 */}
           <div className="bg-white border border-gray-200 shadow-sm rounded-lg p-4 mb-3">
             <div className="flex items-center justify-between mb-3">
               <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
                 BOOKING 1
-              </Badge>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <RotateCcw className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 text-sm mb-2">
-              <span className="bg-white px-2 py-1 rounded">25/04/2025</span>
-              <span className="bg-white px-2 py-1 rounded">2 đêm</span>
-              <span className="bg-white px-2 py-1 rounded">27/04/2025</span>
-            </div>
-            <div className="text-sm text-[#0a0a0a] space-y-1">
-              <div>• Phòng Standard x2</div>
-              <div>• Phòng Luxury x1</div>
-            </div>
-            <div className="text-right mt-2">
-              <span className="font-medium">Tổng tiền: 1.078.000đ</span>
-            </div>
-          </div>
-
-          {/* Booking 2 */}
-          <div className="bg-white border border-gray-200 shadow-sm rounded-lg p-4 mb-3">
-            <div className="flex items-center justify-between mb-3">
-              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
-                BOOKING 2
               </Badge>
               <div className="flex gap-2">
                 <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -178,40 +181,8 @@ export default function Payment() {
         {/* Payment Details */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Chi tiết thanh toán</h2>
-
-          <div className="space-y-4">
-            {/* Booking 1 Details */}
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-[#0a0a0a]">Thông tin giá</span>
-                <span className="font-medium text-[#0a0a0a]">Tổng tiền</span>
-              </div>
-              <div className="bg-gray-50 border border-gray-200 shadow-sm p-3 rounded-lg">
-                <div className="font-medium mb-2">BOOKING 1</div>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Phòng Standard x2</span>
-                    <span>980.000đ</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Phòng Luxury x1</span>
-                    <span>490.000đ</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Phí VAT (Thuế 10%)</span>
-                    <span>147.000đ</span>
-                  </div>
-                  <div className="flex justify-between font-medium border-t border-gray-200 pt-2">
-                    <span>TỔNG BOOKING 1:</span>
-                    <span>1.617.000đ</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Booking 2 Details */}
             <div className="bg-gray-50 border border-gray-200 shadow-sm p-3 rounded-lg">
-              <div className="font-medium mb-2">BOOKING 2</div>
+              <div className="font-medium mb-2">BOOKING 1</div>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span>Phòng Standard x2</span>
@@ -226,24 +197,15 @@ export default function Payment() {
                   <span>147.000đ</span>
                 </div>
                 <div className="flex justify-between font-medium border-t border-gray-200 pt-2">
-                  <span>TỔNG BOOKING 2:</span>
+                  <span>TỔNG BOOKING 1:</span>
                   <span>1.617.000đ</span>
                 </div>
               </div>
             </div>
-
-            {/* Voucher */}
-            <div className="flex items-center justify-between py-2 border-b border-dashed">
-              <span className="text-sm">Áp dụng voucher</span>
-              <span className="text-sm">0đ</span>
-            </div>
-
-            {/* Total */}
-            <div className="flex justify-between items-center text-lg font-bold">
+            <div className="flex justify-between items-center text-lg font-bold mt-4">
               <span>TỔNG TIỀN THANH TOÁN (VNĐ)</span>
-              <span>3.324.000đ</span>
+              <span>{totalAmount}</span>
             </div>
-          </div>
         </div>
 
         {/* Payment Methods */}
@@ -253,16 +215,20 @@ export default function Payment() {
             {paymentMethods.map((method) => (
               <div
                 key={method.id}
-                className={`flex items-center gap-3 p-3 rounded-lg border shadow-sm cursor-pointer ${
-                  selectedPayment === method.id ? "border-blue-500 bg-blue-50" : "border-gray-300"
+                className={`flex items-center gap-3 p-3 rounded-lg border shadow-sm cursor-pointer transition-all ${
+                  selectedPayment === method.id 
+                  ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200" 
+                  : "border-gray-300 bg-white"
                 }`}
                 onClick={() => setSelectedPayment(method.id)}
               >
-                <div className="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0
+                  ${selectedPayment === method.id ? 'border-blue-500' : 'border-gray-300'}`}
+                >
                   {selectedPayment === method.id && <div className="w-3 h-3 rounded-full bg-blue-500" />}
                 </div>
                 <span className="text-2xl">{method.icon}</span>
-                <span className="text-sm text-[#0a0a0a]">{method.name}</span>
+                <span className="text-sm text-[#0a0a0a] font-medium">{method.name}</span>
               </div>
             ))}
           </div>
@@ -271,16 +237,35 @@ export default function Payment() {
         {/* Privacy Policy */}
         <div className="flex justify-between items-center text-sm text-[#0a0a0a] mb-6">
           <span>Chính sách hủy</span>
-          <span className="text-blue-600">Xem chi tiết</span>
+          <span className="text-blue-600 cursor-pointer">Xem chi tiết</span>
         </div>
 
-        {/* Confirm Button */}
-        <Link href="/confirmation">
-          <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg">
-            Xác nhận & thanh toán
-          </Button>
-        </Link>
+        {/* THAY ĐỔI: Nút này không còn là Link, mà là Button để trigger popup */}
+        <Button
+          onClick={handlePaymentConfirmation}
+          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg h-12"
+        >
+          Xác nhận & thanh toán
+        </Button>
       </div>
+
+      {/* THAY ĐỔI: Render Popups có điều kiện */}
+      {activePopup === 'visa_mastercard' && (
+        <VisaPaymentPopup
+          amount={popupAmount}
+          onClose={handleClosePopup}
+          onConfirm={handleFinalizePayment}
+        />
+      )}
+
+      {activePopup === 'momo' && (
+        <MomoPaymentPopup
+          amount={popupAmount}
+          // Với Momo, người dùng chỉ cần quét xong và có thể tự đóng popup
+          // Việc đóng popup sẽ coi như hoàn tất và chuyển trang
+          onClose={handleFinalizePayment} 
+        />
+      )}
     </div>
   )
 }
