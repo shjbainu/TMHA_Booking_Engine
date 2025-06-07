@@ -13,22 +13,24 @@ import {
   CalendarDays,
   GalleryHorizontal,
   Building,
-} from "lucide-react" // Import Building icon
+  Info,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { rooms } from "@/lib/data"
 import Image from "next/image"
-import CalendarSelectionPopup from "@/components/calendar-selection-popup" // Import the new component
+import CalendarSelectionPopup from "@/components/calendar-selection-popup"
 import { format } from "date-fns"
 import { vi } from "date-fns/locale"
 import ImageGalleryModal from "@/components/image-gallery-modal"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group" // Import RadioGroup components
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import HotelIntroDrawer from "@/components/hotel-intro-drawer" // Import the new component
 
 // Define a type for a single booking
 interface Booking {
   id: string
   roomQuantities: { [key: string]: number }
-  roomPolicies: { [key: string]: { breakfast: string | null; cancellation: string | null; bedType: string | null } } // Add bedType
+  roomPolicies: { [key: string]: { breakfast: string | null; cancellation: string | null; bedType: string | null } }
   expandedRooms: string[]
 }
 
@@ -44,11 +46,15 @@ export default function RoomSelection() {
   const [isLoading, setIsLoading] = useState(false)
   const [includeBreakfastFilter, setIncludeBreakfastFilter] = useState(false)
   const [freeCancellationFilter, setFreeCancellationFilter] = useState(false)
-  const [isCalendarPopupOpen, setIsCalendarPopupOpen] = useState(false) // State for popup visibility
-  const [selectedBookingStartDate, setSelectedBookingStartDate] = useState<Date | null>(new Date(2025, 3, 25)) // April 25, 2025
-  const [selectedBookingEndDate, setSelectedBookingEndDate] = useState<Date | null>(new Date(2025, 3, 27)) // April 27, 2025
+  const [isCalendarPopupOpen, setIsCalendarPopupOpen] = useState(false)
+  const [selectedBookingStartDate, setSelectedBookingStartDate] = useState<Date | null>(new Date(2025, 3, 25))
+  const [selectedBookingEndDate, setSelectedBookingEndDate] = useState<Date | null>(new Date(2025, 3, 27))
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [currentGalleryImages, setCurrentGalleryImages] = useState<string[]>([])
+  const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false) // New state for hotel intro drawer
+
+  const hotelName = "69 Boutique by Minova"
+  const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
 
   const handleAddBooking = () => {
     const newBookingId = `booking-${bookings.length + 1}`
@@ -65,7 +71,6 @@ export default function RoomSelection() {
 
   const handleRemoveBooking = (bookingId: string) => {
     if (bookings.length === 1 && bookingId === "booking-1") {
-      // Prevent removing the last booking (BOOKING 1)
       return
     }
     setBookings((prev) => prev.filter((booking) => booking.id !== bookingId))
@@ -87,9 +92,9 @@ export default function RoomSelection() {
 
           const newRoomPolicies = { ...booking.roomPolicies }
           if (!newRoomPolicies[roomId]) {
-            newRoomPolicies[roomId] = { breakfast: null, cancellation: null, bedType: "1 giường king" } // Default bed type
+            newRoomPolicies[roomId] = { breakfast: null, cancellation: null, bedType: "1 giường king" }
           } else if (newRoomPolicies[roomId].bedType === undefined || newRoomPolicies[roomId].bedType === null) {
-            newRoomPolicies[roomId].bedType = "1 giường king" // Ensure default if expanded later
+            newRoomPolicies[roomId].bedType = "1 giường king"
           }
 
           return {
@@ -153,7 +158,6 @@ export default function RoomSelection() {
     )
   }
 
-  // New function to update bed type
   const updateBedType = (bookingId: string, roomId: string, value: string | null) => {
     setBookings((prevBookings) =>
       prevBookings.map((booking) => {
@@ -193,7 +197,7 @@ export default function RoomSelection() {
       ])
       setIncludeBreakfastFilter(false)
       setFreeCancellationFilter(false)
-      setSelectedBookingStartDate(new Date(2025, 3, 25)) // Reset to initial dates
+      setSelectedBookingStartDate(new Date(2025, 3, 25))
       setSelectedBookingEndDate(new Date(2025, 3, 27))
     }, 2000)
   }
@@ -223,7 +227,7 @@ export default function RoomSelection() {
   const displayDateRange = useMemo(() => {
     if (selectedBookingStartDate && selectedBookingEndDate) {
       const diffTime = Math.abs(selectedBookingEndDate.getTime() - selectedBookingStartDate.getTime())
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1 // +1 to include both start and end day
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1
       return (
         <>
           <span className="text-sm text-[#0a0a0a]">
@@ -259,7 +263,9 @@ export default function RoomSelection() {
           </Button>
         </Link>
         <h1 className="text-lg font-medium text-[#0a0a0a]">CHỌN PHÒNG</h1>
-        <div className="w-10" />
+        <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsHotelIntroDrawerOpen(true)}>
+          <Info className="h-6 w-6 text-[#0a0a0a]" />
+        </Button>
       </div>
 
       {/* Booking Info */}
@@ -339,8 +345,8 @@ export default function RoomSelection() {
           <div key={booking.id}>
             {/* Phòng Sơn Ca Card */}
             {(() => {
-              const room = rooms.find((r) => r.id === "1") // Find the specific room object
-              if (!room) return null // Handle case where room is not found
+              const room = rooms.find((r) => r.id === "1")
+              if (!room) return null
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
@@ -676,7 +682,7 @@ export default function RoomSelection() {
 
             {/* Phòng Nhật Bản Card */}
             {(() => {
-              const room = rooms.find((r) => r.id === "2") // Find the specific room object
+              const room = rooms.find((r) => r.id === "2")
               if (!room) return null
               return (
                 <div
@@ -1013,7 +1019,7 @@ export default function RoomSelection() {
 
             {/* Phòng Santorini Card */}
             {(() => {
-              const room = rooms.find((r) => r.id === "4") // Assuming a new room ID for Santorini
+              const room = rooms.find((r) => r.id === "4")
               if (!room) return null
               return (
                 <div
@@ -1357,7 +1363,7 @@ export default function RoomSelection() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
               <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                <CalendarDays className="lucide-calendar" /> {/* This is the updated icon */}
+                <CalendarDays className="lucide-calendar" />
               </div>
               <div className="flex flex-col">{displayDateRange}</div>
             </div>
@@ -1387,6 +1393,12 @@ export default function RoomSelection() {
         initialEndDate={selectedBookingEndDate}
       />
       <ImageGalleryModal isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} images={currentGalleryImages} />
+      <HotelIntroDrawer
+        isOpen={isHotelIntroDrawerOpen}
+        onClose={() => setIsHotelIntroDrawerOpen(false)}
+        hotelName={hotelName}
+        hotelAddress={hotelAddress}
+      />
     </div>
   )
 }
