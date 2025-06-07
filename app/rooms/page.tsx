@@ -1355,9 +1355,6 @@ export default function RoomSelection() {
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
               <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
                 <CalendarDays className="lucide-calendar" /> {/* This is the updated icon */}
-                <span className="absolute text-xs font-bold text-[#0a0a0a]">
-                  {selectedBookingStartDate ? format(selectedBookingStartDate, "dd") : "Chọn"}
-                </span>
               </div>
               <div className="flex flex-col">{displayDateRange}</div>
             </div>
