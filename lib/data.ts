@@ -48,11 +48,11 @@ export const rooms: Room[] = [
     rooms: 3,
     price: 500000,
     images: ["/placeholder.svg?height=200&width=300"],
-  }
+  },
 ]
 
 export const paymentMethods: PaymentMethod[] = [
-  { id: "card", name: "Thẻ tín dụng hoặc thẻ ghi nợ", icon: "💳" },
+  { id: "visa_mastercard", name: "Thẻ tín dụng hoặc thẻ ghi nợ", icon: "💳" },
   { id: "momo", name: "Momo", icon: "📱" },
   { id: "zalopay", name: "ZaloPay", icon: "💰" },
   { id: "crypto", name: "Crypto", icon: "₿" },

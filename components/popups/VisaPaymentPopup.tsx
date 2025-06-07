@@ -1,18 +1,12 @@
 "use client"
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { CreditCard, Calendar, Lock } from "lucide-react"
+import { Lock } from "lucide-react"
 import { useState } from "react"
+import { X } from "lucide-react"
 
 interface VisaPaymentPopupProps {
   amount: string
@@ -28,7 +22,6 @@ export function VisaPaymentPopup({ amount, onClose, onConfirm }: VisaPaymentPopu
 
   const handleConfirm = () => {
     if (cardNumber && expiryDate && cvc && cardholderName) {
-      // Simulate payment processing
       alert("Thanh toán Visa/Mastercard thành công!")
       onConfirm()
     } else {
@@ -38,61 +31,86 @@ export function VisaPaymentPopup({ amount, onClose, onConfirm }: VisaPaymentPopu
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] p-6 rounded-lg shadow-lg">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-[#0a0a0a]">Thanh toán bằng Visa/Mastercard</DialogTitle>
-          <DialogDescription className="text-sm text-gray-600">
-            Vui lòng nhập thông tin thẻ của bạn để hoàn tất thanh toán.
-          </DialogDescription>
+      <DialogContent className="sm:max-w-[425px] p-0 rounded-lg shadow-lg overflow-hidden">
+        <DialogHeader className="p-4 border-b border-gray-200 relative">
+          <DialogTitle className="text-lg font-medium text-[#0a0a0a] text-center">
+            THANH TOÁN BẰNG VISA/MASTER CARD
+          </DialogTitle>
+          <Button variant="ghost" size="icon" className="absolute top-3 left-3 h-8 w-8" onClick={onClose}>
+            <X className="h-5 w-5 text-gray-500" />
+          </Button>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="flex items-center justify-between text-lg font-semibold text-[#0a0a0a]">
-            <span>Tổng tiền:</span>
-            <span>{amount}</span>
+        <div className="p-4">
+          {/* Amount display */}
+          <div className="bg-gray-200 rounded-lg p-3 flex items-center justify-center gap-2 mb-6">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-credit-card h-5 w-5 text-gray-700"
+            >
+              <rect width="22" height="16" x="1" y="4" rx="2" ry="2" />
+              <line x1="1" x2="23" y1="10" y2="10" />
+              <line x1="7" x2="7" y1="14" y2="18" />
+              <line x1="11" x2="11" y1="14" y2="18" />
+            </svg>
+            <span className="text-base font-medium text-[#0a0a0a]">Số tiền phải thanh toán {amount}</span>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="cardNumber" className="text-sm font-medium text-[#0a0a0a]">
-              Số thẻ
-            </Label>
-            <div className="relative">
-              <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+
+          <div className="grid gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="cardNumber" className="text-sm font-bold text-[#0a0a0a] uppercase">
+                Số thẻ
+              </Label>
               <Input
                 id="cardNumber"
-                placeholder="XXXX XXXX XXXX XXXX"
-                className="pl-10 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                placeholder="1234 5678 9123 4567"
+                className="bg-gray-200 border-none focus:ring-0 focus:border-transparent text-base font-medium placeholder:text-gray-500 h-12 px-4"
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
-                maxLength={19} // 16 digits + 3 spaces
+                maxLength={19}
               />
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="expiryDate" className="text-sm font-medium text-[#0a0a0a]">
-                Ngày hết hạn
+              <Label htmlFor="cardholderName" className="text-sm font-bold text-[#0a0a0a] uppercase">
+                Tên chủ thẻ
               </Label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Input
+                id="cardholderName"
+                placeholder="DANG VU MINH QUAN"
+                className="bg-gray-200 border-none focus:ring-0 focus:border-transparent text-base font-medium placeholder:text-gray-500 h-12 px-4"
+                value={cardholderName}
+                onChange={(e) => setCardholderName(e.target.value)}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="expiryDate" className="text-sm font-bold text-[#0a0a0a] uppercase">
+                  Ngày hết hạn
+                </Label>
                 <Input
                   id="expiryDate"
                   placeholder="MM/YY"
-                  className="pl-10 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="bg-gray-200 border-none focus:ring-0 focus:border-transparent text-base font-medium placeholder:text-gray-500 h-12 px-4"
                   value={expiryDate}
                   onChange={(e) => setExpiryDate(e.target.value)}
                   maxLength={5}
                 />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cvc" className="text-sm font-medium text-[#0a0a0a]">
-                CVC
-              </Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <div className="space-y-2">
+                <Label htmlFor="cvc" className="text-sm font-bold text-[#0a0a0a] uppercase">
+                  CVV
+                </Label>
                 <Input
                   id="cvc"
                   placeholder="XXX"
-                  className="pl-10 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="bg-gray-200 border-none focus:ring-0 focus:border-transparent text-base font-medium placeholder:text-gray-500 h-12 px-4"
                   value={cvc}
                   onChange={(e) => setCvc(e.target.value)}
                   maxLength={3}
@@ -100,30 +118,18 @@ export function VisaPaymentPopup({ amount, onClose, onConfirm }: VisaPaymentPopu
               </div>
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="cardholderName" className="text-sm font-medium text-[#0a0a0a]">
-              Tên chủ thẻ
-            </Label>
-            <Input
-              id="cardholderName"
-              placeholder="Tên trên thẻ"
-              className="bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              value={cardholderName}
-              onChange={(e) => setCardholderName(e.target.value)}
-            />
-          </div>
         </div>
-        <DialogFooter className="flex flex-col sm:flex-row gap-2">
+        <DialogFooter className="p-4 flex flex-col items-center gap-4">
           <Button
-            variant="outline"
-            onClick={onClose}
-            className="w-full sm:w-auto border-gray-300 text-gray-700 hover:bg-gray-100"
+            onClick={handleConfirm}
+            className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg h-12"
           >
-            Hủy
+            XÁC NHẬN VÀ THANH TOÁN
           </Button>
-          <Button onClick={handleConfirm} className="w-full sm:w-auto bg-[#0a0a0a] hover:bg-[#000000] text-white">
-            Xác nhận thanh toán
-          </Button>
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <Lock className="h-4 w-4" />
+            <span>Thanh toán bảo mật và an toàn</span>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
