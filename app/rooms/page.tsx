@@ -9,6 +9,7 @@ import Image from "next/image"
 import CalendarSelectionPopup from "@/components/calendar-selection-popup" // Import the new component
 import { format } from "date-fns"
 import { vi } from "date-fns/locale"
+import ImageGalleryModal from "@/components/image-gallery-modal"
 
 // Define a type for a single booking
 interface Booking {
@@ -33,6 +34,8 @@ export default function RoomSelection() {
   const [isCalendarPopupOpen, setIsCalendarPopupOpen] = useState(false) // State for popup visibility
   const [selectedBookingStartDate, setSelectedBookingStartDate] = useState<Date | null>(new Date(2025, 3, 25)) // April 25, 2025
   const [selectedBookingEndDate, setSelectedBookingEndDate] = useState<Date | null>(new Date(2025, 3, 27)) // April 27, 2025
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  const [currentGalleryImages, setCurrentGalleryImages] = useState<string[]>([])
 
   const handleAddBooking = () => {
     const newBookingId = `booking-${bookings.length + 1}`
@@ -341,11 +344,21 @@ export default function RoomSelection() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-3 py-1 text-xs flex items-center gap-1 hover:bg-black/70"
-                          onClick={() => alert("Xem thêm ảnh Phòng Sơn Ca!")}
+                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
+                          onClick={() => {
+                            setIsGalleryOpen(true)
+                            setCurrentGalleryImages([
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp",
+                              // Add more image URLs for each room here if available
+                              // For demonstration, I'm using the existing three images.
+                              // In a real app, you'd fetch these from `room.images` or similar.
+                            ])
+                          }}
                         >
                           <GalleryHorizontal className="h-3 w-3" />
-                          <span>Còn 10+ ảnh</span>
+                          <span>10+</span>
                         </Button>
                       </div>
                     </div>
@@ -593,11 +606,18 @@ export default function RoomSelection() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-3 py-1 text-xs flex items-center gap-1 hover:bg-black/70"
-                          onClick={() => alert("Xem thêm ảnh Phòng Nhật Bản!")}
+                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
+                          onClick={() => {
+                            setIsGalleryOpen(true)
+                            setCurrentGalleryImages([
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp",
+                            ])
+                          }}
                         >
                           <GalleryHorizontal className="h-3 w-3" />
-                          <span>Còn 10+ ảnh</span>
+                          <span>10+</span>
                         </Button>
                       </div>
                     </div>
@@ -845,11 +865,18 @@ export default function RoomSelection() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-3 py-1 text-xs flex items-center gap-1 hover:bg-black/70"
-                          onClick={() => alert("Xem thêm ảnh Phòng Mập Mờ!")}
+                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
+                          onClick={() => {
+                            setIsGalleryOpen(true)
+                            setCurrentGalleryImages([
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7cfea.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp",
+                            ])
+                          }}
                         >
                           <GalleryHorizontal className="h-3 w-3" />
-                          <span>Còn 10+ ảnh</span>
+                          <span>10+</span>
                         </Button>
                       </div>
                     </div>
@@ -1097,11 +1124,18 @@ export default function RoomSelection() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-3 py-1 text-xs flex items-center gap-1 hover:bg-black/70"
-                          onClick={() => alert("Xem thêm ảnh Phòng Santorini!")}
+                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
+                          onClick={() => {
+                            setIsGalleryOpen(true)
+                            setCurrentGalleryImages([
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp",
+                            ])
+                          }}
                         >
                           <GalleryHorizontal className="h-3 w-3" />
-                          <span>Còn 10+ ảnh</span>
+                          <span>10+</span>
                         </Button>
                       </div>
                     </div>
@@ -1349,11 +1383,18 @@ export default function RoomSelection() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-3 py-1 text-xs flex items-center gap-1 hover:bg-black/70"
-                          onClick={() => alert("Xem thêm ảnh Phòng Mập Mờ!")}
+                          className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full px-2 py-1 text-xs flex items-center gap-0.5 hover:bg-black/70"
+                          onClick={() => {
+                            setIsGalleryOpen(true)
+                            setCurrentGalleryImages([
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7cfea.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp",
+                            ])
+                          }}
                         >
                           <GalleryHorizontal className="h-3 w-3" />
-                          <span>Còn 10+ ảnh</span>
+                          <span>10+</span>
                         </Button>
                       </div>
                     </div>
@@ -1598,6 +1639,7 @@ export default function RoomSelection() {
         initialStartDate={selectedBookingStartDate}
         initialEndDate={selectedBookingEndDate}
       />
+      <ImageGalleryModal isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} images={currentGalleryImages} />
     </div>
   )
 }
