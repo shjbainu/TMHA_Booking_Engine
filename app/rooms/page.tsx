@@ -10,7 +10,7 @@ import {
   Trash2,
   Loader,
   Check,
-  Calendar,
+  CalendarDays,
   GalleryHorizontal,
   Building,
 } from "lucide-react" // Import Building icon
@@ -2028,7 +2028,7 @@ export default function RoomSelection() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
               <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                <Calendar className="lucide lucide-calendar text-[#0a0a0a]" />
+                <CalendarDays className="lucide lucide-calendar text-[#0a0a0a]" />
                 <span className="absolute text-xs font-bold text-[#0a0a0a]">
                   {selectedBookingStartDate ? format(selectedBookingStartDate, "dd") : "Chọn"}
                 </span>
