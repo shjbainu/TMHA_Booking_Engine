@@ -361,7 +361,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -685,7 +685,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-green-50 to-teal-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -1008,7 +1008,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-purple-50 to-pink-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
@@ -1365,7 +1365,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-yellow-50 to-orange-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
