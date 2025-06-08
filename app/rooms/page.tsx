@@ -258,7 +258,7 @@ export default function RoomSelection() {
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={{
         backgroundImage:
-          "url('https://www.dichvuinnhanh.com/wp-content/uploads/2024/06/tao-hieu-ung-chuyen-mau-gradient-trong-indesign-668151.webp')",
+          "url('https://w0.peakpx.com/wallpaper/668/873/HD-wallpaper-liquid-gradient-apple-blur-gradient-iphone-iphone-x-liquid.jpg')",
       }}
     >
       {/* Header */}
