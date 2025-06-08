@@ -39,7 +39,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     ],
     restaurant: [
       { id: "kfc", name: "KFC", branches: "Hơn 150 nhà hàng", hours: "10:00 - 22:00", image: "https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png" },
-      { id: "pizza-hut", name: "Pizza Hut", branches: "Hơn 100 nhà hàng", hours: "10:00 - 22:00", image: "https://upload.wikimedia.org/wikipedia/sco/thumb/d/d2/Pizza_Hut_logo.svg/1200px-Pizza_Hut_logo.svg.png" },
+      { id: "pizza-hut", name: "Pizza Hut", branches: "Hơn 100 nhà hàng", hours: "10:00 - 22:00", image: "https://bnhat.vn/wp-content/uploads/2023/08/355-1609900139-1609919005-9294-1609994824.png" },
     ],
     cafe: [
        { id: "highlands", name: "Highlands Coffee", branches: "Hơn 500 quán", hours: "07:00 - 23:00", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Highlands_Coffee_logo.svg/1200px-Highlands_Coffee_logo.svg.png" },
