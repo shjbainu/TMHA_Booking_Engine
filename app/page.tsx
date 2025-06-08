@@ -563,7 +563,7 @@ function MoreOptionsDialog({ isOpen, onClose, onOpenNearbyAmenities, onOpenLocal
               onClose()
             }}
           >
-            Nearby Amenities
+            Tiện ích xung quanh
           </Button>
           <Button
             onClick={() => {
@@ -571,7 +571,7 @@ function MoreOptionsDialog({ isOpen, onClose, onOpenNearbyAmenities, onOpenLocal
               onClose()
             }}
           >
-            Local Exploration
+         Khám phá địa phương
           </Button>
         </div>
       </DialogContent>
