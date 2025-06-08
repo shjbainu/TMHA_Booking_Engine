@@ -9,7 +9,7 @@ import HotelAmenitiesDrawer from "@/components/hotel-amenities-drawer"
 import HotelReviewsDrawer from "@/components/hotel-reviews-drawer"
 import NearbyAmenitiesDrawer from "@/components/nearby-amenities-drawer" // Import new drawer
 import LocalExplorationDrawer from "@/components/local-exploration-drawer" // Import new drawer
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu" // Import DropdownMenu components
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 export default function HotelPhotosPage() {
   const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
@@ -17,6 +17,7 @@ export default function HotelPhotosPage() {
   const [isHotelReviewsDrawerOpen, setIsHotelReviewsDrawerOpen] = useState(false)
   const [isNearbyAmenitiesDrawerOpen, setIsNearbyAmenitiesDrawerOpen] = useState(false) // New state
   const [isLocalExplorationDrawerOpen, setIsLocalExplorationDrawerOpen] = useState(false) // New state
+  const [isMoreOptionsDialogOpen, setIsMoreOptionsDialogOpen] = useState(false)
 
   const hotelName = "69 Boutique by Minova"
   const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
@@ -487,24 +488,13 @@ export default function HotelPhotosPage() {
               <Image src="/images/comment1.jpg" alt="Biểu tượng đánh giá" width={24} height={24} />
             </Button>
             {/* Button More with Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
-                >
-                  <Image src="/images/more.png" alt="Biểu tượng thêm" width={24} height={24} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuItem onClick={() => setIsNearbyAmenitiesDrawerOpen(true)}>
-                  Tiện ích xung quanh
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setIsLocalExplorationDrawerOpen(true)}>
-                  Khám phá địa phương
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button
+              variant="ghost"
+              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
+              onClick={() => setIsMoreOptionsDialogOpen(true)}
+            >
+              <Image src="/images/more.png" alt="Biểu tượng thêm" width={24} height={24} />
+            </Button>
             <Link href="/rooms" passHref legacyBehavior>
               <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
                 <img src="/images/door_10010723.png" alt="Room" width="%" height="%" />
@@ -513,6 +503,13 @@ export default function HotelPhotosPage() {
           </div>
         </div>
       </div>
+
+      <MoreOptionsDialog
+        isOpen={isMoreOptionsDialogOpen}
+        onClose={() => setIsMoreOptionsDialogOpen(false)}
+        onOpenNearbyAmenities={() => setIsNearbyAmenitiesDrawerOpen(true)}
+        onOpenLocalExploration={() => setIsLocalExplorationDrawerOpen(true)}
+      />
 
       {/* Hotel Intro Drawer */}
       <HotelIntroDrawer
@@ -548,5 +545,36 @@ export default function HotelPhotosPage() {
         hotelAddress={hotelAddress}
       />
     </div>
+  )
+}
+
+function MoreOptionsDialog({ isOpen, onClose, onOpenNearbyAmenities, onOpenLocalExploration }) {
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>More Options</DialogTitle>
+          <DialogDescription>Explore more options around the hotel.</DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <Button
+            onClick={() => {
+              onOpenNearbyAmenities()
+              onClose()
+            }}
+          >
+            Nearby Amenities
+          </Button>
+          <Button
+            onClick={() => {
+              onOpenLocalExploration()
+              onClose()
+            }}
+          >
+            Local Exploration
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
