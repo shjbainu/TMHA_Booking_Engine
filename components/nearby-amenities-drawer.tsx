@@ -7,13 +7,12 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerDescription,
-  DrawerFooter,
-  DrawerClose,
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { MapPin, Clock, ExternalLink } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link" // Import Link for better practice if using Next.js routing, or just use <a> for external links
 
 interface NearbyAmenitiesDrawerProps {
   isOpen: boolean
@@ -24,6 +23,7 @@ interface NearbyAmenitiesDrawerProps {
 export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: NearbyAmenitiesDrawerProps) {
   const [activeCategory, setActiveCategory] = useState("supermarket")
 
+  // === CONTENT 3: Bổ sung danh mục "Công viên" ===
   const categories = [
     { id: "supermarket", name: "Siêu thị" },
     { id: "restaurant", name: "Nhà hàng" },
@@ -44,6 +44,11 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     cafe: [
        { id: "highlands", name: "Highlands Coffee", branches: "Hơn 500 quán", hours: "07:00 - 23:00", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1" },
        { id: "phuc-long", name: "Phúc Long Coffee & Tea", branches: "Hơn 150 cửa hàng", hours: "07:00 - 22:30", image: "https://winci.com.vn/wp-content/uploads/2024/02/Su-ra-doi-cua-thuong-hieu-Phuc-Long.webp" },
+    ],
+    // === CONTENT 3: Bổ sung dữ liệu cho "Công viên" ===
+    park: [
+        { id: "city-park", name: "Công viên trung tâm", branches: "Nhiều địa điểm", hours: "05:00 - 22:00", image: "https://media.tapchitaichinh.vn/w825/images/upload/phammaihanh/08012023/16-cong-vien-thu-le.jpg" },
+        { id: "amusement-park", name: "Khu vui chơi giải trí", branches: "Vài địa điểm lớn", hours: "08:00 - 21:00", image: "https://www.sungroup.com.vn/wp-content/uploads/2023/12/z4996492982855_e49b1ca26c6d2d3e09880f08a474c10c-scaled.jpg" },
     ]
   };
   
@@ -58,33 +63,34 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
         </DrawerHeader>
 
         <div className="flex-1 overflow-y-auto">
-          <Tabs defaultValue="nearby-amenities" className="w-full pt-4">
-            <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1 mx-4">
-              <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
-                Tiện ích xung quanh
-              </TabsTrigger>
-              <TabsTrigger value="local-exploration" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
-                Khám phá địa phương
-              </TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="nearby-amenities" className="w-full">
+            <div className="bg-white sticky top-0 z-10 pt-4">
+                <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1 mx-4">
+                <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                    Tiện ích xung quanh
+                </TabsTrigger>
+                <TabsTrigger value="local-exploration" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                    Khám phá địa phương
+                </TabsTrigger>
+                </TabsList>
 
-            <div className="px-4 mt-4">
-                {/* === Bộ lọc dạng "Chips" thay thế Dropdown === */}
-                <div className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide">
-                    {categories.map((category) => (
-                        <Button
-                        key={category.id}
-                        variant="outline"
-                        className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
-                            activeCategory === category.id
-                            ? "bg-black text-white border-black"
-                            : "bg-white text-gray-700 border-gray-300"
-                        }`}
-                        onClick={() => setActiveCategory(category.id)}
-                        >
-                        {category.name}
-                        </Button>
-                    ))}
+                <div className="px-4 mt-4">
+                    <div className="flex gap-2 pb-3 overflow-x-auto scrollbar-hide">
+                        {categories.map((category) => (
+                            <Button
+                            key={category.id}
+                            variant="outline"
+                            className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
+                                activeCategory === category.id
+                                ? "bg-black text-white border-black"
+                                : "bg-white text-gray-700 border-gray-300"
+                            }`}
+                            onClick={() => setActiveCategory(category.id)}
+                            >
+                            {category.name}
+                            </Button>
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -94,7 +100,8 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                         {currentAmenities.map((item) => (
                         <div key={item.id} className="bg-white rounded-xl shadow-sm p-3 flex items-center gap-4">
                             <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                                <Image src={item.image} alt={item.name} layout="fill" className="object-contain p-1" />
+                                {/* === FIX 1: Dùng object-cover để hình ảnh lấp đầy khung, trông đẹp và đều hơn === */}
+                                <Image src={item.image} alt={item.name} layout="fill" className="object-cover" />
                             </div>
                             <div className="flex-1">
                                 <p className="font-semibold text-gray-800">{item.name}</p>
@@ -107,9 +114,17 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                                     <span>{item.hours}</span>
                                 </div>
                             </div>
-                             <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-700">
-                                <ExternalLink className="h-4 w-4" />
-                            </Button>
+                             {/* === FEATURE 2: Thêm link tới Google Maps === */}
+                             <a
+                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name} gần ${hotelName}`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`Tìm ${item.name} trên bản đồ`}
+                             >
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-700">
+                                    <ExternalLink className="h-4 w-4" />
+                                </Button>
+                             </a>
                         </div>
                         ))}
                     </div>
@@ -121,8 +136,6 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
             </div>
           </Tabs>
         </div>
-
-        
       </DrawerContent>
     </Drawer>
   )
