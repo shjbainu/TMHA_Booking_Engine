@@ -1016,15 +1016,15 @@ export default function RoomSelection() {
                 </div>
               )
             })()}
- {/* Phòng Mập MờCard */}
+            {/* Phòng Mập MờCard */}
             {(() => {
-              const room = rooms.find((r) => r.id === "2")
+              const room = rooms.find((r) => r.id === "3")
               if (!room) return null
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
                   className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
-                  style={{ background: "linear-gradient(to bottom right, #f0f4f8, #e6e9ed)" }}
+                  style={{ background: "linear-gradient(to bottom right, #fef3c7, #fde68a)" }}
                 >
                   {/* Room Images */}
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
@@ -1065,9 +1065,9 @@ export default function RoomSelection() {
                           onClick={() => {
                             setIsGalleryOpen(true)
                             setCurrentGalleryImages([
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp",
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e78b7b.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp",
                             ])
                           }}
                         >
