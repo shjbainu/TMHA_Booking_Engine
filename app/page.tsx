@@ -553,8 +553,8 @@ function MoreOptionsDialog({ isOpen, onClose, onOpenNearbyAmenities, onOpenLocal
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>More Options</DialogTitle>
-          <DialogDescription>Explore more options around the hotel.</DialogDescription>
+          <DialogTitle>Lựa chọn</DialogTitle>
+          <DialogDescription>Khám phá xung quanh khách sạn</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <Button
