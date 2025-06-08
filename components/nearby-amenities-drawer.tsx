@@ -54,28 +54,33 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
 
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      {/* === FIX: Cấu trúc lại toàn bộ layout với flex-col === */}
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
-        <DrawerHeader className="text-left p-4 border-b bg-white">
+        {/* --- PHẦN 1: CỐ ĐỊNH (Không cuộn) --- */}
+        <DrawerHeader className="text-left p-4 border-b bg-white flex-shrink-0">
           <DrawerTitle className="text-xl font-bold text-gray-900">Tiện ích xung quanh {hotelName}</DrawerTitle>
           <DrawerDescription className="text-sm text-gray-500">Khám phá những địa điểm gần bạn</DrawerDescription>
         </DrawerHeader>
 
-        <div className="flex-1 overflow-y-auto">
-          <Tabs defaultValue="nearby-amenities" className="w-full">
-            <div className="bg-white sticky top-0 z-10 p-4 border-b">
-                <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
-                  <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
-                      Tiện ích xung quanh
-                  </TabsTrigger>
-                  <TabsTrigger value="local-exploration" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
-                      Khám phá địa phương
-                  </TabsTrigger>
-                </TabsList>
-            </div>
+        {/* Bọc Tabs trong một flex container để nó chiếm hết phần còn lại */}
+        <Tabs defaultValue="nearby-amenities" className="w-full flex-1 flex flex-col overflow-hidden">
+          {/* Thanh Tab cũng được cố định */}
+          <div className="bg-white p-4 border-b flex-shrink-0">
+            <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
+              <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                  Tiện ích xung quanh
+              </TabsTrigger>
+              <TabsTrigger value="local-exploration" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                  Khám phá địa phương
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
+          {/* --- PHẦN 2: NỘI DUNG (Có thể cuộn) --- */}
+          {/* Chỉ vùng này mới có overflow-y-auto */}
+          <div className="flex-1 overflow-y-auto">
             <TabsContent value="nearby-amenities">
-                {/* === FIX: Căn chỉnh lại khoảng cách trên dưới cho khu vực nút lọc === */}
-                <div className="px-4 py-3">
+                <div className="px-4 py-3 bg-gray-50">
                     <div className="flex gap-2 overflow-x-auto scrollbar-hide">
                         {categories.map((category) => (
                             <Button
@@ -138,8 +143,8 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                     <p>Nội dung cho mục Khám phá địa phương sẽ được cập nhật sớm.</p>
                 </div>
             </TabsContent>
-          </Tabs>
-        </div>
+          </div>
+        </Tabs>
       </DrawerContent>
     </Drawer>
   )
