@@ -128,11 +128,7 @@ export default function LocalExplorationDrawer({ isOpen, onClose, hotelName }: L
             </Tabs>
         </div>
 
-        <DrawerFooter className="border-t bg-white">
-          <DrawerClose asChild>
-            <Button variant="outline" onClick={onClose}>Đóng</Button>
-          </DrawerClose>
-        </DrawerFooter>
+        
       </DrawerContent>
     </Drawer>
   )
