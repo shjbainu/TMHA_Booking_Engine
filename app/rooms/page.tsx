@@ -350,7 +350,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                   style={{ background: "linear-gradient(to bottom right, #e0f2f7, #bbdefb)" }}
                 >
                   {/* Room Images */}
@@ -687,7 +687,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                   style={{ background: "linear-gradient(to bottom right, #f0f4f8, #e6e9ed)" }}
                 >
                   {/* Room Images */}
@@ -1016,14 +1016,14 @@ export default function RoomSelection() {
                 </div>
               )
             })()}
- {/* Phòng Mập MờCard */}
+            {/* Phòng Mập MờCard */}
             {(() => {
               const room = rooms.find((r) => r.id === "2")
               if (!room) return null
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                   style={{ background: "linear-gradient(to bottom right, #f0f4f8, #e6e9ed)" }}
                 >
                   {/* Room Images */}
@@ -1359,7 +1359,7 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200 rounded-2xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
+                  className="border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 mb-4"
                   style={{ background: "linear-gradient(to bottom right, #e3f2fd, #90caf9)" }}
                 >
                   {/* Room Images */}
