@@ -1016,7 +1016,7 @@ export default function RoomSelection() {
                 </div>
               )
             })()}
- {/* Phòng Nhật Bản Card */}
+ {/* Phòng Mập MờCard */}
             {(() => {
               const room = rooms.find((r) => r.id === "2")
               if (!room) return null
@@ -1031,7 +1031,7 @@ export default function RoomSelection() {
                     {/* Large image on the left */}
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <ImageComponent
-                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
+                        src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp"
                         alt="Phòng Nhật Bản main image"
                         fill
                         className="object-cover"
