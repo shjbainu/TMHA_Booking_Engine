@@ -43,7 +43,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     ],
     cafe: [
        { id: "highlands", name: "Highlands Coffee", branches: "Hơn 500 quán", hours: "07:00 - 23:00", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1" },
-       { id: "phuc-long", name: "Phúc Long Coffee & Tea", branches: "Hơn 150 cửa hàng", hours: "07:00 - 22:30", image: "https://static.mservice.io/placebrand/s/momo-upload-api-200218150929-637176161694856011.jpg" },
+       { id: "phuc-long", name: "Phúc Long Coffee & Tea", branches: "Hơn 150 cửa hàng", hours: "07:00 - 22:30", image: "https://winci.com.vn/wp-content/uploads/2024/02/Su-ra-doi-cua-thuong-hieu-Phuc-Long.webp" },
     ]
   };
   
