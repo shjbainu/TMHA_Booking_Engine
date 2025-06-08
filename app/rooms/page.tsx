@@ -262,9 +262,12 @@ export default function RoomSelection() {
           </Button>
         </Link>
         <h1 className="text-lg font-medium text-[#0a0a0a]">CHỌN PHÒNG</h1>
-        <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsHotelIntroDrawerOpen(true)}>
-          <Building className="h-6 w-6 text-[#0a0a0a]" />
-        </Button>
+        {/* Thêm nút kích hoạt popup giới thiệu khách sạn */}
+        <div className="flex items-center">
+          <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsHotelIntroDrawerOpen(true)}>
+            <Building className="h-6 w-6 text-[#0a0a0a]" />
+          </Button>
+        </div>
       </div>
 
       {/* Booking Info */}
