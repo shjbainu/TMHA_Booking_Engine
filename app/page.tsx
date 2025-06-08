@@ -48,7 +48,15 @@ export default function HotelPhotosPage() {
           <Button variant="ghost" size="icon" className="h-10 w-10">
             <Image src="/images/favorite_navigation.png" alt="Biểu tượng trái tim" width={24} height={24} />
           </Button>
-          <Button variant="ghost" size="icon" className="h-10 w-10">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-10 w-10"
+            onClick={() => {
+              const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotelAddress)}`
+              window.open(mapUrl, "_blank")
+            }}
+          >
             <Image src="/images/location_navigation.png" alt="Biểu tượng bản đồ" width={24} height={24} />
           </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10">
@@ -571,7 +579,7 @@ function MoreOptionsDialog({ isOpen, onClose, onOpenNearbyAmenities, onOpenLocal
               onClose()
             }}
           >
-         Khám phá địa phương
+            Khám phá địa phương
           </Button>
         </div>
       </DialogContent>
