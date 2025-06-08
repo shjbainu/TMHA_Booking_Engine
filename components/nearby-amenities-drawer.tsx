@@ -1,21 +1,30 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from "@/components/ui/drawer"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerClose,
+} from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MapPin, Clock, ExternalLink } from "lucide-react"
+import { MapPin, Clock, ExternalLink, Sparkles, X, CalendarDays } from "lucide-react"
 import Image from "next/image"
 
-interface NearbyAmenitiesDrawerProps {
+interface ExplorationDrawerProps {
   isOpen: boolean
   onClose: () => void
   hotelName: string
 }
 
-export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: NearbyAmenitiesDrawerProps) {
+export default function ExplorationDrawer({ isOpen, onClose, hotelName }: ExplorationDrawerProps) {
+  // === STATE CHO "TIỆN ÍCH XUNG QUANH" ===
   const [activeCategory, setActiveCategory] = useState("supermarket")
 
+  // === DATA CHO "TIỆN ÍCH XUNG QUANH" ===
   const categories = [
     { id: "supermarket", name: "Siêu thị" },
     { id: "restaurant", name: "Nhà hàng" },
@@ -98,64 +107,104 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
       },
     ],
   }
-
   const currentAmenities = useMemo(() => amenitiesData[activeCategory] || [], [activeCategory])
+
+  // === DATA CHO "KHÁM PHÁ ĐỊA PHƯƠNG" ===
+  const localExplorationEvents = [
+    {
+      id: "huong-pagoda",
+      name: "Lễ hội Chùa Hương",
+      location: "Mỹ Đức, Hà Nội",
+      date: "Tháng 1 - Tháng 3 âm lịch",
+      description: "Hành trình tâm linh trên dòng suối Yến thơ mộng để đến với một trong những lễ hội Phật giáo dài và lớn nhất Việt Nam.",
+      image: "https://static.vinwonders.com/production/chua-huong-5.jpg",
+      link: "https://www.bestprice.vn/blog/diem-den-8/chua-huong-467.html",
+    },
+    {
+      id: "giong-festival",
+      name: "Hội Gióng ở đền Sóc",
+      location: "Sóc Sơn, Hà Nội",
+      date: "Mùng 6-8 tháng Giêng",
+      description: "Di sản văn hóa phi vật thể của UNESCO, tái hiện lại huyền thoại Thánh Gióng oai hùng bay về trời sau khi đánh đuổi giặc Ân.",
+      image: "https://nhaquanly.vn/uploads/images/2024/02/15/le-hoi-giong-2024-1708009514.png",
+      link: "https://vinpearl.com/vi/hoi-giong-le-hoi-co-truyen-viet-nam",
+    },
+    {
+      id: "dong-da-festival",
+      name: "Lễ hội Gò Đống Đa",
+      location: "Quận Đống Đa, Hà Nội",
+      date: "Mùng 5 Tết Nguyên đán",
+      description: "Kỷ niệm chiến thắng Ngọc Hồi – Đống Đa lừng lẫy của hoàng đế Quang Trung, với màn rước Rồng lửa Thăng Long hào hùng.",
+      image: "https://media-cdn-v2.laodong.vn/storage/newsportal/2025/2/2/1457462/Lehoi_Godongda-1.jpg",
+      link: "https://vinpearl.com/vi/le-hoi-go-dong-da-dien-ra-khi-nao-o-dau-co-gi-dac-sac",
+    },
+  ]
 
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      {/* === FIX: Cấu trúc lại toàn bộ layout với flex-col === */}
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
-        {/* --- PHẦN 1: CỐ ĐỊNH (Không cuộn) --- */}
-        <DrawerHeader className="text-left p-4 border-b bg-white flex-shrink-0">
-          <DrawerTitle className="text-xl font-bold text-gray-900">Tiện ích xung quanh {hotelName}</DrawerTitle>
-          <DrawerDescription className="text-sm text-gray-500">Khám phá những địa điểm gần bạn</DrawerDescription>
+        <DrawerHeader className="p-4 border-b bg-white flex items-center justify-between flex-shrink-0">
+          <div>
+            <DrawerTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-amber-500" />
+              <span>Khám phá xung quanh {hotelName}</span>
+            </DrawerTitle>
+            <DrawerDescription className="text-sm text-gray-500 mt-1">
+              Những trải nghiệm độc đáo đang chờ bạn
+            </DrawerDescription>
+          </div>
+          <DrawerClose asChild>
+            <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
+              <X className="h-4 w-4" />
+              <span className="sr-only">Đóng</span>
+            </Button>
+          </DrawerClose>
         </DrawerHeader>
 
-        {/* Bọc Tabs trong một flex container để nó chiếm hết phần còn lại */}
         <Tabs defaultValue="nearby-amenities" className="w-full flex-1 flex flex-col overflow-hidden">
-          {/* Thanh Tab cũng được cố định */}
+          {/* Phần TabsList cố định */}
           <div className="bg-white p-4 border-b flex-shrink-0">
             <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
               <TabsTrigger
                 value="nearby-amenities"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9 text-center"
+                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
               >
                 Tiện ích xung quanh
               </TabsTrigger>
               <TabsTrigger
                 value="local-exploration"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9 text-center"
+                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
               >
                 Khám phá địa phương
               </TabsTrigger>
             </TabsList>
           </div>
 
-          {/* Di chuyển khối này ra đây */}
-          <div className="px-4 py-3 bg-gray-50 flex-shrink-0">
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  variant="outline"
-                  className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
-                    activeCategory === category.id
-                      ? "bg-black text-white border-black"
-                      : "bg-white text-gray-700 border-gray-300"
-                  }`}
-                  onClick={() => setActiveCategory(category.id)}
-                >
-                  {category.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* --- PHẦN 2: NỘI DUNG (Có thể cuộn) --- */}
-          {/* Chỉ vùng này mới có overflow-y-auto */}
+          {/* Phần nội dung có thể cuộn */}
           <div className="flex-1 overflow-y-auto">
+            {/* === NỘI DUNG TAB 1: TIỆN ÍCH XUNG QUANH === */}
             <TabsContent value="nearby-amenities">
-              {/* Xóa khối đã di chuyển khỏi đây */}
+              {/* Các nút lọc */}
+              <div className="px-4 py-3 bg-gray-50 sticky top-0 z-10">
+                <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                  {categories.map((category) => (
+                    <Button
+                      key={category.id}
+                      variant="outline"
+                      className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
+                        activeCategory === category.id
+                          ? "bg-black text-white border-black"
+                          : "bg-white text-gray-700 border-gray-300"
+                      }`}
+                      onClick={() => setActiveCategory(category.id)}
+                    >
+                      {category.name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Danh sách tiện ích */}
               <div className="px-4 pb-4">
                 {currentAmenities.length > 0 ? (
                   <div className="space-y-3">
@@ -201,9 +250,47 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
               </div>
             </TabsContent>
 
-            <TabsContent value="local-exploration">
-              <div className="p-4 text-center text-gray-500 pt-10">
-                <p>Nội dung cho mục Khám phá địa phương sẽ được cập nhật sớm.</p>
+            {/* === NỘI DUNG TAB 2: KHÁM PHÁ ĐỊA PHƯƠNG === */}
+            <TabsContent value="local-exploration" className="p-4">
+              <div className="space-y-5">
+                {localExplorationEvents.map((event) => (
+                  <a
+                    key={event.id}
+                    href={event.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full h-64 bg-white rounded-xl shadow-lg overflow-hidden relative group transition-all duration-300 ease-in-out hover:shadow-2xl"
+                  >
+                    <Image
+                      src={event.image}
+                      alt={event.name}
+                      layout="fill"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ExternalLink className="h-5 w-5 text-white" />
+                    </div>
+                    <div className="absolute inset-0 p-4 flex flex-col justify-end text-white">
+                      <h3 className="text-xl font-bold leading-tight" style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.7)" }}>
+                        {event.name}
+                      </h3>
+                      <p className="text-sm mt-2 text-neutral-200 line-clamp-2" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.7)" }}>
+                        {event.description}
+                      </p>
+                      <div className="mt-4 flex items-center gap-x-4 gap-y-1 text-xs text-neutral-300 flex-wrap">
+                        <div className="flex items-center gap-1.5">
+                          <MapPin className="h-3.5 w-3.5" />
+                          <span>{event.location}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <CalendarDays className="h-3.5 w-3.5" />
+                          <span>{event.date}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                ))}
               </div>
             </TabsContent>
           </div>
