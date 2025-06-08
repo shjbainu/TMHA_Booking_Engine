@@ -29,7 +29,7 @@ export default function LocalExplorationDrawer({ isOpen, onClose, hotelName }: L
       location: "Sóc Sơn, Hà Nội",
       date: "Mùng 6-8 tháng Giêng",
       description: "Di sản văn hóa phi vật thể của UNESCO, tái hiện lại huyền thoại Thánh Gióng oai hùng bay về trời sau khi đánh đuổi giặc Ân.",
-      image: "https://cdnphoto.dantri.com.vn/S14A_G-P2q2UPEy3m0wE9sC6tS4=/thumb_w/1020/2024/02/16/hoi-giong-den-soc-son-2-1708051253909.jpeg",
+      image: "https://nhaquanly.vn/uploads/images/2024/02/15/le-hoi-giong-2024-1708009514.png",
       link: "https://ticotravel.com.vn/wp-content/uploads/2022/06/Den-Giong-Soc-Son-6.jpg",
     },
     {
