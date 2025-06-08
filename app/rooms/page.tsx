@@ -258,7 +258,7 @@ export default function RoomSelection() {
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={{
         backgroundImage:
-          "url('https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-creative-gradient-light-blue-light-yellow-simple-image_41791.jpg')",
+          "url('https://img.pikbest.com/origin/10/43/72/997pIkbEsTIGa.jpg!w700wp')",
       }}
     >
       {/* Header */}
