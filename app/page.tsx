@@ -1,11 +1,17 @@
 "use client"
-import { useRef } from "react" // 1. Import useRef
+import { useRef, useState } from "react" // 1. Import useRef
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import HotelIntroDrawer from "@/components/hotel-intro-drawer" // Import HotelIntroDrawer
 // Giả sử component của bạn tên là HotelPhotosPage
 export default function HotelPhotosPage() {
+  const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false) // New state for hotel intro drawer
+
+  const hotelName = "69 Boutique by Minova"
+  const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
+
   // 2. Tạo Refs
   const khongGianChungRef = useRef(null)
   const phongSonCaRef = useRef(null)
@@ -471,6 +477,7 @@ export default function HotelPhotosPage() {
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
+              onClick={() => setIsHotelIntroDrawerOpen(true)} // Thêm onClick để mở drawer
             >
               <Image src="/images/smart-city.png" alt="Biểu tượng tổng quan" width={24} height={24} />
             </Button>
@@ -495,13 +502,21 @@ export default function HotelPhotosPage() {
               <Image src="/images/more.png" alt="Biểu tượng thêm" width={24} height={24} />
             </Button>
             <Link href="/rooms" passHref legacyBehavior>
-                  <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
-                <img src="/images/door_10010723.png" alt="Room" width="%" height="%">
+              <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
+                <img src="/images/door_10010723.png" alt="Room" width="%" height="%" />
               </a>
             </Link>
           </div>
         </div>
       </div>
+
+      {/* Hotel Intro Drawer */}
+      <HotelIntroDrawer
+        isOpen={isHotelIntroDrawerOpen}
+        onClose={() => setIsHotelIntroDrawerOpen(false)}
+        hotelName={hotelName}
+        hotelAddress={hotelAddress}
+      />
     </div>
   )
 }
