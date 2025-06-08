@@ -45,7 +45,7 @@ export function ShareOptionsPopup({ isOpen, onClose, shareUrl, shareTitle }: Sha
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-auto max-h-[80vh] flex flex-col rounded-t-3xl bg-white">
         <DrawerHeader className="p-4 border-b border-gray-200 relative text-center">
-          <DrawerTitle className="text-lg font-medium text-[#0a0a0a]">Chia sẻ</DrawerTitle>
+          <DrawerTitle className="text-center font-medium text-[#0a0a0a]">Chia sẻ</DrawerTitle>
          
         </DrawerHeader>
         <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-4 overflow-y-auto">
