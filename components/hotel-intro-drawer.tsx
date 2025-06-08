@@ -81,12 +81,17 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
 
               {/* --- ĐÃ SỬA LỖI TẠI ĐÂY --- */}
               {/* Thêm `flex items-center` để đảm bảo layout luôn là hàng ngang */}
-              <Button asChild variant="outline" className="w-full flex items-center">
-                <a href={mapUrl} target="_blank" rel="noopener noreferrer">
-                  <MapPin className="mr-2 h-4 w-4 flex-shrink-0" />
-                  Xem trên bản đồ
-                </a>
-              </Button>
+           <Button asChild variant="outline" className="w-full flex items-center">
+  <a
+    href={mapUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center"
+  >
+    <MapPin className="mr-2 h-4 w-4 flex-shrink-0" />
+    Xem trên bản đồ
+  </a>
+</Button>
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Dịch vụ & Đội ngũ</h3>
