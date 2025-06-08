@@ -7,7 +7,6 @@ import {
   DrawerTitle,
   DrawerDescription,
   DrawerFooter,
-  DrawerClose,
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Star, ThumbsUp, MessageSquare, CheckCircle } from "lucide-react"
@@ -21,7 +20,6 @@ interface HotelReviewsDrawerProps {
 }
 
 export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: HotelReviewsDrawerProps) {
-  // === Dữ liệu mẫu với đánh giá 5 sao và 4 sao ===
   const allReviews = [
     {
       id: "1",
@@ -37,7 +35,7 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
       id: "2",
       name: "Hoàng Vũ Sơn",
       avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-      rating: 4, // Đánh giá 4 sao
+      rating: 4,
       date: "Tháng 8, 2024",
       comment: "Khách sạn sạch sẽ, vị trí thuận tiện. Chỉ có điểm trừ là cách âm giữa các phòng chưa thực sự tốt.",
       likes: 18,
@@ -67,7 +65,7 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
       id: "5",
       name: "Lê Trọng",
       avatar: "/placeholder-user.jpg",
-      rating: 4, // Đánh giá 4 sao
+      rating: 4,
       date: "Tháng 7, 2024",
       comment: "Mọi thứ đều rất tốt. Tiện nghi đầy đủ và hiện đại. Bữa sáng có thể đa dạng hơn một chút thì sẽ hoàn hảo.",
       likes: 15,
@@ -85,29 +83,19 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
     },
   ]
 
-  // === Chỉ giữ lại các đánh giá từ 4 sao trở lên ===
   const reviewsToShow = useMemo(() => allReviews.filter(review => review.rating >= 4), [allReviews]);
-
   const [activeFilter, setActiveFilter] = useState("Tất cả")
-  // === Cập nhật danh sách bộ lọc ===
   const filters = ["Tất cả", "5 sao", "4 sao", "Có bình luận"]
 
-  // Lọc danh sách đánh giá dựa trên filter đang active
   const filteredReviews = useMemo(() => {
     switch(activeFilter) {
-      case '5 sao':
-        return reviewsToShow.filter(r => r.rating === 5);
-      case '4 sao':
-        return reviewsToShow.filter(r => r.rating === 4);
-      case 'Có bình luận':
-        return reviewsToShow.filter(r => r.comment && r.comment.length > 0);
-      default:
-        return reviewsToShow;
+      case '5 sao': return reviewsToShow.filter(r => r.rating === 5);
+      case '4 sao': return reviewsToShow.filter(r => r.rating === 4);
+      case 'Có bình luận': return reviewsToShow.filter(r => r.comment && r.comment.length > 0);
+      default: return reviewsToShow;
     }
   }, [activeFilter, reviewsToShow]);
 
-
-  // === Tính toán điểm và mô tả động ===
   const overallRating = useMemo(() => {
     if (reviewsToShow.length === 0) return "0.0";
     return (reviewsToShow.reduce((sum, review) => sum + review.rating, 0) / reviewsToShow.length).toFixed(1)
@@ -121,27 +109,26 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
     return "Được đánh giá tốt";
   }, [overallRating]);
 
-
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-white">
-        {/* === Header với tóm tắt điểm số động === */}
-        <DrawerHeader className="text-left p-4 border-b">
+        {/* Header có gradient */}
+        <DrawerHeader className="text-left p-4 border-b bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 text-white">
           <div className="flex items-center gap-4 mb-2">
-            <div className="text-4xl font-bold text-[#0a0a0a]">{overallRating}</div>
+            <div className="text-4xl font-bold">{overallRating}</div>
             <div>
-              <DrawerTitle className="text-xl font-bold text-[#0a0a0a]">{ratingDescription}</DrawerTitle>
-              <DrawerDescription className="text-sm text-gray-500">
+              <DrawerTitle className="text-xl font-bold">{ratingDescription}</DrawerTitle>
+              <DrawerDescription className="text-sm text-white/80">
                 Dựa trên {reviewsToShow.length} lượt đánh giá
               </DrawerDescription>
             </div>
           </div>
         </DrawerHeader>
 
-        {/* === Phần thân có thể cuộn === */}
+        {/* Thân cuộn được */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-4">
-            {/* === Bộ lọc dạng "Chips" đã được cập nhật === */}
+            {/* Bộ lọc */}
             <div className="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
               {filters.map((filter) => (
                 <Button
@@ -159,7 +146,7 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
               ))}
             </div>
 
-            {/* === Danh sách đánh giá được lọc để hiển thị === */}
+            {/* Danh sách đánh giá */}
             <div className="space-y-6">
               {filteredReviews.length > 0 ? (
                 filteredReviews.map((review) => (
@@ -209,15 +196,15 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
                   </div>
                 ))
               ) : (
-                 <div className="text-center py-10 text-gray-500">
-                    <p>Không có đánh giá nào phù hợp với bộ lọc này.</p>
-                 </div>
+                <div className="text-center py-10 text-gray-500">
+                  <p>Không có đánh giá nào phù hợp với bộ lọc này.</p>
+                </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* === Footer === */}
+        {/* Footer */}
         <DrawerFooter className="border-t bg-white">
           <Button variant="outline" onClick={onClose}>
             Đóng
