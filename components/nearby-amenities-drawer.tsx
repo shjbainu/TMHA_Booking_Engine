@@ -55,7 +55,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
-        <DrawerHeader className="text-left p-4 border-b bg-white">
+        <DrawerHeader className="text-left p-4 pb-4 border-b bg-white">
           <DrawerTitle className="text-xl font-bold text-gray-900">Tiện ích xung quanh {hotelName}</DrawerTitle>
           <DrawerDescription className="text-sm text-gray-500">Khám phá những địa điểm gần bạn</DrawerDescription>
         </DrawerHeader>
