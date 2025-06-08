@@ -42,7 +42,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
       { id: "pizza-hut", name: "Pizza Hut", branches: "Hơn 100 nhà hàng", hours: "10:00 - 22:00", image: "https://bnhat.vn/wp-content/uploads/2023/08/355-1609900139-1609919005-9294-1609994824.png" },
     ],
     cafe: [
-       { id: "highlands", name: "Highlands Coffee", branches: "Hơn 500 quán", hours: "07:00 - 23:00", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Highlands_Coffee_logo.svg/1200px-Highlands_Coffee_logo.svg.png" },
+       { id: "highlands", name: "Highlands Coffee", branches: "Hơn 500 quán", hours: "07:00 - 23:00", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1" },
        { id: "phuc-long", name: "Phúc Long Coffee & Tea", branches: "Hơn 150 cửa hàng", hours: "07:00 - 22:30", image: "https://static.mservice.io/placebrand/s/momo-upload-api-200218150929-637176161694856011.jpg" },
     ]
   };
