@@ -122,11 +122,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
           </Tabs>
         </div>
 
-        <DrawerFooter className="border-t bg-white">
-          <DrawerClose asChild>
-            <Button variant="outline" onClick={onClose}>Đóng</Button>
-          </DrawerClose>
-        </DrawerFooter>
+        
       </DrawerContent>
     </Drawer>
   )
