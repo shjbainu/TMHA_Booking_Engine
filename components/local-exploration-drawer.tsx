@@ -38,7 +38,7 @@ export default function LocalExplorationDrawer({ isOpen, onClose, hotelName }: L
       location: "Quận Đống Đa, Hà Nội",
       date: "Mùng 5 Tết Nguyên đán",
       description: "Kỷ niệm chiến thắng Ngọc Hồi – Đống Đa lừng lẫy của hoàng đế Quang Trung, với màn rước Rồng lửa Thăng Long hào hùng.",
-      image: "https://cdnphoto.dantri.com.vn/HuSXl1cdPb0K2jo7ra7pTmQdRYM=/thumb_w/1920/2023/01/26/54ed3c52c28019de4091-1674709657458.jpg",
+      image: "https://media-cdn-v2.laodong.vn/storage/newsportal/2025/2/2/1457462/Lehoi_Godongda-1.jpg",
       link: "https://vnexpress.net/nguoi-dan-du-le-hoi-go-dong-da-4564016.html",
     },
   ]
