@@ -156,12 +156,7 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
               Những trải nghiệm độc đáo đang chờ bạn
             </DrawerDescription>
           </div>
-          <DrawerClose asChild>
-            <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
-              <X className="h-4 w-4" />
-              <span className="sr-only">Đóng</span>
-            </Button>
-          </DrawerClose>
+         
         </DrawerHeader>
 
         <Tabs defaultValue="nearby-amenities" className="w-full flex-1 flex flex-col overflow-hidden">
