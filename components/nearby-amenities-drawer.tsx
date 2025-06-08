@@ -55,14 +55,13 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
-        <DrawerHeader className="text-left p-4 mb-4  border-b bg-white">
+        <DrawerHeader className="text-left p-4 border-b bg-white">
           <DrawerTitle className="text-xl font-bold text-gray-900">Tiện ích xung quanh {hotelName}</DrawerTitle>
           <DrawerDescription className="text-sm text-gray-500">Khám phá những địa điểm gần bạn</DrawerDescription>
         </DrawerHeader>
 
         <div className="flex-1 overflow-y-auto">
           <Tabs defaultValue="nearby-amenities" className="w-full">
-            {/* === FIX: Áp dụng padding đều cho container chứa TabsList === */}
             <div className="bg-white sticky top-0 z-10 p-4 border-b">
                 <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
                   <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
@@ -74,10 +73,10 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                 </TabsList>
             </div>
 
-            {/* --- Nội dung cho Tab 1 --- */}
             <TabsContent value="nearby-amenities">
-                <div className="px-4 mt-4">
-                    <div className="flex gap-2 pb-3 overflow-x-auto scrollbar-hide">
+                {/* === FIX: Căn chỉnh lại khoảng cách trên dưới cho khu vực nút lọc === */}
+                <div className="px-4 py-3">
+                    <div className="flex gap-2 overflow-x-auto scrollbar-hide">
                         {categories.map((category) => (
                             <Button
                               key={category.id}
@@ -94,7 +93,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                         ))}
                     </div>
                 </div>
-                <div className="p-4 pt-0">
+                <div className="px-4 pb-4">
                     {currentAmenities.length > 0 ? (
                         <div className="space-y-3">
                             {currentAmenities.map((item) => (
@@ -134,7 +133,6 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                 </div>
             </TabsContent>
 
-            {/* --- Nội dung cho Tab 2 --- */}
             <TabsContent value="local-exploration">
                 <div className="p-4 text-center text-gray-500 pt-10">
                     <p>Nội dung cho mục Khám phá địa phương sẽ được cập nhật sớm.</p>
