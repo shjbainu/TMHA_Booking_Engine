@@ -161,7 +161,8 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
           </DrawerClose>
         </DrawerHeader>
 
-        <Tabs defaultValue="nearby-amenities" className="w-full flex-1 flex flex-col overflow-hidden">
+        {/* === THAY ĐỔI TẠI ĐÂY: Đặt defaultValue thành "local-exploration" === */}
+        <Tabs defaultValue="local-exploration" className="w-full flex-1 flex flex-col overflow-hidden">
           {/* Phần TabsList cố định */}
           <div className="bg-white p-4 border-b flex-shrink-0">
             <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
