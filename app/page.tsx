@@ -6,10 +6,13 @@ import Image from "next/image"
 import Link from "next/link"
 import HotelIntroDrawer from "@/components/hotel-intro-drawer" // Import HotelIntroDrawer
 import HotelAmenitiesDrawer from "@/components/hotel-amenities-drawer"
+import HotelReviewsDrawer from "@/components/hotel-reviews-drawer" // Import HotelReviewsDrawer
+
 // Giả sử component của bạn tên là HotelPhotosPage
 export default function HotelPhotosPage() {
   const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false) // New state for hotel intro drawer
   const [isHotelAmenitiesDrawerOpen, setIsHotelAmenitiesDrawerOpen] = useState(false)
+  const [isHotelReviewsDrawerOpen, setIsHotelReviewsDrawerOpen] = useState(false) // New state for hotel reviews drawer
 
   const hotelName = "69 Boutique by Minova"
   const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
@@ -487,7 +490,7 @@ export default function HotelPhotosPage() {
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
-              onClick={() => setIsHotelAmenitiesDrawerOpen(true)} // Add this line
+              onClick={() => setIsHotelAmenitiesDrawerOpen(true)}
             >
               <Image src="/images/amenliti.png" alt="Biểu tượng tiện ích" width={24} height={24} />
             </Button>
@@ -495,6 +498,7 @@ export default function HotelPhotosPage() {
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
+              onClick={() => setIsHotelReviewsDrawerOpen(true)} // Add this line
             >
               <Image src="/images/comment1.jpg" alt="Biểu tượng đánh giá" width={24} height={24} />
             </Button>
@@ -524,6 +528,12 @@ export default function HotelPhotosPage() {
       <HotelAmenitiesDrawer
         isOpen={isHotelAmenitiesDrawerOpen}
         onClose={() => setIsHotelAmenitiesDrawerOpen(false)}
+        hotelName={hotelName}
+      />
+      {/* Hotel Reviews Drawer */}
+      <HotelReviewsDrawer
+        isOpen={isHotelReviewsDrawerOpen}
+        onClose={() => setIsHotelReviewsDrawerOpen(false)}
         hotelName={hotelName}
       />
     </div>
