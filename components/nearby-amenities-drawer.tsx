@@ -47,7 +47,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     ],
     // === CONTENT 3: Bổ sung dữ liệu cho "Công viên" ===
     park: [
-        { id: "city-park", name: "Công viên trung tâm", branches: "Nhiều địa điểm", hours: "05:00 - 22:00", image: "https://media.tapchitaichinh.vn/w825/images/upload/phammaihanh/08012023/16-cong-vien-thu-le.jpg" },
+        { id: "city-park", name: "Công viên thủ lệ", branches: "Nhiều địa điểm", hours: "05:00 - 22:00", image: "https://vietair.com.vn/Media/Images/vietair/Tin-tuc/2023/10/cong-vien-thu-le.jpg" },
         { id: "amusement-park", name: "Khu vui chơi giải trí", branches: "Vài địa điểm lớn", hours: "08:00 - 21:00", image: "https://www.sungroup.com.vn/wp-content/uploads/2023/12/z4996492982855_e49b1ca26c6d2d3e09880f08a474c10c-scaled.jpg" },
     ]
   };
