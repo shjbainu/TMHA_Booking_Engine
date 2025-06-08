@@ -43,7 +43,9 @@ export default function HotelPhotosPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white sticky top-0 z-10 border-b border-gray-200">
-        
+        <Button variant="ghost" size="icon" className="h-10 w-10">
+          <ArrowLeft className="h-6 w-6 text-[#0a0a0a]" />
+        </Button>
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="h-10 w-10">
             <Image src="/images/favorite_navigation.png" alt="Biểu tượng trái tim" width={24} height={24} />
