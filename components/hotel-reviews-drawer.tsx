@@ -205,11 +205,7 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
         </div>
 
         {/* Footer */}
-        <DrawerFooter className="border-t bg-white">
-          <Button variant="outline" onClick={onClose}>
-            Đóng
-          </Button>
-        </DrawerFooter>
+       
       </DrawerContent>
     </Drawer>
   )
