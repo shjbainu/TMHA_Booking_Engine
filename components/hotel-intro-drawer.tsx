@@ -19,6 +19,13 @@ interface HotelIntroDrawerProps {
 }
 
 export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerProps) {
+  // 1. Định nghĩa địa chỉ khách sạn để dễ dàng quản lý
+  const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
+
+  // 2. Tạo URL cho Google Maps.
+  // encodeURIComponent đảm bảo các ký tự đặc biệt (dấu, khoảng trắng) được mã hóa đúng cách.
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotelAddress)}`
+
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
@@ -47,17 +54,17 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
           <div className="p-4 space-y-6">
             {/* === Các điểm nổi bật === */}
             <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Điểm nổi bật</h3>
-                 <div className="grid grid-cols-2 gap-3 text-sm">
-                    <div className="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm">
-                        <Star className="h-5 w-5 text-yellow-500" />
-                        <span className="font-medium text-gray-700">Đánh giá cao</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm">
-                        <Sparkles className="h-5 w-5 text-blue-500" />
-                        <span className="font-medium text-gray-700">Không gian riêng tư</span>
-                    </div>
-                 </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Điểm nổi bật</h3>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm">
+                  <Star className="h-5 w-5 text-yellow-500" />
+                  <span className="font-medium text-gray-700">Đánh giá cao</span>
+                </div>
+                <div className="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm">
+                  <Sparkles className="h-5 w-5 text-blue-500" />
+                  <span className="font-medium text-gray-700">Không gian riêng tư</span>
+                </div>
+              </div>
             </div>
 
             {/* === Đoạn giới thiệu === */}
@@ -70,16 +77,19 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
                 còn có bồn tắm jacuzzi riêng cho những giây phút thư giãn tuyệt đối.
               </p>
             </div>
-            
-             {/* === Vị trí === */}
+
+            {/* === Vị trí === */}
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Vị trí đắc địa</h3>
               <p className="text-gray-600 leading-relaxed mb-3">
-                 Từ khách sạn, du khách dễ dàng di chuyển đến các địa điểm nổi tiếng như Hồ Tây, Hồ Hoàn Kiếm, Lăng Bác,
+                Từ khách sạn, du khách dễ dàng di chuyển đến các địa điểm nổi tiếng như Hồ Tây, Hồ Hoàn Kiếm, Lăng Bác,
                 và Văn Miếu chỉ trong 10–25 phút lái xe.
               </p>
-               <Button variant="outline" className="w-full">
-                <MapPin className="mr-2 h-4 w-4" /> Xem trên bản đồ
+              {/* 3. Cập nhật Button với `asChild` và thẻ `<a>` */}
+              <Button asChild variant="outline" className="w-full">
+                <a href={mapUrl} target="_blank" rel="noopener noreferrer">
+                  <MapPin className="mr-2 h-4 w-4" /> Xem trên bản đồ
+                </a>
               </Button>
             </div>
 
