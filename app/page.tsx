@@ -10,6 +10,7 @@ import HotelReviewsDrawer from "@/components/hotel-reviews-drawer"
 import NearbyAmenitiesDrawer from "@/components/nearby-amenities-drawer" // Import new drawer
 import LocalExplorationDrawer from "@/components/local-exploration-drawer" // Import new drawer
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { ShareOptionsPopup } from "@/components/popups/ShareOptionsPopup" // Import new popup
 
 export default function HotelPhotosPage() {
   const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
@@ -18,6 +19,7 @@ export default function HotelPhotosPage() {
   const [isNearbyAmenitiesDrawerOpen, setIsNearbyAmenitiesDrawerOpen] = useState(false) // New state
   const [isLocalExplorationDrawerOpen, setIsLocalExplorationDrawerOpen] = useState(false) // New state
   const [isMoreOptionsDialogOpen, setIsMoreOptionsDialogOpen] = useState(false)
+  const [isShareOptionsPopupOpen, setIsShareOptionsPopupOpen] = useState(false) // New state for share popup
 
   const hotelName = "69 Boutique by Minova"
   const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
@@ -59,7 +61,7 @@ export default function HotelPhotosPage() {
           >
             <Image src="/images/location_navigation.png" alt="Biểu tượng bản đồ" width={24} height={24} />
           </Button>
-          <Button variant="ghost" size="icon" className="h-10 w-10">
+          <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsShareOptionsPopupOpen(true)}>
             <Image src="/images/share_navigation.png" alt="Biểu tượng chia sẻ" width={24} height={24} />
           </Button>
         </div>
@@ -551,6 +553,14 @@ export default function HotelPhotosPage() {
         onClose={() => setIsLocalExplorationDrawerOpen(false)}
         hotelName={hotelName}
         hotelAddress={hotelAddress}
+      />
+
+      {/* Share Options Popup */}
+      <ShareOptionsPopup
+        isOpen={isShareOptionsPopupOpen}
+        onClose={() => setIsShareOptionsPopupOpen(false)}
+        shareUrl={typeof window !== "undefined" ? window.location.href : "https://v0.dev"}
+        shareTitle={`Check out ${hotelName} on V0!`}
       />
     </div>
   )
