@@ -44,7 +44,7 @@ export default function HotelPhotosPage() {
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white sticky top-0 z-10 border-b border-gray-200">
         <Button variant="ghost" size="icon" className="h-10 w-10">
-        <h2 pl-10> 69 Boutique by Minova</h2>
+        <h2 classname="pl-10"> 69 Boutique by Minova</h2>
         </Button>
         <div className="flex items-center">
           <Button variant="ghost" size="icon" className="h-10 w-10">
