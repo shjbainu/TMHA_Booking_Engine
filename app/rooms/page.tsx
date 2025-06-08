@@ -13,7 +13,6 @@ import {
   CalendarDays,
   ImageIcon,
   Building,
-  Info,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -263,9 +262,6 @@ export default function RoomSelection() {
           </Button>
         </Link>
         <h1 className="text-lg font-medium text-[#0a0a0a]">CHỌN PHÒNG</h1>
-        <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsHotelIntroDrawerOpen(true)}>
-          <Info className="h-6 w-6 text-[#0a0a0a]" />
-        </Button>
       </div>
 
       {/* Booking Info */}
@@ -1470,6 +1466,11 @@ export default function RoomSelection() {
                       <Building className="h-4 w-4" />
                       <span>Hướng mặt phố</span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>Tối đa 3 người</span>
+                    </div>
+                    <div className="flex items-center gap-2"></div>
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4" />
                       <span>Tối đa 3 người</span>
