@@ -107,7 +107,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
         {/* --- PHẦN 1: CỐ ĐỊNH (Không cuộn) --- */}
         <DrawerHeader className="text-left p-4 border-b bg-white flex-shrink-0">
-          <DrawerTitle className="text-xl font-bold text-gray-900 ">Tiện ích xung quanh {hotelName}</DrawerTitle>
+          <DrawerTitle className="text-xl font-bold text-gray-900 mt-10">Tiện ích xung quanh {hotelName}</DrawerTitle>
           <DrawerDescription className="text-sm text-gray-500">Khám phá những địa điểm gần bạn</DrawerDescription>
         </DrawerHeader>
 
