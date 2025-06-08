@@ -48,7 +48,7 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
         {/* === Phần thân === */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-4 space-y-6">
-            {/* ... Các section khác giữ nguyên ... */}
+            {/* Các section khác giữ nguyên */}
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-3">Điểm nổi bật</h3>
               <div className="grid grid-cols-2 gap-3 text-sm">
@@ -71,27 +71,24 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
                 còn có bồn tắm jacuzzi riêng cho những giây phút thư giãn tuyệt đối.
               </p>
             </div>
-             {/* === Vị trí === */}
+            {/* === Vị trí === */}
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Vị trí đắc địa</h3>
               <p className="text-gray-600 leading-relaxed mb-3">
-                 Từ khách sạn, du khách dễ dàng di chuyển đến các địa điểm nổi tiếng như Hồ Tây, Hồ Hoàn Kiếm, Lăng Bác,
+                Từ khách sạn, du khách dễ dàng di chuyển đến các địa điểm nổi tiếng như Hồ Tây, Hồ Hoàn Kiếm, Lăng Bác,
                 và Văn Miếu chỉ trong 10–25 phút lái xe.
               </p>
-              
-              {/* --- THAY ĐỔI Ở ĐÂY --- */}
-              {/* Component Button sẽ tự động áp dụng `display: flex` và `align-items: center` 
-                  cho thẻ <a> bên trong, giúp icon và chữ luôn nằm cạnh nhau. */}
-              <Button asChild variant="outline" className="w-full">
+
+              {/* --- ĐÃ SỬA LỖI TẠI ĐÂY --- */}
+              {/* Thêm `flex items-center` để đảm bảo layout luôn là hàng ngang */}
+              <Button asChild variant="outline" className="w-full flex items-center">
                 <a href={mapUrl} target="_blank" rel="noopener noreferrer">
-                  {/* Icon được đặt trước */}
-                  <MapPin className="mr-2 h-4 w-4" />
-                  {/* Văn bản đi ngay sau */}
-                  <span>Xem trên bản đồ</span>
+                  <MapPin className="mr-2 h-4 w-4 flex-shrink-0" />
+                  Xem trên bản đồ
                 </a>
               </Button>
             </div>
-             <div>
+            <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Dịch vụ & Đội ngũ</h3>
               <p className="text-gray-600 leading-relaxed">
                 Đội ngũ nhân viên thân thiện, chuyên nghiệp, có thể giao tiếp bằng tiếng Việt, Anh và Nhật, luôn sẵn
