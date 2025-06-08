@@ -39,7 +39,7 @@ export default function LocalExplorationDrawer({ isOpen, onClose, hotelName }: L
       date: "Mùng 5 Tết Nguyên đán",
       description: "Kỷ niệm chiến thắng Ngọc Hồi – Đống Đa lừng lẫy của hoàng đế Quang Trung, với màn rước Rồng lửa Thăng Long hào hùng.",
       image: "https://media-cdn-v2.laodong.vn/storage/newsportal/2025/2/2/1457462/Lehoi_Godongda-1.jpg",
-      link: "https://vnexpress.net/nguoi-dan-du-le-hoi-go-dong-da-4564016.html",
+      link: "https://vinpearl.com/vi/le-hoi-go-dong-da-dien-ra-khi-nao-o-dau-co-gi-dac-sac",
     },
   ]
 
