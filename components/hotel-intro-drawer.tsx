@@ -33,7 +33,7 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
           </DrawerHeader>
           <div className="h-48 w-full">
             <Image
-              src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp" // Thay bằng ảnh đại diện của khách sạn
+              src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55dc2e97.JPG" // Thay bằng ảnh đại diện của khách sạn
               alt="69 Boutique Hotel"
               layout="fill"
               objectFit="cover"
