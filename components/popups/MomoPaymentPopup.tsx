@@ -82,7 +82,7 @@ export function MomoPaymentPopup({ amount, onClose }: MomoPaymentPopupProps) {
           <div className="flex flex-col items-center justify-center">
             <p className="text-sm text-[#0a0a0a] mb-3">Mở app ngân hàng để quét mã</p>
             <div className="relative w-48 h-48 mb-4 border border-gray-200 rounded-lg overflow-hidden">
-              <Image src="/public/images/momo-qr-code.png" alt="Momo QR Code" layout="fill" objectFit="contain" />
+              <Image src="/images/momo-qr-code.png" alt="Momo QR Code" layout="fill" objectFit="contain" />
             </div>
             <Button variant="ghost" className="text-blue-600 text-sm font-medium">
               Lưu mã QR
