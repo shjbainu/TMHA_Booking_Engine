@@ -35,7 +35,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     supermarket: [
       { id: "winmart", name: "Siêu thị Winmart", branches: "3.700 cơ sở", hours: "08:00 - 23:00", image: "https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/22/winmarta-1640142773723-16401427738771005786314.jpg" },
       { id: "go", name: "Siêu thị Go!", branches: "42 cơ sở", hours: "08:00 - 23:00", image: "https://centralretail.com.vn/wp-content/uploads/2024/03/go-bigc-cover-1.png" },
-      { id: "lotte", name: "Lotte Mart", branches: "15 cơ sở", hours: "08:00 - 23:00", image: "https://cdn.haitrieu.com/wp-content/uploads/2022/03/logo-lotte-mart.png" },
+      { id: "lotte", name: "Lotte Mart", branches: "15 cơ sở", hours: "08:00 - 23:00", image: "https://images2.thanhnien.vn/528068263637045248/2025/4/28/lotte-mart-1-1745851235813715925965.jpg" },
     ],
     restaurant: [
       { id: "kfc", name: "KFC", branches: "Hơn 150 nhà hàng", hours: "10:00 - 22:00", image: "https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png" },
