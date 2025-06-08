@@ -21,7 +21,7 @@ interface NearbyAmenitiesDrawerProps {
 }
 
 export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: NearbyAmenitiesDrawerProps) {
-  const [activeCategory, setActiveCategory] = useState("park") // Đổi mặc định sang "Công viên" để bạn thấy ngay kết quả
+  const [activeCategory, setActiveCategory] = useState("supermarket")
 
   const categories = [
     { id: "supermarket", name: "Siêu thị" },
@@ -30,7 +30,6 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     { id: "park", name: "Công viên" },
   ];
 
-  // === CẬP NHẬT DỮ LIỆU TẠI ĐÂY ===
   const amenitiesData = {
     supermarket: [
       { id: "winmart", name: "Siêu thị Winmart", branches: "3.700 cơ sở", hours: "08:00 - 23:00", image: "https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/22/winmarta-1640142773723-16401427738771005786314.jpg" },
@@ -50,7 +49,6 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
         { id: "thong-nhat-park", name: "Công viên Thống Nhất", branches: "Trần Nhân Tông, Hai Bà Trưng", hours: "06:00 - 22:00", image: "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" },
     ]
   };
-  // === KẾT THÚC PHẦN CẬP NHẬT ===
   
   const currentAmenities = useMemo(() => amenitiesData[activeCategory] || [], [activeCategory]);
 
@@ -63,75 +61,85 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
         </DrawerHeader>
 
         <div className="flex-1 overflow-y-auto">
+          {/* === FIX: Cấu trúc lại Tabs với TabsContent === */}
           <Tabs defaultValue="nearby-amenities" className="w-full">
-            <div className="bg-white sticky top-0 z-10 pt-4">
-                <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1 mx-4">
-                <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
-                    Tiện ích xung quanh
-                </TabsTrigger>
-                <TabsTrigger value="local-exploration" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
-                    Khám phá địa phương
-                </TabsTrigger>
+            <div className="bg-white sticky top-0 z-10 pt-4 border-b">
+                <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1 mx-4 mb-4">
+                  <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                      Tiện ích xung quanh
+                  </TabsTrigger>
+                  <TabsTrigger value="local-exploration" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                      Khám phá địa phương
+                  </TabsTrigger>
                 </TabsList>
+            </div>
 
+            {/* --- Nội dung cho Tab 1 --- */}
+            <TabsContent value="nearby-amenities">
                 <div className="px-4 mt-4">
                     <div className="flex gap-2 pb-3 overflow-x-auto scrollbar-hide">
                         {categories.map((category) => (
                             <Button
-                            key={category.id}
-                            variant="outline"
-                            className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
-                                activeCategory === category.id
-                                ? "bg-black text-white border-black"
-                                : "bg-white text-gray-700 border-gray-300"
-                            }`}
-                            onClick={() => setActiveCategory(category.id)}
+                              key={category.id}
+                              variant="outline"
+                              className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
+                                  activeCategory === category.id
+                                  ? "bg-black text-white border-black"
+                                  : "bg-white text-gray-700 border-gray-300"
+                              }`}
+                              onClick={() => setActiveCategory(category.id)}
                             >
-                            {category.name}
+                              {category.name}
                             </Button>
                         ))}
                     </div>
                 </div>
-            </div>
-
-            <div className="p-4">
-                {currentAmenities.length > 0 ? (
-                    <div className="space-y-3">
-                        {currentAmenities.map((item) => (
-                        <div key={item.id} className="bg-white rounded-xl shadow-sm p-3 flex items-center gap-4">
-                            <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                                <Image src={item.image} alt={item.name} layout="fill" className="object-cover" />
-                            </div>
-                            <div className="flex-1">
-                                <p className="font-semibold text-gray-800">{item.name}</p>
-                                <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-1">
-                                    <MapPin className="h-3.5 w-3.5" />
-                                    <span>{item.branches}</span>
+                <div className="p-4 pt-0">
+                    {currentAmenities.length > 0 ? (
+                        <div className="space-y-3">
+                            {currentAmenities.map((item) => (
+                            <div key={item.id} className="bg-white rounded-xl shadow-sm p-3 flex items-center gap-4">
+                                <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                                    <Image src={item.image} alt={item.name} layout="fill" className="object-cover" />
                                 </div>
-                                <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-0.5">
-                                    <Clock className="h-3.5 w-3.5" />
-                                    <span>{item.hours}</span>
+                                <div className="flex-1">
+                                    <p className="font-semibold text-gray-800">{item.name}</p>
+                                    <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-1">
+                                        <MapPin className="h-3.5 w-3.5" />
+                                        <span>{item.branches}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-0.5">
+                                        <Clock className="h-3.5 w-3.5" />
+                                        <span>{item.hours}</span>
+                                    </div>
                                 </div>
+                                <a
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name}`)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={`Tìm ${item.name} trên bản đồ`}
+                                >
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-700">
+                                        <ExternalLink className="h-4 w-4" />
+                                    </Button>
+                                </a>
                             </div>
-                             <a
-                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name}`)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`Tìm ${item.name} trên bản đồ`}
-                             >
-                                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-700">
-                                    <ExternalLink className="h-4 w-4" />
-                                </Button>
-                             </a>
+                            ))}
                         </div>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-10 text-gray-500">
-                        <p>Chưa có dữ liệu cho danh mục này.</p>
-                    </div>
-                )}
-            </div>
+                    ) : (
+                        <div className="text-center py-10 text-gray-500">
+                            <p>Chưa có dữ liệu cho danh mục này.</p>
+                        </div>
+                    )}
+                </div>
+            </TabsContent>
+
+            {/* --- Nội dung cho Tab 2 --- */}
+            <TabsContent value="local-exploration">
+                <div className="p-4 text-center text-gray-500 pt-10">
+                    <p>Nội dung cho mục Khám phá địa phương sẽ được cập nhật sớm.</p>
+                </div>
+            </TabsContent>
           </Tabs>
         </div>
       </DrawerContent>
