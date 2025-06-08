@@ -258,7 +258,7 @@ export default function RoomSelection() {
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={{
         backgroundImage:
-          "url('https://pix8.agoda.net/hotelImages/48898017/-1/9ccca4c717fa39e5a00ec72b8c732c66.jpg?ce=0&s=1024x')",
+          "url('https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-creative-gradient-light-blue-light-yellow-simple-image_41791.jpg')",
       }}
     >
       {/* Header */}
