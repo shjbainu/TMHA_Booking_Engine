@@ -104,15 +104,5 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
           </div>
         </div>
 
-        {/* === Footer === */}
-        <DrawerFooter className="border-t bg-white">
-          <DrawerClose asChild>
-            <Button variant="outline" onClick={onClose}>
-              Đóng
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
   )
 }
