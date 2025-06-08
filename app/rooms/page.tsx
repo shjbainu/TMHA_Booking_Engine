@@ -708,7 +708,7 @@ export default function RoomSelection() {
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp"
-                          alt="Phòng Nhật Bản secondary image 1"
+                          alt="Phòng Mập Mờ secondary image 1"
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 40vw, 200px"
@@ -717,7 +717,7 @@ export default function RoomSelection() {
                       <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                         <ImageComponent
                           src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
-                          alt="Phòng Nhật Bản secondary image 1"
+                          alt="Phòng Mập Mờ secondary image 1"
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 40vw, 200px"
