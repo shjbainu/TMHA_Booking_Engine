@@ -1,180 +1,191 @@
-// @/app/confirmation/page.tsx
-
 "use client"
 
-import { ArrowLeft, Download, CheckCircle, User, Phone, Mail, QrCode, Share2 } from "lucide-react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { ArrowLeft, RotateCcw, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
 import { ProgressIndicator } from "@/components/progress-indicator"
-import Image from "next/image"
 import Link from "next/link"
-// Giữ lại component card của bạn để tái sử dụng logic bên trong nếu cần
-import { BookingConfirmationCard } from "@/components/BookingConfirmationCard"
+import { paymentMethods } from "@/lib/data"
+import { VisaPaymentPopup } from "@/components/popups/VisaPaymentPopup"
+import { MomoPaymentPopup } from "@/components/popups/MomoPaymentPopup"
 
-// --- DỮ LIỆU GIẢ LẬP (Giữ nguyên) ---
-const confirmedBookings = [
-  {
-    id: "booking_1",
-    name: "BOOKING 1",
-    checkInDate: "Thứ Sáu, 25 tháng 4, 2025",
-    checkOutDate: "Chủ Nhật, 27 tháng 4, 2025",
-    bookingCode: "STAY-XYZ123",
-    qrCodeValue: "STAY-XYZ123", // Giá trị để tạo mã QR
-    rooms: [
-      { name: "Phòng Standard", quantity: 2 },
-      { name: "Phòng Luxury", quantity: 1 },
-    ],
-    totalPrice: "1.617.000đ"
-  },
-  {
-    id: "booking_2",
-    name: "BOOKING 2",
-    checkInDate: "Thứ Hai, 28 tháng 4, 2025",
-    checkOutDate: "Thứ Tư, 30 tháng 4, 2025",
-    bookingCode: "STAY-ABC567",
-    qrCodeValue: "STAY-ABC567",
-    rooms: [
-      { name: "Phòng Suite", quantity: 1 },
-    ],
-    totalPrice: "2.500.000đ"
+export default function Payment() {
+  const router = useRouter()
+  const [customer, setCustomer] = useState({ name: "", phone: "", email: "" })
+  const [selectedPayment, setSelectedPayment] = useState("visa_mastercard")
+  const [timeLeft, setTimeLeft] = useState(600)
+  const [activePopup, setActivePopup] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (timeLeft <= 0) return
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [timeLeft])
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`
   }
-];
 
-const customerInfo = {
-    name: "Lê Tuấn Anh",
-    phone: "0362423000",
-    email: "letuananhk54@gmail.com"
-}
-// ----------------------
-
-
-export default function PaymentConfirmation() {
   const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
+  const totalAmount = "3.234.000đ"
+  const popupAmount = "1.078.000đ"
+
+  const handlePaymentConfirmation = () => {
+    if (!selectedPayment) return alert("Vui lòng chọn phương thức thanh toán!")
+    if (!customer.name || !customer.phone || !customer.email) return alert("Vui lòng điền đầy đủ thông tin khách hàng!")
+    setActivePopup(selectedPayment)
+  }
+
+  const handleClosePopup = () => setActivePopup(null)
+
+  const handleFinalizePayment = () => {
+    setActivePopup(null)
+    router.push("/confirmation")
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-20 flex items-center justify-between p-4 bg-white border-b border-gray-200">
-        <Link href="/">
+      <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-white border-b border-gray-100 shadow-sm">
+        <Link href="/rooms">
           <Button variant="ghost" size="icon" className="h-10 w-10">
-            <ArrowLeft className="h-6 w-6 text-gray-800" />
+            <ArrowLeft className="h-6 w-6 text-[#0a0a0a]" />
           </Button>
         </Link>
-        <h1 className="text-lg font-semibold text-gray-900">XÁC NHẬN ĐẶT PHÒNG</h1>
+        <h1 className="text-lg font-semibold text-[#0a0a0a] tracking-tight">THANH TOÁN</h1>
         <div className="w-10" />
-      </header>
+      </div>
 
-      <main className="p-4 md:p-8 max-w-4xl mx-auto">
-        {/* Progress Indicator */}
-        <div className="mb-8">
-            <ProgressIndicator currentStep={3} steps={steps} />
+      <div className="p-4 space-y-8 max-w-2xl mx-auto">
+        <ProgressIndicator currentStep={2} steps={steps} />
+
+        {/* Holding Message */}
+        <div className="bg-gray-50 border border-gray-200 shadow-sm rounded-xl p-4 text-center">
+          <p className="text-sm text-[#0a0a0a]">Chúng tôi đang giữ phòng cho bạn</p>
+          <div className="inline-flex items-center gap-1 bg-white px-4 py-1.5 mt-2 rounded-lg border-2 border-dashed border-gray-400">
+            <span className="text-base font-mono tracking-wider text-[#0a0a0a]">{formatTime(timeLeft)}</span>
+          </div>
         </div>
 
-        {/* --- Thông điệp Thành công --- */}
-        <div className="text-center mb-10">
-            <CheckCircle className="mx-auto h-16 w-16 text-emerald-500 mb-4" strokeWidth={1.5} />
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Đặt phòng thành công!</h2>
-            <p className="text-gray-600">Cảm ơn bạn đã tin tưởng. Chi tiết đặt phòng đã được gửi đến email của bạn.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* --- Cột bên trái: Chi tiết các booking --- */}
-            <div className="md:col-span-2 space-y-6">
-                <h3 className="text-xl font-bold text-gray-900">Chi tiết đặt phòng của bạn</h3>
-                {confirmedBookings.map((booking) => (
-                    <div key={booking.id} className="bg-white rounded-2xl shadow-lg border border-gray-200/80 overflow-hidden">
-                        <div className="p-6">
-                            <div className="flex justify-between items-start mb-4">
-                                <div>
-                                    <span className="text-sm font-semibold bg-gray-100 text-gray-800 px-3 py-1 rounded-full">{booking.name}</span>
-                                    <p className="text-xs text-gray-500 mt-2">Mã đặt phòng:</p>
-                                    <p className="text-lg font-mono font-bold text-emerald-600 tracking-wider">{booking.bookingCode}</p>
-                                </div>
-                                <div className="text-center">
-                                     {/* Giả lập mã QR */}
-                                     <div className="w-20 h-20 bg-gray-100 rounded-lg p-1">
-                                        <Image 
-                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${booking.qrCodeValue}`} 
-                                            alt={`QR Code for ${booking.bookingCode}`}
-                                            width={80}
-                                            height={80}
-                                            className="rounded-md"
-                                        />
-                                     </div>
-                                     <p className="text-[10px] text-gray-500 mt-1">Quét mã để check-in</p>
-                                </div>
-                            </div>
-
-                            <div className="border-t border-dashed my-4"></div>
-                            
-                            <div className="space-y-3 text-sm">
-                                <div className="flex justify-between">
-                                    <span className="text-gray-500">Nhận phòng:</span>
-                                    <span className="font-medium text-gray-800">{booking.checkInDate}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-500">Trả phòng:</span>
-                                    <span className="font-medium text-gray-800">{booking.checkOutDate}</span>
-                                </div>
-                            </div>
-                            
-                            <div className="mt-4 pt-4 border-t border-dashed">
-                                <p className="text-sm font-semibold text-gray-800 mb-2">Các phòng đã đặt:</p>
-                                <ul className="space-y-1 list-disc list-inside text-sm text-gray-700">
-                                    {booking.rooms.map((room, index) => (
-                                        <li key={index}>{room.name} (Số lượng: {room.quantity})</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="bg-gray-50/70 p-4 flex justify-between items-center border-t">
-                            <span className="text-sm font-semibold text-gray-800">Tổng tiền</span>
-                            <span className="text-lg font-bold text-gray-900">{booking.totalPrice}</span>
-                        </div>
-                    </div>
-                ))}
+        {/* Booking Info */}
+        <section className="space-y-4">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Thông tin đặt phòng</h2>
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">BOOKING 1</Badge>
+              <div className="flex gap-2">
+                <Button variant="ghost" size="icon" className="h-8 w-8"><RotateCcw className="h-4 w-4" /></Button>
+                <Button variant="ghost" size="icon" className="h-8 w-8"><Trash2 className="h-4 w-4" /></Button>
+              </div>
             </div>
-
-            {/* --- Cột bên phải: Thông tin khách hàng và Hành động --- */}
-            <div className="md:col-span-1 space-y-6">
-                <div className="bg-white rounded-2xl shadow-lg border border-gray-200/80 p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Thông tin liên hệ</h3>
-                    <div className="space-y-3 text-sm">
-                        <div className="flex items-center gap-3">
-                            <User className="h-4 w-4 text-gray-500 flex-shrink-0" />
-                            <span className="text-gray-800">{customerInfo.name}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Phone className="h-4 w-4 text-gray-500 flex-shrink-0" />
-                            <span className="text-gray-800">{customerInfo.phone}</span>
-                        </div>
-                         <div className="flex items-center gap-3">
-                            <Mail className="h-4 w-4 text-gray-500 flex-shrink-0" />
-                            <span className="text-gray-800 break-all">{customerInfo.email}</span>
-                        </div>
-                    </div>
-                </div>
-
-                 <div className="space-y-3">
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-base font-semibold flex items-center justify-center gap-2 h-12 shadow-lg hover:shadow-xl transition-all">
-                        <Download className="h-5 w-5" />
-                        Tải về hóa đơn
-                    </Button>
-                     <Button variant="outline" className="w-full bg-white hover:bg-gray-100 text-gray-800 py-3 rounded-xl text-base font-medium flex items-center justify-center gap-2 h-12 shadow-md">
-                        <Share2 className="h-5 w-5" />
-                        Chia sẻ đặt phòng
-                    </Button>
-                 </div>
+            <div className="flex items-center gap-3 text-sm mb-2 text-[#0a0a0a]">
+              <span>25/04/2025</span>
+              <span>•</span>
+              <span>2 đêm</span>
+              <span>•</span>
+              <span>27/04/2025</span>
             </div>
+            <div className="text-sm text-[#0a0a0a] space-y-1">
+              <p>• Phòng Standard x2</p>
+              <p>• Phòng Luxury x1</p>
+            </div>
+            <div className="text-right font-medium mt-4 text-[#0a0a0a]">Tổng tiền: 1.078.000đ</div>
+          </div>
+        </section>
+
+        {/* Customer Info */}
+        <section className="space-y-4">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Thông tin khách hàng</h2>
+          {["name", "phone", "email"].map((field, idx) => (
+            <div key={idx}>
+              <Label htmlFor={field} className="text-sm font-medium text-[#0a0a0a] capitalize">
+                {field === "name" ? "Họ tên *" : field === "phone" ? "Số điện thoại *" : "Email *"}
+              </Label>
+              <Input
+                id={field}
+                placeholder={`Vui lòng nhập ${field === "name" ? "họ tên" : field === "phone" ? "số điện thoại" : "email"}`}
+                value={customer[field]}
+                onChange={(e) => setCustomer((prev) => ({ ...prev, [field]: e.target.value }))}
+                className="mt-1 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+          ))}
+        </section>
+
+        {/* Payment Summary */}
+        <section className="space-y-4">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Chi tiết thanh toán</h2>
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-sm">
+            <div className="font-medium text-[#0a0a0a] mb-3">BOOKING 1</div>
+            <div className="space-y-2 text-sm text-[#0a0a0a]">
+              <div className="flex justify-between"><span>Phòng Standard x2</span><span>980.000đ</span></div>
+              <div className="flex justify-between"><span>Phòng Luxury x1</span><span>490.000đ</span></div>
+              <div className="flex justify-between"><span>Phí VAT (10%)</span><span>147.000đ</span></div>
+              <div className="border-t border-gray-200 pt-2 flex justify-between font-semibold">
+                <span>TỔNG BOOKING 1:</span><span>1.617.000đ</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between text-lg font-bold text-[#0a0a0a]">
+            <span>TỔNG TIỀN THANH TOÁN</span>
+            <span>{totalAmount}</span>
+          </div>
+        </section>
+
+        {/* Payment Methods */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Phương thức thanh toán</h2>
+          {paymentMethods.map((method) => (
+            <div
+              key={method.id}
+              onClick={() => setSelectedPayment(method.id)}
+              className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all duration-200 ${
+                selectedPayment === method.id ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200" : "border-gray-200 bg-white"
+              }`}
+            >
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPayment === method.id ? "border-blue-500" : "border-gray-300"}`}>
+                {selectedPayment === method.id && <div className="w-3 h-3 rounded-full bg-blue-500" />}
+              </div>
+              <span className="text-2xl">{method.icon}</span>
+              <span className="text-sm font-medium text-[#0a0a0a]">{method.name}</span>
+            </div>
+          ))}
+        </section>
+
+        <div className="flex justify-between text-sm text-[#0a0a0a]">
+          <span>Chính sách hủy</span>
+          <span className="text-blue-600 cursor-pointer">Xem chi tiết</span>
         </div>
 
-        <div className="text-center mt-12">
-            <Link href="/">
-                <Button variant="link" className="text-gray-600 hover:text-gray-900">
-                    Về trang chủ
-                </Button>
-            </Link>
-        </div>
-      </main>
+        <Button
+          onClick={handlePaymentConfirmation}
+          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-xl text-base font-medium shadow-md hover:shadow-lg h-12"
+        >
+          Xác nhận & thanh toán
+        </Button>
+      </div>
+
+      {activePopup === "visa_mastercard" && (
+        <VisaPaymentPopup amount={popupAmount} onClose={handleClosePopup} onConfirm={handleFinalizePayment} />
+      )}
+
+      {activePopup === "momo" && (
+        <MomoPaymentPopup amount={popupAmount} onClose={handleFinalizePayment} />
+      )}
     </div>
   )
 }
