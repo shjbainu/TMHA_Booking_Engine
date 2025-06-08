@@ -100,11 +100,7 @@ export default function HotelAmenitiesDrawer({ isOpen, onClose, hotelName }: Hot
         </div>
 
         {/* === Footer === */}
-        <DrawerFooter className="border-t bg-white">
-          <DrawerClose asChild>
-            <Button variant="outline" onClick={onClose}>Đóng</Button>
-          </DrawerClose>
-        </DrawerFooter>
+       
       </DrawerContent>
     </Drawer>
   )
