@@ -30,12 +30,12 @@ export function ShareOptionsPopup({ isOpen, onClose, shareUrl, shareTitle }: Sha
     },
     {
       name: "Zalo",
-      icon: "/images/zalo-icon.png",
+      icon: "/images/zalo-icon.jpg",
       action: () => window.open(`https://chat.zalo.me/?url=${encodedShareUrl}&text=${encodedShareTitle}`, "_blank"),
     },
     {
       name: "WhatsApp",
-      icon: "/images/whatsapp-icon.png",
+      icon: "/images/whatsapp-icon.jpg",
       action: () =>
         window.open(`https://api.whatsapp.com/send?text=${encodedShareTitle}%20${encodedShareUrl}`, "_blank"),
     },
