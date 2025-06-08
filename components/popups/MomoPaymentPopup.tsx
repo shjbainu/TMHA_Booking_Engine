@@ -2,7 +2,6 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
 import { Copy, Lock, X, CreditCard } from "lucide-react" // Added Copy and X
 import { Label } from "@/components/ui/label"
 
@@ -82,7 +81,7 @@ export function MomoPaymentPopup({ amount, onClose }: MomoPaymentPopupProps) {
           <div className="flex flex-col items-center justify-center">
             <p className="text-sm text-[#0a0a0a] mb-3">Mở app ngân hàng để quét mã</p>
             <div className="relative w-48 h-48 mb-4 border border-gray-200 rounded-lg overflow-hidden">
-              <Image src="/images/momo-qr-code.png" alt="Momo QR Code" layout="fill" objectFit="contain" />
+              <img src="/images/momo-qr-code.png" alt="Momo QR Code" className="object-contain w-full h-full" />
             </div>
             <Button variant="ghost" className="text-blue-600 text-sm font-medium">
               Lưu mã QR
