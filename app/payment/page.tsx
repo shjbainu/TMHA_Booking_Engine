@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation" // Import useRouter
+import { useRouter } from "next/navigation"
 import { ArrowLeft, RotateCcw, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,15 +14,10 @@ import { VisaPaymentPopup } from "@/components/popups/VisaPaymentPopup"
 import { MomoPaymentPopup } from "@/components/popups/MomoPaymentPopup"
 
 export default function Payment() {
-  const router = useRouter() // Khởi tạo router
-  const [customer, setCustomer] = useState({
-    name: "",
-    phone: "",
-    email: "",
-  })
-  const [selectedPayment, setSelectedPayment] = useState("visa_mastercard") // Đặt giá trị mặc định nếu muốn
+  const router = useRouter()
+  const [customer, setCustomer] = useState({ name: "", phone: "", email: "" })
+  const [selectedPayment, setSelectedPayment] = useState("visa_mastercard")
   const [timeLeft, setTimeLeft] = useState(600)
-
   const [activePopup, setActivePopup] = useState<string | null>(null)
 
   useEffect(() => {
@@ -50,206 +45,147 @@ export default function Payment() {
   const popupAmount = "1.078.000đ"
 
   const handlePaymentConfirmation = () => {
-    if (!selectedPayment) {
-      alert("Vui lòng chọn phương thức thanh toán!")
-      return
-    }
-    if (!customer.name || !customer.phone || !customer.email) {
-      alert("Vui lòng điền đầy đủ thông tin khách hàng!")
-      return
-    }
-
+    if (!selectedPayment) return alert("Vui lòng chọn phương thức thanh toán!")
+    if (!customer.name || !customer.phone || !customer.email) return alert("Vui lòng điền đầy đủ thông tin khách hàng!")
     setActivePopup(selectedPayment)
   }
 
-  const handleClosePopup = () => {
-    setActivePopup(null)
-  }
+  const handleClosePopup = () => setActivePopup(null)
 
   const handleFinalizePayment = () => {
-    console.log("Payment confirmed, navigating to confirmation page...")
-    setActivePopup(null) // Đóng popup
-    router.push("/confirmation") // Chuyển trang đến trang xác nhận
+    setActivePopup(null)
+    router.push("/confirmation")
   }
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100">
+      <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-white border-b border-gray-100 shadow-sm">
         <Link href="/rooms">
           <Button variant="ghost" size="icon" className="h-10 w-10">
             <ArrowLeft className="h-6 w-6 text-[#0a0a0a]" />
           </Button>
         </Link>
-        <h1 className="text-lg font-medium text-[#0a0a0a]">THANH TOÁN</h1>
+        <h1 className="text-lg font-semibold text-[#0a0a0a] tracking-tight">THANH TOÁN</h1>
         <div className="w-10" />
       </div>
 
-      {/* === CODE CỦA BẠN ĐÃ ĐƯỢC SỬA LẠI (XÓA 2 KÝ TỰ THỪA) === */}
-      <div className="p-4">
-        {/* Progress Indicator */}
+      <div className="p-4 space-y-8 max-w-2xl mx-auto">
         <ProgressIndicator currentStep={2} steps={steps} />
 
         {/* Holding Message */}
-        <div className="bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4 text-center mb-6">
-          <p className="text-sm text-[#0a0a0a] mb-2">Chúng tôi đang giữ phòng cho bạn</p>
-          <div className="inline-flex items-center gap-1 bg-white px-3 py-1 rounded border-2 border-dashed border-gray-400">
-            <span className="text-sm font-mono">{formatTime(timeLeft)}</span>
+        <div className="bg-gray-50 border border-gray-200 shadow-sm rounded-xl p-4 text-center">
+          <p className="text-sm text-[#0a0a0a]">Chúng tôi đang giữ phòng cho bạn</p>
+          <div className="inline-flex items-center gap-1 bg-white px-4 py-1.5 mt-2 rounded-lg border-2 border-dashed border-gray-400">
+            <span className="text-base font-mono tracking-wider text-[#0a0a0a]">{formatTime(timeLeft)}</span>
           </div>
         </div>
 
-        {/* Booking Information */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Thông tin đặt phòng</h2>
-          <div className="bg-white border border-gray-200 shadow-sm rounded-lg p-4 mb-3">
-            <div className="flex items-center justify-between mb-3">
-              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
-                BOOKING 1
-              </Badge>
+        {/* Booking Info */}
+        <section className="space-y-4">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Thông tin đặt phòng</h2>
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">BOOKING 1</Badge>
               <div className="flex gap-2">
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <RotateCcw className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                <Button variant="ghost" size="icon" className="h-8 w-8"><RotateCcw className="h-4 w-4" /></Button>
+                <Button variant="ghost" size="icon" className="h-8 w-8"><Trash2 className="h-4 w-4" /></Button>
               </div>
             </div>
-            <div className="flex items-center gap-4 text-sm mb-2">
-              <span className="bg-white px-2 py-1 rounded">25/04/2025</span>
-              <span className="bg-white px-2 py-1 rounded">2 đêm</span>
-              <span className="bg-white px-2 py-1 rounded">27/04/2025</span>
+            <div className="flex items-center gap-3 text-sm mb-2 text-[#0a0a0a]">
+              <span>25/04/2025</span>
+              <span>•</span>
+              <span>2 đêm</span>
+              <span>•</span>
+              <span>27/04/2025</span>
             </div>
             <div className="text-sm text-[#0a0a0a] space-y-1">
-              <div>• Phòng Standard x2</div>
-              <div>• Phòng Luxury x1</div>
+              <p>• Phòng Standard x2</p>
+              <p>• Phòng Luxury x1</p>
             </div>
-            <div className="text-right mt-2">
-              <span className="font-medium">Tổng tiền: 1.078.000đ</span>
-            </div>
+            <div className="text-right font-medium mt-4 text-[#0a0a0a]">Tổng tiền: 1.078.000đ</div>
           </div>
-        </div>
+        </section>
 
-        {/* Customer Information */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Thông tin khách hàng</h2>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="name" className="text-sm font-medium text-[#0a0a0a]">
-                Họ tên *
+        {/* Customer Info */}
+        <section className="space-y-4">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Thông tin khách hàng</h2>
+          {["name", "phone", "email"].map((field, idx) => (
+            <div key={idx}>
+              <Label htmlFor={field} className="text-sm font-medium text-[#0a0a0a] capitalize">
+                {field === "name" ? "Họ tên *" : field === "phone" ? "Số điện thoại *" : "Email *"}
               </Label>
               <Input
-                id="name"
-                placeholder="Vui lòng nhập họ tên"
-                value={customer.name}
-                onChange={(e) => setCustomer((prev) => ({ ...prev, name: e.target.value }))}
+                id={field}
+                placeholder={`Vui lòng nhập ${field === "name" ? "họ tên" : field === "phone" ? "số điện thoại" : "email"}`}
+                value={customer[field]}
+                onChange={(e) => setCustomer((prev) => ({ ...prev, [field]: e.target.value }))}
                 className="mt-1 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
-            <div>
-              <Label htmlFor="phone" className="text-sm font-medium text-[#0a0a0a]">
-                Số điện thoại *
-              </Label>
-              <Input
-                id="phone"
-                placeholder="Vui lòng nhập số điện thoại"
-                value={customer.phone}
-                onChange={(e) => setCustomer((prev) => ({ ...prev, phone: e.target.value }))}
-                className="mt-1 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <Label htmlFor="email" className="text-sm font-medium text-[#0a0a0a]">
-                Email *
-              </Label>
-              <Input
-                id="email"
-                placeholder="Vui lòng nhập email"
-                value={customer.email}
-                onChange={(e) => setCustomer((prev) => ({ ...prev, email: e.target.value }))}
-                className="mt-1 bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>
+          ))}
+        </section>
 
-        {/* Payment Details */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Chi tiết thanh toán</h2>
-          <div className="bg-gray-50 border border-gray-200 shadow-sm p-3 rounded-lg">
-            <div className="font-medium mb-2">BOOKING 1</div>
-            <div className="space-y-1 text-sm">
-              <div className="flex justify-between">
-                <span>Phòng Standard x2</span>
-                <span>980.000đ</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Phòng Luxury x1</span>
-                <span>490.000đ</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Phí VAT (Thuế 10%)</span>
-                <span>147.000đ</span>
-              </div>
-              <div className="flex justify-between font-medium border-t border-gray-200 pt-2">
-                <span>TỔNG BOOKING 1:</span>
-                <span>1.617.000đ</span>
+        {/* Payment Summary */}
+        <section className="space-y-4">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Chi tiết thanh toán</h2>
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-sm">
+            <div className="font-medium text-[#0a0a0a] mb-3">BOOKING 1</div>
+            <div className="space-y-2 text-sm text-[#0a0a0a]">
+              <div className="flex justify-between"><span>Phòng Standard x2</span><span>980.000đ</span></div>
+              <div className="flex justify-between"><span>Phòng Luxury x1</span><span>490.000đ</span></div>
+              <div className="flex justify-between"><span>Phí VAT (10%)</span><span>147.000đ</span></div>
+              <div className="border-t border-gray-200 pt-2 flex justify-between font-semibold">
+                <span>TỔNG BOOKING 1:</span><span>1.617.000đ</span>
               </div>
             </div>
           </div>
-          <div className="flex justify-between items-center text-lg font-bold mt-4">
-            <span>TỔNG TIỀN THANH TOÁN (VNĐ)</span>
+          <div className="flex justify-between text-lg font-bold text-[#0a0a0a]">
+            <span>TỔNG TIỀN THANH TOÁN</span>
             <span>{totalAmount}</span>
           </div>
-        </div>
+        </section>
 
         {/* Payment Methods */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
-          <div className="space-y-3">
-            {paymentMethods.map((method) => (
-              <div
-                key={method.id}
-                className={`flex items-center gap-3 p-3 rounded-lg border shadow-sm cursor-pointer transition-all ${
-                  selectedPayment === method.id
-                    ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200"
-                    : "border-gray-300 bg-white"
-                }`}
-                onClick={() => setSelectedPayment(method.id)}
-              >
-                <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0
-                    ${selectedPayment === method.id ? "border-blue-500" : "border-gray-300"}`}
-                >
-                  {selectedPayment === method.id && <div className="w-3 h-3 rounded-full bg-blue-500" />}
-                </div>
-                <span className="text-2xl">{method.icon}</span>
-                <span className="text-sm text-[#0a0a0a] font-medium">{method.name}</span>
+        <section className="space-y-3">
+          <h2 className="text-lg font-medium text-[#0a0a0a]">Phương thức thanh toán</h2>
+          {paymentMethods.map((method) => (
+            <div
+              key={method.id}
+              onClick={() => setSelectedPayment(method.id)}
+              className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all duration-200 ${
+                selectedPayment === method.id ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200" : "border-gray-200 bg-white"
+              }`}
+            >
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPayment === method.id ? "border-blue-500" : "border-gray-300"}`}>
+                {selectedPayment === method.id && <div className="w-3 h-3 rounded-full bg-blue-500" />}
               </div>
-            ))}
-          </div>
-        </div>
+              <span className="text-2xl">{method.icon}</span>
+              <span className="text-sm font-medium text-[#0a0a0a]">{method.name}</span>
+            </div>
+          ))}
+        </section>
 
-        {/* Privacy Policy */}
-        <div className="flex justify-between items-center text-sm text-[#0a0a0a] mb-6">
+        <div className="flex justify-between text-sm text-[#0a0a0a]">
           <span>Chính sách hủy</span>
           <span className="text-blue-600 cursor-pointer">Xem chi tiết</span>
         </div>
 
         <Button
           onClick={handlePaymentConfirmation}
-          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg h-12"
+          className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-xl text-base font-medium shadow-md hover:shadow-lg h-12"
         >
           Xác nhận & thanh toán
         </Button>
       </div>
 
-      {/* Render Popups có điều kiện */}
       {activePopup === "visa_mastercard" && (
         <VisaPaymentPopup amount={popupAmount} onClose={handleClosePopup} onConfirm={handleFinalizePayment} />
       )}
 
-      {activePopup === "momo" && <MomoPaymentPopup amount={popupAmount} onClose={handleFinalizePayment} />}
+      {activePopup === "momo" && (
+        <MomoPaymentPopup amount={popupAmount} onClose={handleFinalizePayment} />
+      )}
     </div>
   )
 }
