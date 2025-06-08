@@ -1,11 +1,19 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from "@/components/ui/drawer"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerClose, // Thêm DrawerClose
+} from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MapPin, Clock, ExternalLink } from "lucide-react"
+import { MapPin, Clock, ExternalLink, Sparkles, X } from "lucide-react" // Thêm Sparkles và X
 import Image from "next/image"
+import Link from "next/link"
 
 interface NearbyAmenitiesDrawerProps {
   isOpen: boolean
@@ -21,190 +29,127 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     { id: "restaurant", name: "Nhà hàng" },
     { id: "cafe", name: "Quán cà phê" },
     { id: "park", name: "Công viên" },
-  ]
+  ];
 
   const amenitiesData = {
     supermarket: [
-      {
-        id: "winmart",
-        name: "Siêu thị Winmart",
-        branches: "3.700 cơ sở",
-        hours: "08:00 - 23:00",
-        image:
-          "https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/22/winmarta-1640142773723-16401427738771005786314.jpg",
-      },
-      {
-        id: "go",
-        name: "Siêu thị Go!",
-        branches: "42 cơ sở",
-        hours: "08:00 - 23:00",
-        image: "https://centralretail.com.vn/wp-content/uploads/2024/03/go-bigc-cover-1.png",
-      },
-      {
-        id: "lotte",
-        name: "Lotte Mart",
-        branches: "15 cơ sở",
-        hours: "08:00 - 23:00",
-        image: "https://images2.thanhnien.vn/528068263637045248/2025/4/28/lotte-mart-1-1745851235813715925965.jpg",
-      },
+      { id: "winmart", name: "Siêu thị Winmart", branches: "3.700 cơ sở", hours: "08:00 - 23:00", image: "https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/22/winmarta-1640142773723-16401427738771005786314.jpg" },
+      { id: "go", name: "Siêu thị Go!", branches: "42 cơ sở", hours: "08:00 - 23:00", image: "https://centralretail.com.vn/wp-content/uploads/2024/03/go-bigc-cover-1.png" },
+      { id: "lotte", name: "Lotte Mart", branches: "15 cơ sở", hours: "08:00 - 23:00", image: "https://images2.thanhnien.vn/528068263637045248/2025/4/28/lotte-mart-1-1745851235813715925965.jpg" },
     ],
     restaurant: [
-      {
-        id: "kfc",
-        name: "KFC",
-        branches: "Hơn 150 nhà hàng",
-        hours: "10:00 - 22:00",
-        image: "https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png",
-      },
-      {
-        id: "pizza-hut",
-        name: "Pizza Hut",
-        branches: "Hơn 100 nhà hàng",
-        hours: "10:00 - 22:00",
-        image: "https://bnhat.vn/wp-content/uploads/2023/08/355-1609900139-1609919005-9294-1609994824.png",
-      },
+      { id: "kfc", name: "KFC", branches: "Hơn 150 nhà hàng", hours: "10:00 - 22:00", image: "https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png" },
+      { id: "pizza-hut", name: "Pizza Hut", branches: "Hơn 100 nhà hàng", hours: "10:00 - 22:00", image: "https://bnhat.vn/wp-content/uploads/2023/08/355-1609900139-1609919005-9294-1609994824.png" },
     ],
     cafe: [
-      {
-        id: "highlands",
-        name: "Highlands Coffee",
-        branches: "Hơn 500 quán",
-        hours: "07:00 - 23:00",
-        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1",
-      },
-      {
-        id: "phuc-long",
-        name: "Phúc Long Coffee & Tea",
-        branches: "Hơn 150 cửa hàng",
-        hours: "07:00 - 22:30",
-        image: "https://winci.com.vn/wp-content/uploads/2024/02/Su-ra-doi-cua-thuong-hieu-Phuc-Long.webp",
-      },
+       { id: "highlands", name: "Highlands Coffee", branches: "Hơn 500 quán", hours: "07:00 - 23:00", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1" },
+       { id: "phuc-long", name: "Phúc Long Coffee & Tea", branches: "Hơn 150 cửa hàng", hours: "07:00 - 22:30", image: "https://winci.com.vn/wp-content/uploads/2024/02/Su-ra-doi-cua-thuong-hieu-Phuc-Long.webp" },
     ],
     park: [
-      {
-        id: "hanoi-zoo",
-        name: "Vườn thú Hà Nội (Công viên Thủ Lệ)",
-        branches: "Đường Bưởi, Ba Đình",
-        hours: "08:00 - 18:00",
-        image: "https://vietair.com.vn/Media/Images/vietair/Tin-tuc/2023/10/cong-vien-thu-le.jpg",
-      },
-      {
-        id: "thong-nhat-park",
-        name: "Công viên Thống Nhất",
-        branches: "Trần Nhân Tông, Hai Bà Trưng",
-        hours: "06:00 - 22:00",
-        image:
-          "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2",
-      },
-    ],
-  }
-
-  const currentAmenities = useMemo(() => amenitiesData[activeCategory] || [], [activeCategory])
+        { id: "hanoi-zoo", name: "Vườn thú Hà Nội (Công viên Thủ Lệ)", branches: "Đường Bưởi, Ba Đình", hours: "08:00 - 18:00", image: "https://vietair.com.vn/Media/Images/vietair/Tin-tuc/2023/10/cong-vien-thu-le.jpg" },
+        { id: "thong-nhat-park", name: "Công viên Thống Nhất", branches: "Trần Nhân Tông, Hai Bà Trưng", hours: "06:00 - 22:00", image: "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" },
+    ]
+  };
+  
+  const currentAmenities = useMemo(() => amenitiesData[activeCategory] || [], [activeCategory]);
 
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      {/* === FIX: Cấu trúc lại toàn bộ layout với flex-col === */}
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
-        {/* --- PHẦN 1: CỐ ĐỊNH (Không cuộn) --- */}
-        <DrawerHeader className="text-left p-4 border-b bg-white flex-shrink-0">
-          <DrawerTitle className="text-xl font-bold text-gray-900 mt-10">Tiện ích xung quanh {hotelName}</DrawerTitle>
-          <DrawerDescription className="text-sm text-gray-500">Khám phá những địa điểm gần bạn</DrawerDescription>
+        
+        {/* === PHẦN ĐƯỢC THIẾT KẾ LẠI === */}
+        <DrawerHeader className="p-4 border-b bg-white flex items-center justify-between flex-shrink-0">
+          <div>
+            <DrawerTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-amber-500" />
+              <span>Tiện ích xung quanh {hotelName}</span>
+            </DrawerTitle>
+            <DrawerDescription className="text-sm text-gray-500 mt-1">
+              Khám phá những địa điểm gần bạn
+            </DrawerDescription>
+          </div>
+          <DrawerClose asChild>
+            <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
+              <X className="h-4 w-4" />
+              <span className="sr-only">Đóng</span>
+            </Button>
+          </DrawerClose>
         </DrawerHeader>
 
-        {/* Bọc Tabs trong một flex container để nó chiếm hết phần còn lại */}
         <Tabs defaultValue="nearby-amenities" className="w-full flex-1 flex flex-col overflow-hidden">
-          {/* Thanh Tab cũng được cố định */}
           <div className="bg-white p-4 border-b flex-shrink-0">
             <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
-              <TabsTrigger
-                value="nearby-amenities"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9 text-center"
-              >
-                Tiện ích xung quanh
+              <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                  Tiện ích xung quanh
               </TabsTrigger>
-              <TabsTrigger
-                value="local-exploration"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9 text-center"
-              >
-                Khám phá địa phương
+              <TabsTrigger value="local-exploration" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
+                  Khám phá địa phương
               </TabsTrigger>
             </TabsList>
           </div>
-
-          {/* Di chuyển khối này ra đây */}
-          <div className="px-4 py-3 bg-gray-50 flex-shrink-0">
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  variant="outline"
-                  className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
-                    activeCategory === category.id
-                      ? "bg-black text-white border-black"
-                      : "bg-white text-gray-700 border-gray-300"
-                  }`}
-                  onClick={() => setActiveCategory(category.id)}
-                >
-                  {category.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* --- PHẦN 2: NỘI DUNG (Có thể cuộn) --- */}
-          {/* Chỉ vùng này mới có overflow-y-auto */}
           <div className="flex-1 overflow-y-auto">
             <TabsContent value="nearby-amenities">
-              {/* Xóa khối đã di chuyển khỏi đây */}
-              <div className="px-4 pb-4">
-                {currentAmenities.length > 0 ? (
-                  <div className="space-y-3">
-                    {currentAmenities.map((item) => (
-                      <div key={item.id} className="bg-white rounded-xl shadow-sm p-3 flex items-center gap-4">
-                        <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                          <Image
-                            src={item.image || "/placeholder.svg"}
-                            alt={item.name}
-                            layout="fill"
-                            className="object-cover"
-                          />
+                <div className="px-4 py-3 bg-gray-50">
+                    <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                        {categories.map((category) => (
+                            <Button
+                              key={category.id}
+                              variant="outline"
+                              className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
+                                  activeCategory === category.id
+                                  ? "bg-black text-white border-black"
+                                  : "bg-white text-gray-700 border-gray-300"
+                              }`}
+                              onClick={() => setActiveCategory(category.id)}
+                            >
+                              {category.name}
+                            </Button>
+                        ))}
+                    </div>
+                </div>
+                <div className="px-4 pb-4">
+                    {currentAmenities.length > 0 ? (
+                        <div className="space-y-3">
+                            {currentAmenities.map((item) => (
+                            <div key={item.id} className="bg-white rounded-xl shadow-sm p-3 flex items-center gap-4">
+                                <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                                    <Image src={item.image} alt={item.name} layout="fill" className="object-cover" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="font-semibold text-gray-800">{item.name}</p>
+                                    <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-1">
+                                        <MapPin className="h-3.5 w-3.5" />
+                                        <span>{item.branches}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-0.5">
+                                        <Clock className="h-3.5 w-3.5" />
+                                        <span>{item.hours}</span>
+                                    </div>
+                                </div>
+                                <a
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name}`)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={`Tìm ${item.name} trên bản đồ`}
+                                >
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-700">
+                                        <ExternalLink className="h-4 w-4" />
+                                    </Button>
+                                </a>
+                            </div>
+                            ))}
                         </div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-gray-800">{item.name}</p>
-                          <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-1">
-                            <MapPin className="h-3.5 w-3.5" />
-                            <span>{item.branches}</span>
-                          </div>
-                          <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-0.5">
-                            <Clock className="h-3.5 w-3.5" />
-                            <span>{item.hours}</span>
-                          </div>
+                    ) : (
+                        <div className="text-center py-10 text-gray-500">
+                            <p>Chưa có dữ liệu cho danh mục này.</p>
                         </div>
-                        <a
-                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Tìm ${item.name} trên bản đồ`}
-                        >
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-700">
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-10 text-gray-500">
-                    <p>Chưa có dữ liệu cho danh mục này.</p>
-                  </div>
-                )}
-              </div>
+                    )}
+                </div>
             </TabsContent>
-
             <TabsContent value="local-exploration">
-              <div className="p-4 text-center text-gray-500 pt-10">
-                <p>Nội dung cho mục Khám phá địa phương sẽ được cập nhật sớm.</p>
-              </div>
+                <div className="p-4 text-center text-gray-500 pt-10">
+                    <p>Nội dung cho mục Khám phá địa phương sẽ được cập nhật sớm.</p>
+                </div>
             </TabsContent>
           </div>
         </Tabs>
