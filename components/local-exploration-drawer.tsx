@@ -103,7 +103,7 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
         branches: "Trần Nhân Tông, Hai Bà Trưng",
         hours: "06:00 - 22:00",
         image:
-          "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2",
+          "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w=500,h-300,dpr-2",
       },
     ],
   }
@@ -161,7 +161,6 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
           </DrawerClose>
         </DrawerHeader>
 
-        {/* === THAY ĐỔI TẠI ĐÂY: Đặt defaultValue thành "local-exploration" === */}
         <Tabs defaultValue="local-exploration" className="w-full flex-1 flex flex-col overflow-hidden">
           {/* Phần TabsList cố định */}
           <div className="bg-white p-4 border-b flex-shrink-0">
@@ -189,13 +188,14 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
               <div className="px-4 py-3 bg-gray-50 sticky top-0 z-10">
                 <div className="flex gap-2 overflow-x-auto scrollbar-hide">
                   {categories.map((category) => (
+                    // === THAY ĐỔI TẠI ĐÂY ===
                     <Button
                       key={category.id}
-                      variant="outline"
+                      variant={activeCategory === category.id ? 'default' : 'outline'}
                       className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
                         activeCategory === category.id
-                          ? "bg-black text-white border-black"
-                          : "bg-white text-gray-700 border-gray-300"
+                          ? "bg-black text-white hover:bg-gray-800 border-black" // Nút được chọn: Nền đen, chữ trắng
+                          : "bg-white text-gray-700 border-gray-300" // Nút không được chọn
                       }`}
                       onClick={() => setActiveCategory(category.id)}
                     >
