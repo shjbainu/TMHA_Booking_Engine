@@ -62,7 +62,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
 
         <div className="flex-1 overflow-y-auto">
           <Tabs defaultValue="nearby-amenities" className="w-full">
-            <div className="bg-white sticky top-0 z-10 p-4 border-b">
+            <div className="bg-white sticky top-0 z-10 p-0 border-b">
                 <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
                   <TabsTrigger value="nearby-amenities" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9">
                       Tiện ích xung quanh
