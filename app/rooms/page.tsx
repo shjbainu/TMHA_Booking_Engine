@@ -258,7 +258,7 @@ export default function RoomSelection() {
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          "url('https://pix8.agoda.net/hotelImages/48898017/-1/9ccca4c717fa39e5a00ec72b8c732c66.jpg?ce=0&s=1024x')",
       }}
     >
       {/* Header */}
