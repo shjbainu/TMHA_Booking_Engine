@@ -33,7 +33,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
 
   const amenitiesData = {
     supermarket: [
-      { id: "winmart", name: "Siêu thị Winmart", branches: "3.700 cơ sở", hours: "08:00 - 23:00", image: "https://inkythuatso.com/uploads/images/2021/09/winmart-logo-inkythuatso-1-13-14-55-12.jpg" },
+      { id: "winmart", name: "Siêu thị Winmart", branches: "3.700 cơ sở", hours: "08:00 - 23:00", image: "https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/22/winmarta-1640142773723-16401427738771005786314.jpg" },
       { id: "go", name: "Siêu thị Go!", branches: "42 cơ sở", hours: "08:00 - 23:00", image: "https://cdn.haitrieu.com/wp-content/uploads/2022/03/logo-go-sieu-thi.png" },
       { id: "lotte", name: "Lotte Mart", branches: "15 cơ sở", hours: "08:00 - 23:00", image: "https://cdn.haitrieu.com/wp-content/uploads/2022/03/logo-lotte-mart.png" },
     ],
