@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { MapPin, Clock, ExternalLink } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link" // Import Link for better practice if using Next.js routing, or just use <a> for external links
+import Link from "next/link"
 
 interface NearbyAmenitiesDrawerProps {
   isOpen: boolean
@@ -21,9 +21,8 @@ interface NearbyAmenitiesDrawerProps {
 }
 
 export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: NearbyAmenitiesDrawerProps) {
-  const [activeCategory, setActiveCategory] = useState("supermarket")
+  const [activeCategory, setActiveCategory] = useState("park") // Đổi mặc định sang "Công viên" để bạn thấy ngay kết quả
 
-  // === CONTENT 3: Bổ sung danh mục "Công viên" ===
   const categories = [
     { id: "supermarket", name: "Siêu thị" },
     { id: "restaurant", name: "Nhà hàng" },
@@ -31,6 +30,7 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
     { id: "park", name: "Công viên" },
   ];
 
+  // === CẬP NHẬT DỮ LIỆU TẠI ĐÂY ===
   const amenitiesData = {
     supermarket: [
       { id: "winmart", name: "Siêu thị Winmart", branches: "3.700 cơ sở", hours: "08:00 - 23:00", image: "https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/22/winmarta-1640142773723-16401427738771005786314.jpg" },
@@ -45,12 +45,12 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
        { id: "highlands", name: "Highlands Coffee", branches: "Hơn 500 quán", hours: "07:00 - 23:00", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1" },
        { id: "phuc-long", name: "Phúc Long Coffee & Tea", branches: "Hơn 150 cửa hàng", hours: "07:00 - 22:30", image: "https://winci.com.vn/wp-content/uploads/2024/02/Su-ra-doi-cua-thuong-hieu-Phuc-Long.webp" },
     ],
-    // === CONTENT 3: Bổ sung dữ liệu cho "Công viên" ===
     park: [
-        { id: "city-park", name: "Công viên thủ lệ", branches: "Nhiều địa điểm", hours: "05:00 - 22:00", image: "https://vietair.com.vn/Media/Images/vietair/Tin-tuc/2023/10/cong-vien-thu-le.jpg" },
-        { id: "amusement-park", name: "Công viên thống nhất", branches: "Vài địa điểm lớn", hours: "08:00 - 21:00", image: "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" },
+        { id: "hanoi-zoo", name: "Vườn thú Hà Nội (Công viên Thủ Lệ)", branches: "Đường Bưởi, Ba Đình", hours: "08:00 - 18:00", image: "https://vietair.com.vn/Media/Images/vietair/Tin-tuc/2023/10/cong-vien-thu-le.jpg" },
+        { id: "thong-nhat-park", name: "Công viên Thống Nhất", branches: "Trần Nhân Tông, Hai Bà Trưng", hours: "06:00 - 22:00", image: "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" },
     ]
   };
+  // === KẾT THÚC PHẦN CẬP NHẬT ===
   
   const currentAmenities = useMemo(() => amenitiesData[activeCategory] || [], [activeCategory]);
 
@@ -100,7 +100,6 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                         {currentAmenities.map((item) => (
                         <div key={item.id} className="bg-white rounded-xl shadow-sm p-3 flex items-center gap-4">
                             <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                                {/* === FIX 1: Dùng object-cover để hình ảnh lấp đầy khung, trông đẹp và đều hơn === */}
                                 <Image src={item.image} alt={item.name} layout="fill" className="object-cover" />
                             </div>
                             <div className="flex-1">
@@ -114,9 +113,8 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
                                     <span>{item.hours}</span>
                                 </div>
                             </div>
-                             {/* === FEATURE 2: Thêm link tới Google Maps === */}
                              <a
-                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name} gần ${hotelName}`)}`}
+                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name}`)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={`Tìm ${item.name} trên bản đồ`}
