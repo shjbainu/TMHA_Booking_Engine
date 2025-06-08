@@ -116,7 +116,8 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
       name: "Lễ hội Chùa Hương",
       location: "Mỹ Đức, Hà Nội",
       date: "Tháng 1 - Tháng 3 âm lịch",
-      description: "Hành trình tâm linh trên dòng suối Yến thơ mộng để đến với một trong những lễ hội Phật giáo dài và lớn nhất Việt Nam.",
+      description:
+        "Hành trình tâm linh trên dòng suối Yến thơ mộng để đến với một trong những lễ hội Phật giáo dài và lớn nhất Việt Nam.",
       image: "https://static.vinwonders.com/production/chua-huong-5.jpg",
       link: "https://www.bestprice.vn/blog/diem-den-8/chua-huong-467.html",
     },
@@ -125,7 +126,8 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
       name: "Hội Gióng ở đền Sóc",
       location: "Sóc Sơn, Hà Nội",
       date: "Mùng 6-8 tháng Giêng",
-      description: "Di sản văn hóa phi vật thể của UNESCO, tái hiện lại huyền thoại Thánh Gióng oai hùng bay về trời sau khi đánh đuổi giặc Ân.",
+      description:
+        "Di sản văn hóa phi vật thể của UNESCO, tái hiện lại huyền thoại Thánh Gióng oai hùng bay về trời sau khi đánh đuổi giặc Ân.",
       image: "https://nhaquanly.vn/uploads/images/2024/02/15/le-hoi-giong-2024-1708009514.png",
       link: "https://vinpearl.com/vi/hoi-giong-le-hoi-co-truyen-viet-nam",
     },
@@ -134,7 +136,8 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
       name: "Lễ hội Gò Đống Đa",
       location: "Quận Đống Đa, Hà Nội",
       date: "Mùng 5 Tết Nguyên đán",
-      description: "Kỷ niệm chiến thắng Ngọc Hồi – Đống Đa lừng lẫy của hoàng đế Quang Trung, với màn rước Rồng lửa Thăng Long hào hùng.",
+      description:
+        "Kỷ niệm chiến thắng Ngọc Hồi – Đống Đa lừng lẫy của hoàng đế Quang Trung, với màn rước Rồng lửa Thăng Long hào hùng.",
       image: "https://media-cdn-v2.laodong.vn/storage/newsportal/2025/2/2/1457462/Lehoi_Godongda-1.jpg",
       link: "https://vinpearl.com/vi/le-hoi-go-dong-da-dien-ra-khi-nao-o-dau-co-gi-dac-sac",
     },
@@ -167,13 +170,13 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
             <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
               <TabsTrigger
                 value="nearby-amenities"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
+                className="data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
               >
                 Tiện ích xung quanh
               </TabsTrigger>
               <TabsTrigger
                 value="local-exploration"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
+                className="data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
               >
                 Khám phá địa phương
               </TabsTrigger>
@@ -191,7 +194,7 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
                     // === THAY ĐỔI TẠI ĐÂY ===
                     <Button
                       key={category.id}
-                      variant={activeCategory === category.id ? 'default' : 'outline'}
+                      variant={activeCategory === category.id ? "default" : "outline"}
                       className={`rounded-full h-8 px-4 text-sm whitespace-nowrap transition-colors duration-200 ${
                         activeCategory === category.id
                           ? "bg-black text-white hover:bg-gray-800 border-black" // Nút được chọn: Nền đen, chữ trắng
@@ -263,7 +266,7 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
                     className="block w-full h-64 bg-white rounded-xl shadow-lg overflow-hidden relative group transition-all duration-300 ease-in-out hover:shadow-2xl"
                   >
                     <Image
-                      src={event.image}
+                      src={event.image || "/placeholder.svg"}
                       alt={event.name}
                       layout="fill"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -273,10 +276,16 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
                       <ExternalLink className="h-5 w-5 text-white" />
                     </div>
                     <div className="absolute inset-0 p-4 flex flex-col justify-end text-white">
-                      <h3 className="text-xl font-bold leading-tight" style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.7)" }}>
+                      <h3
+                        className="text-xl font-bold leading-tight"
+                        style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.7)" }}
+                      >
                         {event.name}
                       </h3>
-                      <p className="text-sm mt-2 text-neutral-200 line-clamp-2" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.7)" }}>
+                      <p
+                        className="text-sm mt-2 text-neutral-200 line-clamp-2"
+                        style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.7)" }}
+                      >
                         {event.description}
                       </p>
                       <div className="mt-4 flex items-center gap-x-4 gap-y-1 text-xs text-neutral-300 flex-wrap">
