@@ -118,13 +118,13 @@ export default function NearbyAmenitiesDrawer({ isOpen, onClose, hotelName }: Ne
             <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
               <TabsTrigger
                 value="nearby-amenities"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
+                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9 text-center"
               >
                 Tiện ích xung quanh
               </TabsTrigger>
               <TabsTrigger
                 value="local-exploration"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
+                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9 text-center"
               >
                 Khám phá địa phương
               </TabsTrigger>
