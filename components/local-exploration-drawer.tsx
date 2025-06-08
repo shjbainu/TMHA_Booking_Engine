@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } f
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
-import { ExternalLink, MapPin, CalendarDays, Utensils, Banknote, ShoppingCart } from "lucide-react"
+import { ExternalLink, MapPin, CalendarDays, Utensils, Banknote, ShoppingCart, Sparkles, X } from "lucide-react"
 
 interface LocalExplorationDrawerProps {
   isOpen: boolean
@@ -12,107 +12,126 @@ interface LocalExplorationDrawerProps {
 }
 
 export default function LocalExplorationDrawer({ isOpen, onClose, hotelName }: LocalExplorationDrawerProps) {
+  // === DỮ LIỆU ĐƯỢC CẬP NHẬT VỚI HÌNH ẢNH VÀ LINK THẬT ===
   const localExplorationEvents = [
     {
       id: "carnaval",
       name: "Festival Carnaval Hạ Long",
       location: "Thành phố Hạ Long, Quảng Ninh",
-      date: "Tháng 8 - Tháng 9 hàng năm",
-      description: "Sự kiện văn hóa du lịch thường niên nhằm quảng bá nét đẹp và di sản của Vịnh Hạ Long.",
-      image: "/images/tien-ich-xung-quanh-1.png", // Updated to local path
+      date: "Tháng 4 - Tháng 5 hàng năm",
+      description: "Sự kiện văn hóa du lịch thường niên rực rỡ sắc màu, quảng bá nét đẹp và di sản Vịnh Hạ Long.",
+      image: "https://cdn.baoquocte.vn/stores/news_dataimages/dangcongsan/042024/28/10/in_article/20240428104711_33221.jpg",
+      link: "https://vietnamtourism.gov.vn/vi/post/30048",
     },
     {
       id: "yen-tu",
-      name: "Lễ Hội Yên Tử",
+      name: "Lễ Hội Xuân Yên Tử",
       location: "Núi Yên Tử, Uông Bí",
       date: "Tháng 1 - Tháng 3 âm lịch",
-      description: "Lễ hội hành hương lớn nhất miền Bắc, thu hút hàng nghìn du khách về với đất Phật.",
-      image: "/placeholder.svg?height=750&width=1260", // Updated to placeholder
+      description: "Lễ hội hành hương lớn nhất miền Bắc, thu hút hàng triệu du khách về với cõi Phật linh thiêng.",
+      image: "https://baochinhphu.vn/thumb_w/1000/446259498576228352/2024/2/19/le-hoi-xuan-yen-tu-17083162237001409252494.jpg",
+      link: "https://baochinhphu.vn/khai-hoi-xuan-yen-tu-2024-102240219105436329.htm",
     },
     {
       id: "bach-dang",
       name: "Lễ hội Bạch Đằng",
-      location: "Khu di tích Bạch Đằng",
-      date: "Tháng 3 âm lịch",
-      description: "Tái hiện những chiến công lịch sử hào hùng của dân tộc trên dòng sông Bạch Đằng.",
-      image: "/placeholder.svg?height=750&width=1260", // Updated to placeholder
+      location: "Khu di tích Bạch Đằng, Quảng Yên",
+      date: "Mùng 6-8/3 âm lịch",
+      description: "Tái hiện những chiến công lịch sử hào hùng của dân tộc trên dòng sông Bạch Đằng bất tử.",
+      image: "https://baoquangninh.vn/Upload/Images/2024/4/15/22/0R7A7233_152220.jpg",
+      link: "https://baoquangninh.vn/khai-mac-le-hoi-truyen-thong-bach-dang-nam-2024-3291811.html",
     },
   ]
 
   const nearbyAmenities = [
-    { icon: <Utensils className="text-red-500" />, name: "Nhà hàng ABC", distance: "200m" },
-    { icon: <ShoppingCart className="text-blue-500" />, name: "Siêu thị VinMart", distance: "500m" },
-    { icon: <Banknote className="text-green-500" />, name: "ATM Vietcombank", distance: "150m" },
-    { icon: <Utensils className="text-orange-500" />, name: "Quán cà phê Highland", distance: "300m" },
+    { icon: <Utensils className="h-5 w-5 text-red-500" />, name: "Nhà hàng ABC", distance: "200m" },
+    { icon: <ShoppingCart className="h-5 w-5 text-blue-500" />, name: "Siêu thị VinMart", distance: "500m" },
+    { icon: <Banknote className="h-5 w-5 text-green-500" />, name: "ATM Vietcombank", distance: "150m" },
+    { icon: <Utensils className="h-5 w-5 text-orange-500" />, name: "Quán cà phê Highland", distance: "300m" },
   ]
 
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
-        <DrawerHeader className="text-left p-4 border-b bg-white">
-          <DrawerTitle className="text-xl font-bold text-gray-900">Khám phá xung quanh {hotelName}</DrawerTitle>
-          <DrawerDescription className="text-sm text-gray-500">
-            Những trải nghiệm độc đáo đang chờ bạn
-          </DrawerDescription>
+        <DrawerHeader className="p-4 border-b bg-white flex items-center justify-between flex-shrink-0">
+            <div>
+              <DrawerTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-amber-500" />
+                <span>Khám phá {hotelName}</span>
+              </DrawerTitle>
+              <DrawerDescription className="text-sm text-gray-500 mt-1">
+                Những trải nghiệm độc đáo đang chờ bạn
+              </DrawerDescription>
+            </div>
+            {/* Nút đóng drawer cho UX tốt hơn */}
         </DrawerHeader>
 
         <div className="flex-1 overflow-y-auto">
-          <Tabs defaultValue="local-exploration" className="w-full pt-4">
-            {/* === Tabs được thiết kế lại === */}
-            <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1 mx-4">
-              <TabsTrigger
-                value="nearby-amenities"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
-              >
-                Tiện ích xung quanh
-              </TabsTrigger>
-              <TabsTrigger
-                value="local-exploration"
-                className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
-              >
-                Khám phá địa phương
-              </TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="local-exploration" className="w-full">
+            <div className="bg-white sticky top-0 z-10 p-4 border-b">
+              <TabsList className="grid w-full grid-cols-2 bg-gray-200/70 rounded-lg p-1">
+                <TabsTrigger
+                  value="nearby-amenities"
+                  className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
+                >
+                  Tiện ích xung quanh
+                </TabsTrigger>
+                <TabsTrigger
+                  value="local-exploration"
+                  className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm rounded-md text-sm font-medium text-gray-600 h-9"
+                >
+                  Khám phá địa phương
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
-            {/* === Nội dung Tab Khám phá địa phương === */}
+            {/* === NỘI DUNG TAB KHÁM PHÁ ĐỊA PHƯƠNG - ĐƯỢC THIẾT KẾ LẠI HOÀN TOÀN === */}
             <TabsContent value="local-exploration" className="p-4">
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {localExplorationEvents.map((event) => (
-                  <div key={event.id} className="w-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
-                    {/* Phần ảnh */}
-                    <div className="relative h-40 w-full">
-                      <Image
-                        src={event.image || "/placeholder.svg"}
-                        alt={event.name}
-                        layout="fill"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                      <div className="absolute bottom-0 left-0 p-4 text-white">
-                        <h3 className="text-lg font-bold leading-tight">{event.name}</h3>
+                  <a
+                    key={event.id}
+                    href={event.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full h-64 bg-white rounded-xl shadow-lg overflow-hidden relative group transition-all duration-300 ease-in-out hover:shadow-2xl"
+                  >
+                    {/* Phần ảnh nền với hiệu ứng phóng to khi hover */}
+                    <Image
+                      src={event.image}
+                      alt={event.name}
+                      layout="fill"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {/* Lớp phủ gradient để làm nổi bật chữ */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    
+                    {/* Icon xem chi tiết chỉ hiện khi hover */}
+                    <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <ExternalLink className="h-5 w-5 text-white" />
+                    </div>
+
+                    {/* Phần thông tin chữ */}
+                    <div className="absolute inset-0 p-4 flex flex-col justify-end text-white">
+                      <h3 className="text-xl font-bold leading-tight" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.7)' }}>{event.name}</h3>
+                      <p className="text-sm mt-2 text-neutral-200 line-clamp-2" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>{event.description}</p>
+                      <div className="mt-4 flex items-center gap-x-4 gap-y-1 text-xs text-neutral-300 flex-wrap">
+                          <div className="flex items-center gap-1.5">
+                              <MapPin className="h-3.5 w-3.5" />
+                              <span>{event.location}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                              <CalendarDays className="h-3.5 w-3.5" />
+                              <span>{event.date}</span>
+                          </div>
                       </div>
                     </div>
-                    {/* Phần thông tin với gradient */}
-                    <div className="p-4 bg-gradient-to-br from-blue-50 to-purple-100/80 flex-1 flex flex-col">
-                      <div className="flex items-start gap-2 text-xs text-gray-600 mb-2">
-                        <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                        <span>{event.location}</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-xs text-gray-600 mb-3">
-                        <CalendarDays className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                        <span>{event.date}</span>
-                      </div>
-                      <p className="text-sm text-gray-800 mb-4 flex-grow">{event.description}</p>
-                      <Button variant="outline" className="w-full bg-white/50 border-gray-300 hover:bg-white">
-                        Xem chi tiết <ExternalLink className="ml-2 h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </TabsContent>
 
-            {/* === Nội dung Tab Tiện ích xung quanh === */}
+            {/* === Nội dung Tab Tiện ích xung quanh (Giữ nguyên thiết kế cũ) === */}
             <TabsContent value="nearby-amenities" className="p-4">
               <div className="space-y-3">
                 {nearbyAmenities.map((item, index) => (
