@@ -197,7 +197,7 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
                 ))
               ) : (
                 <div className="text-center py-10 text-gray-500">
-                  <p>Không có đánh giá nào phù hợp với bộ lọc này.</p>
+                  <p>Chưa có đánh giá nào thấp về khách sạn của chúng tôi</p>
                 </div>
               )}
             </div>
