@@ -1079,7 +1079,7 @@ export default function RoomSelection() {
                   </div>
 
                   {/* Room Info */}
-                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Nhật Bản</h3>
+                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Mập Mờ</h3>
 
                   <div className="mb-3">
                     <RadioGroup
