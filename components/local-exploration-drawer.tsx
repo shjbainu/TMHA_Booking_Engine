@@ -21,7 +21,7 @@ export default function LocalExplorationDrawer({ isOpen, onClose, hotelName }: L
       date: "Tháng 1 - Tháng 3 âm lịch",
       description: "Hành trình tâm linh trên dòng suối Yến thơ mộng để đến với một trong những lễ hội Phật giáo dài và lớn nhất Việt Nam.",
       image: "https://static.vinwonders.com/production/chua-huong-5.jpg",
-      link: "https://vietnam.travel/things-to-do/huong-pagoda-festival",
+      link: "https://www.bestprice.vn/blog/diem-den-8/chua-huong-467.html?srsltid=AfmBOoruso8ZjHI0SgMAVTkqblFelPvnHKyKJBS6yiUYO_LLEZYLMJ-K",
     },
     {
       id: "giong-festival",
