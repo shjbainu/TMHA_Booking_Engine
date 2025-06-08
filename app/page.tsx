@@ -1,29 +1,32 @@
 "use client"
-import { useRef, useState } from "react" // 1. Import useRef
+import { useRef, useState } from "react"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
-import HotelIntroDrawer from "@/components/hotel-intro-drawer" // Import HotelIntroDrawer
+import HotelIntroDrawer from "@/components/hotel-intro-drawer"
 import HotelAmenitiesDrawer from "@/components/hotel-amenities-drawer"
-import HotelReviewsDrawer from "@/components/hotel-reviews-drawer" // Import HotelReviewsDrawer
+import HotelReviewsDrawer from "@/components/hotel-reviews-drawer"
+import NearbyAmenitiesDrawer from "@/components/nearby-amenities-drawer" // Import new drawer
+import LocalExplorationDrawer from "@/components/local-exploration-drawer" // Import new drawer
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu" // Import DropdownMenu components
 
-// Giả sử component của bạn tên là HotelPhotosPage
 export default function HotelPhotosPage() {
-  const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false) // New state for hotel intro drawer
+  const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
   const [isHotelAmenitiesDrawerOpen, setIsHotelAmenitiesDrawerOpen] = useState(false)
-  const [isHotelReviewsDrawerOpen, setIsHotelReviewsDrawerOpen] = useState(false) // New state for hotel reviews drawer
+  const [isHotelReviewsDrawerOpen, setIsHotelReviewsDrawerOpen] = useState(false)
+  const [isNearbyAmenitiesDrawerOpen, setIsNearbyAmenitiesDrawerOpen] = useState(false) // New state
+  const [isLocalExplorationDrawerOpen, setIsLocalExplorationDrawerOpen] = useState(false) // New state
 
   const hotelName = "69 Boutique by Minova"
   const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
 
-  // 2. Tạo Refs
   const khongGianChungRef = useRef(null)
   const phongSonCaRef = useRef(null)
   const phongNhatBanRef = useRef(null)
   const phongMapMoRef = useRef(null)
   const phongSantoriniRef = useRef(null)
-  // 4. Tạo hàm xử lý cuộn
+
   const scrollToSection = (ref) => {
     if (ref.current) {
       ref.current.scrollIntoView({
@@ -32,6 +35,7 @@ export default function HotelPhotosPage() {
       })
     }
   }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -59,10 +63,7 @@ export default function HotelPhotosPage() {
           <div className="overflow-x-auto scrollbar-hide">
             <div className="flex gap-3 pb-2 px-4">
               {/* Ảnh 1: Resort */}
-              <div
-                className="flex-shrink-0 cursor-pointer"
-                onClick={() => scrollToSection(khongGianChungRef)} // 5. Thêm onClick
-              >
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(khongGianChungRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://pix8.agoda.net/hotelImages/48898017/-1/9ccca4c717fa39e5a00ec72b8c732c66.jpg?ce=0&s=1024x"
@@ -75,10 +76,7 @@ export default function HotelPhotosPage() {
                 <p className="text-sm font-medium text-[#0a0a0a]">Không gian chung</p>
               </div>
               {/* Ảnh 2: Phòng Sơn Ca */}
-              <div
-                className="flex-shrink-0 cursor-pointer"
-                onClick={() => scrollToSection(phongSonCaRef)} // 5. Thêm onClick
-              >
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongSonCaRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d89d68.JPG"
@@ -91,10 +89,7 @@ export default function HotelPhotosPage() {
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Sơn Ca</p>
               </div>
               {/* Ảnh 3: Phòng Nhật Bản */}
-              <div
-                className="flex-shrink-0 cursor-pointer"
-                onClick={() => scrollToSection(phongNhatBanRef)} // 5. Thêm onClick
-              >
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongNhatBanRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
@@ -107,10 +102,7 @@ export default function HotelPhotosPage() {
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Nhật Bản</p>
               </div>
               {/* Ảnh 4: Phòng Mập Mờ */}
-              <div
-                className="flex-shrink-0 cursor-pointer"
-                onClick={() => scrollToSection(phongMapMoRef)} // 5. Thêm onClick
-              >
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongMapMoRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp"
@@ -123,10 +115,7 @@ export default function HotelPhotosPage() {
                 <p className="text-sm font-medium text-[#0a0a0a]">Phòng Mập Mờ</p>
               </div>
               {/* Ảnh 5: Phòng Santorini */}
-              <div
-                className="flex-shrink-0 cursor-pointer"
-                onClick={() => scrollToSection(phongSantoriniRef)} // 5. Thêm onClick
-              >
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongSantoriniRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
                     src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
@@ -145,7 +134,6 @@ export default function HotelPhotosPage() {
         {/* "Không gian chung" Section */}
         <div ref={khongGianChungRef} id="khong-gian-chung" className="px-4 scroll-mt-20">
           {" "}
-          {/* 3. Gán ref và id, thêm scroll-mt */}
           <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Không gian chung</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
@@ -211,7 +199,6 @@ export default function HotelPhotosPage() {
         {/* "Phòng Sơn Ca" Section */}
         <div ref={phongSonCaRef} id="phong-son-ca" className="px-4 scroll-mt-20">
           {" "}
-          {/* 3. Gán ref và id, thêm scroll-mt */}
           <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Sơn Ca</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
@@ -277,7 +264,6 @@ export default function HotelPhotosPage() {
         {/* "Phòng Nhật bản" Section */}
         <div ref={phongNhatBanRef} id="phong-nhat-ban" className="px-4 scroll-mt-20">
           {" "}
-          {/* 3. Gán ref và id, thêm scroll-mt */}
           <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Nhật Bản</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
@@ -343,7 +329,6 @@ export default function HotelPhotosPage() {
         {/* "Phòng Mập Mờ" Section */}
         <div ref={phongMapMoRef} id="phong-map-mo" className="px-4 scroll-mt-20">
           {" "}
-          {/* 3. Gán ref và id, thêm scroll-mt */}
           <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Mập Mờ</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
@@ -409,7 +394,6 @@ export default function HotelPhotosPage() {
         {/* "Phòng Santorini" Section */}
         <div ref={phongSantoriniRef} id="phong-santorini" className="px-4 scroll-mt-20">
           {" "}
-          {/* 3. Gán ref và id, thêm scroll-mt */}
           <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Santorini</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
@@ -482,7 +466,7 @@ export default function HotelPhotosPage() {
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
-              onClick={() => setIsHotelIntroDrawerOpen(true)} // Thêm onClick để mở drawer
+              onClick={() => setIsHotelIntroDrawerOpen(true)}
             >
               <Image src="/images/smart-city.png" alt="Biểu tượng tổng quan" width={24} height={24} />
             </Button>
@@ -498,16 +482,29 @@ export default function HotelPhotosPage() {
             <Button
               variant="ghost"
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
-              onClick={() => setIsHotelReviewsDrawerOpen(true)} // Add this line
+              onClick={() => setIsHotelReviewsDrawerOpen(true)}
             >
               <Image src="/images/comment1.jpg" alt="Biểu tượng đánh giá" width={24} height={24} />
             </Button>
-            <Button
-              variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
-            >
-              <Image src="/images/more.png" alt="Biểu tượng thêm" width={24} height={24} />
-            </Button>
+            {/* Button More with Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
+                >
+                  <Image src="/images/more.png" alt="Biểu tượng thêm" width={24} height={24} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem onClick={() => setIsNearbyAmenitiesDrawerOpen(true)}>
+                  Tiện ích xung quanh
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setIsLocalExplorationDrawerOpen(true)}>
+                  Khám phá địa phương
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Link href="/rooms" passHref legacyBehavior>
               <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
                 <img src="/images/door_10010723.png" alt="Room" width="%" height="%" />
@@ -535,6 +532,20 @@ export default function HotelPhotosPage() {
         isOpen={isHotelReviewsDrawerOpen}
         onClose={() => setIsHotelReviewsDrawerOpen(false)}
         hotelName={hotelName}
+      />
+      {/* Nearby Amenities Drawer */}
+      <NearbyAmenitiesDrawer
+        isOpen={isNearbyAmenitiesDrawerOpen}
+        onClose={() => setIsNearbyAmenitiesDrawerOpen(false)}
+        hotelName={hotelName}
+        hotelAddress={hotelAddress}
+      />
+      {/* Local Exploration Drawer */}
+      <LocalExplorationDrawer
+        isOpen={isLocalExplorationDrawerOpen}
+        onClose={() => setIsLocalExplorationDrawerOpen(false)}
+        hotelName={hotelName}
+        hotelAddress={hotelAddress}
       />
     </div>
   )
