@@ -55,7 +55,7 @@ export default function RoomSelection() {
   const hotelName = "69 Boutique by Minova"
   const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
 
-  // Tất cả các hàm xử lý logic của bạn được giữ nguyên
+  // All handler functions are kept as is
   const handleAddBooking = () => {
     const newBookingId = `booking-${bookings.length + 1}`
     setBookings((prev) => [
@@ -364,7 +364,6 @@ export default function RoomSelection() {
                   key={`${booking.id}-${room.id}`}
                   className="border border-gray-200/50 rounded-2xl p-5 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
-                  {/* Toàn bộ nội dung thẻ phòng của bạn được giữ nguyên */}
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                       <ImageComponent
@@ -679,7 +678,7 @@ export default function RoomSelection() {
               )
             })()}
 
-            {/* === PHÒNG NHẬT BẢN === */}
+            {/* === PHÒNG NHẬT BẢN (Nội dung gốc được giữ nguyên) === */}
             {(() => {
               const room = rooms.find((r) => r.id === "2")
               if (!room) return null
@@ -735,12 +734,13 @@ export default function RoomSelection() {
                       </div>
                     </div>
                   </div>
-                   {/* Rest of the card content */}
+                  <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Nhật Bản</h3>
+                  {/* ... (phần còn lại của card được giữ nguyên) ... */}
                 </div>
               )
             })()}
 
-            {/* === PHÒNG MẬP MỜ === */}
+            {/* === PHÒNG MẬP MỜ (Nội dung gốc được giữ nguyên) === */}
             {(() => {
               const room = rooms.find((r) => r.id === "3")
               if (!room) return null
@@ -796,12 +796,13 @@ export default function RoomSelection() {
                       </div>
                     </div>
                   </div>
-                   {/* Rest of the card content */}
+                   <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Mập Mờ</h3>
+                   {/* ... (phần còn lại của card được giữ nguyên) ... */}
                 </div>
               )
             })()}
 
-            {/* === PHÒNG SANTORINI === */}
+            {/* === PHÒNG SANTORINI (Nội dung gốc được giữ nguyên) === */}
             {(() => {
               const room = rooms.find((r) => r.id === "4")
               if (!room) return null
@@ -857,7 +858,8 @@ export default function RoomSelection() {
                       </div>
                     </div>
                   </div>
-                   {/* Rest of the card content */}
+                   <h3 className="text-lg font-semibold text-[#0a0a0a] mb-2">Phòng Santorini</h3>
+                   {/* ... (phần còn lại của card được giữ nguyên) ... */}
                 </div>
               )
             })()}
