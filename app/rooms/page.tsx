@@ -680,7 +680,7 @@ export default function RoomSelection() {
               )
             })()}
 
-            {/* Phòng Nhật Bản Card */}
+            {/* Phòng Mập Mờ Card */}
             {(() => {
               const room = rooms.find((r) => r.id === "2")
               if (!room) return null
