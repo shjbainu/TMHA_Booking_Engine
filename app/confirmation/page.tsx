@@ -7,15 +7,10 @@ import { Button } from "@/components/ui/button"
 import { ProgressIndicator } from "@/components/progress-indicator"
 import Image from "next/image"
 import Link from "next/link"
-import html2pdf from "html2pdf.js" // Giả sử bạn đã cài đặt thư viện này
+// Giữ lại component card của bạn để tái sử dụng logic bên trong nếu cần
+import { BookingConfirmationCard } from "@/components/BookingConfirmationCard"
 
-// --- DỮ LIỆU GIẢ LẬP ---
-const hotelInfo = {
-    name: "Staybooking Grand Hotel",
-    address: "123 Đường ABC, Quận 1, TP. Hồ Chí Minh",
-    phone: "028 3333 8888",
-    email: "contact@staybooking.com"
-}
+// --- DỮ LIỆU GIẢ LẬP (Giữ nguyên) ---
 const confirmedBookings = [
   {
     id: "booking_1",
@@ -23,52 +18,33 @@ const confirmedBookings = [
     checkInDate: "Thứ Sáu, 25 tháng 4, 2025",
     checkOutDate: "Chủ Nhật, 27 tháng 4, 2025",
     bookingCode: "STAY-XYZ123",
-    qrCodeValue: "STAY-XYZ123",
+    qrCodeValue: "STAY-XYZ123", // Giá trị để tạo mã QR
     rooms: [
-      { name: "Phòng Standard", quantity: 2, price: "980.000đ" },
-      { name: "Phòng Luxury", quantity: 1, price: "490.000đ" },
+      { name: "Phòng Standard", quantity: 2 },
+      { name: "Phòng Luxury", quantity: 1 },
     ],
-    subtotal: "1.470.000đ",
-    vat: "147.000đ",
     totalPrice: "1.617.000đ"
   },
+  {
+    id: "booking_2",
+    name: "BOOKING 2",
+    checkInDate: "Thứ Hai, 28 tháng 4, 2025",
+    checkOutDate: "Thứ Tư, 30 tháng 4, 2025",
+    bookingCode: "STAY-ABC567",
+    qrCodeValue: "STAY-ABC567",
+    rooms: [
+      { name: "Phòng Suite", quantity: 1 },
+    ],
+    totalPrice: "2.500.000đ"
+  }
 ];
+
 const customerInfo = {
     name: "Lê Tuấn Anh",
     phone: "0362423000",
     email: "letuananhk54@gmail.com"
 }
 // ----------------------
-
-// TÁCH CÁC NÚT HÀNH ĐỘNG RA THÀNH COMPONENT RIÊNG ĐỂ TÁI SỬ DỤNG
-const ActionButtons = () => {
-    const handleDownloadInvoice = () => {
-        const invoiceElement = document.getElementById('invoice-content');
-        const opt = {
-            margin:       0.5,
-            filename:     `Hoa_Don_${customerInfo.name.replace(/\s/g, '_')}_${confirmedBookings[0].bookingCode}.pdf`,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().from(invoiceElement).set(opt).save();
-    }
-
-    return (
-        <div className="w-full space-y-3">
-            <Button 
-                onClick={handleDownloadInvoice}
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-base font-semibold flex items-center justify-center gap-2 h-12 shadow-lg hover:shadow-xl transition-all">
-                <Download className="h-5 w-5" />
-                Tải về hóa đơn
-            </Button>
-            <Button variant="outline" className="w-full bg-white hover:bg-gray-100 text-gray-800 py-3 rounded-xl text-base font-medium flex items-center justify-center gap-2 h-12 shadow-md">
-                <Share2 className="h-5 w-5" />
-                Chia sẻ đặt phòng
-            </Button>
-        </div>
-    )
-}
 
 
 export default function PaymentConfirmation() {
@@ -87,8 +63,7 @@ export default function PaymentConfirmation() {
         <div className="w-10" />
       </header>
 
-      {/* Thêm padding-bottom để nội dung không bị che bởi thanh sticky */}
-      <main className="p-4 md:p-8 max-w-4xl mx-auto pb-32 md:pb-8">
+      <main className="p-4 md:p-8 max-w-4xl mx-auto">
         {/* Progress Indicator */}
         <div className="mb-8">
             <ProgressIndicator currentStep={3} steps={steps} />
@@ -115,6 +90,7 @@ export default function PaymentConfirmation() {
                                     <p className="text-lg font-mono font-bold text-emerald-600 tracking-wider">{booking.bookingCode}</p>
                                 </div>
                                 <div className="text-center">
+                                     {/* Giả lập mã QR */}
                                      <div className="w-20 h-20 bg-gray-100 rounded-lg p-1">
                                         <Image 
                                             src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${booking.qrCodeValue}`} 
@@ -127,7 +103,9 @@ export default function PaymentConfirmation() {
                                      <p className="text-[10px] text-gray-500 mt-1">Quét mã để check-in</p>
                                 </div>
                             </div>
+
                             <div className="border-t border-dashed my-4"></div>
+                            
                             <div className="space-y-3 text-sm">
                                 <div className="flex justify-between">
                                     <span className="text-gray-500">Nhận phòng:</span>
@@ -138,6 +116,7 @@ export default function PaymentConfirmation() {
                                     <span className="font-medium text-gray-800">{booking.checkOutDate}</span>
                                 </div>
                             </div>
+                            
                             <div className="mt-4 pt-4 border-t border-dashed">
                                 <p className="text-sm font-semibold text-gray-800 mb-2">Các phòng đã đặt:</p>
                                 <ul className="space-y-1 list-disc list-inside text-sm text-gray-700">
@@ -160,15 +139,31 @@ export default function PaymentConfirmation() {
                 <div className="bg-white rounded-2xl shadow-lg border border-gray-200/80 p-6">
                     <h3 className="text-xl font-bold text-gray-900 mb-4">Thông tin liên hệ</h3>
                     <div className="space-y-3 text-sm">
-                        <div className="flex items-center gap-3"><User className="h-4 w-4 text-gray-500 flex-shrink-0" /><span className="text-gray-800">{customerInfo.name}</span></div>
-                        <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-gray-500 flex-shrink-0" /><span className="text-gray-800">{customerInfo.phone}</span></div>
-                        <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-gray-500 flex-shrink-0" /><span className="text-gray-800 break-all">{customerInfo.email}</span></div>
+                        <div className="flex items-center gap-3">
+                            <User className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                            <span className="text-gray-800">{customerInfo.name}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <Phone className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                            <span className="text-gray-800">{customerInfo.phone}</span>
+                        </div>
+                         <div className="flex items-center gap-3">
+                            <Mail className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                            <span className="text-gray-800 break-all">{customerInfo.email}</span>
+                        </div>
                     </div>
                 </div>
-                {/* HIỂN THỊ CÁC NÚT HÀNH ĐỘNG TRÊN DESKTOP */}
-                <div className="hidden md:block">
-                    <ActionButtons />
-                </div>
+
+                 <div className="space-y-3">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-base font-semibold flex items-center justify-center gap-2 h-12 shadow-lg hover:shadow-xl transition-all">
+                        <Download className="h-5 w-5" />
+                        Tải về hóa đơn
+                    </Button>
+                     <Button variant="outline" className="w-full bg-white hover:bg-gray-100 text-gray-800 py-3 rounded-xl text-base font-medium flex items-center justify-center gap-2 h-12 shadow-md">
+                        <Share2 className="h-5 w-5" />
+                        Chia sẻ đặt phòng
+                    </Button>
+                 </div>
             </div>
         </div>
 
@@ -180,17 +175,6 @@ export default function PaymentConfirmation() {
             </Link>
         </div>
       </main>
-
-      {/* --- THANH HÀNH ĐỘNG CỐ ĐỊNH CHO DI ĐỘNG --- */}
-      {/* Sẽ hiển thị trên mobile và ẩn trên desktop (md:hidden) */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm p-4 border-t border-gray-200 md:hidden">
-         <ActionButtons />
-      </div>
-
-      {/* Nội dung ẩn cho hóa đơn PDF */}
-      <div id="invoice-content" style={{ position: 'absolute', left: '-9999px' }}>
-          {/* ... (Nội dung hóa đơn PDF giữ nguyên như cũ) ... */}
-      </div>
     </div>
   )
 }
