@@ -491,7 +491,7 @@ export default function HotelPhotosPage() {
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
               onClick={() => setIsHotelAmenitiesDrawerOpen(true)}
             >
-              <Image src="/images/amenliti.png" alt="Biểu tượng tiện ích" width={24} height={24} />
+              <Image src="/images/amenliti.png" alt="Biểu tượng tiện ích" width={30} height={30} />
             </Button>
             {/* Button Đánh giá */}
             <Button
