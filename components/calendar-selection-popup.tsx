@@ -2,11 +2,13 @@
 
 import { useEffect } from "react"
 import { useState, useMemo, useCallback } from "react"
-// Thêm icon mũi tên
 import { Calendar, X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay, addDays, startOfWeek } from "date-fns"
 import { vi } from "date-fns/locale"
+
+// --- (Toàn bộ phần code còn lại giữ nguyên như trước) ---
+// ...
 
 interface CalendarSelectionPopupProps {
     isOpen: boolean
@@ -16,7 +18,6 @@ interface CalendarSelectionPopupProps {
     initialEndDate?: Date | null
 }
 
-// Helper (giữ nguyên)
 const getPriceCategory = (price: number) => {
     if (price > 500000) return "high"
     if (price > 400000) return "medium"
@@ -33,16 +34,10 @@ export default function CalendarSelectionPopup({
     const [activeTab, setActiveTab] = useState<"day" | "hour" | "overnight">("day")
     const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(initialStartDate)
     const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(initialEndDate)
-    const [checkInTime, setCheckInTime] = useState<string>("14:00");
-    const [hoursOfUse, setHoursOfUse] = useState<number>(3);
-    
-    // =========================================================================
-    // THAY ĐỔI: Thêm state để theo dõi tuần hiện tại
-    // =========================================================================
+    const [checkInTime, setCheckInTime] = useState<string>("08:00");
+    const [hoursOfUse, setHoursOfUse] = useState<number>(2);
     const [currentWeekIndex, setCurrentWeekIndex] = useState(0);
-    // =========================================================================
 
-    // Các hooks và helpers khác giữ nguyên
     const checkInTimeOptions = useMemo(() => Array.from({ length: 15 }, (_, i) => `${String(i + 8).padStart(2, '0')}:00`), []);
     const hoursOfUseOptions = useMemo(() => [2, 3, 4, 5, 6], []);
     const today = useMemo(() => new Date(), [])
@@ -80,7 +75,6 @@ export default function CalendarSelectionPopup({
         });
     }, [today]);
 
-    // Các hàm xử lý sự kiện
     const handleDateClick = useCallback(
         (date: Date) => {
             if ((isBefore(date, today) && !isSameDay(date, today)) || isFullyBooked(date)) return;
@@ -104,16 +98,9 @@ export default function CalendarSelectionPopup({
         setActiveTab(tab);
         setSelectedStartDate(null);
         setSelectedEndDate(null);
-        // =========================================================================
-        // THAY ĐỔI: Reset lại tuần khi chuyển tab
-        // =========================================================================
         setCurrentWeekIndex(0);
-        // =========================================================================
     }
-
-    // =========================================================================
-    // THAY ĐỔI: Thêm hàm điều hướng tuần
-    // =========================================================================
+    
     const handleNextWeek = () => {
         if (currentWeekIndex < weeksToDisplay.length - 1) {
             setCurrentWeekIndex(prev => prev + 1);
@@ -125,9 +112,7 @@ export default function CalendarSelectionPopup({
             setCurrentWeekIndex(prev => prev - 1);
         }
     };
-    // =========================================================================
     
-    // Các hàm isDateSelected, isDateRangeStart, isDateRangeEnd, getDayClasses, selectedRangeText giữ nguyên
     const isDateSelected = useCallback((date: Date) => {
         if (!selectedStartDate) return false;
         if (activeTab === 'hour') return isSameDay(date, selectedStartDate);
@@ -172,55 +157,68 @@ export default function CalendarSelectionPopup({
         }, [isDateSelected, isDateRangeStart, isDateRangeEnd, today, selectedStartDate, selectedEndDate, isFullyBooked, activeTab]
       );
       
-      const selectedRangeText = useMemo(() => {
+    // =========================================================================
+    // THAY ĐỔI: Tối ưu hóa hiển thị cho "Theo giờ"
+    // =========================================================================
+    const selectedRangeText = useMemo(() => {
+        // ---- Chế độ "Theo giờ" ----
         if (activeTab === 'hour' && selectedStartDate) {
-          const [startHour, startMinute] = checkInTime.split(':').map(Number);
-          const endHour = startHour + hoursOfUse;
-          const formattedEndTime = `${String(endHour % 24).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
-          const renderTimeBlock = (time: string) => (
-            <div className="flex items-center gap-2">
-              <div className="text-4xl font-bold">{time}</div>
-              <div>
-                <div className="text-xs font-semibold">Ngày {format(selectedStartDate, "d")}</div>
-                <div className="text-xs text-gray-600">Tháng {format(selectedStartDate, "M")}</div>
-              </div>
-            </div>
-          );
-          return (
-            <div className="flex items-center justify-between w-full px-4">
-              {renderTimeBlock(checkInTime)}
-              <div className="text-sm font-semibold text-gray-700">({hoursOfUse} giờ)</div>
-              {renderTimeBlock(formattedEndTime)}
-            </div>
-          );
+            const [startHour, startMinute] = checkInTime.split(':').map(Number);
+            const endHour = startHour + hoursOfUse;
+            const formattedEndTime = `${String(endHour % 24).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
+            
+            // Helper function để render một khối thời gian cho gọn gàng
+            const renderTimeBlock = (time: string, date: Date) => (
+                <div className="flex items-center gap-1.5">
+                    {/* Giảm cỡ chữ giờ */}
+                    <div className="text-3xl font-bold text-gray-900">{time}</div>
+                    {/* Căn chỉnh lại khối ngày tháng */}
+                    <div className="leading-tight">
+                        <div className="text-xs font-semibold text-gray-800">Ngày {format(date, "d")}</div>
+                        <div className="text-xs text-gray-600">Tháng {format(date, "M")}</div>
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="flex items-center justify-between w-full px-2 sm:px-4">
+                    {renderTimeBlock(checkInTime, selectedStartDate)}
+                    <div className="text-sm font-semibold text-gray-700 mx-2">({hoursOfUse} giờ)</div>
+                    {renderTimeBlock(formattedEndTime, selectedStartDate)}
+                </div>
+            );
         }
+
+        // ---- Chế độ "Theo ngày" & "Qua đêm" ----
         if ((activeTab === 'day' || activeTab === 'overnight') && selectedStartDate && selectedEndDate) {
-          const diffInDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24));
-          const diffText = activeTab === 'day' ? `(${diffInDays + 1} ngày)` : `(${diffInDays} đêm)`;
-          const renderDateBlock = (date: Date) => (
-            <div className="flex items-center gap-2">
-              <div className="text-4xl font-bold">{format(date, "d")}</div>
-              <div>
-                <div className="text-xs font-semibold">{format(date, "EEEE", { locale: vi })}</div>
-                <div className="text-xs text-gray-600">{format(date, "MMMM", { locale: vi })}</div>
-              </div>
-            </div>
-          );
-          return (
-            <div className="flex items-center justify-between w-full px-4">
-              {renderDateBlock(selectedStartDate)}
-              <div className="text-sm font-semibold text-gray-700">{diffText}</div>
-              {renderDateBlock(selectedEndDate)}
-            </div>
-          );
+            const diffInDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24));
+            const diffText = activeTab === 'day' ? `(${diffInDays + 1} ngày)` : `(${diffInDays} đêm)`;
+            const renderDateBlock = (date: Date) => (
+                <div className="flex items-center gap-2">
+                    <div className="text-4xl font-bold">{format(date, "d")}</div>
+                    <div>
+                        <div className="text-xs font-semibold">{format(date, "EEEE", { locale: vi })}</div>
+                        <div className="text-xs text-gray-600">{format(date, "MMMM", { locale: vi })}</div>
+                    </div>
+                </div>
+            );
+            return (
+                <div className="flex items-center justify-between w-full px-4">
+                    {renderDateBlock(selectedStartDate)}
+                    <div className="text-sm font-semibold text-gray-700">{diffText}</div>
+                    {renderDateBlock(selectedEndDate)}
+                </div>
+            );
         }
+
+        // ---- Trạng thái mặc định ----
         return (
             <div className="flex items-center justify-center w-full">
                 <span className="text-base text-gray-700">Vui lòng chọn thời gian</span>
             </div>
         )
-      }, [activeTab, selectedStartDate, selectedEndDate, checkInTime, hoursOfUse]);
-    
+    }, [activeTab, selectedStartDate, selectedEndDate, checkInTime, hoursOfUse]);
+    // =========================================================================
 
     const handleApplyClick = () => {
         onApply(selectedStartDate, selectedEndDate);
@@ -229,6 +227,7 @@ export default function CalendarSelectionPopup({
 
     if (!isOpen) return null
 
+    // --- (Phần JSX return bên dưới giữ nguyên) ---
     return (
         <div className="fixed inset-0 z-50 flex items-end justify-center">
             <div className="absolute inset-0 bg-black/50" onClick={onClose} />
@@ -264,16 +263,13 @@ export default function CalendarSelectionPopup({
 
                     <div className="flex-1 overflow-y-auto pb-32">
                         {activeTab === 'hour' ? (
-                            // =========================================================================
-                            // THAY ĐỔI: Giao diện Lịch Theo Tuần với nút điều hướng
-                            // =========================================================================
                             <div className="px-2">
                                 <div className="flex items-center justify-between mb-3 px-2">
                                     <Button variant="ghost" size="icon" onClick={handlePrevWeek} disabled={currentWeekIndex === 0}>
                                         <ChevronLeft className="h-5 w-5" />
                                     </Button>
                                     <h3 className="text-base font-bold text-gray-800">
-                                        {format(weeksToDisplay[currentWeekIndex][0], "MMMM yyyy", { locale: vi })}
+                                        {`Tháng ${format(weeksToDisplay[currentWeekIndex][0], "MM yyyy", { locale: vi })}`}
                                     </h3>
                                     <Button variant="ghost" size="icon" onClick={handleNextWeek} disabled={currentWeekIndex === weeksToDisplay.length - 1}>
                                         <ChevronRight className="h-5 w-5" />
@@ -297,7 +293,6 @@ export default function CalendarSelectionPopup({
                                 </div>
                             </div>
                         ) : (
-                            // Giao diện Lịch Theo Tháng (Cuộn Dọc) - Giữ nguyên như cũ
                             <div className="space-y-4">
                                 {monthsToDisplay.map((monthDate, monthIndex) => {
                                     const year = monthDate.getFullYear();
