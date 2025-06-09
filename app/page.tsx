@@ -477,6 +477,7 @@ export default function HotelPhotosPage() {
       <div className="fixed bottom-0 left-0 right-0 flex justify-center bg-white z-20 border-t border-gray-200">
         <div className="w-full max-w-md">
           <div className="flex items-center justify-around px-1 py-1.5">
+          <div className="flex items-center justify-around rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-gray-200/50 px-2 py-1">
             {/* Button Tổng quan */}
             <Button
               variant="ghost"
@@ -509,6 +510,7 @@ export default function HotelPhotosPage() {
             >
               <Image src="/images/9xemthem.png" alt="Biểu tượng thêm" width={30} height={30} />
             </Button>
+            </div>
             <Link href="/rooms" passHref legacyBehavior>
               <a className="h-10 w-10 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
                 <img src="/images/9chonphong.png" alt="Room" width="70%" height="70%" />
