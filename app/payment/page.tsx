@@ -249,7 +249,13 @@ export default function Payment() {
         <VisaPaymentPopup amount={popupAmount} onClose={handleClosePopup} onConfirm={handleFinalizePayment} />
       )}
 
-      {activePopup === "momo" && <MomoPaymentPopup amount={popupAmount} onClose={handleFinalizePayment} />}
+      {activePopup === "momo" && (
+        <MomoPaymentPopup
+          amount={popupAmount}
+          onClose={handleClosePopup} // Thay đổi để chỉ đóng popup
+          onConfirm={handleFinalizePayment} // Thêm prop onConfirm để xử lý chuyển trang
+        />
+      )}
     </div>
   )
 }

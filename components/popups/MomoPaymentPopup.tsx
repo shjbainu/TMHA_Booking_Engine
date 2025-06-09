@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Copy, Lock, X, CreditCard } from "lucide-react" 
+import { Copy, Lock, X, CreditCard } from "lucide-react"
 import { Label } from "@/components/ui/label"
 // BƯỚC 2.1: Import component Image từ Next.js
 import Image from "next/image"
@@ -14,9 +14,10 @@ import Image from "next/image"
 interface MomoPaymentPopupProps {
   amount: string
   onClose: () => void
+  onConfirm: () => void // Thêm prop onConfirm
 }
 
-export function MomoPaymentPopup({ amount, onClose }: MomoPaymentPopupProps) {
+export function MomoPaymentPopup({ amount, onClose, onConfirm }: MomoPaymentPopupProps) {
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
     alert("Đã sao chép: " + text)
@@ -81,14 +82,17 @@ export function MomoPaymentPopup({ amount, onClose }: MomoPaymentPopupProps) {
 
           <div className="flex flex-col items-center justify-center">
             <p className="text-sm text-[#0a0a0a] mb-3">Mở app ngân hàng để quét mã</p>
-            <div className="relative w-48 h-48 mb-4 border border-gray-200 rounded-lg overflow-hidden">
+            <div
+              className="relative w-48 h-48 mb-4 border border-gray-200 rounded-lg overflow-hidden cursor-pointer"
+              onClick={onConfirm} // Thêm onClick để chuyển trang khi click QR
+            >
               {/* BƯỚC 2.2: Thay thẻ <img> bằng component <Image> của Next.js */}
-              <Image 
+              <Image
                 src="/images/momo-qr-code.png" // Đường dẫn tuyệt đối từ thư mục public
-                alt="Momo QR Code" 
+                alt="Momo QR Code"
                 width={192} // 48 * 4
                 height={192} // 48 * 4
-                className="object-contain" 
+                className="object-contain"
               />
             </div>
             <Button variant="ghost" className="text-blue-600 text-sm font-medium">
