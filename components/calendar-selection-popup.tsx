@@ -2,9 +2,9 @@
 
 import { useEffect } from "react"
 import { useState, useMemo, useCallback } from "react"
-import { Calendar, X } from "lucide-react"
+// Thêm icon mũi tên
+import { Calendar, X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-// Thêm startOfWeek để tính toán tuần
 import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay, addDays, startOfWeek } from "date-fns"
 import { vi } from "date-fns/locale"
 
@@ -16,7 +16,7 @@ interface CalendarSelectionPopupProps {
     initialEndDate?: Date | null
 }
 
-// Helper to get price category (giữ nguyên)
+// Helper (giữ nguyên)
 const getPriceCategory = (price: number) => {
     if (price > 500000) return "high"
     if (price > 400000) return "medium"
@@ -35,8 +35,14 @@ export default function CalendarSelectionPopup({
     const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(initialEndDate)
     const [checkInTime, setCheckInTime] = useState<string>("14:00");
     const [hoursOfUse, setHoursOfUse] = useState<number>(3);
+    
+    // =========================================================================
+    // THAY ĐỔI: Thêm state để theo dõi tuần hiện tại
+    // =========================================================================
+    const [currentWeekIndex, setCurrentWeekIndex] = useState(0);
+    // =========================================================================
 
-    // --- Các hooks và helpers khác giữ nguyên ---
+    // Các hooks và helpers khác giữ nguyên
     const checkInTimeOptions = useMemo(() => Array.from({ length: 15 }, (_, i) => `${String(i + 8).padStart(2, '0')}:00`), []);
     const hoursOfUseOptions = useMemo(() => [2, 3, 4, 5, 6], []);
     const today = useMemo(() => new Date(), [])
@@ -64,22 +70,17 @@ export default function CalendarSelectionPopup({
     const [bookedDates, setBookedDates] = useState<Set<string>>(new Set())
     const isFullyBooked = useCallback((date: Date) => bookedDates.has(format(date, "yyyy-MM-dd")), [bookedDates])
     
-    // =========================================================================
-    // THAY ĐỔI: Thêm dữ liệu cho lịch theo tháng và theo tuần
-    // =========================================================================
     const monthsToDisplay = useMemo(() => Array.from({ length: 12 }, (_, i) => addMonths(currentMonthStart, i)), [currentMonthStart]);
-    
-    // Dữ liệu mới cho lịch theo tuần (12 tuần tới)
     const weeksToDisplay = useMemo(() => {
-        const firstDay = startOfWeek(today, { locale: vi }); // Bắt đầu từ Chủ Nhật của tuần này
+        const firstDay = startOfWeek(today, { locale: vi });
         return Array.from({ length: 12 }, (_, weekIndex) => {
             return Array.from({ length: 7 }, (_, dayIndex) => {
                 return addDays(firstDay, weekIndex * 7 + dayIndex);
             });
         });
     }, [today]);
-    // =========================================================================
 
+    // Các hàm xử lý sự kiện
     const handleDateClick = useCallback(
         (date: Date) => {
             if ((isBefore(date, today) && !isSameDay(date, today)) || isFullyBooked(date)) return;
@@ -103,9 +104,30 @@ export default function CalendarSelectionPopup({
         setActiveTab(tab);
         setSelectedStartDate(null);
         setSelectedEndDate(null);
+        // =========================================================================
+        // THAY ĐỔI: Reset lại tuần khi chuyển tab
+        // =========================================================================
+        setCurrentWeekIndex(0);
+        // =========================================================================
     }
+
+    // =========================================================================
+    // THAY ĐỔI: Thêm hàm điều hướng tuần
+    // =========================================================================
+    const handleNextWeek = () => {
+        if (currentWeekIndex < weeksToDisplay.length - 1) {
+            setCurrentWeekIndex(prev => prev + 1);
+        }
+    };
+
+    const handlePrevWeek = () => {
+        if (currentWeekIndex > 0) {
+            setCurrentWeekIndex(prev => prev - 1);
+        }
+    };
+    // =========================================================================
     
-    // --- Các hàm isDateSelected, isDateRangeStart, isDateRangeEnd, getDayClasses, selectedRangeText giữ nguyên ---
+    // Các hàm isDateSelected, isDateRangeStart, isDateRangeEnd, getDayClasses, selectedRangeText giữ nguyên
     const isDateSelected = useCallback((date: Date) => {
         if (!selectedStartDate) return false;
         if (activeTab === 'hour') return isSameDay(date, selectedStartDate);
@@ -129,7 +151,6 @@ export default function CalendarSelectionPopup({
           if (isPastOrBooked) {
             dynamicClasses = "bg-gray-100 text-gray-400 cursor-not-allowed opacity-70";
           } else if (isSelected) {
-            // "Theo giờ" chỉ chọn 1 ngày, nên style như 1 ngày duy nhất
             if (activeTab === 'hour' || (isStart && isEnd) || (isStart && !isEnd)) {
                 dynamicClasses = "bg-blue-500 text-white font-bold";
             } else {
@@ -152,7 +173,6 @@ export default function CalendarSelectionPopup({
       );
       
       const selectedRangeText = useMemo(() => {
-        // ---- Chế độ "Theo giờ" ----
         if (activeTab === 'hour' && selectedStartDate) {
           const [startHour, startMinute] = checkInTime.split(':').map(Number);
           const endHour = startHour + hoursOfUse;
@@ -174,7 +194,6 @@ export default function CalendarSelectionPopup({
             </div>
           );
         }
-        // ---- Chế độ "Theo ngày" & "Qua đêm" ----
         if ((activeTab === 'day' || activeTab === 'overnight') && selectedStartDate && selectedEndDate) {
           const diffInDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24));
           const diffText = activeTab === 'day' ? `(${diffInDays + 1} ngày)` : `(${diffInDays} đêm)`;
@@ -195,7 +214,6 @@ export default function CalendarSelectionPopup({
             </div>
           );
         }
-        // ---- Trạng thái mặc định ----
         return (
             <div className="flex items-center justify-center w-full">
                 <span className="text-base text-gray-700">Vui lòng chọn thời gian</span>
@@ -226,10 +244,7 @@ export default function CalendarSelectionPopup({
                     <div className="bg-cyan-100 rounded-xl px-4 py-2 flex items-center justify-center text-black shadow-inner mb-4 h-16">
                         {selectedRangeText}
                     </div>
-
-                    {/* ========================================================================= */}
-                    {/* THAY ĐỔI: Di chuyển bộ chọn giờ ra ngoài vùng cuộn */}
-                    {/* ========================================================================= */}
+                    
                     {activeTab === 'hour' && (
                         <div className="flex items-center gap-4 mb-4">
                             <div className="flex-1">
@@ -246,39 +261,40 @@ export default function CalendarSelectionPopup({
                             </div>
                         </div>
                     )}
-                    {/* ========================================================================= */}
 
-
-                    {/* ========================================================================= */}
-                    {/* THAY ĐỔI: Render lịch có điều kiện dựa trên activeTab */}
-                    {/* ========================================================================= */}
                     <div className="flex-1 overflow-y-auto pb-32">
                         {activeTab === 'hour' ? (
-                            // Giao diện Lịch Theo Tuần (Cuộn Ngang)
-                            <div className="overflow-x-auto scrollbar-hide flex pb-4 -mx-4 px-4">
-                                {weeksToDisplay.map((week, weekIndex) => (
-                                    <div key={weekIndex} className="flex-shrink-0 w-full px-2">
-                                        <h3 className="text-base font-bold text-gray-800 mb-3 px-2">
-                                            {format(week[0], "MMMM yyyy", { locale: vi })}
-                                        </h3>
-                                        <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
-                                            {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
-                                        </div>
-                                        <div className="grid grid-cols-7 gap-2">
-                                            {week.map((day) => {
-                                                const price = getDayPrice(day);
-                                                const formattedPrice = price ? `${Math.round(price / 1000)}k` : "";
-                                                const isPastOrBooked = (isBefore(day, today) && !isSameDay(day, today)) || isFullyBooked(day);
-                                                return (
-                                                    <div key={day.toISOString()} className={getDayClasses(day, price)} onClick={() => !isPastOrBooked && handleDateClick(day)} aria-disabled={isPastOrBooked}>
-                                                        <span className="text-base font-semibold">{format(day, "d")}</span>
-                                                        {!isPastOrBooked && <span className="text-[10px] font-medium">{formattedPrice}</span>}
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                ))}
+                            // =========================================================================
+                            // THAY ĐỔI: Giao diện Lịch Theo Tuần với nút điều hướng
+                            // =========================================================================
+                            <div className="px-2">
+                                <div className="flex items-center justify-between mb-3 px-2">
+                                    <Button variant="ghost" size="icon" onClick={handlePrevWeek} disabled={currentWeekIndex === 0}>
+                                        <ChevronLeft className="h-5 w-5" />
+                                    </Button>
+                                    <h3 className="text-base font-bold text-gray-800">
+                                        {format(weeksToDisplay[currentWeekIndex][0], "MMMM yyyy", { locale: vi })}
+                                    </h3>
+                                    <Button variant="ghost" size="icon" onClick={handleNextWeek} disabled={currentWeekIndex === weeksToDisplay.length - 1}>
+                                        <ChevronRight className="h-5 w-5" />
+                                    </Button>
+                                </div>
+                                <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
+                                    {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
+                                </div>
+                                <div className="grid grid-cols-7 gap-2">
+                                    {weeksToDisplay[currentWeekIndex].map((day) => {
+                                        const price = getDayPrice(day);
+                                        const formattedPrice = price ? `${Math.round(price / 1000)}k` : "";
+                                        const isPastOrBooked = (isBefore(day, today) && !isSameDay(day, today)) || isFullyBooked(day);
+                                        return (
+                                            <div key={day.toISOString()} className={getDayClasses(day, price)} onClick={() => !isPastOrBooked && handleDateClick(day)} aria-disabled={isPastOrBooked}>
+                                                <span className="text-base font-semibold">{format(day, "d")}</span>
+                                                {!isPastOrBooked && <span className="text-[10px] font-medium">{formattedPrice}</span>}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         ) : (
                             // Giao diện Lịch Theo Tháng (Cuộn Dọc) - Giữ nguyên như cũ
@@ -296,7 +312,7 @@ export default function CalendarSelectionPopup({
                                                 <h3 className="text-base font-bold text-gray-800">
                                                     {format(monthDate, "M/yyyy", { locale: vi })}
                                                 </h3>
-                                                <div className="flex items-center gap-3">
+                                                 <div className="flex items-center gap-3">
                                                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div><span className="text-xs text-gray-600">Cơ bản</span></div>
                                                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div><span className="text-xs text-gray-600">Trung bình</span></div>
                                                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div><span className="text-xs text-gray-600">Cao điểm</span></div>
@@ -325,9 +341,7 @@ export default function CalendarSelectionPopup({
                             </div>
                         )}
                     </div>
-                    {/* ========================================================================= */}
-
-
+                    
                     <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
                         <div className="flex items-center justify-between">
                             <div>
