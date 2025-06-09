@@ -1739,31 +1739,30 @@ export default function RoomSelection() {
         ))}
       </div>
 
-      {/* Bottom Summary */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
-        <div className="max-w-md mx-auto">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
-              <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                <CalendarDays className="lucide-calendar" />
-              </div>
-              <div className="flex flex-col">{displayDateRange}</div>
-            </div>
-            {totalSelectedRoomsCount > 0 && (
-              <div>
-                <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
-                <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
-              </div>
-            )}
-          </div>
-          {totalSelectedRoomsCount > 0 && (
-            <Link href="/payment">
-              <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
-            </Link>
-          )}
+     {/* Bottom Summary */}
+<div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
+  <div className="max-w-md mx-auto">
+    <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
+        <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+          <CalendarDays className="lucide-calendar" />
         </div>
+        <div className="flex flex-col">{displayDateRange}</div>
       </div>
-
+      {totalSelectedRoomsCount > 0 && (
+        <div className="text-right"> {/* <--- THAY ĐỔI DUY NHẤT LÀ Ở ĐÂY */}
+          <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
+          <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
+        </div>
+      )}
+    </div>
+    {totalSelectedRoomsCount > 0 && (
+      <Link href="/payment">
+        <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
+      </Link>
+    )}
+  </div>
+</div>
       <div className="h-24" />
 
       {/* Popups */}
