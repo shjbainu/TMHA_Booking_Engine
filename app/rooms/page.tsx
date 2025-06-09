@@ -538,153 +538,151 @@ export default function RoomSelection() {
                       </div>
                     )}
                   </div>
-                  <div
-                    className={`space-y-4 pt-2 transition-all duration-500 ease-in-out overflow-hidden ${
-                      booking.expandedRooms.includes(room.id) ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    {/* Breakfast Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                  {booking.expandedRooms.includes(room.id) && (
+                    <div className="space-y-4 pt-2">
+                      {/* Breakfast Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                ? null
-                                : "Bao gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Bao gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                ? null
-                                : "Không gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Cancellation Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                      {/* Cancellation Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                ? null
-                                : "Hủy miễn phí trước 15/06/2025",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Hủy miễn phí trước 15/06/2025",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                ? null
-                                : "Không hoàn tiền",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không hoàn tiền",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )
             })()}
@@ -866,153 +864,151 @@ export default function RoomSelection() {
                       </div>
                     )}
                   </div>
-                  <div
-                    className={`space-y-4 pt-2 transition-all duration-500 ease-in-out overflow-hidden ${
-                      booking.expandedRooms.includes(room.id) ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    {/* Breakfast Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                  {booking.expandedRooms.includes(room.id) && (
+                    <div className="space-y-4 pt-2">
+                      {/* Breakfast Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                ? null
-                                : "Bao gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Bao gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                ? null
-                                : "Không gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Cancellation Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                      {/* Cancellation Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                ? null
-                                : "Hủy miễn phí trước 15/06/2025",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Hủy miễn phí trước 15/06/2025",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                ? null
-                                : "Không hoàn tiền",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không hoàn tiền",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )
             })()}
@@ -1231,153 +1227,151 @@ export default function RoomSelection() {
                   </div>
 
                   {/* Inline Options */}
-                  <div
-                    className={`space-y-4 pt-2 transition-all duration-500 ease-in-out overflow-hidden ${
-                      booking.expandedRooms.includes(room.id) ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    {/* Breakfast Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                  {booking.expandedRooms.includes(room.id) && (
+                    <div className="space-y-4 pt-2">
+                      {/* Breakfast Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                ? null
-                                : "Bao gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Bao gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                ? null
-                                : "Không gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Cancellation Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                      {/* Cancellation Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                ? null
-                                : "Hủy miễn phí trước 15/06/2025",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Hủy miễn phí trước 15/06/2025",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                ? null
-                                : "Không hoàn tiền",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không hoàn tiền",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )
             })()}
@@ -1593,153 +1587,151 @@ export default function RoomSelection() {
                   </div>
 
                   {/* Inline Options */}
-                  <div
-                    className={`space-y-4 pt-2 transition-all duration-500 ease-in-out overflow-hidden ${
-                      booking.expandedRooms.includes(room.id) ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    {/* Breakfast Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                  {booking.expandedRooms.includes(room.id) && (
+                    <div className="space-y-4 pt-2">
+                      {/* Breakfast Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                ? null
-                                : "Bao gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Bao gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "breakfast",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                ? null
-                                : "Không gồm bữa sáng",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "breakfast",
                                 booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không gồm bữa sáng",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Cancellation Policy */}
-                    <div>
-                      <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
-                      <div className="space-y-2">
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                      {/* Cancellation Policy */}
+                      <div>
+                        <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
+                        <div className="space-y-2">
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                ? null
-                                : "Hủy miễn phí trước 15/06/2025",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Hủy miễn phí trước 15/06/2025",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
-                        </div>
-                        <div
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
-                            booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                              ? "border-blue-500 bg-blue-50"
-                              : "border-gray-200 bg-white"
-                          }`}
-                          onClick={() =>
-                            updatePolicy(
-                              booking.id,
-                              room.id,
-                              "cancellation",
+                          <div
+                            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
                               booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                ? null
-                                : "Không hoàn tiền",
-                            )
-                          }
-                        >
-                          <div className="relative">
-                            <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200 bg-white"
+                            }`}
+                            onClick={() =>
+                              updatePolicy(
+                                booking.id,
+                                room.id,
+                                "cancellation",
                                 booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
-                                  ? "bg-blue-500 border-blue-500 shadow-sm"
-                                  : "border-gray-300"
-                              }`}
-                            >
-                              {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
-                                <Check className="w-3 h-3 text-white" />
-                              )}
+                                  ? null
+                                  : "Không hoàn tiền",
+                              )
+                            }
+                          >
+                            <div className="relative">
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                    ? "bg-blue-500 border-blue-500 shadow-sm"
+                                    : "border-gray-300"
+                                }`}
+                              >
+                                {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                                  <Check className="w-3 h-3 text-white" />
+                                )}
+                              </div>
                             </div>
+                            <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                           </div>
-                          <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )
             })()}
@@ -1747,32 +1739,30 @@ export default function RoomSelection() {
         ))}
       </div>
 
-      {/* Bottom Summary */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
-        <div className="max-w-md mx-auto">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
-              <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                <CalendarDays className="lucide-calendar" />
-              </div>
-              <div className="flex flex-col">{displayDateRange}</div>
-            </div>
-            {totalSelectedRoomsCount > 0 && (
-              <div className="text-right">
-                {" "}
-                {/* <--- THAY ĐỔI DUY NHẤT LÀ Ở ĐÂY */}
-                <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
-                <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
-              </div>
-            )}
-          </div>
-          {totalSelectedRoomsCount > 0 && (
-            <Link href="/payment">
-              <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
-            </Link>
-          )}
+     {/* Bottom Summary */}
+<div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
+  <div className="max-w-md mx-auto">
+    <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
+        <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+          <CalendarDays className="lucide-calendar" />
         </div>
+        <div className="flex flex-col">{displayDateRange}</div>
       </div>
+      {totalSelectedRoomsCount > 0 && (
+        <div className="text-right"> {/* <--- THAY ĐỔI DUY NHẤT LÀ Ở ĐÂY */}
+          <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
+          <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
+        </div>
+      )}
+    </div>
+    {totalSelectedRoomsCount > 0 && (
+      <Link href="/payment">
+        <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
+      </Link>
+    )}
+  </div>
+</div>
       <div className="h-24" />
 
       {/* Popups */}

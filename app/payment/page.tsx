@@ -12,6 +12,7 @@ import Link from "next/link"
 import { paymentMethods } from "@/lib/data"
 import { VisaPaymentPopup } from "@/components/popups/VisaPaymentPopup"
 import { MomoPaymentPopup } from "@/components/popups/MomoPaymentPopup"
+import { CancellationPolicyDrawer } from "@/components/cancellation-policy-drawer"
 
 export default function Payment() {
   const router = useRouter() // Khởi tạo router
@@ -24,6 +25,7 @@ export default function Payment() {
   const [timeLeft, setTimeLeft] = useState(600)
 
   const [activePopup, setActivePopup] = useState<string | null>(null)
+  const [showCancellationPolicy, setShowCancellationPolicy] = useState(false) // New state
 
   useEffect(() => {
     if (timeLeft <= 0) return
@@ -233,7 +235,9 @@ export default function Payment() {
         {/* Privacy Policy */}
         <div className="flex justify-between items-center text-sm text-[#0a0a0a] mb-6">
           <span>Chính sách hủy</span>
-          <span className="text-blue-600 cursor-pointer">Xem chi tiết</span>
+          <span className="text-blue-600 cursor-pointer" onClick={() => setShowCancellationPolicy(true)}>
+            Xem chi tiết
+          </span>
         </div>
 
         <Button
@@ -255,6 +259,10 @@ export default function Payment() {
           onClose={handleClosePopup} // Thay đổi để chỉ đóng popup
           onConfirm={handleFinalizePayment} // Thêm prop onConfirm để xử lý chuyển trang
         />
+      )}
+
+      {showCancellationPolicy && ( // New conditional render
+        <CancellationPolicyDrawer isOpen={showCancellationPolicy} onClose={() => setShowCancellationPolicy(false)} />
       )}
     </div>
   )
