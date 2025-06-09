@@ -499,7 +499,7 @@ export default function HotelPhotosPage() {
               className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
               onClick={() => setIsHotelReviewsDrawerOpen(true)}
             >
-              <Image src="/images/comment1.jpg" alt="Biểu tượng đánh giá" width={30} height={30} />
+              <Image src="/images/9danhgia.png" alt="Biểu tượng đánh giá" width={30} height={30} />
             </Button>
             {/* Button More with Dropdown */}
             <Button
