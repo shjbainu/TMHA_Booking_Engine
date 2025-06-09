@@ -324,13 +324,13 @@ export default function CalendarSelectionPopup({
                     {activeTab === 'hour' && (
                         <div className="flex items-center gap-4 mb-4">
                             <div className="flex-1">
-                                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-1">Giờ nhận phòng</label>
+                                <label htmlFor="check-in-time" className="block text-xs font-medium text-gray-700 mb-10">Giờ nhận phòng</label>
                                 <select id="check-in-time" value={checkInTime} onChange={(e) => setCheckInTime(e.target.value)} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
                                     {checkInTimeOptions.map(time => <option key={time} value={time}>{time}</option>)}
                                 </select>
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-1">Số giờ sử dụng</label>
+                                <label htmlFor="hours-of-use" className="block text-xs font-medium text-gray-700 mb-10">Số giờ sử dụng</label>
                                 <select id="hours-of-use" value={hoursOfUse} onChange={(e) => setHoursOfUse(Number(e.target.value))} className="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
                                     {hoursOfUseOptions.map(hour => <option key={hour} value={hour}>{hour} giờ</option>)}
                                 </select>
