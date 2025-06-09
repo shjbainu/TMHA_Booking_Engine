@@ -408,6 +408,9 @@ export default function RoomSelection() {
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496b5c0.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496c812.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
                             ])
                           }}
                         >
