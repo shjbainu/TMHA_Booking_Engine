@@ -1,6 +1,5 @@
 "use client"
 import { useRef, useState } from "react"
-import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
@@ -11,6 +10,7 @@ import NearbyAmenitiesDrawer from "@/components/nearby-amenities-drawer" // Impo
 import LocalExplorationDrawer from "@/components/local-exploration-drawer" // Import new drawer
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { ShareOptionsPopup } from "@/components/popups/ShareOptionsPopup" // Import new popup
+import { ScrollIndicatorTooltip } from "@/components/scroll-indicator-tooltip"
 
 export default function HotelPhotosPage() {
   const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
@@ -41,13 +41,19 @@ export default function HotelPhotosPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <ScrollIndicatorTooltip
+        sections={[
+          { id: "khong-gian-chung", ref: khongGianChungRef, label: "Không gian chung" },
+          { id: "phong-son-ca", ref: phongSonCaRef, label: "Phòng Sơn Ca" },
+          { id: "phong-nhat-ban", ref: phongNhatBanRef, label: "Phòng Nhật Bản" },
+          { id: "phong-map-mo", ref: phongMapMoRef, label: "Phòng Mập Mờ" },
+          { id: "phong-santorini", ref: phongSantoriniRef, label: "Phòng Santorini" },
+        ]}
+      />
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white sticky top-0 z-10 border-b border-gray-200">
-       <h4 className="font-serif-display text-2xl font-bold text-gray-900">
-  69 Boutique by Minova
-</h4>
+        <h4 className="font-serif-display text-2xl font-bold text-gray-900">69 Boutique by Minova</h4>
         <div className="flex items-center">
-         
           <Button
             variant="ghost"
             size="icon"
