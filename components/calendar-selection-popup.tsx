@@ -2,9 +2,9 @@
 
 import { useEffect } from "react"
 import { useState, useMemo, useCallback } from "react"
-import { Calendar, X } from "lucide-react"
+import { Calendar, X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay, addDays } from "date-fns"
+import { format, getDaysInMonth, startOfMonth, addMonths, isSameDay, isWithinInterval, isBefore, getDate, getDay, addDays, startOfWeek, addWeeks } from "date-fns"
 import { vi } from "date-fns/locale"
 
 interface CalendarSelectionPopupProps {
@@ -41,6 +41,14 @@ export default function CalendarSelectionPopup({
 
   const today = useMemo(() => new Date(), [])
   const currentMonthStart = useMemo(() => startOfMonth(new Date()), [])
+  const startOfCurrentWeek = useMemo(() => startOfWeek(today, { locale: vi }), [today]);
+  const weeksToDisplay = useMemo(() => {
+    const weeks = [];
+    for (let i = 0; i < 24; i++) { // Display 24 weeks (approx 6 months)
+      weeks.push(addWeeks(startOfCurrentWeek, i));
+    }
+    return weeks;
+  }, [startOfCurrentWeek]);
 
   const generatedPrices = useMemo(() => {
     const prices: { [key: string]: number } = {}
@@ -210,51 +218,88 @@ export default function CalendarSelectionPopup({
           </div>
 
           <div className="flex-1 overflow-y-auto space-y-4 pb-40">
-            {monthsToDisplay.map((monthDate, monthIndex) => {
-              const year = monthDate.getFullYear();
-              const month = monthDate.getMonth();
-              const daysInCurrentMonth = getDaysInMonth(monthDate);
-              const firstDayOfMonth = new Date(year, month, 1).getDay();
-              const calendarDays = Array(firstDayOfMonth).fill(null).concat(Array.from({ length: daysInCurrentMonth }, (_, i) => new Date(year, month, i + 1)));
-
-              return (
-                <div key={monthIndex} className="pt-2 px-2">
-                  <div className="flex items-center justify-between mb-3 px-2">
-                    {/* ================================================================= */}
-                    {/* THAY ĐỔI: Cập nhật định dạng tháng từ "MMMM yyyy" thành "M/yyyy"  */}
-                    {/* ================================================================= */}
-                    <h3 className="text-base font-bold text-gray-800">
-                      {format(monthDate, "M/yyyy", { locale: vi })}
-                    </h3>
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div><span className="text-xs text-gray-600">Cơ bản</span></div>
-                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div><span className="text-xs text-gray-600">Trung bình</span></div>
-                      <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div><span className="text-xs text-gray-600">Cao điểm</span></div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
-                    {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
-                  </div>
-                  <div className="grid grid-cols-7 gap-2">
-                    {calendarDays.map((day, dayIndex) => {
-                      if (!day) return <div key={`empty-${dayIndex}`} />;
-                      const price = getDayPrice(day);
-                      const formattedPrice = price ? `${Math.round(price / 1000)}k` : "";
-                      const isPastOrBooked = (isBefore(day, today) && !isSameDay(day, today)) || isFullyBooked(day);
-                      return (
-                        <div key={day.toISOString()} className={getDayClasses(day, price)} onClick={() => !isPastOrBooked && handleDateClick(day)} aria-disabled={isPastOrBooked}>
-                          <span className="text-base font-semibold">{format(day, "d")}</span>
-                          {!isPastOrBooked && <span className="text-[10px] font-medium">{formattedPrice}</span>}
-                        </div>
-                      );
-                    })}
+            {activeTab === 'hour' ? (
+      <div className="overflow-x-auto pb-4"> {/* Added pb-4 for scrollbar visibility */}
+        <div className="flex space-x-4"> {/* Container for horizontal weeks */}
+          {weeksToDisplay.map((weekStart, weekIndex) => {
+            const daysInWeek = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+            return (
+              <div key={weekIndex} className="flex-shrink-0 w-full px-2"> {/* w-full ensures it takes available width within parent */}
+                <div className="flex items-center justify-between mb-3 px-2">
+                  <h3 className="text-base font-bold text-gray-800">
+                    Tuần {format(weekStart, "w", { locale: vi })} - {format(weekStart, "dd/MM", { locale: vi })}
+                  </h3>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div><span className="text-xs text-gray-600">Cơ bản</span></div>
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div><span className="text-xs text-gray-600">Trung bình</span></div>
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div><span className="text-xs text-gray-600">Cao điểm</span></div>
                   </div>
                 </div>
-              );
-            })}
+                <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
+                  {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
+                </div>
+                <div className="grid grid-cols-7 gap-2">
+                  {daysInWeek.map((day, dayIndex) => {
+                    const price = getDayPrice(day);
+                    const formattedPrice = price ? `${Math.round(price / 1000)}k` : "";
+                    const isPastOrBooked = (isBefore(day, today) && !isSameDay(day, today)) || isFullyBooked(day);
+                    return (
+                      <div key={day.toISOString()} className={getDayClasses(day, price)} onClick={() => !isPastOrBooked && handleDateClick(day)} aria-disabled={isPastOrBooked}>
+                        <span className="text-base font-semibold">{format(day, "d")}</span>
+                        {!isPastOrBooked && <span className="text-[10px] font-medium">{formattedPrice}</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    ) : (
+      monthsToDisplay.map((monthDate, monthIndex) => {
+        const year = monthDate.getFullYear();
+        const month = monthDate.getMonth();
+        const daysInCurrentMonth = getDaysInMonth(monthDate);
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const calendarDays = Array(firstDayOfMonth).fill(null).concat(Array.from({ length: daysInCurrentMonth }, (_, i) => new Date(year, month, i + 1)));
+
+        return (
+          <div key={monthIndex} className="pt-2 px-2">
+            <div className="flex items-center justify-between mb-3 px-2">
+              <h3 className="text-base font-bold text-gray-800">
+                {format(monthDate, "M/yyyy", { locale: vi })}
+              </h3>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div><span className="text-xs text-gray-600">Cơ bản</span></div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-orange-400"></div><span className="text-xs text-gray-600">Trung bình</span></div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div><span className="text-xs text-gray-600">Cao điểm</span></div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-gray-500 mb-2">
+              {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(day => <div key={day} className="text-center">{day}</div>)}
+            </div>
+            <div className="grid grid-cols-7 gap-2">
+              {calendarDays.map((day, dayIndex) => {
+                if (!day) return <div key={`empty-${dayIndex}`} />;
+                const price = getDayPrice(day);
+                const formattedPrice = price ? `${Math.round(price / 1000)}k` : "";
+                const isPastOrBooked = (isBefore(day, today) && !isSameDay(day, today)) || isFullyBooked(day);
+                return (
+                  <div key={day.toISOString()} className={getDayClasses(day, price)} onClick={() => !isPastOrBooked && handleDateClick(day)} aria-disabled={isPastOrBooked}>
+                    <span className="text-base font-semibold">{format(day, "d")}</span>
+                    {!isPastOrBooked && <span className="text-[10px] font-medium">{formattedPrice}</span>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-            <div className="mb-12 pt-3 " >
+        );
+      })}
+    )}
+          </div>
+          <div className="mb-12 pt-3 " >
              {activeTab === 'hour' && (
             <div className="flex items-center gap-4 mb-4">
               <div className="flex-1">
