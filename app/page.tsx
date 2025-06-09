@@ -473,11 +473,11 @@ export default function HotelPhotosPage() {
         </div>
       </div>
 
-       {/* Bottom Navigation */}
+      {/* Bottom Navigation */}
       <div className="fixed bottom-4 inset-x-0 z-20 flex justify-center">
         <div className="flex items-center gap-2">
           {/* Thanh chứa 4 icon với hiệu ứng kính mờ */}
-          <div className=" flex items-center rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-gray-200/50 px-10 py-1 gap-x-5">
+          <div className=" flex items-center rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-gray-200/50 px-4 py-1 gap-x-2">
             {/* Button Tổng quan */}
             <Button
               variant="ghost"
@@ -510,15 +510,14 @@ export default function HotelPhotosPage() {
             >
               <Image src="/images/9xemthem.png" alt="Biểu tượng thêm" width={30} height={30} />
             </Button>
-            </div>
-            <Link href="/rooms" passHref legacyBehavior>
-              <a className="h-12 w-12 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
-                <img src="/images/9chonphong.png" alt="Room" width="35px" height="35px" />
-              </a>
-            </Link>
           </div>
+          <Link href="/rooms" passHref legacyBehavior>
+            <a className="h-12 w-12 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
+              <img src="/images/9chonphong.png" alt="Room" width="35px" height="35px" />
+            </a>
+          </Link>
         </div>
-      
+      </div>
 
       <MoreOptionsDialog
         isOpen={isMoreOptionsDialogOpen}
