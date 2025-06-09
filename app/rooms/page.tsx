@@ -410,7 +410,7 @@ export default function RoomSelection() {
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496b5c0.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496c812.webp",
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp",
                             ])
                           }}
                         >
@@ -430,7 +430,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "1 giường king"
-                            ? "border-blue-500 bg-blue-50 text-blue-700"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -449,7 +449,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "2 giường đôi"
-                            ? "border-blue-500 bg-blue-50"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -736,8 +736,7 @@ export default function RoomSelection() {
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp",
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae95633.webp"
-                             
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae95633.webp",
                             ])
                           }}
                         >
@@ -757,7 +756,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "1 giường king"
-                            ? "border-blue-500 bg-blue-50 text-blue-700"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -776,7 +775,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "2 giường đôi"
-                            ? "border-blue-500 bg-blue-50"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -1078,9 +1077,9 @@ export default function RoomSelection() {
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp",
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e78b7b.webp",
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp",
-                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7f949.webp",
+                                    "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7f949.webp",
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp",
-                                    "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp"
+                                    "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp",
                                   ]
                                 : [
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp",
@@ -1088,7 +1087,7 @@ export default function RoomSelection() {
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp",
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7f949.webp",
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp",
-                                    "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp"
+                                    "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp",
                                   ],
                             )
                           }}
@@ -1114,7 +1113,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "1 giường king"
-                            ? "border-blue-500 bg-blue-50 text-blue-700"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -1133,7 +1132,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "2 giường đôi"
-                            ? "border-blue-500 bg-blue-50"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -1448,7 +1447,7 @@ export default function RoomSelection() {
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp",
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp",
                                     "https://s3.go2joy.vn/1000w/hotel/543/9167_1713150149_661c98c5d55b2.jpg",
-                                    "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp"
+                                    "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp",
                                   ],
                             )
                           }}
@@ -1474,7 +1473,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "1 giường king"
-                            ? "border-blue-500 bg-blue-50 text-blue-700"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -1493,7 +1492,7 @@ export default function RoomSelection() {
                       <div
                         className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                           booking.roomPolicies[room.id]?.bedType === "2 giường đôi"
-                            ? "border-blue-500 bg-blue-50"
+                            ? "border-black bg-black text-white"
                             : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                         }`}
                       >
