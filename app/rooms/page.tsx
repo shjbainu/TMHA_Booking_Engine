@@ -415,7 +415,7 @@ export default function RoomSelection() {
                           }}
                         >
                           <ImageIcon className="h-3 w-3" />
-                          <span>3</span>
+                          <span>6</span>
                         </Button>
                       </div>
                     </div>
