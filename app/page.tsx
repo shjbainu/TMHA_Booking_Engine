@@ -63,10 +63,10 @@ export default function HotelPhotosPage() {
               window.open(mapUrl, "_blank")
             }}
           >
-            <Image src="/images/9tim.png" alt="Biểu tượng bản đồ" width={24} height={28} />
+            <Image src="/images/9tim.png" alt="Biểu tượng bản đồ" width={28} height={28} />
           </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsShareOptionsPopupOpen(true)}>
-            <Image src="/images/9share.png" alt="Biểu tượng chia sẻ" width={24} height={28} />
+            <Image src="/images/9share.png" alt="Biểu tượng chia sẻ" width={28} height={28} />
           </Button>
         </div>
       </div>
