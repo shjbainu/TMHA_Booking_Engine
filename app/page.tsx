@@ -477,7 +477,7 @@ export default function HotelPhotosPage() {
       <div className="fixed bottom-4 inset-x-0 z-20 flex justify-center">
         <div className="flex items-center gap-2">
           {/* Thanh chứa 4 icon với hiệu ứng kính mờ */}
-          <div className="flex items-center rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-gray-200/50 px-12 py-1 gap-x-4">
+          <div className="flex items-center rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-gray-200/50 px-12 py-1 gap-x-6">
             {/* Button Tổng quan */}
             <Button
               variant="ghost"
