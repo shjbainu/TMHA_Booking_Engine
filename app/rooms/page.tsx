@@ -733,7 +733,8 @@ export default function RoomSelection() {
                             setCurrentGalleryImages([
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
                               "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp",
-                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp",
+                              "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
+                             
                             ])
                           }}
                         >
