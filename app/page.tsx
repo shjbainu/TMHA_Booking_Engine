@@ -513,7 +513,7 @@ export default function HotelPhotosPage() {
             </div>
             <Link href="/rooms" passHref legacyBehavior>
               <a className="h-12 w-12 p-3 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
-                <img src="/images/9chonphong.png" alt="Room" width="15px" height="15px" />
+                <img src="/images/9chonphong.png" alt="Room" width="25px" height="25px" />
               </a>
             </Link>
           </div>
