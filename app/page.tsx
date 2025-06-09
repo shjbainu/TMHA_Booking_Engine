@@ -473,10 +473,10 @@ export default function HotelPhotosPage() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 flex justify-center bg-white z-20 border-t border-gray-200">
-        <div className="w-full max-w-md">
-          <div className="flex items-center justify-around px-1 py-1.5">
+       {/* Bottom Navigation */}
+      <div className="fixed bottom-4 inset-x-0 z-20 flex justify-center">
+        <div className="flex items-center gap-2">
+          {/* Thanh chứa 4 icon với hiệu ứng kính mờ */}
           <div className="flex items-center justify-around rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-gray-200/50 px-2 py-1">
             {/* Button Tổng quan */}
             <Button
