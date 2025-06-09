@@ -43,7 +43,7 @@ export default function HotelPhotosPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white sticky top-0 z-10 border-b border-gray-200">
-       <h4 className="font-serif-display text-4xl font-bold text-gray-900">
+       <h4 className="font-serif-display text-4xl font-bold text-gray-400">
   69 Boutique by Minova
 </h4>
         <div className="flex items-center">
