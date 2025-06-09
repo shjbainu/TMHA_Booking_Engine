@@ -7,22 +7,22 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button" // Button không được sử dụng, có thể xóa
 import {
   BedDouble,
   Bath,
   Sofa,
   Wifi,
-  Tv,
-  AirVent,
-  Wind,
-  ShieldCheck,
-  Flame,
-  UserCheck,
+  Tv2, // Thay Tv bằng Tv2
+  Snowflake, // Thay AirVent
+  EarOff, // Thay Wind
+  CreditCard, // Thay ShieldCheck
+  FireExtinguisher, // Thay Flame
   Sparkles,
-  Coffee,
+  ShowerHead, // Thay Coffee
+  Droplets, // Thay UserCheck
 } from "lucide-react"
-import { ReactElement } from "react"
+import { ReactElement, cloneElement } from "react" // cloneElement an toàn hơn
 
 interface HotelAmenitiesDrawerProps {
   isOpen: boolean
@@ -35,15 +35,15 @@ export default function HotelAmenitiesDrawer({
   onClose,
   hotelName,
 }: HotelAmenitiesDrawerProps) {
-  // === Phân loại tiện ích ===
+  // === Phân loại tiện ích với icon đã được cập nhật ===
   const amenitiesByCategory = [
     {
       category: "Tiện nghi nổi bật",
       color: "from-yellow-400 via-red-400 to-pink-500",
       items: [
         { icon: <Wifi />, label: "Wi-Fi miễn phí" },
-        { icon: <AirVent />, label: "Điều hòa không khí" },
-        { icon: <Tv />, label: "Smart TV màn hình phẳng" },
+        { icon: <Snowflake />, label: "Điều hòa không khí" },
+        { icon: <Tv2 />, label: "Smart TV màn hình phẳng" },
         { icon: <Sparkles />, label: "Dọn phòng hàng ngày" },
       ],
     },
@@ -53,7 +53,7 @@ export default function HotelAmenitiesDrawer({
       items: [
         { icon: <BedDouble />, label: "Giường cỡ King" },
         { icon: <Sofa />, label: "Ghế Sofa" },
-        { icon: <Wind />, label: "Phòng cách âm" },
+        { icon: <EarOff />, label: "Phòng cách âm" },
       ],
     },
     {
@@ -61,16 +61,16 @@ export default function HotelAmenitiesDrawer({
       color: "from-green-400 via-teal-400 to-cyan-500",
       items: [
         { icon: <Bath />, label: "Bồn tắm riêng" },
-        { icon: <Coffee />, label: "Vòi sen cây" },
-        { icon: <UserCheck />, label: "Đồ dùng vệ sinh cá nhân" },
+        { icon: <ShowerHead />, label: "Vòi sen cây" },
+        { icon: <Droplets />, label: "Đồ dùng vệ sinh cá nhân" },
       ],
     },
     {
       category: "An toàn & An ninh",
       color: "from-orange-400 via-pink-500 to-red-500",
       items: [
-        { icon: <ShieldCheck />, label: "Khóa thẻ từ" },
-        { icon: <Flame />, label: "Báo cháy & Bình chữa cháy" },
+        { icon: <CreditCard />, label: "Khóa thẻ từ" },
+        { icon: <FireExtinguisher />, label: "Báo cháy & Bình chữa cháy" },
       ],
     },
   ]
@@ -92,7 +92,9 @@ export default function HotelAmenitiesDrawer({
           <div className="space-y-10">
             {amenitiesByCategory.map((category) => (
               <div key={category.category}>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">{category.category}</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  {category.category}
+                </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {category.items.map((amenity) => (
                     <div
@@ -104,7 +106,9 @@ export default function HotelAmenitiesDrawer({
                       >
                         {cloneIcon(amenity.icon)}
                       </div>
-                      <span className="font-medium text-gray-800">{amenity.label}</span>
+                      <span className="font-medium text-gray-800">
+                        {amenity.label}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -118,6 +122,7 @@ export default function HotelAmenitiesDrawer({
 }
 
 // Helper: Clone icon với className lớn hơn
+// Sử dụng cloneElement của React để an toàn hơn và đúng chuẩn hơn
 function cloneIcon(icon: ReactElement) {
-  return { ...icon, props: { ...icon.props, className: "h-6 w-6" } }
+  return cloneElement(icon, { className: "h-6 w-6" })
 }
