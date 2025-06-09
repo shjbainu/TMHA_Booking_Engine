@@ -38,7 +38,10 @@ export default function RoomSelection() {
     {
       id: "booking-1",
       roomQuantities: {},
-      roomPolicies: {},
+      roomPolicies: rooms.reduce((acc, room) => {
+        acc[room.id] = { breakfast: null, cancellation: null, bedType: "1 giường king" }
+        return acc
+      }, {}),
       expandedRooms: [],
     },
   ])
@@ -63,7 +66,10 @@ export default function RoomSelection() {
       {
         id: newBookingId,
         roomQuantities: {},
-        roomPolicies: {},
+        roomPolicies: rooms.reduce((acc, room) => {
+          acc[room.id] = { breakfast: null, cancellation: null, bedType: "1 giường king" }
+          return acc
+        }, {}),
         expandedRooms: [],
       },
     ])
