@@ -1,7 +1,6 @@
 "use client"
 
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel"
+import { Drawer, DrawerContent } from "@/components/ui/drawer" // Changed from Dialog
 import Image from "next/image"
 
 interface ImageGalleryModalProps {
@@ -12,28 +11,31 @@ interface ImageGalleryModalProps {
 
 export default function ImageGalleryModal({ isOpen, onClose, images }: ImageGalleryModalProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl p-0 border-none bg-transparent shadow-none">
-        <Carousel className="w-full">
-          <CarouselContent>
-            {images.map((image, index) => (
-              <CarouselItem key={index} className="flex items-center justify-center">
-                <div className="relative w-full h-[500px] rounded-lg overflow-hidden">
-                  <Image
-                    src={image || "/placeholder.svg"}
-                    alt={`Gallery image ${index + 1}`}
-                    fill
-                    className="object-contain" // Use object-contain to ensure the whole image is visible
-                    sizes="(max-width: 768px) 100vw, 700px"
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/70 hover:bg-white rounded-full p-2 shadow-md" />
-          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/70 hover:bg-white rounded-full p-2 shadow-md" />
-        </Carousel>
-      </DialogContent>
-    </Dialog>
+    <Drawer open={isOpen} onOpenChange={onClose}>
+      {" "}
+      {/* Changed from Dialog */}
+      <DrawerContent className="h-[90vh] flex flex-col p-4">
+        {" "}
+        {/* Changed from DialogContent, added height and flex */}
+        {/* No header or close button */}
+        <div className="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {" "}
+          {/* Scrollable container for images */}
+          {images.map((image, index) => (
+            <div key={index} className="relative w-full h-[200px] rounded-lg overflow-hidden">
+              {" "}
+              {/* Fixed height for grid items */}
+              <Image
+                src={image || "/placeholder.svg"}
+                alt={`Gallery image ${index + 1}`}
+                fill
+                className="object-cover" // Use object-cover for grid display
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+          ))}
+        </div>
+      </DrawerContent>
+    </Drawer>
   )
 }
