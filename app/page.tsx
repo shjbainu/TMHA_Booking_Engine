@@ -518,7 +518,7 @@ export default function HotelPhotosPage() {
             </Link>
           </div>
         </div>
-      </div>
+      
 
       <MoreOptionsDialog
         isOpen={isMoreOptionsDialogOpen}
