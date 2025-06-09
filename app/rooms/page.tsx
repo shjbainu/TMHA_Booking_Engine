@@ -1740,51 +1740,30 @@ export default function RoomSelection() {
         ))}
       </div>
 
-     {/* Bottom Summary */}
-<div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
-  <div className="max-w-md mx-auto">
-    <div className="flex items-center justify-between mb-3">
-      {/* Phần chọn lịch (giữ nguyên) */}
-      <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
-        <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-          <CalendarDays className="lucide-calendar" />
+      {/* Bottom Summary */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
+        <div className="max-w-md mx-auto">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
+              <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                <CalendarDays className="lucide-calendar" />
+              </div>
+              <div className="flex flex-col">{displayDateRange}</div>
+            </div>
+            {totalSelectedRoomsCount > 0 && (
+              <div>
+                <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
+                <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
+              </div>
+            )}
+          </div>
+          {totalSelectedRoomsCount > 0 && (
+            <Link href="/payment">
+              <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
+            </Link>
+          )}
         </div>
-        <div className="flex flex-col">{displayDateRange}</div>
       </div>
-
-      {/* ========================================================================= */}
-      {/* THAY ĐỔI 1: Luôn render phần giá, chỉ thay đổi độ trong suốt */}
-      {/* ========================================================================= */}
-      <div 
-        className={`transition-opacity duration-300 ${
-          totalSelectedRoomsCount > 0 ? 'opacity-100' : 'opacity-0 invisible'
-        }`}
-      >
-        <div className="text-lg font-medium text-[#0a0a0a] text-right">{totalOverallPrice.toLocaleString()}đ</div>
-        <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
-      </div>
-    </div>
-
-    {/* ========================================================================= */}
-    {/* THAY ĐỔI 2: Luôn render nút, chỉ thay đổi độ trong suốt */}
-    {/* ========================================================================= */}
-    <div 
-      className={`transition-opacity duration-300 ${
-        totalSelectedRoomsCount > 0 ? 'opacity-100' : 'opacity-0 invisible'
-      }`}
-    >
-      <Link href="/payment">
-        <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
-      </Link>
-    </div>
-
-    {/* Phần tử giữ chỗ để đảm bảo chiều cao không đổi khi nút bị ẩn */}
-    {totalSelectedRoomsCount === 0 && (
-      <div className="h-[48px]"></div> // Chiều cao này tương ứng với nút Button (py-3 + font size)
-    )}
-
-  </div>
-</div>
 
       <div className="h-24" />
 
