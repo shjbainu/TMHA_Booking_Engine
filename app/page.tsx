@@ -512,7 +512,7 @@ export default function HotelPhotosPage() {
             </Button>
             </div>
             <Link href="/rooms" passHref legacyBehavior>
-              <a className="h-15 w-15 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
+              <a className="h-18 w-18 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
                 <img src="/images/9chonphong.png" alt="Room" width="70%" height="70%" />
               </a>
             </Link>
