@@ -73,14 +73,7 @@ export default function HotelAmenitiesDrawer({
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-white">
-        <DrawerHeader className="text-left p-4 border-b">
-          <DrawerTitle className="text-xl font-bold text-gray-900">
-            Tiện nghi tại {hotelName}
-          </DrawerTitle>
-          <DrawerDescription className="text-sm text-gray-500">
-            Tất cả các tiện nghi được cung cấp trong phòng
-          </DrawerDescription>
-        </DrawerHeader>
+        
 
         {/* Nội dung tiện ích với layout mới */}
         <div className="flex-1 overflow-y-auto p-6">
