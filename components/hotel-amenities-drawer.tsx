@@ -7,22 +7,21 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer"
-// import { Button } from "@/components/ui/button" // Button không được sử dụng, có thể xóa
 import {
   BedDouble,
   Bath,
   Sofa,
   Wifi,
-  Tv2, // Thay Tv bằng Tv2
-  Snowflake, // Thay AirVent
-  EarOff, // Thay Wind
-  CreditCard, // Thay ShieldCheck
-  FireExtinguisher, // Thay Flame
+  Tv2,
+  Snowflake,
+  EarOff,
+  CreditCard,
+  FireExtinguisher,
   Sparkles,
-  ShowerHead, // Thay Coffee
-  Droplets, // Thay UserCheck
+  ShowerHead,
+  Droplets,
 } from "lucide-react"
-import { ReactElement, cloneElement } from "react" // cloneElement an toàn hơn
+import { ReactElement, cloneElement } from "react"
 
 interface HotelAmenitiesDrawerProps {
   isOpen: boolean
@@ -35,78 +34,78 @@ export default function HotelAmenitiesDrawer({
   onClose,
   hotelName,
 }: HotelAmenitiesDrawerProps) {
-  // === Phân loại tiện ích với icon đã được cập nhật ===
+  // === Phân loại tiện ích (loại bỏ thuộc tính color không cần thiết) ===
   const amenitiesByCategory = [
     {
       category: "Tiện nghi nổi bật",
-      color: "from-yellow-400 via-red-400 to-pink-500",
       items: [
         { icon: <Wifi />, label: "Wi-Fi miễn phí" },
-        { icon: <Snowflake />, label: "Điều hòa không khí" },
-        { icon: <Tv2 />, label: "Smart TV màn hình phẳng" },
-        { icon: <Sparkles />, label: "Dọn phòng hàng ngày" },
+        { icon: <Snowflake />, label: "Điều hòa" },
+        { icon: <Tv2 />, label: "Smart TV" },
+        { icon: <Sparkles />, label: "Dọn phòng" },
       ],
     },
     {
       category: "Phòng ngủ",
-      color: "from-purple-400 via-indigo-500 to-blue-500",
       items: [
         { icon: <BedDouble />, label: "Giường cỡ King" },
         { icon: <Sofa />, label: "Ghế Sofa" },
-        { icon: <EarOff />, label: "Phòng cách âm" },
+        { icon: <EarOff />, label: "Cách âm" },
       ],
     },
     {
       category: "Phòng tắm",
-      color: "from-green-400 via-teal-400 to-cyan-500",
       items: [
-        { icon: <Bath />, label: "Bồn tắm riêng" },
-        { icon: <ShowerHead />, label: "Vòi sen cây" },
-        { icon: <Droplets />, label: "Đồ dùng vệ sinh cá nhân" },
+        { icon: <Bath />, label: "Bồn tắm" },
+        { icon: <ShowerHead />, label: "Vòi sen" },
+        { icon: <Droplets />, label: "Đồ dùng VSCN" },
       ],
     },
     {
       category: "An toàn & An ninh",
-      color: "from-orange-400 via-pink-500 to-red-500",
       items: [
         { icon: <CreditCard />, label: "Khóa thẻ từ" },
-        { icon: <FireExtinguisher />, label: "Báo cháy & Bình chữa cháy" },
+        { icon: <FireExtinguisher />, label: "PCCC" },
       ],
     },
   ]
 
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DrawerContent className="h-[90vh] flex flex-col bg-gray-50">
-        <DrawerHeader className="text-left p-4 border-b bg-white">
+      <DrawerContent className="h-[90vh] flex flex-col bg-white">
+        <DrawerHeader className="text-left p-4 border-b">
           <DrawerTitle className="text-xl font-bold text-gray-900">
             Tiện nghi tại {hotelName}
           </DrawerTitle>
           <DrawerDescription className="text-sm text-gray-500">
-            Khám phá các dịch vụ và tiện nghi của chúng tôi
+            Tất cả các tiện nghi được cung cấp trong phòng
           </DrawerDescription>
         </DrawerHeader>
 
-        {/* Nội dung tiện ích */}
-        <div className="flex-1 overflow-y-auto p-4">
-          <div className="space-y-10">
+        {/* Nội dung tiện ích với layout mới */}
+        <div className="flex-1 overflow-y-auto p-6">
+          <div className="space-y-8">
             {amenitiesByCategory.map((category) => (
               <div key={category.category}>
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
                   {category.category}
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Thay đổi grid-cols để hiển thị nhiều item hơn trên một hàng */}
+                <div className="grid grid-cols-4 gap-x-4 gap-y-6">
                   {category.items.map((amenity) => (
+                    // Thay đổi cấu trúc item sang flex-col để icon ở trên, text ở dưới
                     <div
                       key={amenity.label}
-                      className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md"
+                      className="flex flex-col items-center justify-start gap-2 text-center"
                     >
+                      {/* Vòng tròn đen bao quanh icon */}
                       <div
-                        className={`flex-shrink-0 h-12 w-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center text-white shadow-lg`}
+                        className="flex h-16 w-16 items-center justify-center rounded-full bg-black text-white"
                       >
                         {cloneIcon(amenity.icon)}
                       </div>
-                      <span className="font-medium text-gray-800">
+                      {/* Text bên dưới */}
+                      <span className="text-sm font-medium text-gray-700">
                         {amenity.label}
                       </span>
                     </div>
@@ -121,8 +120,8 @@ export default function HotelAmenitiesDrawer({
   )
 }
 
-// Helper: Clone icon với className lớn hơn
-// Sử dụng cloneElement của React để an toàn hơn và đúng chuẩn hơn
+// Helper: Clone icon với kích thước phù hợp
 function cloneIcon(icon: ReactElement) {
-  return cloneElement(icon, { className: "h-6 w-6" })
+  // Tăng kích thước icon cho phù hợp với vòng tròn lớn hơn
+  return cloneElement(icon, { className: "h-8 w-8" })
 }
