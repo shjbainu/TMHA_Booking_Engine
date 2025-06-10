@@ -364,17 +364,12 @@ export default function RoomSelection() {
             {(() => {
               const room = rooms.find((r) => r.id === "1")
               if (!room) return null
-              const isDimmed = booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
                   className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl transition-opacity duration-300 ${
-                      isDimmed ? "opacity-50 hover:opacity-100" : "opacity-100"
-                    }`}
-                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl opacity-80"></div>
                   <div className="relative">
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -545,9 +540,7 @@ export default function RoomSelection() {
                       )}
                     </div>
                     {booking.expandedRooms.includes(room.id) && (
-                      <div className="space-y-4 pt-2">
-                        {/* Breakfast & Cancellation Policies */}
-                      </div>
+                      <div className="space-y-4 pt-2">{/* Policies */}</div>
                     )}
                   </div>
                 </div>
@@ -558,17 +551,12 @@ export default function RoomSelection() {
             {(() => {
               const room = rooms.find((r) => r.id === "2")
               if (!room) return null
-              const isDimmed = booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
                   className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br from-green-50 to-teal-100 rounded-2xl transition-opacity duration-300 ${
-                      isDimmed ? "opacity-50 hover:opacity-100" : "opacity-100"
-                    }`}
-                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-teal-100 rounded-2xl opacity-80"></div>
                   <div className="relative">
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -739,9 +727,7 @@ export default function RoomSelection() {
                       )}
                     </div>
                      {booking.expandedRooms.includes(room.id) && (
-                      <div className="space-y-4 pt-2">
-                        {/* Breakfast & Cancellation Policies */}
-                      </div>
+                      <div className="space-y-4 pt-2">{/* Policies */}</div>
                     )}
                   </div>
                 </div>
@@ -752,17 +738,12 @@ export default function RoomSelection() {
             {(() => {
               const room = rooms.find((r) => r.id === "3")
               if (!room) return null
-              const isDimmed = booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
                   className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl transition-opacity duration-300 ${
-                      isDimmed ? "opacity-50 hover:opacity-100" : "opacity-100"
-                    }`}
-                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl opacity-80"></div>
                   <div className="relative">
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -933,9 +914,7 @@ export default function RoomSelection() {
                       )}
                     </div>
                      {booking.expandedRooms.includes(room.id) && (
-                      <div className="space-y-4 pt-2">
-                        {/* Breakfast & Cancellation Policies */}
-                      </div>
+                      <div className="space-y-4 pt-2">{/* Policies */}</div>
                     )}
                   </div>
                 </div>
@@ -946,17 +925,12 @@ export default function RoomSelection() {
             {(() => {
               const room = rooms.find((r) => r.id === "4")
               if (!room) return null
-              const isDimmed = booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
                   className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                 >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl transition-opacity duration-300 ${
-                      isDimmed ? "opacity-50 hover:opacity-100" : "opacity-100"
-                    }`}
-                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl opacity-80"></div>
                   <div className="relative">
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -1127,9 +1101,7 @@ export default function RoomSelection() {
                       )}
                     </div>
                      {booking.expandedRooms.includes(room.id) && (
-                      <div className="space-y-4 pt-2">
-                        {/* Breakfast & Cancellation Policies */}
-                      </div>
+                      <div className="space-y-4 pt-2">{/* Policies */}</div>
                     )}
                   </div>
                 </div>
