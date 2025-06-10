@@ -367,7 +367,15 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className={`
+                    border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg hover:shadow-xl 
+                    transition-all duration-300 mb-4
+                    ${
+                      booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
+                        ? "opacity-50 hover:opacity-100"
+                        : "opacity-100"
+                    }
+                  `}
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -694,7 +702,15 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-green-50 to-teal-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className={`
+                    border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-green-50 to-teal-100 shadow-lg hover:shadow-xl 
+                    transition-all duration-300 mb-4
+                    ${
+                      booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
+                        ? "opacity-50 hover:opacity-100"
+                        : "opacity-100"
+                    }
+                  `}
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -1020,7 +1036,15 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-purple-50 to-pink-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className={`
+                    border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-purple-50 to-pink-100 shadow-lg hover:shadow-xl 
+                    transition-all duration-300 mb-4
+                    ${
+                      booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
+                        ? "opacity-50 hover:opacity-100"
+                        : "opacity-100"
+                    }
+                  `}
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
@@ -1383,7 +1407,15 @@ export default function RoomSelection() {
               return (
                 <div
                   key={`${booking.id}-${room.id}`}
-                  className="border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-yellow-50 to-orange-100 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                  className={`
+                    border border-gray-200/50 rounded-2xl p-5 bg-gradient-to-br from-yellow-50 to-orange-100 shadow-lg hover:shadow-xl 
+                    transition-all duration-300 mb-4
+                    ${
+                      booking.expandedRooms.length > 0 && !booking.expandedRooms.includes(room.id)
+                        ? "opacity-50 hover:opacity-100"
+                        : "opacity-100"
+                    }
+                  `}
                 >
                   <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                     {/* Large image on the left */}
@@ -1739,30 +1771,30 @@ export default function RoomSelection() {
         ))}
       </div>
 
-     {/* Bottom Summary */}
-<div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
-  <div className="max-w-md mx-auto">
-    <div className="flex items-center justify-between mb-3">
-      <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
-        <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-          <CalendarDays className="lucide-calendar" />
+      {/* Bottom Summary */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200/50 p-4">
+        <div className="max-w-md mx-auto">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsCalendarPopupOpen(true)}>
+              <div className="relative w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                <CalendarDays className="lucide-calendar" />
+              </div>
+              <div className="flex flex-col">{displayDateRange}</div>
+            </div>
+            {totalSelectedRoomsCount > 0 && (
+              <div className="text-right">
+                <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
+                <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
+              </div>
+            )}
+          </div>
+          {totalSelectedRoomsCount > 0 && (
+            <Link href="/payment">
+              <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
+            </Link>
+          )}
         </div>
-        <div className="flex flex-col">{displayDateRange}</div>
       </div>
-      {totalSelectedRoomsCount > 0 && (
-        <div className="text-right"> {/* <--- THAY ĐỔI DUY NHẤT LÀ Ở ĐÂY */}
-          <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
-          <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
-        </div>
-      )}
-    </div>
-    {totalSelectedRoomsCount > 0 && (
-      <Link href="/payment">
-        <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
-      </Link>
-    )}
-  </div>
-</div>
       <div className="h-24" />
 
       {/* Popups */}
