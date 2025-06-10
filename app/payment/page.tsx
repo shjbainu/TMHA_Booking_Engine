@@ -27,6 +27,11 @@ export default function Payment() {
   const [activePopup, setActivePopup] = useState<string | null>(null)
   const [showCancellationPolicy, setShowCancellationPolicy] = useState(false) // New state
 
+  // New states for dynamic data
+  const [currentBookings, setCurrentBookings] = useState<any[]>([])
+  const [totalAmount, setTotalAmount] = useState("0đ")
+  const [popupAmount, setPopupAmount] = useState("0đ")
+
   useEffect(() => {
     if (timeLeft <= 0) return
     const timer = setInterval(() => {
@@ -41,6 +46,22 @@ export default function Payment() {
     return () => clearInterval(timer)
   }, [timeLeft])
 
+  // New useEffect to load data from localStorage
+  useEffect(() => {
+    const storedBookings = localStorage.getItem("currentBookings")
+    if (storedBookings) {
+      const parsedBookings = JSON.parse(storedBookings)
+      setCurrentBookings(parsedBookings)
+
+      const overallTotal = parsedBookings.reduce((sum: number, booking: any) => sum + booking.bookingTotalPrice, 0)
+      setTotalAmount(overallTotal.toLocaleString("vi-VN") + "đ")
+      // For popup amount, let's just use the first booking's total for now, or adjust as needed
+      if (parsedBookings.length > 0) {
+        setPopupAmount(parsedBookings[0].bookingTotalPrice.toLocaleString("vi-VN") + "đ")
+      }
+    }
+  }, []) // Run once on mount
+
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
@@ -48,9 +69,6 @@ export default function Payment() {
   }
 
   const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
-  const totalAmount = "3.234.000đ"
-  const popupAmount = "1.078.000đ"
-
   const handlePaymentConfirmation = () => {
     if (!selectedPayment) {
       alert("Vui lòng chọn phương thức thanh toán!")
@@ -103,33 +121,51 @@ export default function Payment() {
         {/* Booking Information */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Thông tin đặt phòng</h2>
-          <div className="bg-white border border-gray-200 shadow-sm rounded-lg p-4 mb-3">
-            <div className="flex items-center justify-between mb-3">
-              <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
-                BOOKING 1
-              </Badge>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <RotateCcw className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+          {currentBookings.length === 0 ? (
+            <p className="text-gray-600">Không có phòng nào được chọn.</p>
+          ) : (
+            currentBookings.map((booking, index) => (
+              <div key={booking.id} className="bg-white border border-gray-200 shadow-sm rounded-lg p-4 mb-3">
+                <div className="flex items-center justify-between mb-3">
+                  <Badge variant="secondary" className="bg-[#0a0a0a] text-white">
+                    BOOKING {index + 1}
+                  </Badge>
+                  <div className="flex gap-2">
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <RotateCcw className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 text-sm mb-2">
+                  <span className="bg-white px-2 py-1 rounded">
+                    {booking.checkInDate ? booking.checkInDate.split(",")[1].trim() : "N/A"}
+                  </span>
+                  <span className="bg-white px-2 py-1 rounded">
+                    {/* Calculate nights dynamically if needed, or pass from rooms page */}
+                    {booking.checkInDate && booking.checkOutDate
+                      ? `${Math.ceil(Math.abs(new Date(booking.checkOutDate).getTime() - new Date(booking.checkInDate).getTime()) / (1000 * 60 * 60 * 24))} đêm`
+                      : "N/A"}
+                  </span>
+                  <span className="bg-white px-2 py-1 rounded">
+                    {booking.checkOutDate ? booking.checkOutDate.split(",")[1].trim() : "N/A"}
+                  </span>
+                </div>
+                <div className="text-sm text-[#0a0a0a] space-y-1">
+                  {booking.rooms.map((room: any) => (
+                    <div key={room.id}>
+                      • {room.name} x{room.quantity}
+                    </div>
+                  ))}
+                </div>
+                <div className="text-right mt-2">
+                  <span className="font-medium">Tổng tiền: {booking.bookingTotalPrice.toLocaleString("vi-VN")}đ</span>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-4 text-sm mb-2">
-              <span className="bg-white px-2 py-1 rounded">25/04/2025</span>
-              <span className="bg-white px-2 py-1 rounded">2 đêm</span>
-              <span className="bg-white px-2 py-1 rounded">27/04/2025</span>
-            </div>
-            <div className="text-sm text-[#0a0a0a] space-y-1">
-              <div>• Phòng Standard x2</div>
-              <div>• Phòng Luxury x1</div>
-            </div>
-            <div className="text-right mt-2">
-              <span className="font-medium">Tổng tiền: 1.078.000đ</span>
-            </div>
-          </div>
+            ))
+          )}
         </div>
 
         {/* Customer Information */}
@@ -178,27 +214,36 @@ export default function Payment() {
         {/* Payment Details */}
         <div className="mb-6">
           <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Chi tiết thanh toán</h2>
-          <div className="bg-gray-50 border border-gray-200 shadow-sm p-3 rounded-lg">
-            <div className="font-medium mb-2">BOOKING 1</div>
-            <div className="space-y-1 text-sm">
-              <div className="flex justify-between">
-                <span>Phòng Standard x2</span>
-                <span>980.000đ</span>
+          {currentBookings.length === 0 ? (
+            <p className="text-gray-600">Không có chi tiết thanh toán.</p>
+          ) : (
+            currentBookings.map((booking, index) => (
+              <div key={booking.id} className="bg-gray-50 border border-gray-200 shadow-sm p-3 rounded-lg mb-3">
+                <div className="font-medium mb-2">BOOKING {index + 1}</div>
+                <div className="space-y-1 text-sm">
+                  {booking.rooms.map((room: any) => (
+                    <div key={room.id} className="flex justify-between">
+                      <span>
+                        {room.name} x{room.quantity}
+                      </span>
+                      <span>{(room.price * room.quantity).toLocaleString("vi-VN")}đ</span>
+                    </div>
+                  ))}
+                  {/* Assuming VAT is calculated per booking or overall, for simplicity, let's add a placeholder */}
+                  <div className="flex justify-between">
+                    <span>Phí VAT (Thuế 10%)</span>
+                    <span>{(booking.bookingTotalPrice * 0.1).toLocaleString("vi-VN")}đ</span>{" "}
+                    {/* Example VAT calculation */}
+                  </div>
+                  <div className="flex justify-between font-medium border-t border-gray-200 pt-2">
+                    <span>TỔNG BOOKING {index + 1}:</span>
+                    <span>{(booking.bookingTotalPrice * 1.1).toLocaleString("vi-VN")}đ</span>{" "}
+                    {/* Total with example VAT */}
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>Phòng Luxury x1</span>
-                <span>490.000đ</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Phí VAT (Thuế 10%)</span>
-                <span>147.000đ</span>
-              </div>
-              <div className="flex justify-between font-medium border-t border-gray-200 pt-2">
-                <span>TỔNG BOOKING 1:</span>
-                <span>1.617.000đ</span>
-              </div>
-            </div>
-          </div>
+            ))
+          )}
           <div className="flex justify-between items-center text-lg font-bold mt-4">
             <span>TỔNG TIỀN THANH TOÁN (VNĐ)</span>
             <span>{totalAmount}</span>

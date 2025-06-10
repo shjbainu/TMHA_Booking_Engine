@@ -24,6 +24,7 @@ import { vi } from "date-fns/locale"
 import ImageGalleryModal from "@/components/image-gallery-modal"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import HotelIntroDrawer from "@/components/hotel-intro-drawer"
+import { useRouter } from "next/navigation"
 
 // Define a type for a single booking
 interface Booking {
@@ -34,6 +35,7 @@ interface Booking {
 }
 
 export default function RoomSelection() {
+  const router = useRouter()
   const [bookings, setBookings] = useState<Booking[]>([
     {
       id: "booking-1",
@@ -641,8 +643,9 @@ export default function RoomSelection() {
                                       : "border-gray-300"
                                   }`}
                                 >
-                                  {booking.roomPolicies[room.id]?.cancellation ===
-                                    "Hủy miễn phí trước 15/06/2025" && <Check className="w-3 h-3 text-white" />}
+                                  {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                    <Check className="w-3 h-3 text-white" />
+                                  )}
                                 </div>
                               </div>
                               <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
@@ -969,8 +972,9 @@ export default function RoomSelection() {
                                       : "border-gray-300"
                                   }`}
                                 >
-                                  {booking.roomPolicies[room.id]?.cancellation ===
-                                    "Hủy miễn phí trước 15/06/2025" && <Check className="w-3 h-3 text-white" />}
+                                  {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                    <Check className="w-3 h-3 text-white" />
+                                  )}
                                 </div>
                               </div>
                               <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
@@ -1297,8 +1301,9 @@ export default function RoomSelection() {
                                       : "border-gray-300"
                                   }`}
                                 >
-                                  {booking.roomPolicies[room.id]?.cancellation ===
-                                    "Hủy miễn phí trước 15/06/2025" && <Check className="w-3 h-3 text-white" />}
+                                  {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                    <Check className="w-3 h-3 text-white" />
+                                  )}
                                 </div>
                               </div>
                               <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
@@ -1625,8 +1630,9 @@ export default function RoomSelection() {
                                       : "border-gray-300"
                                   }`}
                                 >
-                                  {booking.roomPolicies[room.id]?.cancellation ===
-                                    "Hủy miễn phí trước 15/06/2025" && <Check className="w-3 h-3 text-white" />}
+                                  {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                    <Check className="w-3 h-3 text-white" />
+                                  )}
                                 </div>
                               </div>
                               <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
@@ -1693,9 +1699,52 @@ export default function RoomSelection() {
             )}
           </div>
           {totalSelectedRoomsCount > 0 && (
-            <Link href="/payment">
-              <Button className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg">Hoàn tất</Button>
-            </Link>
+            <Button
+              className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg"
+              onClick={() => {
+                const selectedRoomsData = bookings
+                  .map((booking) => {
+                    const roomsInBooking = Object.entries(booking.roomQuantities)
+                      .filter(([, quantity]) => quantity > 0)
+                      .map(([roomId, quantity]) => {
+                        const roomDetail = rooms.find((r) => r.id === roomId)
+                        return roomDetail
+                          ? {
+                              id: roomDetail.id,
+                              name: roomDetail.name,
+                              price: roomDetail.price,
+                              quantity: quantity,
+                              policies: booking.roomPolicies[roomId],
+                            }
+                          : null
+                      })
+                      .filter(Boolean) // Filter out nulls
+
+                    const bookingTotalPrice = roomsInBooking.reduce(
+                      (sum, room) => sum + (room?.price || 0) * (room?.quantity || 0),
+                      0,
+                    )
+
+                    return {
+                      id: booking.id,
+                      rooms: roomsInBooking,
+                      bookingTotalPrice: bookingTotalPrice,
+                      checkInDate: selectedBookingStartDate
+                        ? format(selectedBookingStartDate, "EEEE, dd 'tháng' MM, yyyy", { locale: vi })
+                        : "",
+                      checkOutDate: selectedBookingEndDate
+                        ? format(selectedBookingEndDate, "EEEE, dd 'tháng' MM, yyyy", { locale: vi })
+                        : "",
+                    }
+                  })
+                  .filter((b) => b.rooms.length > 0) // Only include bookings with selected rooms
+
+                localStorage.setItem("currentBookings", JSON.stringify(selectedRoomsData))
+                router.push("/payment")
+              }}
+            >
+              Hoàn tất
+            </Button>
           )}
         </div>
       </div>
