@@ -266,7 +266,7 @@ export default function RoomSelection() {
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={{
         backgroundImage:
-          "url('https://w0.peakpx.com/wallpaper/668/873/HD-wallpaper-liquid-gradient-apple-blur-gradient-iphone-iphone-x-liquid.jpg')",
+          "url('/placeholder.svg?height=1080&width=1920')",
       }}
     >
       {/* Header */}
@@ -376,7 +376,7 @@ export default function RoomSelection() {
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <ImageComponent
-                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
+                          src="/placeholder.svg?height=400&width=300"
                           alt="Phòng Sơn Ca main image"
                           fill
                           className="object-cover"
@@ -386,7 +386,7 @@ export default function RoomSelection() {
                       <div className="col-span-2 grid grid-rows-2 gap-2">
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                           <ImageComponent
-                            src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp"
+                            src="/placeholder.svg?height=200&width=200"
                             alt="Phòng Sơn Ca secondary image 1"
                             fill
                             className="object-cover"
@@ -395,8 +395,8 @@ export default function RoomSelection() {
                         </div>
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                           <ImageComponent
-                            src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp"
-                            alt="Phòng Sơn Ca secondary image 1"
+                            src="/placeholder.svg?height=200&width=200"
+                            alt="Phòng Sơn Ca secondary image 2"
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 40vw, 200px"
@@ -408,12 +408,12 @@ export default function RoomSelection() {
                             onClick={() => {
                               setIsGalleryOpen(true)
                               setCurrentGalleryImages([
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496b5c0.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496c812.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp",
+                                "/placeholder.svg?height=400&width=300",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
                               ])
                             }}
                           >
@@ -705,7 +705,7 @@ export default function RoomSelection() {
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <ImageComponent
-                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
+                          src="/placeholder.svg?height=400&width=300"
                           alt="Phòng Nhật Bản main image"
                           fill
                           className="object-cover"
@@ -715,7 +715,7 @@ export default function RoomSelection() {
                       <div className="col-span-2 grid grid-rows-2 gap-2">
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                           <ImageComponent
-                            src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp"
+                            src="/placeholder.svg?height=200&width=200"
                             alt="Phòng Nhật Bản secondary image 1"
                             fill
                             className="object-cover"
@@ -724,8 +724,8 @@ export default function RoomSelection() {
                         </div>
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                           <ImageComponent
-                            src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
-                            alt="Phòng Nhật Bản secondary image 1"
+                            src="/placeholder.svg?height=200&width=200"
+                            alt="Phòng Nhật Bản secondary image 2"
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 40vw, 200px"
@@ -737,12 +737,12 @@ export default function RoomSelection() {
                             onClick={() => {
                               setIsGalleryOpen(true)
                               setCurrentGalleryImages([
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae95633.webp",
+                                "/placeholder.svg?height=400&width=300",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
                               ])
                             }}
                           >
@@ -1034,7 +1034,7 @@ export default function RoomSelection() {
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <ImageComponent
-                          src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp"}
+                          src={"/placeholder.svg?height=400&width=300&query=Phòng%20Mập%20Mờ%20main%20image"}
                           alt={"Phòng Mập Mờ main image"}
                           fill
                           className="object-cover"
@@ -1044,7 +1044,7 @@ export default function RoomSelection() {
                       <div className="col-span-2 grid grid-rows-2 gap-2">
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                           <ImageComponent
-                            src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e78b7b.webp"}
+                            src={"/placeholder.svg?height=200&width=200&query=Phòng%20Mập%20Mờ%20secondary%20image%201"}
                             alt={"Phòng Mập Mờ secondary image 1"}
                             fill
                             className="object-cover"
@@ -1053,7 +1053,7 @@ export default function RoomSelection() {
                         </div>
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                           <ImageComponent
-                            src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"}
+                            src={"/placeholder.svg?height=200&width=200&query=Phòng%20Mập%20Mờ%20secondary%20image%202"}
                             alt={"Phòng Mập Mờ secondary image 2"}
                             fill
                             className="object-cover"
@@ -1066,12 +1066,12 @@ export default function RoomSelection() {
                             onClick={() => {
                               setIsGalleryOpen(true)
                               setCurrentGalleryImages([
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e78b7b.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7f949.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp",
+                                "/placeholder.svg?height=400&width=300",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
                               ])
                             }}
                           >
@@ -1363,7 +1363,7 @@ export default function RoomSelection() {
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <ImageComponent
-                          src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"}
+                          src={"/placeholder.svg?height=400&width=300&query=Phòng%20Santorini%20main%20image"}
                           alt={"Phòng Santorini main image"}
                           fill
                           className="object-cover"
@@ -1373,7 +1373,7 @@ export default function RoomSelection() {
                       <div className="col-span-2 grid grid-rows-2 gap-2">
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                           <ImageComponent
-                            src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp"}
+                            src={"/placeholder.svg?height=200&width=200&query=Phòng%20Santorini%20secondary%20image%201"}
                             alt={"Phòng Santorini secondary image 1"}
                             fill
                             className="object-cover"
@@ -1382,7 +1382,7 @@ export default function RoomSelection() {
                         </div>
                         <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                           <ImageComponent
-                            src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp"}
+                            src={"/placeholder.svg?height=200&width=200&query=Phòng%20Santorini%20secondary%20image%202"}
                             alt={"Phòng Santorini secondary image 2"}
                             fill
                             className="object-cover"
@@ -1395,12 +1395,12 @@ export default function RoomSelection() {
                             onClick={() => {
                               setIsGalleryOpen(true)
                               setCurrentGalleryImages([
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1713150149_661c98c5d55b2.jpg",
-                                "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp",
+                                "/placeholder.svg?height=400&width=300",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
+                                "/placeholder.svg?height=200&width=200",
                               ])
                             }}
                           >
