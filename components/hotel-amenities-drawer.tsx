@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
-} from "@/components/ui/drawer"
+import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import {
   BedDouble,
   Bath,
@@ -20,8 +14,10 @@ import {
   Sparkles,
   ShowerHead,
   Droplets,
+  Smartphone,
+  Glasses,
 } from "lucide-react"
-import { ReactElement, cloneElement } from "react"
+import { type ReactElement, cloneElement } from "react"
 
 interface HotelAmenitiesDrawerProps {
   isOpen: boolean
@@ -29,11 +25,7 @@ interface HotelAmenitiesDrawerProps {
   hotelName: string
 }
 
-export default function HotelAmenitiesDrawer({
-  isOpen,
-  onClose,
-  hotelName,
-}: HotelAmenitiesDrawerProps) {
+export default function HotelAmenitiesDrawer({ isOpen, onClose, hotelName }: HotelAmenitiesDrawerProps) {
   // === Phân loại tiện ích (loại bỏ thuộc tính color không cần thiết) ===
   const amenitiesByCategory = [
     {
@@ -43,6 +35,7 @@ export default function HotelAmenitiesDrawer({
         { icon: <Snowflake />, label: "Điều hòa" },
         { icon: <Tv2 />, label: "Smart TV" },
         { icon: <Sparkles />, label: "Dọn phòng" },
+        { icon: <Glasses />, label: "Apple Liquid Glass" },
       ],
     },
     {
@@ -68,39 +61,35 @@ export default function HotelAmenitiesDrawer({
         { icon: <FireExtinguisher />, label: "PCCC" },
       ],
     },
+    {
+      category: "Công nghệ cao cấp",
+      items: [
+        { icon: <Glasses />, label: "Apple Liquid Glass" },
+        { icon: <Smartphone />, label: "Điều khiển phòng thông minh" },
+      ],
+    },
   ]
 
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-white">
-        
-
         {/* Nội dung tiện ích với layout mới */}
         <div className="flex-1 overflow-y-auto p-6">
           <div className="space-y-8">
             {amenitiesByCategory.map((category) => (
               <div key={category.category}>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                  {category.category}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">{category.category}</h3>
                 {/* Thay đổi grid-cols để hiển thị nhiều item hơn trên một hàng */}
                 <div className="grid grid-cols-4 gap-x-4 gap-y-6">
                   {category.items.map((amenity) => (
                     // Thay đổi cấu trúc item sang flex-col để icon ở trên, text ở dưới
-                    <div
-                      key={amenity.label}
-                      className="flex flex-col items-center justify-start gap-2 text-center"
-                    >
+                    <div key={amenity.label} className="flex flex-col items-center justify-start gap-2 text-center">
                       {/* Vòng tròn đen bao quanh icon */}
-                      <div
-                        className="flex h-16 w-16 items-center justify-center rounded-full bg-black text-white"
-                      >
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black text-white">
                         {cloneIcon(amenity.icon)}
                       </div>
                       {/* Text bên dưới */}
-                      <span className="text-sm font-medium text-gray-700">
-                        {amenity.label}
-                      </span>
+                      <span className="text-sm font-medium text-gray-700">{amenity.label}</span>
                     </div>
                   ))}
                 </div>
