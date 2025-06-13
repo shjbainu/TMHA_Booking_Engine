@@ -376,7 +376,7 @@ export default function RoomSelection() {
                     <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                       <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                         <ImageComponent
-                          src="/placeholder.svg?height=400&width=300"
+                          src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
                           alt="Phòng Sơn Ca main image"
                           fill
                           className="object-cover"
