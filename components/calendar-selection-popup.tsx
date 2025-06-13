@@ -467,7 +467,7 @@ export default function CalendarSelectionPopup({
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold">Hiển thị 308 kết quả</div>
+                
                 <div className="text-xs text-gray-500">Giá trên lịch hiển thị theo đơn vị VND</div>
               </div>
               <Button
