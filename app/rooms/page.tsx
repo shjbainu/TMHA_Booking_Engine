@@ -1,14 +1,29 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { ArrowLeft, Plus, Users, Bed, Wifi, Trash2, Loader, Check, ImageIcon, Building } from "lucide-react"
+import {
+  ArrowLeft,
+  Plus,
+  Users,
+  Bed,
+  Wifi,
+  Trash2,
+  Loader,
+  Check,
+  CalendarDays,
+  ImageIcon,
+  Building,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { rooms } from "@/lib/data"
 import ImageComponent from "next/image"
+import CalendarSelectionPopup from "@/components/calendar-selection-popup"
 import { format } from "date-fns"
 import { vi } from "date-fns/locale"
+import ImageGalleryModal from "@/components/image-gallery-modal"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import HotelIntroDrawer from "@/components/hotel-intro-drawer"
 import { useRouter } from "next/navigation"
 
 // Define a type for a single booking
@@ -23,9 +38,9 @@ interface Booking {
 
 export default function RoomSelection() {
   const router = useRouter()
-  const defaultStartDate = new Date(2025, 3, 25);
-  const defaultEndDate = new Date(2025, 3, 27);
-  
+  const defaultStartDate = new Date(2025, 3, 25)
+  const defaultEndDate = new Date(2025, 3, 27)
+
   const [bookings, setBookings] = useState<Booking[]>([
     {
       id: "booking-1",
@@ -46,18 +61,18 @@ export default function RoomSelection() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [currentGalleryImages, setCurrentGalleryImages] = useState<string[]>([])
   const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
-  const [activeBookingId, setActiveBookingId] = useState<string>("booking-1");
+  const [activeBookingId, setActiveBookingId] = useState<string>("booking-1")
 
   const hotelName = "69 Boutique by Minova"
   const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
 
   // Get the active booking
   const activeBooking = useMemo(() => {
-    return bookings.find(booking => booking.id === activeBookingId) || bookings[0];
-  }, [bookings, activeBookingId]);
+    return bookings.find((booking) => booking.id === activeBookingId) || bookings[0]
+  }, [bookings, activeBookingId])
 
   const handleAddBooking = () => {
-    const newBookingId = `booking-${bookings.length + 1}`;
+    const newBookingId = `booking-${bookings.length + 1}`
     setBookings((prev) => [
       ...prev,
       {
@@ -71,26 +86,26 @@ export default function RoomSelection() {
         startDate: defaultStartDate,
         endDate: defaultEndDate,
       },
-    ]);
-    setActiveBookingId(newBookingId);
-    setIsCalendarPopupOpen(true);
-  };
+    ])
+    setActiveBookingId(newBookingId)
+    setIsCalendarPopupOpen(true)
+  }
 
   const handleRemoveBooking = (bookingId: string) => {
     if (bookings.length === 1) {
-      return;
+      return
     }
-    
+
     setBookings((prev) => {
-      const updatedBookings = prev.filter((booking) => booking.id !== bookingId);
-      return updatedBookings;
-    });
-    
+      const updatedBookings = prev.filter((booking) => booking.id !== bookingId)
+      return updatedBookings
+    })
+
     // If we're removing the active booking, select the first available booking
     if (activeBookingId === bookingId) {
-      setActiveBookingId(bookings.find(b => b.id !== bookingId)?.id || "booking-1");
+      setActiveBookingId(bookings.find((b) => b.id !== bookingId)?.id || "booking-1")
     }
-  };
+  }
 
   const handleRoomExpand = (bookingId: string, roomId: string) => {
     setBookings((prevBookings) =>
@@ -215,7 +230,7 @@ export default function RoomSelection() {
       ])
       setIncludeBreakfastFilter(false)
       setFreeCancellationFilter(false)
-      setActiveBookingId("booking-1");
+      setActiveBookingId("booking-1")
     }, 2000)
   }
 
@@ -236,28 +251,29 @@ export default function RoomSelection() {
   }, [bookings])
 
   const handleApplyDates = (startDate: Date | null, endDate: Date | null) => {
-    setBookings(prevBookings => 
-      prevBookings.map(booking => {
+    setBookings((prevBookings) =>
+      prevBookings.map((booking) => {
         if (booking.id === activeBookingId) {
           return {
             ...booking,
             startDate,
-            endDate
-          };
+            endDate,
+          }
         }
-        return booking;
-      })
-    );
-    setIsCalendarPopupOpen(false);
+        return booking
+      }),
+    )
+    setIsCalendarPopupOpen(false)
   }
 
   const displayDateRange = useMemo(() => {
-    if (!activeBooking) return (
-      <>
-        <span className="text-sm text-[#0a0a0a]">Chọn ngày</span>
-        <span className="text-xs text-[#999999]"></span>
-      </>
-    );
+    if (!activeBooking)
+      return (
+        <>
+          <span className="text-sm text-[#0a0a0a]">Chọn ngày</span>
+          <span className="text-xs text-[#999999]"></span>
+        </>
+      )
 
     if (activeBooking.startDate && activeBooking.endDate) {
       const diffTime = Math.abs(activeBooking.endDate.getTime() - activeBooking.startDate.getTime())
@@ -1254,4 +1270,214 @@ export default function RoomSelection() {
                         <div className="space-y-4 pt-2">
                           {/* Breakfast Policy */}
                           <div>
-                            <h4 className="font-medium text-[#0a0\
+                            <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách ăn sáng</h4>
+                            <div className="space-y-2">
+                              <div
+                                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                    ? "border-blue-500 bg-blue-50"
+                                    : "border-gray-200 bg-white"
+                                }`}
+                                onClick={() =>
+                                  updatePolicy(
+                                    booking.id,
+                                    room.id,
+                                    "breakfast",
+                                    booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                      ? null
+                                      : "Bao gồm bữa sáng",
+                                  )
+                                }
+                              >
+                                <div className="relative">
+                                  <div
+                                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                      booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng"
+                                        ? "bg-blue-500 border-blue-500 shadow-sm"
+                                        : "border-gray-300"
+                                    }`}
+                                  >
+                                    {booking.roomPolicies[room.id]?.breakfast === "Bao gồm bữa sáng" && (
+                                      <Check className="w-3 h-3 text-white" />
+                                    )}
+                                  </div>
+                                </div>
+                                <span className="text-sm text-[#0a0a0a]">Bao gồm bữa sáng</span>
+                              </div>
+                              <div
+                                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                                  booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                    ? "border-blue-500 bg-blue-50"
+                                    : "border-gray-200 bg-white"
+                                }`}
+                                onClick={() =>
+                                  updatePolicy(
+                                    booking.id,
+                                    room.id,
+                                    "breakfast",
+                                    booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                      ? null
+                                      : "Không gồm bữa sáng",
+                                  )
+                                }
+                              >
+                                <div className="relative">
+                                  <div
+                                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                      booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng"
+                                        ? "bg-blue-500 border-blue-500 shadow-sm"
+                                        : "border-gray-300"
+                                    }`}
+                                  >
+                                    {booking.roomPolicies[room.id]?.breakfast === "Không gồm bữa sáng" && (
+                                      <Check className="w-3 h-3 text-white" />
+                                    )}
+                                  </div>
+                                </div>
+                                <span className="text-sm text-[#0a0a0a]">Không gồm bữa sáng</span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* Cancellation Policy */}
+                          <div>
+                            <h4 className="font-medium text-[#0a0a0a] mb-3">Chính sách hủy</h4>
+                            <div className="space-y-2">
+                              <div
+                                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                    ? "border-blue-500 bg-blue-50"
+                                    : "border-gray-200 bg-white"
+                                }`}
+                                onClick={() =>
+                                  updatePolicy(
+                                    booking.id,
+                                    room.id,
+                                    "cancellation",
+                                    booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                      ? null
+                                      : "Hủy miễn phí trước 15/06/2025",
+                                  )
+                                }
+                              >
+                                <div className="relative">
+                                  <div
+                                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                      booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025"
+                                        ? "bg-blue-500 border-blue-500 shadow-sm"
+                                        : "border-gray-300"
+                                    }`}
+                                  >
+                                    {booking.roomPolicies[room.id]?.cancellation === "Hủy miễn phí trước 15/06/2025" && (
+                                      <Check className="w-3 h-3 text-white" />
+                                    )}
+                                  </div>
+                                </div>
+                                <span className="text-sm text-[#0a0a0a]">Hủy miễn phí trước 15/06/2025</span>
+                              </div>
+                              <div
+                                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer ${
+                                  booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                    ? "border-blue-500 bg-blue-50"
+                                    : "border-gray-200 bg-white"
+                                }`}
+                                onClick={() =>
+                                  updatePolicy(
+                                    booking.id,
+                                    room.id,
+                                    "cancellation",
+                                    booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                      ? null
+                                      : "Không hoàn tiền",
+                                  )
+                                }
+                              >
+                                <div className="relative">
+                                  <div
+                                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                      booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền"
+                                        ? "bg-blue-500 border-blue-500 shadow-sm"
+                                        : "border-gray-300"
+                                    }`}
+                                  >
+                                    {booking.roomPolicies[room.id]?.cancellation === "Không hoàn tiền" && (
+                                      <Check className="w-3 h-3 text-white" />
+                                    )}
+                                  </div>
+                                </div>
+                                <span className="text-sm text-[#0a0a0a]">Không hoàn tiền</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )
+              })()}
+            </div>
+          ))
+        }
+      </div>
+
+      {/* Bottom Summary */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-500">Tổng cộng</span>
+            <span className="text-xl font-bold text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</span>
+          </div>
+          <Button
+            className="bg-[#0a0a0a] hover:bg-[#000000] text-white px-6 py-2 rounded-full text-sm font-medium"
+            onClick={() => router.push("/payment")}
+            disabled={totalSelectedRoomsCount === 0}
+          >
+            Tiếp tục\
+          </Button>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Button variant="outline"
+              size="icon"
+              className="h-10 w-10 rounded-full border border-gray-300"
+              onClick={() => setIsCalendarPopupOpen(true)}
+            >
+              <CalendarDays className="h-5 w-5 text-[#0a0a0a]" />
+            </Button>
+            <div className="flex flex-col">{displayDateRange}</div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-[#0a0a0a]">{hotelName}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Calendar Popup */}
+      {isCalendarPopupOpen && (
+        <CalendarSelectionPopup
+          onClose={() => setIsCalendarPopupOpen(false)}
+          onApply={handleApplyDates}
+          initialStartDate={activeBooking?.startDate || defaultStartDate}
+          initialEndDate={activeBooking?.endDate || defaultEndDate}
+          bookingId={activeBookingId}
+        />
+      )}
+
+      {/* Image Gallery Modal */}
+      {isGalleryOpen && (
+        <ImageGalleryModal
+          images={currentGalleryImages}
+          onClose={() => setIsGalleryOpen(false)}
+        />
+      )}
+
+      {/* Hotel Intro Drawer */}
+      {isHotelIntroDrawerOpen && (
+        <HotelIntroDrawer
+          hotelName={hotelName}
+          hotelAddress={hotelAddress}
+          onClose={() => setIsHotelIntroDrawerOpen(false)}
+        />
+      )}
+    </div>
+  )
+}
