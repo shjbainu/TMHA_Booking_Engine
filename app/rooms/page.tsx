@@ -50,7 +50,7 @@ export default function RoomSelection() {
   const [isLoading, setIsLoading] = useState(false)
   const [includeBreakfastFilter, setIncludeBreakfastFilter] = useState(false)
   const [freeCancellationFilter, setFreeCancellationFilter] = useState(false)
-  const [isCalendarPopupOpen, setIsCalendarPopupOpen] = useState(false)
+  const [isCalendarPopupOpen, setIsCalendarPopupOpen] = useState(true)
   const [selectedBookingStartDate, setSelectedBookingStartDate] = useState<Date | null>(new Date(2025, 3, 25))
   const [selectedBookingEndDate, setSelectedBookingEndDate] = useState<Date | null>(new Date(2025, 3, 27))
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)

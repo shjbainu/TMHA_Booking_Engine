@@ -13,7 +13,6 @@ import { paymentMethods } from "@/lib/data"
 import { VisaPaymentPopup } from "@/components/popups/VisaPaymentPopup"
 import { MomoPaymentPopup } from "@/components/popups/MomoPaymentPopup"
 import { CancellationPolicyDrawer } from "@/components/cancellation-policy-drawer"
-import { processPayment } from "@/lib/actions/payment.action"
 
 export default function Payment() {
   const router = useRouter() // Khởi tạo router
@@ -91,41 +90,6 @@ export default function Payment() {
     console.log("Payment confirmed, navigating to confirmation page...")
     setActivePopup(null) // Đóng popup
     router.push("/confirmation") // Chuyển trang đến trang xác nhận
-  }
-
-  // Inside your handleFinalizePayment or a new function for payment submission
-  const handlePaymentSubmission = async () => {
-    if (!selectedPayment || !customer.name || !customer.phone || !customer.email) {
-      alert("Vui lòng điền đầy đủ thông tin khách hàng và chọn phương thức thanh toán!")
-      return
-    }
-
-    // Prepare payment details from your state (currentBookings, totalAmount, customer)
-    const paymentDetails = {
-      amount: Number.parseFloat(totalAmount.replace(/\./g, "").replace("đ", "")), // Convert "3.234.000đ" to 3234000
-      currency: "VND",
-      orderId: `ORDER-${Date.now()}`, // Generate a unique order ID
-      customerName: customer.name,
-      customerEmail: customer.email,
-      // ... other details like selected rooms, check-in/out dates
-    }
-
-    try {
-      // Call the Server Action
-      const result = await processPayment(paymentDetails)
-
-      if (result && !result.success) {
-        alert(`Lỗi thanh toán: ${result.message}`)
-      }
-      // If result.redirectUrl was returned, the Server Action would have already redirected.
-      // If it's a direct success, you can navigate to confirmation here.
-      if (result && result.success && !result.redirectUrl) {
-        router.push("/confirmation")
-      }
-    } catch (error) {
-      console.error("Error during payment submission:", error)
-      alert("Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại.")
-    }
   }
 
   return (
@@ -322,7 +286,7 @@ export default function Payment() {
         </div>
 
         <Button
-          onClick={handlePaymentSubmission}
+          onClick={handlePaymentConfirmation}
           className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg h-12"
         >
           Xác nhận & thanh toán
