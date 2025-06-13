@@ -13,7 +13,7 @@ interface ShareOptionsPopupProps {
   shareTitle: string
 }
 
-export function ShareOptionsPopup({ isOpen, onClose, shareUrl, shareTitle }: ShareOptionsPopupProps) {
+export default function ShareOptionsPopup({ isOpen, onClose, shareUrl, shareTitle }: ShareOptionsPopupProps) {
   const encodedShareUrl = useMemo(() => encodeURIComponent(shareUrl), [shareUrl])
   const encodedShareTitle = useMemo(() => encodeURIComponent(shareTitle), [shareTitle])
 

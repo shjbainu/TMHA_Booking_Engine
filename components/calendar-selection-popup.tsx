@@ -16,6 +16,9 @@ import {
 } from "date-fns"
 import { vi } from "date-fns/locale"
 
+// --- (Toàn bộ phần code còn lại giữ nguyên như trước) ---
+// ...
+
 interface CalendarSelectionPopupProps {
   isOpen: boolean
   onClose: () => void
@@ -212,11 +215,7 @@ export default function CalendarSelectionPopup({
     ],
   )
 
-  // =========================================================================
-  // BẮT ĐẦU THAY ĐỔI
-  // =========================================================================
   const selectedRangeText = useMemo(() => {
-    // KHI CHƯA CHỌN NGÀY NÀO, HIỂN THỊ THÔNG BÁO
     if (!selectedStartDate) {
       return (
         <div className="flex items-center justify-center w-full">
@@ -224,8 +223,6 @@ export default function CalendarSelectionPopup({
         </div>
       )
     }
-
-    // XỬ LÝ KHI ĐANG Ở TAB "THEO GIỜ"
     if (activeTab === "hour" && selectedStartDate) {
       const [startHour, startMinute] = checkInTime.split(":").map(Number)
       const endHour = startHour + hoursOfUse
@@ -247,8 +244,6 @@ export default function CalendarSelectionPopup({
         </div>
       )
     }
-
-    // XỬ LÝ KHI Ở TAB "THEO NGÀY" HOẶC "QUA ĐÊM" VÀ ĐÃ CHỌN ĐỦ NGÀY
     if ((activeTab === "day" || activeTab === "overnight") && selectedStartDate && selectedEndDate) {
       const diffInDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24))
       const diffText = activeTab === "day" ? `(${diffInDays + 1} ngày)` : `(${diffInDays} đêm)`
@@ -269,14 +264,8 @@ export default function CalendarSelectionPopup({
         </div>
       )
     }
-
-    // Trường hợp khác (ví dụ: mới chọn ngày nhận phòng nhưng chưa chọn ngày trả phòng)
-    // thì sẽ không hiển thị gì, chờ người dùng chọn tiếp.
-    return null
+    return null // Should not be reached if logic is correct
   }, [activeTab, selectedStartDate, selectedEndDate, checkInTime, hoursOfUse])
-  // =========================================================================
-  // KẾT THÚC THAY ĐỔI
-  // =========================================================================
 
   const handleApplyClick = () => {
     onApply(selectedStartDate, selectedEndDate)
@@ -315,9 +304,14 @@ export default function CalendarSelectionPopup({
             {selectedRangeText}
           </div>
 
+          {/* ========================================================================= */}
+          {/* KHỐI DROPDOWN ĐÃ BỊ XÓA KHỎI ĐÂY */}
+          {/* ========================================================================= */}
+
           <div className="flex-1 overflow-y-auto pb-32">
             {activeTab === "hour" ? (
               <div className="px-2">
+                {/* Phần lịch và điều hướng tuần */}
                 <div className="flex items-center justify-between mb-3 px-2">
                   <Button variant="ghost" size="icon" onClick={handlePrevWeek} disabled={currentWeekIndex === 0}>
                     <ChevronLeft className="h-5 w-5" />
@@ -360,6 +354,9 @@ export default function CalendarSelectionPopup({
                   })}
                 </div>
 
+                {/* ========================================================================= */}
+                {/* THAY ĐỔI: Khối dropdown được di chuyển xuống đây */}
+                {/* ========================================================================= */}
                 <div className="mt-8">
                   <div className="flex items-center gap-4">
                     <div className="flex-1">
@@ -398,8 +395,10 @@ export default function CalendarSelectionPopup({
                     </div>
                   </div>
                 </div>
+                {/* ========================================================================= */}
               </div>
             ) : (
+              // Phần lịch theo tháng (giữ nguyên)
               <div className="space-y-4">
                 {monthsToDisplay.map((monthDate, monthIndex) => {
                   const year = monthDate.getFullYear()
