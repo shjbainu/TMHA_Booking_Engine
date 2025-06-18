@@ -277,7 +277,7 @@ export default function RoomSelection() {
     <div
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={{
-        backgroundImage: "linear-gradient(to bottom right, #c6ffdd, #fbd786, #f7797d)",
+        backgroundImage: "linear-gradient( #c6ffdd, #fbd786, #f7797d)",
       }}
     >
       {/* Header */}
