@@ -439,11 +439,11 @@ export default function RoomSelection() {
                                 setIsGalleryOpen(true)
                                 setCurrentGalleryImages([
                                   "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae89e19.webp",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9c480.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae95633.webp",
                                 ])
                               }}
                             >
