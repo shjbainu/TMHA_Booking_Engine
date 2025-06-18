@@ -438,7 +438,7 @@ export default function RoomSelection() {
                               onClick={() => {
                                 setIsGalleryOpen(true)
                                 setCurrentGalleryImages([
-                                  "/placeholder.svg?height=400&width=300",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae89e19.webp",
                                   "/placeholder.svg?height=200&width=200",
                                   "/placeholder.svg?height=200&width=200",
                                   "/placeholder.svg?height=200&width=200",
