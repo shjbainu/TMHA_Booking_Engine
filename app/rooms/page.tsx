@@ -1394,7 +1394,7 @@ export default function RoomSelection() {
                       <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                         <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                           <ImageComponent
-                            src={"/placeholder.svg?height=400&width=300&query=Phòng%20Santorini%20main%20image"}
+                            src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"}
                             alt={"Phòng Santorini main image"}
                             fill
                             className="object-cover"
@@ -1404,7 +1404,7 @@ export default function RoomSelection() {
                         <div className="col-span-2 grid grid-rows-2 gap-2">
                           <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                             <ImageComponent
-                              src={"/placeholder.svg?height=200&width=200&query=Phòng%20Santorini%20secondary%20image%201"}
+                              src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1713150149_661c98c5d55b2.jpg"}
                               alt={"Phòng Santorini secondary image 1"}
                               fill
                               className="object-cover"
@@ -1413,7 +1413,7 @@ export default function RoomSelection() {
                           </div>
                           <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                             <ImageComponent
-                              src={"/placeholder.svg?height=200&width=200&query=Phòng%20Santorini%20secondary%20image%202"}
+                              src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp"}
                               alt={"Phòng Santorini secondary image 2"}
                               fill
                               className="object-cover"
@@ -1426,12 +1426,12 @@ export default function RoomSelection() {
                               onClick={() => {
                                 setIsGalleryOpen(true)
                                 setCurrentGalleryImages([
-                                  "/placeholder.svg?height=400&width=300",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4d43b.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e5038c.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e518f1.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1713150150_661c98c601b72.jpg",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1713150150_661c98c6274e9.jpg",
                                 ])
                               }}
                             >
