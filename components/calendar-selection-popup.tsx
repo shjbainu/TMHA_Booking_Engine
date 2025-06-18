@@ -232,7 +232,17 @@ export default function CalendarSelectionPopup({
 
     if ((activeTab === "day" || activeTab === "overnight") && selectedStartDate && selectedEndDate) {
       const diffInDays = Math.round((selectedEndDate.getTime() - selectedStartDate.getTime()) / (1000 * 60 * 60 * 24))
-      const diffText = activeTab === "day" ? `(${diffInDays + 1} ngày)` : `(${diffInDays} đêm)`
+      let diffText
+      if (activeTab === "day") {
+        if (isSameDay(selectedStartDate, selectedEndDate)) {
+          diffText = "(1 ngày)"
+        } else {
+          diffText = `(${diffInDays} ngày)`
+        }
+      } else {
+        // overnight
+        diffText = `(${diffInDays} đêm)`
+      }
       const renderDateBlock = (date: Date) => (
         <div className="flex items-center gap-2">
           <div className="text-4xl font-bold">{format(date, "d")}</div>
@@ -252,7 +262,7 @@ export default function CalendarSelectionPopup({
     }
 
     return null
-  }, [activeTab, selectedStartDate, selectedEndDate, checkInTime, hoursOfUse])
+  }, [activeTab, selectedStartDate, selectedEndDate, checkInTime, hoursOfUse, isSameDay])
 
   const handleApplyClick = () => {
     onApply(selectedStartDate, selectedEndDate, activeTab, checkInTime, hoursOfUse)

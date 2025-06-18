@@ -19,7 +19,7 @@ import Link from "next/link"
 import { rooms } from "@/lib/data"
 import ImageComponent from "next/image"
 import CalendarSelectionPopup from "@/components/calendar-selection-popup"
-import { format } from "date-fns"
+import { format, isSameDay } from "date-fns"
 import { vi } from "date-fns/locale"
 import ImageGalleryModal from "@/components/image-gallery-modal"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -254,9 +254,14 @@ export default function RoomSelection() {
 
         let roomPrice = 0
         if (booking.bookingType === "day" && booking.startDate && booking.endDate) {
-          const diffTime = Math.abs(booking.endDate.getTime() - booking.startDate.getTime())
-          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1
-          roomPrice = room.pricing.daily * diffDays
+          let durationDays
+          if (isSameDay(booking.startDate, booking.endDate)) {
+            durationDays = 1
+          } else {
+            const diffTime = Math.abs(booking.endDate.getTime() - booking.startDate.getTime())
+            durationDays = Math.round(diffTime / (1000 * 60 * 60 * 24))
+          }
+          roomPrice = room.pricing.daily * durationDays
         } else if (booking.bookingType === "overnight" && booking.startDate && booking.endDate) {
           const diffTime = Math.abs(booking.endDate.getTime() - booking.startDate.getTime())
           const diffNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) // Nights = days between start and end
@@ -334,9 +339,19 @@ export default function RoomSelection() {
         </>
       )
     } else if (activeBooking.startDate && activeBooking.endDate) {
-      const diffTime = Math.abs(activeBooking.endDate.getTime() - activeBooking.startDate.getTime())
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1
-      const diffNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+      let duration
+      if (activeBooking.bookingType === "day") {
+        if (isSameDay(activeBooking.startDate, activeBooking.endDate)) {
+          duration = 1
+        } else {
+          const diffTime = Math.abs(activeBooking.endDate.getTime() - activeBooking.startDate.getTime())
+          duration = Math.round(diffTime / (1000 * 60 * 60 * 24))
+        }
+      } else {
+        // overnight
+        const diffTime = Math.abs(activeBooking.endDate.getTime() - activeBooking.startDate.getTime())
+        duration = Math.round(diffTime / (1000 * 60 * 60 * 24))
+      }
       return (
         <>
           <span className="text-sm text-[#0a0a0a]">
@@ -344,7 +359,7 @@ export default function RoomSelection() {
             {format(activeBooking.endDate, "dd/MM", { locale: vi })}
           </span>
           <span className="text-xs text-[#999999]">
-            {activeBooking.bookingType === "day" ? `${diffDays} ngày` : `${diffNights} đêm`}
+            {activeBooking.bookingType === "day" ? `${duration} ngày` : `${duration} đêm`}
           </span>
         </>
       )
@@ -621,9 +636,7 @@ export default function RoomSelection() {
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">
-                              Giá từ 275.000đ
-                            </span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 275.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -958,9 +971,7 @@ export default function RoomSelection() {
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">
-                              Giá từ 350.000đ
-                            </span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 350.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -1294,9 +1305,7 @@ export default function RoomSelection() {
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">
-                              Giá từ 275.000đ
-                            </span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 275.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -1630,9 +1639,7 @@ export default function RoomSelection() {
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">
-                              Giá từ 500.000đ
-                            </span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 500.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -1888,9 +1895,14 @@ export default function RoomSelection() {
 
                         let roomPrice = 0
                         if (booking.bookingType === "day" && booking.startDate && booking.endDate) {
-                          const diffTime = Math.abs(booking.endDate.getTime() - booking.startDate.getTime())
-                          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1
-                          roomPrice = room.pricing.daily * diffDays
+                          let durationDays
+                          if (isSameDay(booking.startDate, booking.endDate)) {
+                            durationDays = 1
+                          } else {
+                            const diffTime = Math.abs(booking.endDate.getTime() - booking.startDate.getTime())
+                            durationDays = Math.round(diffTime / (1000 * 60 * 60 * 24))
+                          }
+                          roomPrice = room.pricing.daily * durationDays
                         } else if (booking.bookingType === "overnight" && booking.startDate && booking.endDate) {
                           const diffTime = Math.abs(booking.endDate.getTime() - booking.startDate.getTime())
                           const diffNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
