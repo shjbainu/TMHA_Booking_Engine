@@ -735,7 +735,7 @@ export default function RoomSelection() {
                       <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                         <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                           <ImageComponent
-                            src="/placeholder.svg?height=400&width=300"
+                            src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
                             alt="Phòng Nhật Bản main image"
                             fill
                             className="object-cover"
@@ -745,7 +745,7 @@ export default function RoomSelection() {
                         <div className="col-span-2 grid grid-rows-2 gap-2">
                           <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                             <ImageComponent
-                              src="/placeholder.svg?height=200&width=200"
+                              src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae95633.webp"
                               alt="Phòng Nhật Bản secondary image 1"
                               fill
                               className="object-cover"
@@ -754,7 +754,7 @@ export default function RoomSelection() {
                           </div>
                           <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                             <ImageComponent
-                              src="/placeholder.svg?height=200&width=200"
+                              src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
                               alt="Phòng Nhật Bản secondary image 2"
                               fill
                               className="object-cover"
@@ -767,13 +767,13 @@ export default function RoomSelection() {
                               onClick={() => {
                                 setIsGalleryOpen(true)
                                 setCurrentGalleryImages([
-                                  "/placeholder.svg?height=400&width=300",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae89e19.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9c480.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp",
                                 ])
                               }}
                             >
