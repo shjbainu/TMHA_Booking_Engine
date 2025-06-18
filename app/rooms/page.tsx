@@ -438,12 +438,12 @@ export default function RoomSelection() {
                               onClick={() => {
                                 setIsGalleryOpen(true)
                                 setCurrentGalleryImages([
-                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae89e19.webp",
-                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp",
-                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp",
-                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp",
-                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9c480.webp",
-                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae95633.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496b5c0.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496c812.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab074968e9e.webp",
                                 ])
                               }}
                             >
