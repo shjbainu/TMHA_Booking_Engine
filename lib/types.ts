@@ -7,8 +7,15 @@ export interface Room {
   area: string
   guests: number
   rooms: number
-  price: number
   images: string[]
+  pricing: {
+    daily: number
+    overnight: number
+    hourly: {
+      baseRate2Hours: number
+      additionalPerHour: number
+    }
+  }
 }
 
 export interface Booking {

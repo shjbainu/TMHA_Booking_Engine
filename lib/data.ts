@@ -10,7 +10,14 @@ export const rooms: Room[] = [
     area: "30m2",
     guests: 3,
     rooms: 3,
-    price: 500000,
+    pricing: {
+      daily: 700000,
+      overnight: 450000,
+      hourly: {
+        baseRate2Hours: 275000,
+        additionalPerHour: 50000,
+      },
+    },
     images: ["/placeholder.svg?height=200&width=300"],
   },
   {
@@ -22,7 +29,14 @@ export const rooms: Room[] = [
     area: "30m2",
     guests: 3,
     rooms: 3,
-    price: 500000,
+    pricing: {
+      daily: 800000,
+      overnight: 500000,
+      hourly: {
+        baseRate2Hours: 350000,
+        additionalPerHour: 50000,
+      },
+    },
     images: ["/placeholder.svg?height=200&width=300"],
   },
   {
@@ -34,7 +48,14 @@ export const rooms: Room[] = [
     area: "30m2",
     guests: 3,
     rooms: 3,
-    price: 500000,
+    pricing: {
+      daily: 700000,
+      overnight: 450000,
+      hourly: {
+        baseRate2Hours: 275000,
+        additionalPerHour: 50000,
+      },
+    },
     images: ["/placeholder.svg?height=200&width=300"],
   },
   {
@@ -46,7 +67,14 @@ export const rooms: Room[] = [
     area: "30m2",
     guests: 3,
     rooms: 3,
-    price: 500000,
+    pricing: {
+      daily: 1000000,
+      overnight: 700000,
+      hourly: {
+        baseRate2Hours: 500000,
+        additionalPerHour: 50000,
+      },
+    },
     images: ["/placeholder.svg?height=200&width=300"],
   },
 ]
