@@ -1065,7 +1065,7 @@ export default function RoomSelection() {
                       <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                         <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                           <ImageComponent
-                            src={"/placeholder.svg?height=400&width=300&query=Phòng%20Mập%20Mờ%20main%20image"}
+                            src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp"}
                             alt={"Phòng Mập Mờ main image"}
                             fill
                             className="object-cover"
@@ -1075,7 +1075,7 @@ export default function RoomSelection() {
                         <div className="col-span-2 grid grid-rows-2 gap-2">
                           <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
                             <ImageComponent
-                              src={"/placeholder.svg?height=200&width=200&query=Phòng%20Mập%20Mờ%20secondary%20image%201"}
+                              src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e78b7b.webp"}
                               alt={"Phòng Mập Mờ secondary image 1"}
                               fill
                               className="object-cover"
@@ -1084,7 +1084,7 @@ export default function RoomSelection() {
                           </div>
                           <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400 shadow-sm flex items-center justify-center">
                             <ImageComponent
-                              src={"/placeholder.svg?height=200&width=200&query=Phòng%20Mập%20Mờ%20secondary%20image%202"}
+                              src={"https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"}
                               alt={"Phòng Mập Mờ secondary image 2"}
                               fill
                               className="object-cover"
@@ -1097,12 +1097,12 @@ export default function RoomSelection() {
                               onClick={() => {
                                 setIsGalleryOpen(true)
                                 setCurrentGalleryImages([
-                                  "/placeholder.svg?height=400&width=300",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
-                                  "/placeholder.svg?height=200&width=200",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7f949.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7cfea.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp",
+                                  "https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp",
                                 ])
                               }}
                             >
