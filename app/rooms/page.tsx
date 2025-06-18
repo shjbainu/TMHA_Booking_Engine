@@ -419,16 +419,6 @@ export default function RoomSelection() {
                 onClick={() => setActiveBookingId(booking.id)}
               >
                 BOOKING {index + 1}
-                {booking.startDate && booking.endDate && booking.bookingType !== "hour" && (
-                  <span className="ml-1 text-xs opacity-80">
-                    ({format(booking.startDate, "dd/MM")}-{format(booking.endDate, "dd/MM")})
-                  </span>
-                )}
-                {booking.startDate && booking.bookingType === "hour" && (
-                  <span className="ml-1 text-xs opacity-80">
-                    ({format(booking.startDate, "dd/MM")}, {booking.checkInTime})
-                  </span>
-                )}
               </Button>
               {bookings.length > 1 && (
                 <Button
