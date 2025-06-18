@@ -959,7 +959,7 @@ export default function RoomSelection() {
                         <div className="flex items-center justify-between mb-4">
                           <div>
                             <span className="text-lg font-semibold text-[#0a0a0a]">
-                              Giá từ 275.000đ
+                              Giá từ 350.000đ
                             </span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
@@ -1295,7 +1295,7 @@ export default function RoomSelection() {
                         <div className="flex items-center justify-between mb-4">
                           <div>
                             <span className="text-lg font-semibold text-[#0a0a0a]">
-                              Giá từ 500.000đ
+                              Giá từ 275.000đ
                             </span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
@@ -1631,7 +1631,7 @@ export default function RoomSelection() {
                         <div className="flex items-center justify-between mb-4">
                           <div>
                             <span className="text-lg font-semibold text-[#0a0a0a]">
-                              Giá từ {room.pricing.daily.toLocaleString()}đ
+                              Giá từ 500.000đ
                             </span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
