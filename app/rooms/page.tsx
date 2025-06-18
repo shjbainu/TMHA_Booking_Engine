@@ -277,7 +277,7 @@ export default function RoomSelection() {
     <div
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={background: #ff99c2;
-background: linear-gradient(355deg, rgba(255, 153, 194, 1) 0%, rgba(122, 184, 255, 1) 100%);}
+background: linear-gradient(355deg, rgba(255, 153, 194, 1) 0%, rgba(122, 184, 255, 1) 100%)}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100">
