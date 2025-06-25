@@ -8,7 +8,7 @@ interface CancellationPolicyDrawerProps {
   onClose: () => void
 }
 
-export function CancellationPolicyDrawer({ isOpen, onClose }: CancellationPolicyDrawerProps) {
+export default function CancellationPolicyDrawer({ isOpen, onClose }: CancellationPolicyDrawerProps) {
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
       <DrawerContent className="h-[90vh] flex flex-col">
@@ -23,26 +23,19 @@ export function CancellationPolicyDrawer({ isOpen, onClose }: CancellationPolicy
               trải nghiệm thuận tiện, minh bạch và phù hợp với nhu cầu khách hàng.
             </p>
             <div>
-              <h3 className="font-semibold text-base mb-1">Phòng Standard</h3>
-              <p>Chính sách áp dụng: Moderate Cancellation</p>
+              <h3 className="font-semibold text-base mb-1">Chính sách: Huỷ miễn phí trước 7 ngày</h3>
               <ul className="list-disc list-inside ml-4 space-y-1">
-                <li>Hoàn tiền 100% nếu hủy ít nhất 6 ngày trước ngày nhận phòng</li>
-                <li>Hoàn tiền 50% nếu hủy trong vòng 5 ngày</li>
-                <li>Không hoàn tiền nếu hủy trong vòng 1 ngày</li>
+                <li>Khách có thể hủy miễn phí cho đến 7 ngày trước ngày đến.</li>
+                <li>Khách sẽ bị tính toàn bộ giá trị đặt phòng nếu hủy trong vòng 7 ngày trước ngày đến.</li>
+                <li>Khách sẽ bị tính trước toàn bộ số tiền đặt phòng trong vòng 7 ngày trước ngày đến.</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-base mb-1">Phòng Luxury</h3>
-              <p>Chính sách áp dụng: Strict Cancellation</p>
+              <h3 className="font-semibold text-base mb-1">Chính sách: Không hoàn tiền</h3>
               <ul className="list-disc list-inside ml-4 space-y-1">
-                <li>Hoàn tiền 100% nếu hủy ít nhất 16 ngày trước ngày nhận phòng</li>
-                <li>Hoàn tiền 50% nếu hủy trong vòng 6-15 ngày</li>
-                <li>Không hoàn tiền nếu hủy trước 7 ngày</li>
+                <li>Khách sẽ bị tính toàn bộ giá trị đặt phòng nếu hủy vào bất kỳ thời điểm nào.</li>
+                <li>Khách sẽ bị thu trước toàn bộ số tiền đặt phòng vào bất kỳ thời điểm nào</li>
               </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-base mb-1">Phòng Vip</h3>
-              <p>Hoàn tiền trong mọi trường hợp sau khi đặt phòng</p>
             </div>
           </div>
         </ScrollArea>

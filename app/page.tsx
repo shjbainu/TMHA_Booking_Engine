@@ -10,7 +10,7 @@ import NearbyAmenitiesDrawer from "@/components/nearby-amenities-drawer" // Impo
 import LocalExplorationDrawer from "@/components/local-exploration-drawer" // Import new drawer
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { ShareOptionsPopup } from "@/components/popups/ShareOptionsPopup" // Import new popup
-import { ScrollIndicatorTooltip } from "@/components/scroll-indicator-tooltip"
+import ScrollIndicatorTooltip from "@/components/scroll-indicator-tooltip"
 
 export default function HotelPhotosPage() {
   const [isHotelIntroDrawerOpen, setIsHotelIntroDrawerOpen] = useState(false)
@@ -21,16 +21,17 @@ export default function HotelPhotosPage() {
   const [isMoreOptionsDialogOpen, setIsMoreOptionsDialogOpen] = useState(false)
   const [isShareOptionsPopupOpen, setIsShareOptionsPopupOpen] = useState(false) // New state for share popup
 
-  const hotelName = "69 Boutique by Minova"
-  const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
+  const hotelName = "The Mansion Hoi An by Minova"
+  const hotelAddress = "The Mansion Hội An"
 
-  const khongGianChungRef = useRef(null)
-  const phongSonCaRef = useRef(null)
-  const phongNhatBanRef = useRef(null)
-  const phongMapMoRef = useRef(null)
-  const phongSantoriniRef = useRef(null)
+  const khongGianChungRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
+  const phongSuperiorRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
+  const phongDeluxeRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
+  const phongStudioRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
+  const phongFamilyRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
+  const phongPremiumRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
 
-  const scrollToSection = (ref) => {
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
       ref.current.scrollIntoView({
         behavior: "smooth",
@@ -44,15 +45,16 @@ export default function HotelPhotosPage() {
       <ScrollIndicatorTooltip
         sections={[
           { id: "khong-gian-chung", ref: khongGianChungRef, label: "Không gian chung" },
-          { id: "phong-son-ca", ref: phongSonCaRef, label: "Phòng Sơn Ca" },
-          { id: "phong-nhat-ban", ref: phongNhatBanRef, label: "Phòng Nhật Bản" },
-          { id: "phong-map-mo", ref: phongMapMoRef, label: "Phòng Mập Mờ" },
-          { id: "phong-santorini", ref: phongSantoriniRef, label: "Phòng Santorini" },
+          { id: "phong-superior", ref: phongSuperiorRef, label: "Phòng Superior" },
+          { id: "phong-deluxe", ref: phongDeluxeRef, label: "Phòng Deluxe" },
+          { id: "phong-studio", ref: phongStudioRef, label: "Phòng Studio" },
+          { id: "phong-family", ref: phongFamilyRef, label: "Phòng Family" },
+          { id: "phong-premium", ref: phongPremiumRef, label: "Phòng Premium" },
         ]}
       />
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-white sticky top-0 z-10 border-b border-gray-200">
-        <h4 className="font-serif-display text-2xl font-bold text-gray-900">69 Boutique by Minova</h4>
+      <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
+        <h4 className="font-serif-display text-2xl font-bold text-gray-900">The Mansion Hoi An by Minova</h4>
         <div className="flex items-center">
           <Button
             variant="ghost"
@@ -63,10 +65,10 @@ export default function HotelPhotosPage() {
               window.open(mapUrl, "_blank")
             }}
           >
-            <Image src="/images/9tim.png" alt="Biểu tượng bản đồ" width={28} height={28} />
+            <Image src="fluent_location-24-regular.svg" alt="Biểu tượng bản đồ" width={30} height={30} />
           </Button>
           <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setIsShareOptionsPopupOpen(true)}>
-            <Image src="/images/9share.png" alt="Biểu tượng chia sẻ" width={28} height={28} />
+            <Image src="share.svg" alt="Biểu tượng chia sẻ" width={28} height={28} />
           </Button>
         </div>
       </div>
@@ -77,12 +79,12 @@ export default function HotelPhotosPage() {
         <div className="mb-6">
           <div className="overflow-x-auto scrollbar-hide">
             <div className="flex gap-3 pb-2 px-4">
-              {/* Ảnh 1: Resort */}
+              {/* Ảnh 1: Không gian chung */}
               <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(khongGianChungRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
-                    src="https://pix8.agoda.net/hotelImages/48898017/-1/9ccca4c717fa39e5a00ec72b8c732c66.jpg?ce=0&s=1024x"
-                    alt="Resort - Enso Retreat Hoi An"
+                    src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10028977-b1f7a5723f17709b2249791615289ca1.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-360,pr-true,q-80,w-640"
+                    alt="Không gian chung"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
@@ -90,57 +92,70 @@ export default function HotelPhotosPage() {
                 </div>
                 <p className="text-sm font-medium text-[#0a0a0a]">Không gian chung</p>
               </div>
-              {/* Ảnh 2: Phòng Sơn Ca */}
-              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongSonCaRef)}>
+              {/* Ảnh 2: Phòng Superior */}
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongSuperiorRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
-                    src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55d89d68.JPG"
-                    alt="Phòng Sơn Ca Thumbnail"
+                    src="https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028977-02950be4c37348f9a0afbcc3617e4e13.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-460,pr-true,q-40,w-724"
+                    alt="Phòng Superior Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Sơn Ca</p>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Superior</p>
               </div>
-              {/* Ảnh 3: Phòng Nhật Bản */}
-              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongNhatBanRef)}>
+              {/* Ảnh 3: Phòng Deluxe */}
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongDeluxeRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
-                    src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
-                    alt="Phòng Nhật Bản Thumbnail"
+                    src="https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028977-386606f609ada0b7dca90a7bd25b7144.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-460,pr-true,q-40,w-724"
+                    alt="Phòng Deluxe Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Nhật Bản</p>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Deluxe</p>
               </div>
-              {/* Ảnh 4: Phòng Mập Mờ */}
-              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongMapMoRef)}>
+              {/* Ảnh 4: Phòng Studio */}
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongStudioRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
-                    src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp"
-                    alt="Phòng Mập Mờ Thumbnail"
+                    src="https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028977-7716795615b9e86fb80dff548ff6d2fd.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-460,pr-true,q-40,w-724"
+                    alt="Phòng Studio Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Mập Mờ</p>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Studio</p>
               </div>
-              {/* Ảnh 5: Phòng Santorini */}
-              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongSantoriniRef)}>
+              {/* Ảnh 5: Phòng Family */}
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongFamilyRef)}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
                   <Image
-                    src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
-                    alt="Phòng Santorini Thumbnail"
+                    src="https://ik.imagekit.io/tvlk/generic-asset/TzEv3ZUmG4-4Dz22hvmO9NUDzw1DGCIdWl4oPtKumOg=/lodging/33000000/32400000/32399100/32399033/f6c2c4c4_z.jpg?_src=imagekit&tr=c-at_max,f-jpg,h-460,pr-true,q-40,w-724"
+                    alt="Phòng Family Thumbnail"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 160px, 192px"
                   />
                 </div>
-                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Santorini</p>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Family</p>
+              </div>
+              {/* Ảnh 6: Phòng Premium */}
+              <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(phongPremiumRef)}>
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-1 w-40 sm:w-48">
+                  <Image
+                    src="https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028977-3f12a687acba8a934aeede1427673d83.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-460,pr-true,q-40,w-724"
+                    alt="Phòng Premium Thumbnail"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 160px, 192px"
+                  />
+                </div>
+                <p className="text-sm font-medium text-[#0a0a0a]">Phòng Premium</p>
               </div>
             </div>
           </div>
@@ -148,12 +163,11 @@ export default function HotelPhotosPage() {
 
         {/* "Không gian chung" Section */}
         <div ref={khongGianChungRef} id="khong-gian-chung" className="px-4 scroll-mt-20">
-          {" "}
           <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3">Không gian chung</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://pix8.agoda.net/hotelImages/48898017/-1/d138856dca2d16e1a7f6928e2dd65fc9.jpg?ce=0&s=1024x"
+                src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10028977-07bbfe6825ccbc3348626765a2cc3506.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-360,pr-true,q-80,w-640"
                 alt="Không gian chung - Toàn cảnh resort"
                 fill
                 className="object-cover"
@@ -163,7 +177,7 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://pix8.agoda.net/hotelImages/48898017/-1/23ffae2b7ab87fc65d78e4b0c95dec3d.jpg?ce=0&s=1024x"
+                  src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10028977-b1f7a5723f17709b2249791615289ca1.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-360,pr-true,q-80,w-640"
                   alt="Không gian chung - Bàn Bida"
                   fill
                   className="object-cover"
@@ -172,7 +186,7 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://pix8.agoda.net/hotelImages/48898017/-1/77c68141307f1aad7b9f5fdd7b2f2ece.jpg?ce=0&s=1024x"
+                  src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10028977-b9c752049854b799e8cd7fc09ba267f0.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-360,pr-true,q-80,w-640"
                   alt="Không gian chung - Spa"
                   fill
                   className="object-cover"
@@ -182,7 +196,7 @@ export default function HotelPhotosPage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://pix8.agoda.net/hotelImages/48898017/-1/93e78b4f5286d8e3a6adae4e524c2a6a.png?ce=0&s=1024x"
+                src="https://ak-d.tripcdn.com/images/1mc1k12000cpiztl2B975_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
                 alt="Không gian chung - Hồ bơi"
                 fill
                 className="object-cover"
@@ -192,7 +206,7 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://pix8.agoda.net/hotelImages/48898017/-1/54c149e26857b71d1ddd37bd8af57fcb.jpg?ce=0&s=1024x"
+                  src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028977-745141994f793d1be91fe5bd9dfd9648.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-360,pr-true,q-80,w-640"
                   alt="Không gian chung - View 1"
                   fill
                   className="object-cover"
@@ -201,7 +215,7 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://pix8.agoda.net/hotelImages/48898017/-1/18ef5ac6240e9186c2260536404b04bd.png?ce=0&s=1024x"
+                  src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028977-cc1c81c5699beac973ece74df08567b5.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-360,pr-true,q-80,w-640"
                   alt="Không gian chung - View 2"
                   fill
                   className="object-cover"
@@ -211,15 +225,14 @@ export default function HotelPhotosPage() {
             </div>
           </div>
         </div>
-        {/* "Phòng Sơn Ca" Section */}
-        <div ref={phongSonCaRef} id="phong-son-ca" className="px-4 scroll-mt-20">
-          {" "}
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Sơn Ca</h2>
+        {/* "Phòng Superior" Section */}
+        <div ref={phongSuperiorRef} id="phong-superior" className="px-4 scroll-mt-20">
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Superior</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
-                alt="Phòng Sơn Ca - Ảnh 1"
+                src="https://ak-d.tripcdn.com/images/1mc5l12000cpiz28359FB_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Superior - Ảnh 1"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -228,8 +241,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496a2ee.webp"
-                  alt="Phòng Sơn Ca - Ảnh 2"
+                  src="https://ak-d.tripcdn.com/images/1mc6j12000cpiylg8B415_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Superior - Ảnh 2"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -237,8 +250,8 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496c812.webp"
-                  alt="Phòng Sơn Ca - Ảnh 3"
+                  src="https://ik.imagekit.io/tvlk/generic-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10028977-02950be4c37348f9a0afbcc3617e4e13.jpeg?_src=imagekit&tr=c-at_max,f-jpg,h-460,pr-true,q-40,w-724"
+                  alt="Phòng Superior - Ảnh 3"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -247,8 +260,8 @@ export default function HotelPhotosPage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496dcbb.webp"
-                alt="Phòng Sơn Ca - Ảnh 4"
+                src="https://ak-d.tripcdn.com/images/1mc3r12000cq82rkqE904_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Superior - Ảnh 4"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -257,8 +270,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07496b5c0.webp"
-                  alt="Phòng Sơn Ca - Ảnh 5"
+                  src="https://ak-d.tripcdn.com/images/0224812000k2ndeik5689_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Superior - Ảnh 5"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -266,8 +279,8 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484553_66ab07495d890.webp"
-                  alt="Phòng Sơn Ca - Ảnh 6"
+                  src="https://ak-d.tripcdn.com/images/1mc3r12000cq82xpg82C6_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Superior - Ảnh 6"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -276,15 +289,14 @@ export default function HotelPhotosPage() {
             </div>
           </div>
         </div>
-        {/* "Phòng Nhật bản" Section */}
-        <div ref={phongNhatBanRef} id="phong-nhat-ban" className="px-4 scroll-mt-20">
-          {" "}
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Nhật Bản</h2>
+        {/* "Phòng Deluxe" Section */}
+        <div ref={phongDeluxeRef} id="phong-deluxe" className="px-4 scroll-mt-20">
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Deluxe</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae89e19.webp"
-                alt="Phòng Nhật Bản - Ảnh 1"
+                src="https://ak-d.tripcdn.com/images/1mc6i12000cpiyw6h706E_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Deluxe - Ảnh 1"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -293,8 +305,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae96b97.webp"
-                  alt="Phòng Nhật Bản - Ảnh 2"
+                  src="https://ak-d.tripcdn.com/images/1mc4w12000cpiy8v4906B_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Deluxe - Ảnh 2"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -302,8 +314,8 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae97e57.webp"
-                  alt="Phòng Nhật Bản - Ảnh 3"
+                  src="https://ak-d.tripcdn.com/images/1mc3312000cpiywo71BBC_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Deluxe - Ảnh 3"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -312,8 +324,8 @@ export default function HotelPhotosPage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae991b4.webp"
-                alt="Phòng Nhật Bản - Ảnh 4"
+                src="https://ak-d.tripcdn.com/images/1mc4h12000cpiz8d4C747_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Deluxe - Ảnh 4"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -322,8 +334,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9a798.webp"
-                  alt="Phòng Nhật Bản - Ảnh 5"
+                  src="https://ak-d.tripcdn.com/images/1mc4v12000cpiyv1aFFFC_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Deluxe - Ảnh 5"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -331,8 +343,8 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484654_66ab07ae9d737.webp"
-                  alt="Phòng Nhật Bản - Ảnh 6"
+                  src="https://ak-d.tripcdn.com/images/0224i12000g41jbxh958B_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Deluxe - Ảnh 6"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -341,15 +353,14 @@ export default function HotelPhotosPage() {
             </div>
           </div>
         </div>
-        {/* "Phòng Mập Mờ" Section */}
-        <div ref={phongMapMoRef} id="phong-map-mo" className="px-4 scroll-mt-20">
-          {" "}
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Mập Mờ</h2>
+        {/* "Phòng Studio" Section */}
+        <div ref={phongStudioRef} id="phong-studio" className="px-4 scroll-mt-20">
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Studio</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e6bcc1.webp"
-                alt="Phòng Mập Mờ - Ảnh 1"
+                src="https://ak-d.tripcdn.com/images/1mc6v12000cpj9lysF7FF_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Studio - Ảnh 1"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -358,8 +369,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7b30f.webp"
-                  alt="Phòng Mập Mờ - Ảnh 2"
+                  src="https://ak-d.tripcdn.com/images/1mc4k12000cpiyno19DC4_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Studio - Ảnh 2"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -367,8 +378,8 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e78b7b.webp"
-                  alt="Phòng Mập Mờ - Ảnh 3"
+                  src="https://ak-d.tripcdn.com/images/1mc3912000cpiyj0n46B6_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Studio - Ảnh 3"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -377,8 +388,8 @@ export default function HotelPhotosPage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e79ed3.webp"
-                alt="Phòng Mập Mờ - Ảnh 4"
+                src="https://ak-d.tripcdn.com/images/1mc5o12000cpiyq28CF1A_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Studio - Ảnh 4"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -387,8 +398,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e77699.webp"
-                  alt="Phòng Mập Mờ - Ảnh 5"
+                  src="https://ak-d.tripcdn.com/images/1mc6y12000cq82gzo46C3_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Studio - Ảnh 5"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -396,8 +407,8 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484766_66ab081e7e4b0.webp"
-                  alt="Phòng Mập Mờ - Ảnh 6"
+                  src="https://ak-d.tripcdn.com/images/1mc4712000cpj9p3sC1BB_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Studio - Ảnh 6"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -406,15 +417,14 @@ export default function HotelPhotosPage() {
             </div>
           </div>
         </div>
-        {/* "Phòng Santorini" Section */}
-        <div ref={phongSantoriniRef} id="phong-santorini" className="px-4 scroll-mt-20">
-          {" "}
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Santorini</h2>
+        {/* "Phòng Family" Section */}
+        <div ref={phongFamilyRef} id="phong-family" className="px-4 scroll-mt-20">
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Family</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e3f2d2.webp"
-                alt="Phòng Santorini - Ảnh 1"
+                src="https://ak-d.tripcdn.com/images/1mc1412000cpiyber2777_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Family - Ảnh 1"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -423,8 +433,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4a8ed.webp"
-                  alt="Phòng Santorini - Ảnh 2"
+                  src="https://ak-d.tripcdn.com/images/1mc2412000cpj9t3219A3_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Family - Ảnh 2"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -432,8 +442,8 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1713150149_661c98c5d55b2.jpg"
-                  alt="Phòng Santorini - Ảnh 3"
+                  src="https://ak-d.tripcdn.com/images/1mc5t12000cpiyt0bA1D7_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Family - Ảnh 3"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -442,8 +452,8 @@ export default function HotelPhotosPage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4d43b.webp"
-                alt="Phòng Santorini - Ảnh 4"
+                src="https://ak-d.tripcdn.com/images/1mc3912000cpiyodcF4C0_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                alt="Phòng Family - Ảnh 4"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -452,8 +462,8 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1722484894_66ab089e4f0ca.webp"
-                  alt="Phòng Santorini - Ảnh 5"
+                  src="https://ak-d.tripcdn.com/images/1mc4g12000cpiyq4i3B6C_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Family - Ảnh 5"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -461,8 +471,72 @@ export default function HotelPhotosPage() {
               </div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="https://s3.go2joy.vn/1000w/hotel/543/9167_1713150150_661c98c61561a.jpg"
-                  alt="Phòng Santorini - Ảnh 6"
+                  src="https://ak-d.tripcdn.com/images/1mc6r12000cpj9lx003E3_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                  alt="Phòng Family - Ảnh 6"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 384px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* "Phòng Premium" Section */}
+        <div ref={phongPremiumRef} id="phong-premium" className="px-4 scroll-mt-20">
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Premium</h2>
+          <div className="space-y-3">
+            <div className="relative aspect-video rounded-lg overflow-hidden">
+              <Image
+                src= "/00_Final/1.1 Alex_1.JPG"
+                alt="Phòng Premium - Ảnh 1"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                <Image
+                  src="/00_Final/1.1 Alex_2.JPG"
+                  alt="Phòng Premium - Ảnh 2"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 384px"
+                />
+              </div>
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                <Image
+                  src="/00_Final/1.1 Alex_4.JPG"
+                  alt="Phòng Premium - Ảnh 3"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 384px"
+                />
+              </div>
+            </div>
+            <div className="relative aspect-video rounded-lg overflow-hidden">
+              <Image
+                src="/00_Final/1.1 Alex_5.JPG"
+                alt="Phòng Premium - Ảnh 4"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                <Image
+                  src="/00_Final/1.1 Alex_6.JPG"
+                  alt="Phòng Premium - Ảnh 5"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 384px"
+                />
+              </div>
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                <Image
+                  src="/00_Final/1.1 Alex_7.JPG"
+                  alt="Phòng Premium - Ảnh 6"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, 384px"
@@ -481,34 +555,34 @@ export default function HotelPhotosPage() {
             {/* Button Tổng quan */}
             <Button
               variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
+              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
               onClick={() => setIsHotelIntroDrawerOpen(true)}
             >
-              <Image src="/images/9tongquan.png" alt="Biểu tượng tổng quan" width={30} height={30} />
+              <Image src="buildings.svg" alt="Biểu tượng tổng quan" width={30} height={30} />
             </Button>
             {/* Button Tiện ích */}
             <Button
               variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
+              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
               onClick={() => setIsHotelAmenitiesDrawerOpen(true)}
             >
-              <Image src="/images/9tienich.png" alt="Biểu tượng tiện ích" width={30} height={30} />
+              <Image src="element-1.svg" alt="Biểu tượng tiện ích" width={30} height={30} />
             </Button>
             {/* Button Đánh giá */}
             <Button
               variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
+              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
               onClick={() => setIsHotelReviewsDrawerOpen(true)}
             >
-              <Image src="/images/9danhgia.png" alt="Biểu tượng đánh giá" width={30} height={30} />
+              <Image src="star.svg" alt="Biểu tượng đánh giá" width={30} height={30} />
             </Button>
             {/* Button More with Dropdown */}
             <Button
               variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-gray-100 focus:bg-gray-100"
-              onClick={() => setIsMoreOptionsDialogOpen(true)}
+              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
+              onClick={() => setIsLocalExplorationDrawerOpen(true)}
             >
-              <Image src="/images/9xemthem.png" alt="Biểu tượng thêm" width={30} height={30} />
+              <Image src="menu.svg" alt="Biểu tượng thêm" width={30} height={30} />
             </Button>
           </div>
           <Link href="/rooms" passHref legacyBehavior>
@@ -550,14 +624,12 @@ export default function HotelPhotosPage() {
         isOpen={isNearbyAmenitiesDrawerOpen}
         onClose={() => setIsNearbyAmenitiesDrawerOpen(false)}
         hotelName={hotelName}
-        hotelAddress={hotelAddress}
       />
       {/* Local Exploration Drawer */}
       <LocalExplorationDrawer
         isOpen={isLocalExplorationDrawerOpen}
         onClose={() => setIsLocalExplorationDrawerOpen(false)}
         hotelName={hotelName}
-        hotelAddress={hotelAddress}
       />
 
       {/* Share Options Popup */}
@@ -571,7 +643,19 @@ export default function HotelPhotosPage() {
   )
 }
 
-function MoreOptionsDialog({ isOpen, onClose, onOpenNearbyAmenities, onOpenLocalExploration }) {
+type MoreOptionsDialogProps = {
+  isOpen: boolean
+  onClose: () => void
+  onOpenNearbyAmenities: () => void
+  onOpenLocalExploration: () => void
+}
+
+function MoreOptionsDialog({
+  isOpen,
+  onClose,
+  onOpenNearbyAmenities,
+  onOpenLocalExploration,
+}: MoreOptionsDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">

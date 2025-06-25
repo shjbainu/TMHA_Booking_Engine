@@ -11,13 +11,15 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { MapPin, Star, Sparkles } from "lucide-react"
 
-interface HotelIntroDrawerProps {
+export interface HotelIntroDrawerProps {
   isOpen: boolean
   onClose: () => void
+  hotelAddress: string
+  hotelName: string
 }
 
 export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerProps) {
-  const hotelAddress = "69 Ng. 53 Đ. Nguyễn Ngọc Vũ, Trung Hoà, Cầu Giấy, Hà Nội"
+  const hotelAddress = "The Mansion Hoi An"
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotelAddress)}`
 
   return (
@@ -26,16 +28,18 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
         {/* === Header === */}
         <div className="relative">
           <DrawerHeader className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 flex flex-col justify-end p-4 text-white">
-            <DrawerTitle className="text-2xl font-bold">69 Boutique by Minova</DrawerTitle>
+            <DrawerTitle className="text-2xl font-bold">The Mansion Hoi An by Minova</DrawerTitle>
             <DrawerDescription className="text-sm text-gray-200 flex items-center gap-1.5 mt-1">
               <MapPin className="h-4 w-4" />
-              <span>Nguyễn Ngọc Vũ, Cầu Giấy, Hà Nội</span>
+              <span className="whitespace-nowrap overflow-hidden text-ellipsis inline-block max-w-full align-bottom">
+              170 Nguyễn Duy Hiệu, Cẩm Châu, Hội An, Quảng Nam
+              </span>
             </DrawerDescription>
           </DrawerHeader>
           <div className="h-48 w-full relative">
             <Image
-              src="https://s3.go2joy.vn/1000w/hotel/543/1228_1724233053_66c5b55dc2e97.JPG"
-              alt="69 Boutique Hotel"
+              src="/00_Final/Public/Entrance_1.jpg"
+              alt="The Mansion Hoi An"
               layout="fill"
               objectFit="cover"
             />
@@ -64,10 +68,8 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Về chúng tôi</h3>
               <p>
-                69 Boutique by Minova tọa lạc tại vị trí trung tâm nhưng vẫn giữ được sự yên tĩnh và riêng tư. Với 15
-                phòng nghỉ được thiết kế đa dạng phong cách, từ tối giản hiện đại đến sang trọng ấm cúng, chúng tôi đáp
-                ứng mọi nhu cầu nghỉ dưỡng của bạn. Các phòng đều được trang bị đầy đủ tiện nghi cao cấp, một số phòng
-                còn có bồn tắm jacuzzi riêng cho những giây phút thư giãn tuyệt đối.
+                Lưu trú tại The Mansion Hoi An by Minova là một lựa chọn tuyệt vời khi bạn ghé thăm phường Cẩm Châu. Lễ tân phục vụ 24 giờ luôn sẵn sàng hỗ trợ bạn từ khi nhận phòng đến khi trả phòng, cũng như bất kỳ yêu cầu nào khác. Nếu bạn cần hỗ trợ thêm, đừng ngần ngại liên hệ với lễ tân — chúng tôi luôn sẵn sàng phục vụ bạn. WiFi có sẵn tại các khu vực công cộng của khách sạn để giúp bạn giữ kết nối với gia đình và bạn bè.
+
               </p>
             </div>
 
@@ -75,8 +77,7 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Vị trí đắc địa</h3>
               <p className="mb-3">
-                Từ khách sạn, du khách dễ dàng di chuyển đến các địa điểm nổi tiếng như Hồ Tây, Hồ Hoàn Kiếm, Lăng Bác,
-                và Văn Miếu chỉ trong 10–25 phút lái xe.
+                Từ khách sạn, du khách dễ dàng di chuyển đến các địa điểm nổi tiếng như phố cổ Hội An, chùa cầu Nhật Bản, chợ Hội An, bãi biển An Bàng chỉ trong 10–25 phút lái xe.
               </p>
 
               <Button asChild variant="outline" className="w-full flex items-center">

@@ -22,22 +22,30 @@ interface ExplorationDrawerProps {
 
 export default function ExplorationDrawer({ isOpen, onClose, hotelName }: ExplorationDrawerProps) {
   // === STATE CHO "TIỆN ÍCH XUNG QUANH" ===
-  const [activeCategory, setActiveCategory] = useState("supermarket")
-
+  type AmenityCategory = "supermarket" | "restaurant" | "cafe" | "park"
+  interface AmenityItem {
+    id: string
+    name: string
+    branches: string
+    hours: string
+    image: string
+  }
+  const [activeCategory, setActiveCategory] = useState<AmenityCategory>("supermarket")
+  
   // === DATA CHO "TIỆN ÍCH XUNG QUANH" ===
-  const categories = [
+  const categories: { id: AmenityCategory; name: string }[] = [
     { id: "supermarket", name: "Siêu thị" },
     { id: "restaurant", name: "Nhà hàng" },
     { id: "cafe", name: "Quán cà phê" },
     { id: "park", name: "Công viên" },
   ]
-
-  const amenitiesData = {
+  
+  const amenitiesData: Record<AmenityCategory, AmenityItem[]> = {
     supermarket: [
       {
         id: "winmart",
-        name: "Siêu thị Winmart",
-        branches: "3.700 cơ sở",
+        name: "Siêu thị Winmart ",
+        branches: "Hội An, Quảng Nam",
         hours: "08:00 - 23:00",
         image:
           "https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/22/winmarta-1640142773723-16401427738771005786314.jpg",
@@ -45,33 +53,68 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
       {
         id: "go",
         name: "Siêu thị Go!",
-        branches: "42 cơ sở",
+        branches: "Hội An, Quảng Nam",
         hours: "08:00 - 23:00",
         image: "https://centralretail.com.vn/wp-content/uploads/2024/03/go-bigc-cover-1.png",
       },
       {
         id: "lotte",
-        name: "Lotte Mart",
-        branches: "15 cơ sở",
+        name: "Lotte Mart ",
+        branches: "Hội An, Quảng Nam",
         hours: "08:00 - 23:00",
         image: "https://images2.thanhnien.vn/528068263637045248/2025/4/28/lotte-mart-1-1745851235813715925965.jpg",
+      },
+      {
+        id: "Cửa hàng tiện lợi",
+        name: "Cửa hàng tiện lợi",  
+        branches: "Hội An, Quảng Nam",
+        hours: "08:00 - 23:00",
+        image: "https://simg.zalopay.com.vn/zlp-website/assets/cua_hang_tien_loi_family_mart_4d88b0dce2.jpg",
+      },
+      {
+        id: "Chợ địa phương",
+        name: "Chợ địa phương",
+        branches: "Hội An, Quảng Nam",
+        hours: "08:00 - 23:00",
+        image: "https://static.vinwonders.com/production/cho-quang-nam-2.jpg",
       },
     ],
     restaurant: [
       {
         id: "kfc",
         name: "KFC",
-        branches: "Hơn 150 nhà hàng",
+        branches: "Hội An, Quảng Nam",
         hours: "10:00 - 22:00",
         image: "https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png",
       },
       {
         id: "pizza-hut",
         name: "Pizza Hut",
-        branches: "Hơn 100 nhà hàng",
+        branches: "Hội An, Quảng Nam",
         hours: "10:00 - 22:00",
         image: "https://bnhat.vn/wp-content/uploads/2023/08/355-1609900139-1609919005-9294-1609994824.png",
       },
+      {
+        id: "Lotteria",
+        name: "Lotteria",
+        branches: "Hội An, Quảng Nam",
+        hours: "10:00 - 22:00",
+        image: "https://thoitranghaianh.com/wp-content/uploads/2024/07/lotteria-logo.jpg",
+      },
+      {
+        id: "Jollibee",
+        name: "Jollibee",
+        branches: "Hội An, Quảng Nam",
+        hours: "10:00 - 22:00",
+        image: "https://1000logos.net/wp-content/uploads/2021/05/Jollibee-logo.png",
+      },
+      {
+        id: "Nhà hàng địa phương",
+        name: "Nhà hàng địa phương",
+        branches: "Hội An, Quảng Nam",
+        hours: "10:00 - 22:00",
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/10/b5/ca/home-hoi-an-overview.jpg?w=600&h=-1&s=1",
+      }
     ],
     cafe: [
       {
@@ -84,26 +127,41 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
       {
         id: "phuc-long",
         name: "Phúc Long Coffee & Tea",
-        branches: "Hơn 150 cửa hàng",
+        branches: "Hội An, Quảng Nam",
         hours: "07:00 - 22:30",
         image: "https://winci.com.vn/wp-content/uploads/2024/02/Su-ra-doi-cua-thuong-hieu-Phuc-Long.webp",
+      },
+      {
+        id: "starbucks",
+        name: "Starbucks Coffee",
+        branches: "Hội An, Quảng Nam",
+        hours: "07:00 - 23:00",
+        image: "https://upload.wikimedia.org/wikipedia/vi/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png",
+      },
+      {
+        id: "cà phê địa phương",
+        name: "Cà phê địa phương",
+        branches: "Hội An, Quảng Nam",
+        hours: "07:00 - 22:00",
+        image:
+          "https://suckhoeviet.org.vn/stores/news_dataimages/2023/052023/21/15/3ab67a7cff8dc6f23616e658ca0c61c7.jpg?rt=20230521154605",
       },
     ],
     park: [
       {
-        id: "hanoi-zoo",
-        name: "Vườn thú Hà Nội (Công viên Thủ Lệ)",
-        branches: "Đường Bưởi, Ba Đình",
-        hours: "08:00 - 18:00",
-        image: "https://vietair.com.vn/Media/Images/vietair/Tin-tuc/2023/10/cong-vien-thu-le.jpg",
+        id: "Công viên trung tâm Hội An",
+        name: "Công viên trung tâm Hội An",
+        branches: "Hội An, Quảng Nam",
+        hours: "Mở cửa 24h",
+        image: "https://pcccquangnam.com/uploads/du-an-cong-trinh/2023_11/image_2.png",
       },
       {
-        id: "thong-nhat-park",
-        name: "Công viên Thống Nhất",
-        branches: "Trần Nhân Tông, Hai Bà Trưng",
-        hours: "06:00 - 22:00",
+        id: "VinWonders",
+        name: "VinWonders Nam Hội An",
+        branches: "Hội An, Quảng Nam",
+        hours: "08:00 - 19:00",
         image:
-          "https://ik.imagekit.io/tvlk/blog/2023/10/GaXyhe6R-cong-vien-thong-nhat-3.jpg?tr=q-70,c-at_max,w=500,h-300,dpr-2",
+          "https://vinwondershoian.com/userfiles/image/toan-canh-vinder-nam-hoi-an.jpg",
       },
     ],
   }
@@ -112,35 +170,26 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
   // === DATA CHO "KHÁM PHÁ ĐỊA PHƯƠNG" ===
   const localExplorationEvents = [
     {
-      id: "huong-pagoda",
-      name: "Lễ hội Chùa Hương",
-      location: "Mỹ Đức, Hà Nội",
-      date: "Tháng 1 - Tháng 3 âm lịch",
+      id: "event1",
+      name: "Lễ hội đêm rằm phố cổ Hội An",
+      location: "Phố cổ Hội An, Quảng Nam",
+      date: "đêm 14 âm lịch hằng tháng",
       description:
-        "Hành trình tâm linh trên dòng suối Yến thơ mộng để đến với một trong những lễ hội Phật giáo dài và lớn nhất Việt Nam.",
-      image: "https://static.vinwonders.com/production/chua-huong-5.jpg",
-      link: "https://www.bestprice.vn/blog/diem-den-8/chua-huong-467.html",
+        "Đến với Đêm Phố cổ, du khách sẽ được đắm mình vào không gian huyền ảo, tham gia các trò chơi dân gian, các sinh hoạt truyền thống của người dân địa phương, và thật sự ấn tượng khi cảm thấy mình như đang lạc vào cõi thiên thai.",
+      image: "https://dulichbinhduong.org.vn/storage/travels/xyfdFAo3TNm6DyjGgy6npdiDClXSBhLApUqy43am.jpg",
+      link: "https://dulichbinhduong.org.vn/du-lich/le-hoi-dem-ram-pho-co-hoi-an-quang-nam/ct",
     },
     {
-      id: "giong-festival",
-      name: "Hội Gióng ở đền Sóc",
-      location: "Sóc Sơn, Hà Nội",
-      date: "Mùng 6-8 tháng Giêng",
+      id: "thubon",
+      name: "Lễ hội bà Thu Bồn",
+      location: "Duy Tân, Duy Xuyên, Quảng Nam",
+      date: "Ngày 12 tháng 2 âm lịch hằng năm.",
       description:
-        "Di sản văn hóa phi vật thể của UNESCO, tái hiện lại huyền thoại Thánh Gióng oai hùng bay về trời sau khi đánh đuổi giặc Ân.",
-      image: "https://nhaquanly.vn/uploads/images/2024/02/15/le-hoi-giong-2024-1708009514.png",
-      link: "https://vinpearl.com/vi/hoi-giong-le-hoi-co-truyen-viet-nam",
+        "Lễ hội bà Thu Bồn được tổ chức đơn giản nhưng cũng không kém phần trang trọng với các hoạt động truyền thống đặc sắc như: thi làm bánh, hát đối đáp, chơi cờ người, kéo co…",
+      image: "https://statics.vinpearl.com/le-hoi-o-hoi-an-3.jpg",
+      link: "https://dulichbinhduong.org.vn/du-lich/le-hoi-ba-thu-bon-quang-nam/ct",
     },
-    {
-      id: "dong-da-festival",
-      name: "Lễ hội Gò Đống Đa",
-      location: "Quận Đống Đa, Hà Nội",
-      date: "Mùng 5 Tết Nguyên đán",
-      description:
-        "Kỷ niệm chiến thắng Ngọc Hồi – Đống Đa lừng lẫy của hoàng đế Quang Trung, với màn rước Rồng lửa Thăng Long hào hùng.",
-      image: "https://media-cdn-v2.laodong.vn/storage/newsportal/2025/2/2/1457462/Lehoi_Godongda-1.jpg",
-      link: "https://vinpearl.com/vi/le-hoi-go-dong-da-dien-ra-khi-nao-o-dau-co-gi-dac-sac",
-    },
+    
   ]
 
   return (
@@ -229,10 +278,10 @@ export default function ExplorationDrawer({ isOpen, onClose, hotelName }: Explor
                           </div>
                         </div>
                         <a
-                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name}`)}`}
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name} Quảng Nam`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`Tìm ${item.name} trên bản đồ`}
+                          aria-label={`Tìm ${item.name} tại Quảng Nam trên bản đồ`}
                         >
                           <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-700">
                             <ExternalLink className="h-4 w-4" />

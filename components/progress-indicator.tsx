@@ -3,7 +3,7 @@ interface ProgressIndicatorProps {
   steps: string[]
 }
 
-export function ProgressIndicator({ currentStep, steps }: ProgressIndicatorProps) {
+export default function ProgressIndicator({ currentStep, steps }: ProgressIndicatorProps) {
   return (
     <div className="flex items-center justify-center mb-6">
       {steps.map((step, index) => (

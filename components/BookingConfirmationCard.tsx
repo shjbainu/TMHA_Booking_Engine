@@ -22,7 +22,7 @@ interface BookingConfirmationCardProps {
   }
 }
 
-export function BookingConfirmationCard({ booking }: BookingConfirmationCardProps) {
+export default function BookingConfirmationCard({ booking }: BookingConfirmationCardProps) {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
   }

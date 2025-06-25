@@ -1,6 +1,7 @@
 "use client"
 
-import { Drawer, DrawerContent } from "@/components/ui/drawer"
+import { ReactNode, cloneElement, isValidElement, ReactElement } from "react"
+import { Drawer, DrawerContent, DrawerTitle } from "@/components/ui/drawer"
 import {
   BedDouble,
   Bath,
@@ -15,9 +16,8 @@ import {
   ShowerHead,
   Droplets,
   Smartphone,
-  Glasses,
+  Waves,
 } from "lucide-react"
-import { type ReactElement, cloneElement } from "react"
 
 interface HotelAmenitiesDrawerProps {
   isOpen: boolean
@@ -25,8 +25,20 @@ interface HotelAmenitiesDrawerProps {
   hotelName: string
 }
 
-export default function HotelAmenitiesDrawer({ isOpen, onClose, hotelName }: HotelAmenitiesDrawerProps) {
-  // === Phân loại tiện ích (loại bỏ thuộc tính color không cần thiết) ===
+function cloneIcon(icon: ReactNode): ReactNode {
+  if (isValidElement(icon)) {
+    return cloneElement(icon as ReactElement<any>, {
+      className: "h-5 w-5",
+    })
+  }
+  return icon
+}
+
+export default function HotelAmenitiesDrawer({
+  isOpen,
+  onClose,
+  hotelName,
+}: HotelAmenitiesDrawerProps) {
   const amenitiesByCategory = [
     {
       category: "Tiện nghi nổi bật",
@@ -35,13 +47,15 @@ export default function HotelAmenitiesDrawer({ isOpen, onClose, hotelName }: Hot
         { icon: <Snowflake />, label: "Điều hòa" },
         { icon: <Tv2 />, label: "Smart TV" },
         { icon: <Sparkles />, label: "Dọn phòng" },
-        { icon: <Glasses />, label: "Apple Liquid Glass" },
+        { icon: <Waves />, label: "Bể bơi" },
       ],
     },
     {
       category: "Phòng ngủ",
       items: [
         { icon: <BedDouble />, label: "Giường cỡ King" },
+        { icon: <BedDouble />, label: "Giường cỡ Queen" },
+        { icon: <BedDouble />, label: "Giường đơn" },
         { icon: <Sofa />, label: "Ghế Sofa" },
         { icon: <EarOff />, label: "Cách âm" },
       ],
@@ -57,14 +71,13 @@ export default function HotelAmenitiesDrawer({ isOpen, onClose, hotelName }: Hot
     {
       category: "An toàn & An ninh",
       items: [
-        { icon: <CreditCard />, label: "Khóa thẻ từ" },
+        { icon: <CreditCard />, label: "Khóa an toàn" },
         { icon: <FireExtinguisher />, label: "PCCC" },
       ],
     },
     {
       category: "Công nghệ cao cấp",
       items: [
-        { icon: <Glasses />, label: "Apple Liquid Glass" },
         { icon: <Smartphone />, label: "Điều khiển phòng thông minh" },
       ],
     },
@@ -73,23 +86,28 @@ export default function HotelAmenitiesDrawer({ isOpen, onClose, hotelName }: Hot
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-white">
-        {/* Nội dung tiện ích với layout mới */}
+        {/* ✅ Bắt buộc phải có DialogTitle hoặc DrawerTitle */}
+        <DrawerTitle className="text-xl font-semibold px-6 pt-4 pb-2 text-gray-900">
+          Tiện nghi tại {hotelName}
+        </DrawerTitle>
+
         <div className="flex-1 overflow-y-auto p-6">
           <div className="space-y-8">
             {amenitiesByCategory.map((category) => (
               <div key={category.category}>
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">{category.category}</h3>
-                {/* Thay đổi grid-cols để hiển thị nhiều item hơn trên một hàng */}
                 <div className="grid grid-cols-4 gap-x-4 gap-y-6">
                   {category.items.map((amenity) => (
-                    // Thay đổi cấu trúc item sang flex-col để icon ở trên, text ở dưới
-                    <div key={amenity.label} className="flex flex-col items-center justify-start gap-2 text-center">
-                      {/* Vòng tròn đen bao quanh icon */}
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black text-white">
+                    <div
+                      key={amenity.label}
+                      className="flex flex-col items-center justify-start gap-2 text-center"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white">
                         {cloneIcon(amenity.icon)}
                       </div>
-                      {/* Text bên dưới */}
-                      <span className="text-sm font-medium text-gray-700">{amenity.label}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        {amenity.label}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -100,10 +118,4 @@ export default function HotelAmenitiesDrawer({ isOpen, onClose, hotelName }: Hot
       </DrawerContent>
     </Drawer>
   )
-}
-
-// Helper: Clone icon với kích thước phù hợp
-function cloneIcon(icon: ReactElement) {
-  // Tăng kích thước icon cho phù hợp với vòng tròn lớn hơn
-  return cloneElement(icon, { className: "h-8 w-8" })
 }
