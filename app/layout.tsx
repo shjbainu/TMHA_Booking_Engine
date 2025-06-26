@@ -6,7 +6,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "69 Boutique Hotel - Booking Engine",
+  title: "The Mansion Hoi An by Minova",
   description: "Mobile-first hotel booking experience",
     generator: 'v0.dev'
 }
