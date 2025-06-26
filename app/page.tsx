@@ -488,7 +488,7 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="/00_Final/1.1 Alex_2.JPG"
+                  src="https://ak-d.tripcdn.com/images/1mc0812000cpiycsq0BEC_R_600_400_R5.webp"
                   alt="Phòng Premium - Ảnh 2"
                   fill
                   className="object-cover"
