@@ -62,22 +62,26 @@ export default function CalendarSelectionPopup({
   )
   
   const handleDateClick = useCallback(
-    (date: Date) => {
-      if (isBefore(date, today) || isFullyBooked(date)) return
+  (date: Date) => {
+    if (isBefore(date, today) || isFullyBooked(date)) return;
 
-      // Logic chọn ngày cho chế độ "Theo ngày"
-      if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-        setSelectedStartDate(date)
-        setSelectedEndDate(null)
-      } else if (isBefore(date, selectedStartDate)) {
-        setSelectedStartDate(date)
-        setSelectedEndDate(null)
-      } else {
-        setSelectedEndDate(date)
-      }
-    },
-    [selectedStartDate, selectedEndDate, today, isFullyBooked],
-  )
+    // Nếu chưa chọn hoặc đã chọn đủ 2 ngày thì bắt đầu lại
+    if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+      setSelectedStartDate(date);
+      setSelectedEndDate(null);
+    } else if (isBefore(date, selectedStartDate)) {
+      setSelectedStartDate(date);
+      setSelectedEndDate(null);
+    } else if (isSameDay(date, selectedStartDate)) {
+      // Nếu bấm lần 2 vào cùng 1 ngày thì huỷ chọn ngày đó
+      setSelectedStartDate(null);
+      setSelectedEndDate(null);
+    } else {
+      setSelectedEndDate(date);
+    }
+  },
+  [selectedStartDate, selectedEndDate, today, isFullyBooked],
+);
 
   const isDateSelected = useCallback(
     (date: Date) => {
