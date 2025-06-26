@@ -8,14 +8,8 @@ export interface Room {
   guests: number
   rooms: number
   images: string[]
-  pricing: {
-    daily: number
-    overnight: number
-    hourly: {
-      baseRate2Hours: number
-      additionalPerHour: number
-    }
-  }
+  priceWeekday: number; // Giá cho ngày trong tuần (T2-T5)
+  priceWeekend: number; // Giá cho ngày cuối tuần (T6, T7, CN)
 }
 
 export interface Booking {

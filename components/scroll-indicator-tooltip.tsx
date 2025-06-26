@@ -1,33 +1,29 @@
 "use client"
 
 import type React from "react"
-
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 interface ScrollIndicatorTooltipProps {
   sections: {
     id: string
-    ref: React.RefObject<HTMLElement>
+    ref: React.RefObject<HTMLDivElement> // Sửa lại đúng kiểu ref cho div
     label: string
   }[]
 }
 
-export function ScrollIndicatorTooltip({ sections }: ScrollIndicatorTooltipProps) {
+export default function ScrollIndicatorTooltip({ sections }: ScrollIndicatorTooltipProps) {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      // Get current scroll position
       const scrollPosition = window.scrollY + window.innerHeight / 3
 
-      // Find the section that is currently in view
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i]
         if (section.ref.current) {
           const offsetTop = section.ref.current.offsetTop
-
           if (scrollPosition >= offsetTop) {
             setActiveSection(section.id)
             break
@@ -36,10 +32,7 @@ export function ScrollIndicatorTooltip({ sections }: ScrollIndicatorTooltipProps
       }
     }
 
-    // Initial check
     handleScroll()
-
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => {
       window.removeEventListener("scroll", handleScroll)

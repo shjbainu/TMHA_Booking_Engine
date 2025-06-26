@@ -38,53 +38,58 @@ interface Review {
 const initialReviews: Omit<Review, "isLikedByUser">[] = [
   {
     id: "1",
-    name: "Vũ Nhật Minh",
-    avatar: "https://github.com/shadcn.png",
+    name: "Vũ Nhật Ánh",
+    avatar: "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/502486633_1373557483975045_769978862160278242_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGL1YdaRyJQMcFoBjRlseat2sBzMAA_CH7awHMwAD8IfrTCP0ChyEN2jLMdVSJq0nLexZ8y0aUoAIJ0L5m8flH-&_nc_ohc=N-cx10_sOMEQ7kNvwHTp58l&_nc_oc=AdnE5SBHkTNFm9bk0GtNkisHAs6baJfX-45mLRVO6DEmiACSPa4WQx-XOCLAULJV9g8&_nc_zt=23&_nc_ht=scontent.fhan2-3.fna&_nc_gid=bkj3WX8tSlKp71K_ol1xxg&oh=00_AfMHuHQRkhTINV2BDWn-OjDBwohLBRcvuvEr5BShTrM4tg&oe=68619F69",
     rating: 5,
-    date: "Tháng 8, 2024",
+    date: "Tháng 2, 2025",
     comment: "Phòng thoáng mát, riêng tư, đúng như mong đợi. Nhân viên cũng rất nhiệt tình. Chắc chắn sẽ quay lại.",
     likes: 12,
     verified: true,
     // Thêm hình ảnh cho review này
     images: [
-        "https://source.unsplash.com/random/800x600?hotel,room",
-        "https://source.unsplash.com/random/800x601?hotel,view",
-        "https://source.unsplash.com/random/800x602?hotel,bathroom"
+        "/00_Final/Public/Alex Pool_8.jpg",
+        "/00_Final/Public/Alex Pool_14.jpg",
+        "/00_Final/Public/Backpool_6.jpg"
     ],
   },
   {
     id: "2",
-    name: "Hoàng Vũ Sơn",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    name: "Lê Ngọc Minh",
+    avatar: "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/434152356_1486971345575839_6628096773211736152_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGZ9DpEqmZdJVRoBcrOCKSsXCtiFd3yeGZcK2IV3fJ4Zq3j_f_7YA3n8sKB5oihPuLFNLjgI97-Ob6R_y9sCGop&_nc_ohc=_AN3IL3g2KwQ7kNvwFULJL0&_nc_oc=AdkU3xJ8zL3E2TsqS2yhJdIS3GR8H1mvtpGFqI8P7yK7W4MUIMWkJFUKWgVDNrAf6h0&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=zCZO7mp2bKcWxpfd47RRrA&oh=00_AfMOc_OP0pS02IFSC66w3IqW9n4OzY1OS_3p6qqed-5zvw&oe=686198A7",
     rating: 4,
-    date: "Tháng 8, 2024",
-    comment: "Khách sạn sạch sẽ, vị trí thuận tiện. Chỉ có điểm trừ là cách âm giữa các phòng chưa thực sự tốt.",
+    date: "Tháng 3, 2025",
+    comment: "Khách sạn sạch sẽ, vị trí thuận tiện. Nhân viên take care nhiệt tình. Hồ bơi rất đẹp, phù hợp checkin sống ảo 😊",
     likes: 18,
     verified: true,
+    images: [
+        "/00_Final/Public/chung1.jpg",
+    ],
   },
   {
     id: "3",
-    name: "AlexWin",
+    name: "Atony Smith",
     avatar: "https://randomuser.me/api/portraits/men/4.jpg",
     rating: 5,
-    date: "Tháng 7, 2024",
+    date: "Tháng 4, 2025",
     comment: "This is the best destination I've ever been to. The service is impeccable and the room view is breathtaking. Highly recommended!",
     likes: 25,
     verified: false,
+    images: [ 
+        "/00_Final/Public/Floating Breakfast_3.jpeg",
+        "/00_Final/Public/Floating Breakfast_5.jpeg",
+        "/00_Final/Public/Public_2.jpg",
+    ],
   },
   {
     id: "4",
-    name: "Trần Thu Trang",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    name: "Phạm Thu Trang",
+    avatar: "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/484826397_2326664554399669_5836388249226436559_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeEQF6HfGMtuVSlUeAgrsW8mrZXMa9VdESOtlcxr1V0RI6vlJIjKyEYwldMziYjlOglksDiP528SC454YWzb50rt&_nc_ohc=Xyvji4C2guYQ7kNvwFqyewB&_nc_oc=AdlHsoRyqkgF3kii9D8BkiH0WtPa9wVGAjRlMrmqEq7Ws_8vOyd49vScs5HoL8-7wys&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=P3Aii92H1Is0JCdZDQTJ_w&oh=00_AfOc8DDKVgfO56uU4SD4uECVZRazDxw9AEc1TUugH2bhhQ&oe=686196F2",
     rating: 5,
-    date: "Tháng 7, 2024",
+    date: "Tháng 3, 2025",
     comment: "Không gian yên tĩnh, thư giãn tuyệt đối. Rất thích hợp để nghỉ dưỡng cuối tuần. Dịch vụ spa cũng rất tuyệt vời.",
     likes: 22,
     verified: true,
-     // Thêm hình ảnh cho review này
-    images: [
-        "https://source.unsplash.com/random/800x603?hotel,spa"
-    ],
+    
   },
   // Các review khác giữ nguyên...
 ]
@@ -123,17 +128,17 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="h-[90vh] flex flex-col bg-white">
         {/* Header (giữ nguyên) */}
-        <DrawerHeader className="text-left p-4 border-b bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 text-white">
-          <div className="flex items-center gap-4 mb-2">
-            <div className="text-4xl font-bold">{overallRating}</div>
-            <div>
-              <DrawerTitle className="text-xl font-bold">{ratingDescription}</DrawerTitle>
-              <DrawerDescription className="text-sm text-white/80">
-                Dựa trên {reviewsToShow.length} lượt đánh giá
-              </DrawerDescription>
-            </div>
-          </div>
-        </DrawerHeader>
+        <DrawerHeader className="text-left p-4 border-b border-gray-200 bg-white">
+  <div className="flex items-center gap-4 mb-1">
+    <div className="text-5xl font-bold text-gray-900">{overallRating}</div>
+    <div>
+      <DrawerTitle className="text-lg font-semibold text-gray-900">{ratingDescription}</DrawerTitle>
+      <DrawerDescription className="text-sm text-gray-500">
+        Dựa trên {reviewsToShow.length} lượt đánh giá
+      </DrawerDescription>
+    </div>
+  </div>
+</DrawerHeader>
 
         {/* Thân cuộn được */}
         <div className="flex-1 overflow-y-auto">
@@ -168,9 +173,32 @@ export default function HotelReviewsDrawer({ isOpen, onClose, hotelName }: Hotel
                       </Avatar>
                       <div className="flex-1">
                         {/* Thông tin user và rating (giữ nguyên) */}
-                        <div className="flex items-center justify-between">
-                            {/* ... */}
-                        </div>
+                        <div className="flex items-center gap-2">
+  <span
+  className="font-semibold text-gray-900"
+  style={{
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    maxWidth: 120, // hoặc giá trị phù hợp với giao diện của bạn
+    display: "inline-block",
+    verticalAlign: "bottom"
+  }}
+>
+  {review.name}
+</span>
+  <span className="flex items-center ml-2">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <Star
+        key={i}
+        className={`h-4 w-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+        strokeWidth={1.5}
+      />
+    ))}
+  </span>
+  <span className="ml-2 text-xs text-gray-500">{review.date}</span>
+  
+</div>
                         <p className="mt-2 text-gray-700 leading-relaxed">{review.comment}</p>
                         
                         {/* ========================================================================= */}
