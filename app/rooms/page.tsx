@@ -460,7 +460,7 @@ export default function RoomSelection() {
             }`}
             onClick={() => setIncludeBreakfastFilter(!includeBreakfastFilter)}
           >
-            Bao gồm bữa sáng cho 2 người
+            Bao gồm bữa sáng
           </Button>
           <Button
             variant="outline"
