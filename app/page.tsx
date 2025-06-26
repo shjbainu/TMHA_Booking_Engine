@@ -542,14 +542,14 @@ export default function HotelPhotosPage() {
       <div className="fixed bottom-4 inset-x-0 z-20 flex justify-center">
   <div className="flex items-center gap-2">
     {/* Thanh chứa 4 icon với hiệu ứng kính mờ */}
-    <div className="flex items-center rounded-full bg-white/30 backdrop-blur-md shadow-lg border border-gray-200/50 px-5 py-1 gap-x-4 h-14">
+    <div className="flex items-center rounded-full bg-white/30 backdrop-blur-xl shadow-lg border border-gray-200/50 px-5 py-1 gap-x-4 h-11 opacity-95">
       {/* Button Tổng quan */}
       <Button
         variant="ghost"
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
         onClick={() => setIsHotelIntroDrawerOpen(true)}
       >
-        <Image src="buildings.svg" alt="Biểu tượng tổng quan" width={30} height={30} />
+        <Image src="buildings.svg" alt="Biểu tượng tổng quan" width={24} height={24} />
       </Button>
       {/* Button Tiện ích */}
       <Button
@@ -557,7 +557,7 @@ export default function HotelPhotosPage() {
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
         onClick={() => setIsHotelAmenitiesDrawerOpen(true)}
       >
-        <Image src="element-1.svg" alt="Biểu tượng tiện ích" width={30} height={30} />
+        <Image src="element-1.svg" alt="Biểu tượng tiện ích" width={24} height={24} />
       </Button>
       {/* Button Đánh giá */}
       <Button
@@ -565,7 +565,7 @@ export default function HotelPhotosPage() {
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
         onClick={() => setIsHotelReviewsDrawerOpen(true)}
       >
-        <Image src="star.svg" alt="Biểu tượng đánh giá" width={30} height={30} />
+        <Image src="star.svg" alt="Biểu tượng đánh giá" width={24} height={24} />
       </Button>
       {/* Button More with Dropdown */}
       <Button
@@ -573,17 +573,17 @@ export default function HotelPhotosPage() {
         className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
         onClick={() => setIsLocalExplorationDrawerOpen(true)}
       >
-        <Image src="menu.svg" alt="Biểu tượng thêm" width={30} height={30} />
+        <Image src="menu.svg" alt="Biểu tượng thêm" width={24} height={24} />
       </Button>
     </div>
     <Link href="/rooms" passHref legacyBehavior>
-      <a
-        className="h-14 w-14 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150"
-        style={{ minWidth: 56, minHeight: 56 }}
-      >
-        <img src="/images/9chonphong.png" alt="Room" width="42px" height="42px" />
-      </a>
-    </Link>
+  <a
+    className="h-11 w-11 min-w-[44px] min-h-[44px] p-0 rounded-lg bg-orange-400/80 hover:bg-orange-500/90 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150 opacity-100"
+    style={{ lineHeight: "44px" }}
+  >
+    <img src="room.svg" alt="Room" width="26" height="26" />
+  </a>
+</Link>
   </div>
 </div>
 
