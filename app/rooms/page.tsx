@@ -84,30 +84,30 @@ export default function RoomSelection() {
   }, [bookings, activeBookingId])
 
   const handleAddBooking = () => {
-    const newBookingId = `booking-${bookings.length + 1}`
-    setBookings((prev) => [
-      ...prev,
-      {
-        id: newBookingId,
-        roomQuantities: {},
-        roomPolicies: rooms.reduce<Record<string, { breakfast: string | null; cancellation: string | null; bedType: string | null }>>(
-          (acc, room) => {
-            acc[room.id] = { breakfast: null, cancellation: null, bedType: "1 giường king" }
-            return acc
-          },
-          {},
-        ),
-        expandedRooms: [],
-        startDate: defaultStartDate,
-        endDate: defaultEndDate,
-        bookingType: "day",
-        checkInTime: "08:00",
-        hoursOfUse: 2,
-      },
-    ])
-    setActiveBookingId(newBookingId)
-    setIsCalendarPopupOpen(true)
-  }
+  const newBookingId = `booking-${Date.now()}-${Math.floor(Math.random() * 10000)}`
+  setBookings((prev) => [
+    ...prev,
+    {
+      id: newBookingId,
+      roomQuantities: {},
+      roomPolicies: rooms.reduce<Record<string, { breakfast: string | null; cancellation: string | null; bedType: string | null }>>(
+        (acc, room) => {
+          acc[room.id] = { breakfast: null, cancellation: null, bedType: "1 giường king" }
+          return acc
+        },
+        {},
+      ),
+      expandedRooms: [],
+      startDate: defaultStartDate,
+      endDate: defaultEndDate,
+      bookingType: "day",
+      checkInTime: "08:00",
+      hoursOfUse: 2,
+    },
+  ])
+  setActiveBookingId(newBookingId)
+  setIsCalendarPopupOpen(true)
+}
 
   const handleRemoveBooking = (bookingId: string) => {
     if (bookings.length === 1) return
@@ -413,34 +413,46 @@ export default function RoomSelection() {
       <div className="p-4 bg-gray-50/90 backdrop-blur-sm">
         <div className="flex flex-wrap items-center gap-2 mb-4">
           {bookings.map((booking, index) => (
-            <div key={booking.id} className="flex items-center">
-              <Button
-                variant="secondary"
-                className={`h-10 px-4 flex items-center justify-center rounded-l-full ${
-                  activeBookingId === booking.id
-                    ? "bg-[#0a0a0a] text-white"
-                    : "bg-gray-200 text-[#0a0a0a] hover:bg-gray-300"
-                }`}
-                onClick={() => setActiveBookingId(booking.id)}
-              >
-                BOOKING {index + 1}
-              </Button>
-              {bookings.length > 1 && (
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  className={`h-10 w-10 rounded-r-full border-l border-white/20 ${
-                    activeBookingId === booking.id
-                      ? "bg-[#0a0a0a] text-white"
-                      : "bg-gray-200 text-[#0a0a0a] hover:bg-gray-300"
-                  }`}
-                  onClick={() => handleRemoveBooking(booking.id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              )}
-            </div>
-          ))}
+  <div key={booking.id} className="flex items-center mr-2">
+    <div
+      role="button"
+      tabIndex={0}
+      className={`h-10 px-4 flex items-center justify-center transition-colors duration-150 select-none
+        bg-clip-padding
+        ${activeBookingId === booking.id
+          ? "bg-[#0a0a0a] text-white"
+          : "bg-gray-200 text-[#0a0a0a]"}
+        rounded-full
+      `}
+      onClick={() => setActiveBookingId(booking.id)}
+      onKeyDown={e => {
+        if (e.key === "Enter" || e.key === " ") setActiveBookingId(booking.id)
+      }}
+      style={{ outline: "none", boxShadow: "none", zIndex: 10 + index }}
+    >
+      <span className="font-semibold">BOOKING {index + 1}</span>
+      {bookings.length > 1 && (
+        <div
+          role="button"
+          tabIndex={0}
+          className="ml-2 h-6 w-6 flex items-center justify-center rounded-full transition-colors duration-150"
+          onClick={e => {
+            e.stopPropagation()
+            handleRemoveBooking(booking.id)
+          }}
+          onKeyDown={e => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.stopPropagation()
+              handleRemoveBooking(booking.id)
+            }
+          }}
+        >
+          <Trash2 className="h-4 w-4" />
+        </div>
+      )}
+    </div>
+  </div>
+))}
           <Button
             variant="ghost"
             size="icon"
