@@ -542,7 +542,7 @@ export default function HotelPhotosPage() {
       <div className="fixed bottom-4 inset-x-0 z-20 flex justify-center">
   <div className="flex items-center gap-2">
     {/* Thanh chứa 4 icon với hiệu ứng kính mờ */}
-    <div className="flex items-center rounded-full bg-white/30 backdrop-blur-xl shadow-lg border border-gray-200/50 px-5 py-1 gap-x-4 h-11 opacity-95">
+    <div className="flex items-center rounded-full bg-white/30 backdrop-blur-xl shadow-lg border border-gray-200/50 px-5 py-1 gap-x-4 h-12 opacity-95">
       {/* Button Tổng quan */}
       <Button
         variant="ghost"
@@ -578,8 +578,8 @@ export default function HotelPhotosPage() {
     </div>
     <Link href="/rooms" passHref legacyBehavior>
   <a
-    className="h-11 w-11 min-w-[44px] min-h-[44px] p-0 rounded-lg bg-orange-400/80 hover:bg-orange-500/90 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150 opacity-100"
-    style={{ lineHeight: "44px" }}
+    className="h-12 w-12 min-w-[48px] min-h-[48px] p-0 rounded-lg bg-orange-400/80 hover:bg-orange-500/90 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150 opacity-100"
+    style={{ lineHeight: "48px" }}
   >
     <img src="room.svg" alt="Room" width="26" height="26" />
   </a>
