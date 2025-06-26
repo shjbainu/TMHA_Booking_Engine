@@ -1283,15 +1283,15 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                           </div>
                           <div className="flex items-center gap-2">
                             <Users className="h-4 w-4" />
-                            <span>Tối đa 3 người</span>
+                            <span>Tối đa 2 người</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Bed className="h-4 w-4" />
-                            <span>Còn 3 phòng</span>
+                            <span>Còn 1 phòng</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Square className="h-4 w-4" />
-                            <span>Diện tích 30m2</span>
+                            <span>Diện tích 20m2</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-between mb-4">
