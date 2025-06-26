@@ -42,16 +42,7 @@ export default function HotelPhotosPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <ScrollIndicatorTooltip
-        sections={[
-          { id: "khong-gian-chung", ref: khongGianChungRef, label: "Không gian chung" },
-          { id: "phong-superior", ref: phongSuperiorRef, label: "Phòng Superior" },
-          { id: "phong-deluxe", ref: phongDeluxeRef, label: "Phòng Deluxe" },
-          { id: "phong-studio", ref: phongStudioRef, label: "Phòng Studio" },
-          { id: "phong-family", ref: phongFamilyRef, label: "Phòng Family" },
-          { id: "phong-premium", ref: phongPremiumRef, label: "Phòng Premium" },
-        ]}
-      />
+      
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
         <h4 className="font-serif-display text-2xl font-bold text-gray-900">The Mansion Hoi An by Minova</h4>
@@ -423,7 +414,7 @@ export default function HotelPhotosPage() {
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
-                src="https://ak-d.tripcdn.com/images/1mc1412000cpiyber2777_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F"
+                src="/00_Final/2.5 Family_4.jpeg"
                 alt="Phòng Family - Ảnh 1"
                 fill
                 className="object-cover"
@@ -549,49 +540,52 @@ export default function HotelPhotosPage() {
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-4 inset-x-0 z-20 flex justify-center">
-        <div className="flex items-center gap-2">
-          {/* Thanh chứa 4 icon với hiệu ứng kính mờ */}
-          <div className=" flex items-center rounded-full bg-white/30 backdrop-blur-md shadow-lg border border-gray-200/50 px-5 py-1 gap-x-5">
-            {/* Button Tổng quan */}
-            <Button
-              variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
-              onClick={() => setIsHotelIntroDrawerOpen(true)}
-            >
-              <Image src="buildings.svg" alt="Biểu tượng tổng quan" width={30} height={30} />
-            </Button>
-            {/* Button Tiện ích */}
-            <Button
-              variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
-              onClick={() => setIsHotelAmenitiesDrawerOpen(true)}
-            >
-              <Image src="element-1.svg" alt="Biểu tượng tiện ích" width={30} height={30} />
-            </Button>
-            {/* Button Đánh giá */}
-            <Button
-              variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
-              onClick={() => setIsHotelReviewsDrawerOpen(true)}
-            >
-              <Image src="star.svg" alt="Biểu tượng đánh giá" width={30} height={30} />
-            </Button>
-            {/* Button More with Dropdown */}
-            <Button
-              variant="ghost"
-              className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
-              onClick={() => setIsLocalExplorationDrawerOpen(true)}
-            >
-              <Image src="menu.svg" alt="Biểu tượng thêm" width={30} height={30} />
-            </Button>
-          </div>
-          <Link href="/rooms" passHref legacyBehavior>
-            <a className="h-12 w-12 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150">
-              <img src="/images/9chonphong.png" alt="Room" width="35px" height="35px" />
-            </a>
-          </Link>
-        </div>
-      </div>
+  <div className="flex items-center gap-2">
+    {/* Thanh chứa 4 icon với hiệu ứng kính mờ */}
+    <div className="flex items-center rounded-full bg-white/30 backdrop-blur-md shadow-lg border border-gray-200/50 px-5 py-1 gap-x-3 h-14">
+      {/* Button Tổng quan */}
+      <Button
+        variant="ghost"
+        className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
+        onClick={() => setIsHotelIntroDrawerOpen(true)}
+      >
+        <Image src="buildings.svg" alt="Biểu tượng tổng quan" width={30} height={30} />
+      </Button>
+      {/* Button Tiện ích */}
+      <Button
+        variant="ghost"
+        className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
+        onClick={() => setIsHotelAmenitiesDrawerOpen(true)}
+      >
+        <Image src="element-1.svg" alt="Biểu tượng tiện ích" width={30} height={30} />
+      </Button>
+      {/* Button Đánh giá */}
+      <Button
+        variant="ghost"
+        className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
+        onClick={() => setIsHotelReviewsDrawerOpen(true)}
+      >
+        <Image src="star.svg" alt="Biểu tượng đánh giá" width={30} height={30} />
+      </Button>
+      {/* Button More with Dropdown */}
+      <Button
+        variant="ghost"
+        className="h-auto flex flex-col items-center justify-center px-2 py-1.5 text-[#0a0a0a] hover:bg-transparent focus:bg-transparent [-webkit-tap-highlight-color:transparent]"
+        onClick={() => setIsLocalExplorationDrawerOpen(true)}
+      >
+        <Image src="menu.svg" alt="Biểu tượng thêm" width={30} height={30} />
+      </Button>
+    </div>
+    <Link href="/rooms" passHref legacyBehavior>
+      <a
+        className="h-14 w-14 p-0 rounded-lg bg-orange-400 hover:bg-orange-500 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150"
+        style={{ minWidth: 56, minHeight: 56 }}
+      >
+        <img src="/images/9chonphong.png" alt="Room" width="42px" height="42px" />
+      </a>
+    </Link>
+  </div>
+</div>
 
       <MoreOptionsDialog
         isOpen={isMoreOptionsDialogOpen}

@@ -384,8 +384,12 @@ export default function RoomSelection() {
     <div
       className="min-h-screen relative bg-cover bg-center bg-fixed"
       style={{
-        backgroundImage: "linear-gradient( #c6ffdd, #fbd786, #f7797d)",
-      }}
+  backgroundImage: `
+    radial-gradient(circle at 70% 30%, #e9cfc3 0%, transparent 60%),
+    radial-gradient(circle at 30% 70%, #d6a77a 0%, transparent 70%),
+    linear-gradient(120deg, #e9cfc3 30%, #d6a77a 60%, #b97a56 100%)
+  `
+}}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100">
@@ -514,9 +518,9 @@ export default function RoomSelection() {
                   return (
                     <div
                       key={`${booking.id}-${room.id}`}
-                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-xl hover:shadow-xl transition-shadow duration-200 mb-4"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl opacity-35"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl opacity-50"></div>
                       <div className="relative">
                         <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                           <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -617,7 +621,7 @@ export default function RoomSelection() {
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 275.000đ</span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 650.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -846,7 +850,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                   return (
                     <div
                       key={`${booking.id}-${room.id}`}
-                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-xl hover:shadow-xl transition-shadow duration-200 mb-4"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-teal-100 rounded-2xl opacity-55"></div>
                       <div className="relative">
@@ -949,7 +953,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 350.000đ</span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 750.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -1177,7 +1181,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                   return (
                     <div
                       key={`${booking.id}-${room.id}`}
-                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-xl hover:shadow-xl transition-shadow duration-200 mb-4"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl opacity-55"></div>
                       <div className="relative">
@@ -1280,7 +1284,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 275.000đ</span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 750.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -1508,7 +1512,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                   return (
                     <div
                       key={`${booking.id}-${room.id}`}
-                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-xl hover:shadow-xl transition-shadow duration-200 mb-4"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl opacity-55"></div>
                       <div className="relative">
@@ -1611,7 +1615,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 500.000đ</span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 900.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -1839,9 +1843,9 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                   return (
                     <div
                       key={`${booking.id}-${room.id}`}
-                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
+                      className="relative border border-gray-200/50 rounded-2xl p-5 shadow-xl hover:shadow-xl transition-shadow duration-200 mb-4"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl opacity-55"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-teal-100 rounded-2xl opacity-55"></div>
                       <div className="relative">
                         <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                           <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -1942,7 +1946,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 500.000đ</span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 1.050.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -2172,7 +2176,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                       key={`${booking.id}-${room.id}`}
                       className="relative border border-gray-200/50 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-200 mb-4"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl opacity-55"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-pink-100 rounded-2xl opacity-75"></div>
                       <div className="relative">
                         <div className="grid grid-cols-5 gap-2 mb-4 rounded-2xl bg-gray-50/30">
                           <div className="col-span-3 relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm">
@@ -2273,7 +2277,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
                         </div>
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 500.000đ</span>
+                            <span className="text-lg font-semibold text-[#0a0a0a]">Giá từ 2.000.000đ</span>
                           </div>
                           {!booking.expandedRooms.includes(room.id) ? (
                             <Button
@@ -2503,7 +2507,7 @@ const canSelectFreeCancel = daysToCheckIn > 7;
             {totalSelectedRoomsCount > 0 && (
               <div className="text-right">
                 <div className="text-lg font-medium text-[#0a0a0a]">{totalOverallPrice.toLocaleString()}đ</div>
-                <div className="text-xs text-[#999999]">Giá trên đã bao gồm thuế và phí dịch vụ</div>
+                <div className="text-xs text-[#999999]">Giá đã bao gồm thuế & phí dịch vụ</div>
               </div>
             )}
           </div>

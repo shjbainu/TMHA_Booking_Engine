@@ -49,21 +49,7 @@ export default function HotelIntroDrawer({ isOpen, onClose }: HotelIntroDrawerPr
         {/* === Phần thân === */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-4 space-y-6 text-justify text-gray-700">
-            {/* Điểm nổi bật */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">Điểm nổi bật</h3>
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm">
-                  <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="font-medium text-gray-700">Đánh giá cao</span>
-                </div>
-                <div className="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm">
-                  <Sparkles className="h-5 w-5 text-blue-500" />
-                  <span className="font-medium text-gray-700">Không gian riêng tư</span>
-                </div>
-              </div>
-            </div>
-
+            
             {/* Về chúng tôi */}
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Về chúng tôi</h3>
