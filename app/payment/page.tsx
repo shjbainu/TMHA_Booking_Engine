@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation" // Import useRouter
 import { ArrowLeft, RotateCcw, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -33,6 +33,10 @@ export default function Payment() {
   const [totalAmount, setTotalAmount] = useState("0đ")
   const [popupAmount, setPopupAmount] = useState("0đ")
   const [isProcessing, setIsProcessing] = useState(false)
+  const [sepayData, setSepayData] = useState<any>(null)
+  const [showSepayPopup, setShowSepayPopup] = useState(false)
+
+  const pollingRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (timeLeft <= 0) return
@@ -72,20 +76,45 @@ export default function Payment() {
 
   const steps = ["Đặt phòng", "Thanh toán", "Xác nhận"]
 
-  // Hàm sinh mã bookingCode 6 số ngẫu nhiên
-  function generateBookingCode() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-  }
+// Hàm sinh mã bookingCode 6 số ngẫu nhiên
+const generateBookingCode = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString(); // 6 chữ số ngẫu nhiên
+};
 
-  const handlePaymentConfirmation = async () => {
+const handlePaymentConfirmation = async () => {
   if (!customer.name || !customer.phone || !customer.email) {
     alert("Vui lòng điền đầy đủ thông tin khách hàng!");
     return;
   }
   setIsProcessing(true);
+
+  // Sinh bookingCode 6 số
+  const bookingCode = generateBookingCode();
+
+  if (selectedPayment === "bank_transfer") {
+    // Gọi API tạo đơn SePay
+    const numericAmount = Number(totalAmount.replace(/[^\d]/g, ""));
+
+    const res = await fetch("/api/sepay-create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: numericAmount,
+        order_id: bookingCode,
+        customer, // THÊM DÒNG NÀY
+        description: "Thanh toán đặt phòng"
+      }),
+    });
+    const data = await res.json();
+    setSepayData(data);
+    setShowSepayPopup(true);
+    // Lưu bookingCode vào state/sessionStorage nếu cần dùng ở màn confirm
+    // setBookingCode(bookingCode); // Removed because setBookingCode is not defined
+    return;
+  }
+
+  // Xử lý cho thẻ tín dụng (visa_mastercard)
   try {
-    // Sinh bookingCode 6 số
-    const bookingCode = generateBookingCode();
     // Đảm bảo không có mã bookingCode nào bị trùng trong sessionStorage
     let usedCodes: string[] = [];
     const storedCodes = sessionStorage.getItem("usedBookingCodes");
@@ -127,6 +156,36 @@ export default function Payment() {
   }
   setIsProcessing(false);
 };
+
+  useEffect(() => {
+    // Chỉ polling khi đang show popup chuyển khoản và đã có bookingCode
+    if (showSepayPopup && sepayData?.transfer_content) {
+      const orderId = sepayData.transfer_content.replace("DH-", "");
+      pollingRef.current = setInterval(async () => {
+        const res = await fetch(`/api/check-payment-status?order_id=${orderId}`);
+        const data = await res.json();
+        if (data.status === "success") {
+          clearInterval(pollingRef.current!);
+          // Lưu thông tin vào sessionStorage nếu cần
+          sessionStorage.setItem(
+            "confirmedBookingData",
+            JSON.stringify({
+              bookings: currentBookings,
+              customer,
+              bookingCode: orderId,
+              paymentResult: {
+                method: "bank_transfer",
+                status: "success",
+                sepayInfo: sepayData,
+              },
+            })
+          );
+          router.push("/confirmation");
+        }
+      }, 5000); // Kiểm tra mỗi 5 giây
+      return () => clearInterval(pollingRef.current!);
+    }
+  }, [showSepayPopup, sepayData]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -274,7 +333,34 @@ export default function Payment() {
           <span>TỔNG TIỀN THANH TOÁN (VNĐ)</span>
           <span>{totalAmount}</span>
         </div>
-
+        {/* Chọn phương thức thanh toán */}
+<div className="mb-6">
+  <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
+  <div className="flex gap-4">
+    <label className="flex items-center cursor-pointer">
+      <input
+        type="radio"
+        name="payment"
+        value="bank_transfer"
+        checked={selectedPayment === "bank_transfer"}
+        onChange={() => setSelectedPayment("bank_transfer")}
+        className="mr-2"
+      />
+      Chuyển khoản (SePay)
+    </label>
+    <label className="flex items-center cursor-pointer">
+      <input
+        type="radio"
+        name="payment"
+        value="visa_mastercard"
+        checked={selectedPayment === "visa_mastercard"}
+        onChange={() => setSelectedPayment("visa_mastercard")}
+        className="mr-2"
+      />
+      Sử dụng thẻ tín dụng
+    </label>
+  </div>
+</div>
         
 
         {/* Privacy Policy */}
@@ -308,6 +394,33 @@ export default function Payment() {
       {showCancellationPolicy && ( // New conditional render
         <CancellationPolicyDrawer isOpen={showCancellationPolicy} onClose={() => setShowCancellationPolicy(false)} />
       )}
+{showSepayPopup && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div className="bg-white rounded-lg p-6 max-w-sm w-full shadow-lg">
+      <h2 className="text-lg font-bold mb-4">Thông tin chuyển khoản</h2>
+      {sepayData && sepayData.qr_url ? (
+        <div className="flex flex-col items-center gap-3">
+          <img src={sepayData.qr_url} alt="QR chuyển khoản" className="w-48 h-48" />
+          <div className="text-left w-full mt-2">
+            <div><b>Ngân hàng:</b> {sepayData.bank_name}</div>
+            <div><b>Số tài khoản:</b> {sepayData.bank_account}</div>
+            <div><b>Tên chủ tài khoản:</b> {sepayData.account_name}</div>
+            <div><b>Nội dung chuyển khoản:</b> {sepayData.transfer_content}</div>
+            <div><b>Số tiền:</b> {sepayData.amount?.toLocaleString("vi-VN")}đ</div>
+          </div>
+        </div>
+      ) : (
+        <div>Không lấy được thông tin chuyển khoản. Vui lòng thử lại.</div>
+      )}
+      <button
+        className="mt-6 w-full py-2 bg-black text-white rounded"
+        onClick={() => setShowSepayPopup(false)}
+      >
+        Đóng
+      </button>
+    </div>
+  </div>
+)}
     </div>
   )
 }

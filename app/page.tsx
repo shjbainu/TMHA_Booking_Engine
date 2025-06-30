@@ -581,7 +581,11 @@ export default function HotelPhotosPage() {
     className="h-12 w-12 min-w-[48px] min-h-[48px] p-0 rounded-lg bg-orange-400/80 hover:bg-orange-500/90 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150 opacity-100"
     style={{ lineHeight: "48px" }}
   >
+
+ 
+
     <img src="room.svg" alt="Room" width="26" height="26" />
+
   </a>
 </Link>
   </div>
