@@ -7,8 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // Thông tin ngân hàng nhận chuyển khoản
   const bank_code = "MB"
-  const bank_account = "058585186969"
-  const account_name = "VU NGOC DU"
+  const bank_account = "0942501223"
+  const account_name = "TRAN TIEN DAT"
   const transfer_content = `DH-${order_id}`
 
   // Kết nối database - tham khảo cấu hình từ hướng dẫn PHP
