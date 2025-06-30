@@ -8,7 +8,19 @@ interface CancellationPolicyDrawerProps {
   onClose: () => void
 }
 
+import React, { useState } from "react"
+
 export default function CancellationPolicyDrawer({ isOpen, onClose }: CancellationPolicyDrawerProps) {
+  const [showSepayPopup, setShowSepayPopup] = useState(false)
+  const [sepayData, setSepayData] = useState<{
+    qr_url?: string
+    bank_name?: string
+    bank_account?: string
+    account_name?: string
+    transfer_content?: string
+    amount?: number
+  } | null>(null)
+
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
       <DrawerContent className="h-[90vh] flex flex-col">
@@ -37,6 +49,7 @@ export default function CancellationPolicyDrawer({ isOpen, onClose }: Cancellati
                 <li>Khách sẽ bị thu trước toàn bộ số tiền đặt phòng vào bất kỳ thời điểm nào</li>
               </ul>
             </div>
+            
           </div>
         </ScrollArea>
       </DrawerContent>

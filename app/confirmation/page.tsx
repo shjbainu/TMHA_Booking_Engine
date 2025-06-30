@@ -1,11 +1,9 @@
-// @/app/confirmation/page.tsx
-
 "use client"
 
 import { useState, useEffect } from "react"
 import { ArrowLeft, Download, CheckCircle, User, Phone, Mail, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import  ProgressIndicator  from "@/components/progress-indicator"
+import ProgressIndicator from "@/components/progress-indicator"
 import Link from "next/link"
 
 export default function PaymentConfirmation() {
@@ -17,6 +15,7 @@ export default function PaymentConfirmation() {
     phone: "Đang tải...",
     email: "Đang tải...",
   })
+  const [paymentResult, setPaymentResult] = useState<any>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -24,17 +23,16 @@ export default function PaymentConfirmation() {
       if (confirmedDataString) {
         try {
           const confirmedData = JSON.parse(confirmedDataString);
-          
           setBookings(confirmedData.bookings);
           setCustomer(confirmedData.customer);
-          setbookingCode(confirmedData.bookingCode || null);
+          setbookingCode(confirmedData.bookingCode || null); // bookingCode lấy từ payment
+          setPaymentResult(confirmedData.paymentResult || null);
         } catch (error) {
-            console.error("Lỗi khi đọc dữ liệu booking:", error);
+          console.error("Lỗi khi đọc dữ liệu booking:", error);
         }
       }
     }
   }, []);
-
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -50,23 +48,62 @@ export default function PaymentConfirmation() {
 
       <main className="p-4 md:p-8 max-w-4xl mx-auto">
         <div className="mb-8">
-            <ProgressIndicator currentStep={3} steps={steps} />
+          <ProgressIndicator currentStep={3} steps={steps} />
         </div>
 
         <div className="text-center mb-10">
-            <CheckCircle className="mx-auto h-16 w-16 text-emerald-500 mb-4" strokeWidth={1.5} />
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Đặt phòng thành công!</h2>
-            <p className="text-gray-600">Cảm ơn bạn đã tin tưởng. Chi tiết đặt phòng đã được gửi đến email của bạn.</p>
+          <CheckCircle className="mx-auto h-16 w-16 text-emerald-500 mb-4" strokeWidth={1.5} />
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Đặt phòng thành công!</h2>
+          <p className="text-gray-600">Cảm ơn bạn đã tin tưởng. Chi tiết đặt phòng đã được gửi đến email của bạn.</p>
+          {/* Hiển thị kết quả thanh toán */}
+          {paymentResult && (
+            <div className="mt-4">
+              <div className="text-base font-semibold">
+                Phương thức thanh toán:{" "}
+                {paymentResult.method === "bank_transfer"
+                  ? "Chuyển khoản (SePay)"
+                  : paymentResult.method === "visa_mastercard"
+                  ? "Thẻ tín dụng"
+                  : paymentResult.method}
+              </div>
+              <div className="text-base">
+                Trạng thái:{" "}
+                <span className={
+                  paymentResult.status === "success"
+                    ? "text-emerald-600"
+                    : paymentResult.status === "pending"
+                    ? "text-yellow-600"
+                    : "text-red-600"
+                }>
+                  {paymentResult.status === "success"
+                    ? "Đã thanh toán"
+                    : paymentResult.status === "pending"
+                    ? "Chờ thanh toán"
+                    : "Thanh toán thất bại"}
+                </span>
+              </div>
+              {/* Nếu là chuyển khoản, hiển thị thêm thông tin SePay */}
+              {paymentResult.method === "bank_transfer" && paymentResult.sepayInfo && (
+                <div className="mt-2 text-sm text-gray-700">
+                  <div><b>Ngân hàng:</b> {paymentResult.sepayInfo.bank_name}</div>
+                  <div><b>Số tài khoản:</b> {paymentResult.sepayInfo.bank_account}</div>
+                  <div><b>Tên chủ tài khoản:</b> {paymentResult.sepayInfo.account_name}</div>
+                  <div><b>Nội dung chuyển khoản:</b> {paymentResult.sepayInfo.transfer_content}</div>
+                  <div><b>Số tiền:</b> {paymentResult.sepayInfo.amount?.toLocaleString("vi-VN")}đ</div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-6">
             <h3 className="text-xl font-bold text-gray-900">Chi tiết đặt phòng của bạn</h3>
             {bookingCode && (
-    <div className="text-lg font-semibold text-black-700 mb-2">
-      Mã đơn đặt phòng: {bookingCode}
-    </div>
-  )}
+              <div className="text-lg font-semibold text-black-700 mb-2">
+                Mã đơn đặt phòng: {bookingCode}
+              </div>
+            )}
             {bookings.length > 0 ? (
               bookings.map((booking, index) => (
                 <div key={booking.id} className="bg-white rounded-2xl shadow-lg border border-gray-200/80 overflow-hidden">
@@ -140,43 +177,43 @@ export default function PaymentConfirmation() {
           </div>
 
           <div className="md:col-span-1 space-y-6">
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200/80 p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Thông tin liên hệ</h3>
-                  <div className="space-y-3 text-sm">
-                      <div className="flex items-center gap-3">
-                          <User className="h-4 w-4 text-gray-500 flex-shrink-0" />
-                          <span className="text-gray-800">{customer.name}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                          <Phone className="h-4 w-4 text-gray-500 flex-shrink-0" />
-                          <span className="text-gray-800">{customer.phone}</span>
-                      </div>
-                       <div className="flex items-center gap-3">
-                          <Mail className="h-4 w-4 text-gray-500 flex-shrink-0" />
-                          <span className="text-gray-800 break-all">{customer.email}</span>
-                      </div>
-                  </div>
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200/80 p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Thông tin liên hệ</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center gap-3">
+                  <User className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                  <span className="text-gray-800">{customer.name}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                  <span className="text-gray-800">{customer.phone}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                  <span className="text-gray-800 break-all">{customer.email}</span>
+                </div>
               </div>
+            </div>
 
-               <div className="space-y-3">
-                  <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-base font-semibold flex items-center justify-center gap-2 h-12 shadow-lg hover:shadow-xl transition-all">
-                      <Download className="h-5 w-5" />
-                      Tải về hóa đơn
-                  </Button>
-                   <Button variant="outline" className="w-full bg-white hover:bg-gray-100 text-gray-800 py-3 rounded-xl text-base font-medium flex items-center justify-center gap-2 h-12 shadow-md">
-                      <Share2 className="h-5 w-5" />
-                      Chia sẻ đặt phòng
-                  </Button>
-               </div>
+            <div className="space-y-3">
+              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-base font-semibold flex items-center justify-center gap-2 h-12 shadow-lg hover:shadow-xl transition-all">
+                <Download className="h-5 w-5" />
+                Tải về hóa đơn
+              </Button>
+              <Button variant="outline" className="w-full bg-white hover:bg-gray-100 text-gray-800 py-3 rounded-xl text-base font-medium flex items-center justify-center gap-2 h-12 shadow-md">
+                <Share2 className="h-5 w-5" />
+                Chia sẻ đặt phòng
+              </Button>
+            </div>
           </div>
         </div>
 
         <div className="text-center mt-12">
-            <Link href="/">
-                <Button variant="link" className="text-gray-600 hover:text-gray-900">
-                    Về trang chủ
-                </Button>
-            </Link>
+          <Link href="/">
+            <Button variant="link" className="text-gray-600 hover:text-gray-900">
+              Về trang chủ
+            </Button>
+          </Link>
         </div>
       </main>
     </div>
