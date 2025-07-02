@@ -100,7 +100,7 @@ const handlePaymentConfirmation = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         amount: numericAmount,
-        order_id: bookingCode,
+        orders_id: bookingCode,
         customer, // THÊM DÒNG NÀY
         description: "Thanh toán đặt phòng"
       }),
