@@ -20,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // Tạo link QR động
   const bank_code = "MB"
-  const bank_account = "0942501223"
-  const account_name = "TRAN TIEN DAT"
+  const bank_account = "058585186969"
+  const account_name = "VU NGOC DU"
   const transfer_content = `DH-${order_id}`
   const qr_url = `https://qr.sepay.vn/img?acc=${bank_account}&bank=${bank_code}&amount=${amount}&des=${encodeURIComponent(transfer_content)}&template=compact`
 
