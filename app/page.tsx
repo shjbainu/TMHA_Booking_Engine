@@ -218,7 +218,7 @@ export default function HotelPhotosPage() {
         </div>
         {/* "Phòng Superior" Section */}
         <div ref={phongSuperiorRef} id="phong-superior" className="px-4 scroll-mt-20">
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Superior</h2>
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Superior (Chỉ từ 650.000đ)</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
@@ -282,7 +282,7 @@ export default function HotelPhotosPage() {
         </div>
         {/* "Phòng Deluxe" Section */}
         <div ref={phongDeluxeRef} id="phong-deluxe" className="px-4 scroll-mt-20">
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Deluxe</h2>
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Deluxe (Chỉ từ 900.000đ)</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
@@ -346,7 +346,7 @@ export default function HotelPhotosPage() {
         </div>
         {/* "Phòng Studio" Section */}
         <div ref={phongStudioRef} id="phong-studio" className="px-4 scroll-mt-20">
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Studio</h2>
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Studio (Chỉ từ 750.000)</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
@@ -410,7 +410,7 @@ export default function HotelPhotosPage() {
         </div>
         {/* "Phòng Family" Section */}
         <div ref={phongFamilyRef} id="phong-family" className="px-4 scroll-mt-20">
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Family</h2>
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Family (Chỉ từ 1.000.000đ)</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
@@ -474,7 +474,7 @@ export default function HotelPhotosPage() {
         </div>
         {/* "Phòng Premium" Section */}
         <div ref={phongPremiumRef} id="phong-premium" className="px-4 scroll-mt-20">
-          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Premium</h2>
+          <h2 className="text-lg font-semibold text-[#0a0a0a] mb-3 mt-5">Phòng Premium (Chỉ từ 2.200.000đ)</h2>
           <div className="space-y-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
               <Image
