@@ -7,17 +7,21 @@ const supabase = createClient(
 )
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Lấy order_id từ query, ép kiểu về string hoặc number nếu cần
-  const order_id = typeof req.query.order_id === "string" ? req.query.order_id : Array.isArray(req.query.order_id) ? req.query.order_id[0] : undefined
+  // Lấy order_id từ query, ép kiểu về số cho đúng với bảng orders mới
+  const order_id = typeof req.query.order_id === "string"
+    ? Number(req.query.order_id)
+    : Array.isArray(req.query.order_id)
+      ? Number(req.query.order_id[0])
+      : undefined
 
-  if (!order_id) {
-    return res.status(400).json({ status: "not_found", error: "Missing order_id" })
+  if (!order_id || isNaN(order_id)) {
+    return res.status(400).json({ status: "not_found", error: "Missing or invalid order_id" })
   }
 
-  // Truy vấn trạng thái đơn hàng
+  // Truy vấn trạng thái đơn hàng từ bảng orders mới
   const { data, error } = await supabase
-    .from("payments")
-    .select("status")
+    .from("orders")
+    .select("payment_status")
     .eq("order_id", order_id)
     .maybeSingle()
 
@@ -25,9 +29,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ status: "error", error: error.message })
   }
 
-  if (data && data.status) {
+  if (data && data.payment_status) {
     // Trả về đúng trạng thái đơn hàng
-    return res.status(200).json({ status: data.status })
+    return res.status(200).json({ status: data.payment_status })
   } else {
     // Không tìm thấy đơn hàng
     return res.status(404).json({ status: "not_found" })

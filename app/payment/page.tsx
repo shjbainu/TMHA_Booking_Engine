@@ -160,11 +160,11 @@ const handlePaymentConfirmation = async () => {
   useEffect(() => {
     // Chỉ polling khi đang show popup chuyển khoản và đã có bookingCode
     if (showSepayPopup && sepayData?.transfer_content) {
-      const orderId = sepayData.transfer_content.replace("DH-", "");
+      const orderId = sepayData.transfer_content.replace("DH", "");
       pollingRef.current = setInterval(async () => {
         const res = await fetch(`/api/payment-status?order_id=${orderId}`);
         const data = await res.json();
-        if (data.status === "success") {
+        if (data.status === "Paid") {
           clearInterval(pollingRef.current!);
           // Lưu thông tin vào sessionStorage nếu cần
           sessionStorage.setItem(

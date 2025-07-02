@@ -5,32 +5,36 @@ const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SE
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).end()
-  const { amount, order_id, customer, description } = req.body
+  const { amount, name } = req.body
 
-  // Lưu vào Supabase
-  const { error } = await supabase.from("payments").insert([{
-    order_id,
-    amount,
-    customer_name: customer?.name || "",
-    customer_phone: customer?.phone || "",
-    customer_email: customer?.email || "",
-    status: "pending"
-  }])
-  if (error) return res.status(500).json({ error: error.message })
+  if (!amount || isNaN(amount)) {
+    return res.status(400).json({ error: "Invalid amount" })
+  }
+
+  // Tạo đơn hàng mới trong bảng orders
+  const { data, error } = await supabase.from("orders").insert([{
+    total: amount,
+    payment_status: "Unpaid",
+    name: name || "Đơn hàng mới"
+  }]).select("order_id, total, name").single()
+
+  if (error || !data) return res.status(500).json({ error: error?.message || "Cannot create order" })
 
   // Tạo link QR động
   const bank_code = "MB"
   const bank_account = "058585186969"
   const account_name = "VU NGOC DU"
-  const transfer_content = `DH-${order_id}`
-  const qr_url = `https://qr.sepay.vn/img?acc=${bank_account}&bank=${bank_code}&amount=${amount}&des=${encodeURIComponent(transfer_content)}&template=compact`
+  const transfer_content = `DH${data.order_id}`
+  const qr_url = `https://qr.sepay.vn/img?acc=${bank_account}&bank=${bank_code}&amount=${data.total}&des=${encodeURIComponent(transfer_content)}&template=compact`
 
   res.status(200).json({
+    order_id: data.order_id,
     bank_name: "MB Bank",
     bank_account,
     account_name,
     transfer_content,
     qr_url,
-    amount,
+    amount: data.total,
+    name: data.name
   })
 }

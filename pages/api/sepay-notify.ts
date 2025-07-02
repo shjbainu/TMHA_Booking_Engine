@@ -12,48 +12,61 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // Lấy dữ liệu từ webhook SePay
   const data = req.body
 
-  // Bóc tách order_id từ content (hoặc code) nếu chưa có
-  let order_id: string | null = data.order_id || null;
-  if (!order_id && data.content) {
+  // 1. Lưu log giao dịch vào bảng transactions
+  await supabase.from("transactions").insert([{
+    gateway: data.gateway,
+    transaction_date: data.transactionDate,
+    account_number: data.accountNumber,
+    sub_account: data.subAccount,
+    amount_in: data.transferAmount,
+    amount_out: 0,
+    accumulated: data.accumulated,
+    code: data.code,
+    transaction_content: data.content,
+    reference_number: data.referenceCode,
+    body: JSON.stringify(data),
+  }])
+
+  // 2. Bóc tách order_id từ content hoặc code
+  let order_id: string | null = null;
+  if (data.content) {
     const match = data.content.match(/DH(\d+)/i);
     order_id = match ? match[1] : null;
   }
-  // Nếu không có trong content, thử lấy từ code
   if (!order_id && data.code) {
     const match = data.code.match(/DH(\d+)/i);
     order_id = match ? match[1] : null;
   }
+  const order_id_num = order_id ? Number(order_id) : null;
 
-  // 1. Lưu log giao dịch vào bảng transactions
-  // Giả sử các trường giống bảng payments, bạn có thể lưu toàn bộ data hoặc chỉ các trường cần thiết
-  await supabase.from("payments").insert([{
-    order_id: order_id,
-    amount: data.amount,
-    customer_name: data.customer_name || "",
-    customer_phone: data.customer_phone || "",
-    customer_email: data.customer_email || "",
-    status: data.status || "pending",
-    // Thêm các trường khác nếu cần
-  }])
-
-  // 2. Kiểm tra dữ liệu hợp lệ
-  const amount = data.amount;
-  if (!order_id) {
-    return res.status(400).json({ success: false, message: "Missing order_id" })
+  // 3. Kiểm tra dữ liệu hợp lệ
+  if (!order_id_num) {
+    return res.status(400).json({ success: false, message: "Missing order_id" });
   }
 
-  // 3. Kiểm tra đơn hàng tồn tại, đúng số tiền, trạng thái 'pending'
-  const { data: payment, error: findError } = await supabase
-    .from("payments")
+  // 4. Kiểm tra đơn hàng tồn tại, đúng số tiền, trạng thái 'Unpaid'
+  const { data: order, error: findError } = await supabase
+    .from("orders")
     .select("*")
-    .eq("order_id", order_id)
-    .eq("amount", amount)
-    .eq("status", "pending")
-    .maybeSingle()
+    .eq("order_id", order_id_num)
+    .eq("total", data.transferAmount)
+    .eq("payment_status", "Unpaid")
+    .maybeSingle();
 
-  if (findError || !payment) {
-    return res.status(404).json({ success: false, message: "Order not found or already paid" })
+  if (findError || !order) {
+    return res.status(404).json({ success: false, message: "Order not found or already paid" });
   }
 
-// (Đã chuyển phần bóc tách order_id vào trong handler để tránh lỗi 'Cannot find name data')
+  // 5. Cập nhật trạng thái đơn hàng sang 'Paid'
+  const { error: updateError } = await supabase
+    .from("orders")
+    .update({ payment_status: "Paid" })
+    .eq("order_id", order_id_num);
+
+  if (updateError) {
+    return res.status(500).json({ success: false, message: updateError.message });
+  }
+
+  // 6. Trả về đúng chuẩn SePay yêu cầu
+  return res.status(200).json({ success: true });
 }
