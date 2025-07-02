@@ -12,10 +12,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // Lấy dữ liệu từ webhook SePay
   const data = req.body
 
+  // Bóc tách order_id từ content (hoặc code) nếu chưa có
+  let order_id: string | null = data.order_id || null;
+  if (!order_id && data.content) {
+    const match = data.content.match(/DH(\d+)/i);
+    order_id = match ? match[1] : null;
+  }
+  // Nếu không có trong content, thử lấy từ code
+  if (!order_id && data.code) {
+    const match = data.code.match(/DH(\d+)/i);
+    order_id = match ? match[1] : null;
+  }
+
   // 1. Lưu log giao dịch vào bảng transactions
   // Giả sử các trường giống bảng payments, bạn có thể lưu toàn bộ data hoặc chỉ các trường cần thiết
   await supabase.from("payments").insert([{
-    order_id: data.order_id,
+    order_id: order_id,
     amount: data.amount,
     customer_name: data.customer_name || "",
     customer_phone: data.customer_phone || "",
@@ -25,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }])
 
   // 2. Kiểm tra dữ liệu hợp lệ
-  const { order_id, amount } = data
+  const amount = data.amount;
   if (!order_id) {
     return res.status(400).json({ success: false, message: "Missing order_id" })
   }
@@ -43,14 +55,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(404).json({ success: false, message: "Order not found or already paid" })
   }
 
-  // 4. Cập nhật trạng thái đơn hàng sang 'Paid'
-  const { error } = await supabase
-    .from("payments")
-    .update({ status: "success" })
-    .eq("order_id", order_id)
-
-  if (error) return res.status(500).json({ success: false, message: error.message })
-
-  // 5. Trả về đúng chuẩn SePay yêu cầu
-  res.status(200).json({ success: true })
+// (Đã chuyển phần bóc tách order_id vào trong handler để tránh lỗi 'Cannot find name data')
 }
