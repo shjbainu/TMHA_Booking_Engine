@@ -44,7 +44,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .update({ status })
     .eq("order_id", order_id)
 
-  if (error) return res.status(500).json({ error: error.message })
+  if (error) return res.status(500).json({ success: false, message: error.message })
 
-  res.status(200).json({ received: true })
+  // Đúng chuẩn SePay yêu cầu:
+  res.status(200).json({ success: true })
 }
