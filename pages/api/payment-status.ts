@@ -1,23 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import mysql from "mysql2/promise"
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { order_id } = req.query;
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    port: 3301,
-    password: "minov@2025",
-    database: "booking_engine"
-  });
-  const [rows] = await connection.execute<mysql.RowDataPacket[]>(
-    "SELECT status FROM payments WHERE order_id = ?",
-    [order_id]
-  );
-  await connection.end();
-  if (Array.isArray(rows) && rows.length > 0) {
-    res.status(200).json({ status: (rows[0] as mysql.RowDataPacket).status });
+  const { order_id } = req.query
+
+  const { data, error } = await supabase
+    .from("payments")
+    .select("status")
+    .eq("order_id", order_id)
+    .single()
+
+  if (error) {
+    return res.status(500).json({ error: error.message })
+  }
+
+  if (data) {
+    res.status(200).json({ status: data.status })
   } else {
-    res.status(404).json({ status: "not_found" });
+    res.status(404).json({ status: "not_found" })
   }
 }
