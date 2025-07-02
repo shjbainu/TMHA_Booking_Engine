@@ -162,7 +162,7 @@ const handlePaymentConfirmation = async () => {
     if (showSepayPopup && sepayData?.transfer_content) {
       const orderId = sepayData.transfer_content.replace("DH-", "");
       pollingRef.current = setInterval(async () => {
-        const res = await fetch(`/api/check-payment-status?order_id=${orderId}`);
+        const res = await fetch(`/api/payment-status?order_id=${orderId}`);
         const data = await res.json();
         if (data.status === "success") {
           clearInterval(pollingRef.current!);
