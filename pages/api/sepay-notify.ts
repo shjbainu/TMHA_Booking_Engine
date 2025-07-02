@@ -12,40 +12,45 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // Lấy dữ liệu từ webhook SePay
   const data = req.body
 
-  // Tách mã đơn hàng từ nội dung chuyển khoản (nếu cần)
-  // Nếu SePay gửi trực tiếp order_id thì không cần tách, nếu gửi content thì cần tách bằng regex
+  // 1. Lưu log giao dịch vào bảng transactions
+  // Giả sử các trường giống bảng payments, bạn có thể lưu toàn bộ data hoặc chỉ các trường cần thiết
+  await supabase.from("payments").insert([{
+    order_id: data.order_id,
+    amount: data.amount,
+    customer_name: data.customer_name || "",
+    customer_phone: data.customer_phone || "",
+    customer_email: data.customer_email || "",
+    status: data.status || "pending",
+    // Thêm các trường khác nếu cần
+  }])
 
-  // Kiểm tra dữ liệu hợp lệ
-  const { order_id, status, amount } = data
-  if (!order_id || !status) {
-    return res.status(400).json({ error: "Missing order_id or status" })
+  // 2. Kiểm tra dữ liệu hợp lệ
+  const { order_id, amount } = data
+  if (!order_id) {
+    return res.status(400).json({ success: false, message: "Missing order_id" })
   }
 
-  // Kiểm tra đơn hàng tồn tại, đúng số tiền, trạng thái 'pending'
+  // 3. Kiểm tra đơn hàng tồn tại, đúng số tiền, trạng thái 'pending'
   const { data: payment, error: findError } = await supabase
     .from("payments")
     .select("*")
     .eq("order_id", order_id)
+    .eq("amount", amount)
     .eq("status", "pending")
     .maybeSingle()
 
   if (findError || !payment) {
-    return res.status(404).json({ error: "Order not found or already updated" })
+    return res.status(404).json({ success: false, message: "Order not found or already paid" })
   }
 
-  // Nếu có truyền amount, kiểm tra số tiền khớp
-  if (amount && payment.amount !== amount) {
-    return res.status(400).json({ error: "Amount does not match" })
-  }
-
-  // Cập nhật trạng thái đơn hàng
+  // 4. Cập nhật trạng thái đơn hàng sang 'Paid'
   const { error } = await supabase
     .from("payments")
-    .update({ status })
+    .update({ status: "success" })
     .eq("order_id", order_id)
 
   if (error) return res.status(500).json({ success: false, message: error.message })
 
-  // Đúng chuẩn SePay yêu cầu:
+  // 5. Trả về đúng chuẩn SePay yêu cầu
   res.status(200).json({ success: true })
 }
