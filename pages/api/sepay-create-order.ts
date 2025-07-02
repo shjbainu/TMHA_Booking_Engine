@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     total: amount,
     payment_status: "Unpaid",
     name: name || "Đơn hàng mới"
-  }]).select("order_id, total, name").single()
+  }]).select("orders_id, total, name").single()
 
   if (error || !data) return res.status(500).json({ error: error?.message || "Cannot create order" })
 
@@ -24,11 +24,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const bank_code = "MB"
   const bank_account = "058585186969"
   const account_name = "VU NGOC DU"
-  const transfer_content = `DH${data.order_id}`
+  const transfer_content = `DH${data.orders_id}`
   const qr_url = `https://qr.sepay.vn/img?acc=${bank_account}&bank=${bank_code}&amount=${data.total}&des=${encodeURIComponent(transfer_content)}&template=compact`
 
   res.status(200).json({
-    order_id: data.order_id,
+    order_id: data.orders_id,
     bank_name: "MB Bank",
     bank_account,
     account_name,
