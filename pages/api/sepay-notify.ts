@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const data = req.body
 
   // 1. Lưu log giao dịch vào bảng transactions
-  await supabase.from("transactions").insert([{
+  await supabase.from("tb_transactions").insert([{
     gateway: data.gateway,
     transaction_date: data.transactionDate,
     account_number: data.accountNumber,
@@ -46,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // 4. Kiểm tra đơn hàng tồn tại, đúng số tiền, trạng thái 'Unpaid'
   const { data: order, error: findError } = await supabase
-    .from("orders")
+    .from("tb_orders")
     .select("*")
     .eq("order_id", order_id_num)
     .eq("total", data.transferAmount)
@@ -59,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // 5. Cập nhật trạng thái đơn hàng sang 'Paid'
   const { error: updateError } = await supabase
-    .from("orders")
+    .from("tb_orders")
     .update({ payment_status: "Paid" })
     .eq("order_id", order_id_num);
 

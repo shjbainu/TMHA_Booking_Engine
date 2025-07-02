@@ -20,9 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // Truy vấn trạng thái đơn hàng từ bảng orders mới
   const { data, error } = await supabase
-    .from("orders")
+    .from("tb_orders")
     .select("payment_status")
-    .eq("order_id", order_id)
+    .eq("orders_id", order_id)
     .maybeSingle()
 
   if (error) {

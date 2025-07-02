@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // Tạo đơn hàng mới trong bảng orders
-  const { data, error } = await supabase.from("orders").insert([{
+  const { data, error } = await supabase.from("tb_orders").insert([{
     total: amount,
     payment_status: "Unpaid",
     name: name || "Đơn hàng mới"
