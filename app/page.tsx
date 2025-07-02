@@ -488,7 +488,7 @@ export default function HotelPhotosPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
-                  src="/00_Final/1.1 Alex_2.JPG"
+                  src="https://ak-d.tripcdn.com/images/1mc0812000cpiycsq0BEC_R_600_400_R5.webp"
                   alt="Phòng Premium - Ảnh 2"
                   fill
                   className="object-cover"
@@ -581,7 +581,11 @@ export default function HotelPhotosPage() {
     className="h-12 w-12 min-w-[48px] min-h-[48px] p-0 rounded-lg bg-orange-400/80 hover:bg-orange-500/90 shadow-md flex items-center justify-center transform hover:scale-105 transition-transform duration-150 opacity-100"
     style={{ lineHeight: "48px" }}
   >
-    <img src="/images/9chonphong.png" alt="Room" width="26" height="26" />
+
+ 
+
+    <img src="room.svg" alt="Room" width="26" height="26" />
+
   </a>
 </Link>
   </div>
