@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ error: "Invalid amount" })
   }
 
-  // Tạo đơn hàng mới trong bảng orders
+  // Đúng tên bảng và trường
   const { data, error } = await supabase.from("tb_orders").insert([{
     total: amount,
     payment_status: "Unpaid",
@@ -20,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (error || !data) return res.status(500).json({ error: error?.message || "Cannot create order" })
 
-  // Tạo link QR động
   const bank_code = "MB"
   const bank_account = "058585186969"
   const account_name = "VU NGOC DU"
