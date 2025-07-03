@@ -6,7 +6,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Tên website của bạn",
+  title: "The Mansion Hoi An by Minova",
   icons: {
     icon: "/Favicon.png",
   },
