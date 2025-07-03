@@ -5,10 +5,11 @@ import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: "The Mansion Hoi An by Minova",
-  description: "Mobile-first hotel booking experience",
-    generator: 'v0.dev'
+export const metadata = {
+  title: "Tên website của bạn",
+  icons: {
+    icon: "/Favicon.png",
+  },
 }
 
 export default function RootLayout({
