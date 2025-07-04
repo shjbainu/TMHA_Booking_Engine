@@ -27,31 +27,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     body: JSON.stringify(data),
   }])
 
-  // 2. Bóc tách order_id từ content hoặc code
-  let order_id: string | null = null;
+  // 2. Bóc tách orders_id từ content hoặc code
+  let orders_id: string | null = null;
   if (data.content) {
     const match = data.content.match(/DH(\d+)/i);
-    order_id = match ? match[1] : null;
+    orders_id = match ? match[1] : null;
   }
-  if (!order_id && data.code) {
+  if (!orders_id && data.code) {
     const match = data.code.match(/DH(\d+)/i);
-    order_id = match ? match[1] : null;
+    orders_id = match ? match[1] : null;
   }
-  const order_id_num = order_id ? Number(order_id) : null;
+  const orders_id_num = orders_id ? Number(orders_id) : null;
 
   // 3. Kiểm tra dữ liệu hợp lệ
-  if (!order_id_num) {
-    return res.status(400).json({ success: false, message: "Missing order_id" });
+  if (!orders_id_num) {
+    return res.status(400).json({ success: false, message: "Missing orders_id" });
   }
 
   // 4. Kiểm tra đơn hàng tồn tại, đúng số tiền, trạng thái 'Unpaid'
   const { data: order, error: findError } = await supabase
     .from("tb_orders")
     .select("*")
-    .eq("order_id", order_id_num)
+    .eq("orders_id", orders_id_num)
     .eq("total", data.transferAmount)
-    .eq("payment_status", "Unpaid")
-    .maybeSingle();
+    .contains("payment_status", ["Unpaid"]).maybeSingle();
 
   if (findError || !order) {
     return res.status(404).json({ success: false, message: "Order not found or already paid" });
@@ -60,8 +59,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // 5. Cập nhật trạng thái đơn hàng sang 'Paid'
   const { error: updateError } = await supabase
     .from("tb_orders")
-    .update({ payment_status: "Paid" })
-    .eq("order_id", order_id_num);
+    .update({ payment_status: ["Paid"] })
+    .eq("orders_id", orders_id_num);
 
   if (updateError) {
     return res.status(500).json({ success: false, message: updateError.message });
