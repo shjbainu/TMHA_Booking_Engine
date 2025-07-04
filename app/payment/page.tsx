@@ -407,13 +407,24 @@ const handlePaymentConfirmation = async () => {
           <img src={sepayData.qr_url} alt="QR chuyển khoản" className="w-48 h-48" />
           <button
             className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
-            onClick={() => {
-              const link = document.createElement('a');
-              link.href = sepayData.qr_url;
-              link.download = `qr_chuyen_khoan.png`;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
+            onClick={async () => {
+              try {
+                const response = await fetch(sepayData.qr_url, { mode: "cors" });
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `qr_chuyen_khoan.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+                setShowCopyToast("Đã lưu QR");
+                setTimeout(() => setShowCopyToast(""), 3000);
+              } catch (e) {
+                setShowCopyToast("Không thể lưu QR");
+                setTimeout(() => setShowCopyToast(""), 3000);
+              }
             }}
           >
             Lưu QR
