@@ -10,7 +10,7 @@ export const rooms: Room[] = [
     area: "17m2",
     guests: 2,
     rooms: 2,
-    priceWeekday: 650000,
+    priceWeekday: 2000,
     priceWeekend: 850000,
     images: ["/placeholder.svg?height=200&width=300"],
   },
