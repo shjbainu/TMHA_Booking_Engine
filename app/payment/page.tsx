@@ -35,6 +35,7 @@ export default function Payment() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [sepayData, setSepayData] = useState<any>(null)
   const [showSepayPopup, setShowSepayPopup] = useState(false)
+  const [showCopyToast, setShowCopyToast] = useState("");
 
   const pollingRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -164,7 +165,10 @@ const handlePaymentConfirmation = async () => {
       pollingRef.current = setInterval(async () => {
         const res = await fetch(`/api/payment-status?order_id=${orderId}`);
         const data = await res.json();
-        if (data.status === "Paid") {
+        if (
+          data.status === "Paid" ||
+          (Array.isArray(data.status) && data.status.includes("Paid"))
+        ) {
           clearInterval(pollingRef.current!);
           // Lưu thông tin vào sessionStorage nếu cần
           sessionStorage.setItem(
@@ -396,28 +400,60 @@ const handlePaymentConfirmation = async () => {
       )}
 {showSepayPopup && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-    <div className="bg-white rounded-lg p-6 max-w-sm w-full shadow-lg">
+    <div className="bg-white rounded-lg p-6 max-w-sm w-full shadow-lg relative">
       <h2 className="text-lg font-bold mb-4">Thông tin chuyển khoản</h2>
       {sepayData && sepayData.qr_url ? (
         <div className="flex flex-col items-center gap-3">
           <img src={sepayData.qr_url} alt="QR chuyển khoản" className="w-48 h-48" />
-          <div className="text-left w-full mt-2">
-            <div><b>Ngân hàng:</b> {sepayData.bank_name}</div>
-            <div><b>Số tài khoản:</b> {sepayData.bank_account}</div>
-            <div><b>Tên chủ tài khoản:</b> {sepayData.account_name}</div>
-            <div><b>Nội dung chuyển khoản:</b> {sepayData.transfer_content}</div>
-            <div><b>Số tiền:</b> {sepayData.amount?.toLocaleString("vi-VN")}đ</div>
+          <button
+            className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+            onClick={() => {
+              const link = document.createElement('a');
+              link.href = sepayData.qr_url;
+              link.download = `qr_chuyen_khoan.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
+          >
+            Lưu QR
+          </button>
+          <div className="text-left w-full mt-2 space-y-4"> {/* tăng space-y-4 */}
+            {[
+              { label: "Ngân hàng", value: sepayData.bank_name },
+              { label: "Số tài khoản", value: sepayData.bank_account },
+              { label: "Tên chủ tài khoản", value: sepayData.account_name },
+              { label: "Nội dung", value: sepayData.transfer_content },
+              { label: "Số tiền", value: sepayData.amount?.toLocaleString("vi-VN") + "đ" },
+            ].map((item, idx) => (
+              <div key={idx} className="flex justify-between items-center py-2">
+                <div className="font-medium flex-shrink-0">{item.label}:</div>
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="truncate">{item.value}</span>
+                  <button
+                    className="ml-2 px-2 py-1 bg-gray-200 rounded text-xs hover:bg-gray-300"
+                    onClick={() => {
+                      navigator.clipboard.writeText(item.value);
+                      setShowCopyToast("Đã copy " + item.label);
+                      setTimeout(() => setShowCopyToast(""), 3000);
+                    }}
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       ) : (
         <div>Không lấy được thông tin chuyển khoản. Vui lòng thử lại.</div>
       )}
-      <button
-        className="mt-6 w-full py-2 bg-black text-white rounded"
-        onClick={() => setShowSepayPopup(false)}
-      >
-        Đóng
-      </button>
+      {/* Toast thông báo copy */}
+      {showCopyToast && (
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50 transition-all">
+          {showCopyToast}
+        </div>
+      )}
     </div>
   </div>
 )}
