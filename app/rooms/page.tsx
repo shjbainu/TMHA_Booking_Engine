@@ -66,6 +66,7 @@ export default function RoomSelection() {
       hoursOfUse: 2,
     },
   ])
+  const [isProcessing, setIsProcessing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [includeBreakfastFilter, setIncludeBreakfastFilter] = useState(false)
   const [freeCancellationFilter, setFreeCancellationFilter] = useState(false)
@@ -379,6 +380,105 @@ export default function RoomSelection() {
       </>
     )
   }, [activeBooking])
+
+  // === THÊM HÀM NÀY TRƯỚC RETURN ===
+  const handleComplete = async () => {
+    setIsProcessing(true)
+    
+    try {
+      const selectedRoomsData = bookings
+        .map((booking) => {
+          const roomsInBooking = Object.entries(booking.roomQuantities)
+            .filter(([, quantity]) => quantity > 0)
+            .map(([roomId, quantity]) => {
+              const roomDetail = rooms.find((r) => r.id === roomId)
+              if (!roomDetail || !booking.startDate || !booking.endDate) return null
+
+              // Tính tổng tiền cho phòng này
+              let priceForRange = 0
+              let currentDate = new Date(booking.startDate)
+              while (currentDate < booking.endDate) {
+                const dayOfWeek = currentDate.getDay()
+                if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
+                  priceForRange += roomDetail.priceWeekend
+                } else {
+                  priceForRange += roomDetail.priceWeekday
+                }
+                currentDate = addDays(currentDate, 1)
+              }
+              let extra = 0
+              if (booking.roomPolicies[roomId]?.breakfast === "Bao gồm bữa sáng cho 2 người") {
+                extra = 100000
+              }
+
+              const roomTotalPrice = (priceForRange + extra) * quantity
+
+              return {
+                id: roomDetail.id,
+                name: roomDetail.name,
+                quantity: quantity,
+                policies: booking.roomPolicies[roomId],
+                roomTotalPrice,
+              }
+            })
+            .filter(Boolean)
+
+          // === LOGIC TÍNH GIÁ MỚI ===
+          const bookingTotalPrice = Object.entries(booking.roomQuantities).reduce(
+            (sum, [roomId, quantity]) => {
+              const room = rooms.find((r) => r.id === roomId)
+              if (!room || !booking.startDate || !booking.endDate) return sum
+
+              let priceForRange = 0
+              let currentDate = new Date(booking.startDate)
+              while (currentDate < booking.endDate) {
+                const dayOfWeek = currentDate.getDay()
+                if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
+                  priceForRange += room.priceWeekend
+                } else {
+                  priceForRange += room.priceWeekday
+                }
+                currentDate = addDays(currentDate, 1)
+              }
+              let extra = 0
+              if (booking.roomPolicies[roomId]?.breakfast === "Bao gồm bữa sáng cho 2 người") {
+                extra = 100000
+              }
+              return sum + (priceForRange + extra) * quantity
+            },
+            0,
+          )
+
+          let formattedCheckIn = ""
+          let formattedCheckOut = ""
+          if (booking.startDate && booking.endDate) {
+            formattedCheckIn = format(booking.startDate, "EEEE, dd/MM/yyyy", { locale: vi })
+            formattedCheckOut = format(booking.endDate, "EEEE, dd/MM/yyyy", { locale: vi })
+          }
+
+          return {
+            id: booking.id,
+            rooms: roomsInBooking,
+            bookingTotalPrice: bookingTotalPrice,
+            checkInDate: formattedCheckIn,
+            checkOutDate: formattedCheckOut,
+          }
+        })
+        .filter((b) => b.rooms.length > 0)
+
+      if (selectedRoomsData.length > 0) {
+        localStorage.setItem("currentBookings", JSON.stringify(selectedRoomsData))
+        router.push("/payment")
+      } else {
+        alert("Vui lòng chọn ít nhất một phòng để tiếp tục.")
+      }
+    } catch (error) {
+      console.error("Lỗi khi xử lý:", error)
+      alert("Có lỗi xảy ra, vui lòng thử lại.")
+    } finally {
+      setIsProcessing(false)
+    }
+  }
 
   return (
     <div
@@ -2525,97 +2625,20 @@ const canSelectFreeCancel = daysToCheckIn > 7;
           </div>
           <Button
             className="w-full bg-[#0a0a0a] hover:bg-[#000000] text-white py-3 rounded-lg"
-            onClick={() => {
-              const selectedRoomsData = bookings
-                .map((booking) => {
-                  const roomsInBooking = Object.entries(booking.roomQuantities)
-  .filter(([, quantity]) => quantity > 0)
-  .map(([roomId, quantity]) => {
-    const roomDetail = rooms.find((r) => r.id === roomId)
-    if (!roomDetail || !booking.startDate || !booking.endDate) return null
-
-    // Tính tổng tiền cho phòng này
-    let priceForRange = 0
-    let currentDate = new Date(booking.startDate)
-    while (currentDate < booking.endDate) {
-      const dayOfWeek = currentDate.getDay()
-      if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
-        priceForRange += roomDetail.priceWeekend
-      } else {
-        priceForRange += roomDetail.priceWeekday
-      }
-      currentDate = addDays(currentDate, 1)
-    }
-    let extra = 0
-    if (booking.roomPolicies[roomId]?.breakfast === "Bao gồm bữa sáng cho 2 người") {
-      extra = 100000
-    }
-
-    const roomTotalPrice = (priceForRange + extra) * quantity
-
-    return {
-      id: roomDetail.id,
-      name: roomDetail.name,
-      quantity: quantity,
-      policies: booking.roomPolicies[roomId],
-      roomTotalPrice, // Thêm trường này để sang trang payment lấy đúng giá
-    }
-  })
-  .filter(Boolean)
-
-                  // === LOGIC TÍNH GIÁ MỚI ===
-                  const bookingTotalPrice = Object.entries(booking.roomQuantities).reduce(
-                    (sum, [roomId, quantity]) => {
-                      const room = rooms.find((r) => r.id === roomId)
-                      if (!room || !booking.startDate || !booking.endDate) return sum
-
-                      let priceForRange = 0
-                      let currentDate = new Date(booking.startDate)
-                      while (currentDate < booking.endDate) {
-                        const dayOfWeek = currentDate.getDay()
-                        if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
-                          priceForRange += room.priceWeekend
-                        } else {
-                          priceForRange += room.priceWeekday
-                        }
-                        currentDate = addDays(currentDate, 1)
-                      }
-                      let extra = 0
-                      if (booking.roomPolicies[roomId]?.breakfast === "Bao gồm bữa sáng cho 2 người") {
-                        extra = 100000
-                      }
-                      return sum + (priceForRange + extra) * quantity
-                    },
-                    0,
-                  )
-                  // === END LOGIC TÍNH GIÁ MỚI ===
-
-                  let formattedCheckIn = ""
-                  let formattedCheckOut = ""
-                  if (booking.startDate && booking.endDate) {
-                    formattedCheckIn = format(booking.startDate, "EEEE, dd/MM/yyyy", { locale: vi })
-                    formattedCheckOut = format(booking.endDate, "EEEE, dd/MM/yyyy", { locale: vi })
-                  }
-
-                  return {
-                    id: booking.id,
-                    rooms: roomsInBooking,
-                    bookingTotalPrice: bookingTotalPrice,
-                    checkInDate: formattedCheckIn,
-                    checkOutDate: formattedCheckOut,
-                  }
-                })
-                .filter((b) => b.rooms.length > 0)
-
-              if (selectedRoomsData.length > 0) {
-                localStorage.setItem("currentBookings", JSON.stringify(selectedRoomsData))
-                router.push("/payment")
-              } else {
-                alert("Vui lòng chọn ít nhất một phòng để tiếp tục.")
-              }
-            }}
+            onClick={handleComplete}
+            disabled={isProcessing}
           >
-            Hoàn tất
+            {isProcessing ? (
+              <>
+                <svg className="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                Đang xử lý...
+              </>
+            ) : (
+              "Hoàn tất"
+            )}
           </Button>
         </div>
       </div>
