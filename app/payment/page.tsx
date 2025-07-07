@@ -170,7 +170,27 @@ const handlePaymentConfirmation = async () => {
           (Array.isArray(data.status) && data.status.includes("Paid"))
         ) {
           clearInterval(pollingRef.current!);
-          // Lưu thông tin vào sessionStorage nếu cần
+          
+          // === THÊM LOGIC GỬI EMAIL Ở ĐÂY ===
+          try {
+            // Gắn bookingCode vào từng booking con
+            const bookingsWithCode = currentBookings.map(b => ({
+              ...b,
+              bookingCode: orderId,
+            }));
+
+            // Gửi email xác nhận
+            const result = await sendBookingConfirmationEmail(customer, bookingsWithCode, orderId);
+            if (result?.error) {
+              console.error("Lỗi gửi email:", result.error);
+              // Không dừng flow vì thanh toán đã thành công
+            }
+          } catch (emailError) {
+            console.error("Lỗi gửi email:", emailError);
+            // Không dừng flow vì thanh toán đã thành công
+          }
+          
+          // Lưu thông tin vào sessionStorage
           sessionStorage.setItem(
             "confirmedBookingData",
             JSON.stringify({
@@ -338,33 +358,80 @@ const handlePaymentConfirmation = async () => {
           <span>{totalAmount}</span>
         </div>
         {/* Chọn phương thức thanh toán */}
-<div className="mb-6">
-  <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
-  <div className="flex gap-4">
-    <label className="flex items-center cursor-pointer">
-      <input
-        type="radio"
-        name="payment"
-        value="bank_transfer"
-        checked={selectedPayment === "bank_transfer"}
-        onChange={() => setSelectedPayment("bank_transfer")}
-        className="mr-2"
-      />
-      Chuyển khoản (SePay)
-    </label>
-    <label className="flex items-center cursor-pointer">
-      <input
-        type="radio"
-        name="payment"
-        value="visa_mastercard"
-        checked={selectedPayment === "visa_mastercard"}
-        onChange={() => setSelectedPayment("visa_mastercard")}
-        className="mr-2"
-      />
-      Sử dụng thẻ tín dụng
-    </label>
-  </div>
-</div>
+        <div className="mb-6">
+          <h2 className="text-lg font-medium text-[#0a0a0a] mb-4">Phương thức thanh toán</h2>
+          <div className="space-y-3">
+            {/* Phương thức chuyển khoản */}
+            <div
+              className={`w-full p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${
+                selectedPayment === "bank_transfer"
+                  ? "border-blue-500 bg-blue-50"
+                  : "border-gray-200 bg-white hover:border-gray-300"
+              }`}
+              onClick={() => setSelectedPayment("bank_transfer")}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    selectedPayment === "bank_transfer"
+                      ? "border-blue-500 bg-blue-500"
+                      : "border-gray-300"
+                  }`}>
+                    {selectedPayment === "bank_transfer" && (
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                    )}
+                  </div>
+                  <div>
+                    <div className="font-medium text-[#0a0a0a]">Chuyển khoản ngân hàng</div>
+                    <div className="text-sm text-gray-600">Thanh toán qua SePay</div>
+                  </div>
+                </div>
+                <div className="w-12 h-8">
+                  <img 
+                    src="/CK.svg" 
+                    alt="Chuyển khoản" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Phương thức thẻ tín dụng */}
+            <div
+              className={`w-full p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${
+                selectedPayment === "visa_mastercard"
+                  ? "border-blue-500 bg-blue-50"
+                  : "border-gray-200 bg-white hover:border-gray-300"
+              }`}
+              onClick={() => setSelectedPayment("visa_mastercard")}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    selectedPayment === "visa_mastercard"
+                      ? "border-blue-500 bg-blue-500"
+                      : "border-gray-300"
+                  }`}>
+                    {selectedPayment === "visa_mastercard" && (
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                    )}
+                  </div>
+                  <div>
+                    <div className="font-medium text-[#0a0a0a]">Thẻ tín dụng/ghi nợ</div>
+                    <div className="text-sm text-gray-600">Visa, Mastercard</div>
+                  </div>
+                </div>
+                <div className="w-12 h-8">
+                  <img 
+                    src="/mastercard.svg" 
+                    alt="Thẻ tín dụng" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         
 
         {/* Privacy Policy */}
