@@ -48,6 +48,7 @@
     "cmdk": "latest",
     "date-fns": "latest",
     "embla-carousel-react": "latest",
+    "html2canvas": "^1.4.1",
     "input-otp": "latest",
     "lucide-react": "^0.522.0",
     "mysql2": "^3.14.1",
