@@ -82,16 +82,6 @@ export default function PaymentConfirmation() {
                     : "Thanh toán thất bại"}
                 </span>
               </div>
-              {/* Nếu là chuyển khoản, hiển thị thêm thông tin SePay */}
-              {paymentResult.method === "bank_transfer" && paymentResult.sepayInfo && (
-                <div className="mt-2 text-sm text-gray-700">
-                  <div><b>Ngân hàng:</b> {paymentResult.sepayInfo.bank_name}</div>
-                  <div><b>Số tài khoản:</b> {paymentResult.sepayInfo.bank_account}</div>
-                  <div><b>Tên chủ tài khoản:</b> {paymentResult.sepayInfo.account_name}</div>
-                  <div><b>Nội dung chuyển khoản:</b> {paymentResult.sepayInfo.transfer_content}</div>
-                  <div><b>Số tiền:</b> {paymentResult.sepayInfo.amount?.toLocaleString("vi-VN")}đ</div>
-                </div>
-              )}
             </div>
           )}
         </div>
