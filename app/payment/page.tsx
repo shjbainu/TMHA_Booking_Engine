@@ -83,8 +83,8 @@ const generateBookingCode = () => {
 };
 
 const handlePaymentConfirmation = async () => {
-  if (!customer.name || !customer.phone || !customer.email) {
-    alert("Vui lòng điền đầy đủ thông tin khách hàng!");
+  if (!customer.email) {
+    alert("Vui lòng điền email của bạn để nhận xác nhận đặt phòng.");
     return;
   }
   setIsProcessing(true);
