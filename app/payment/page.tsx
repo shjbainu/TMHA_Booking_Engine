@@ -468,6 +468,18 @@ const handlePaymentConfirmation = async () => {
 {showSepayPopup && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
     <div className="bg-white rounded-lg p-6 max-w-sm w-full shadow-lg relative">
+      {/* Nút đóng X */}
+      <button
+        className="absolute top-3 right-3 w-12 h-12 flex items-center justify-center text-gray-500 hover:text-gray-700 text-2xl font-bold rounded-full transition"
+        aria-label="Đóng"
+        onClick={() => {
+          setShowSepayPopup(false);
+          setIsProcessing(false);
+        }}
+        type="button"
+      >
+        ×
+      </button>
       <h2 className="text-lg font-bold mb-4">Thông tin chuyển khoản</h2>
       {sepayData && sepayData.qr_url ? (
         <div className="flex flex-col items-center gap-3">
@@ -496,20 +508,30 @@ const handlePaymentConfirmation = async () => {
           >
             Lưu QR
           </button>
-          <div className="text-left w-full mt-2 space-y-4"> {/* tăng space-y-4 */}
-            {[
+          <div className="text-left w-full mt-2 space-y-4">
+            { [
               { label: "Ngân hàng", value: sepayData.bank_name },
-              { label: "Số tài khoản", value: sepayData.bank_account },
-              { label: "Tên chủ tài khoản", value: sepayData.account_name },
+              { label: "STK", value: sepayData.bank_account },
+              { label: "Tên TK", value: sepayData.account_name, multiline: true },
               { label: "Nội dung", value: sepayData.transfer_content },
               { label: "Số tiền", value: sepayData.amount?.toLocaleString("vi-VN") + "đ" },
             ].map((item, idx) => (
               <div key={idx} className="flex justify-between items-center py-2">
                 <div className="font-medium flex-shrink-0">{item.label}:</div>
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="truncate">{item.value}</span>
+                  <span
+                    className={
+                      item.multiline
+                        ? "break-words whitespace-pre-line max-w-[200px] text-right"
+                        : "truncate text-right"
+                    }
+                    style={item.multiline ? { whiteSpace: "pre-line" } : {}}
+                  >
+                    {item.value}
+                  </span>
                   <button
-                    className="ml-2 px-2 py-1 bg-gray-200 rounded text-xs hover:bg-gray-300"
+                    className="ml-2 px-4 py-2 bg-gray-200 rounded text-sm hover:bg-gray-300 font-medium"
+                    style={{ fontSize: "14px" }}
                     onClick={() => {
                       navigator.clipboard.writeText(item.value);
                       setShowCopyToast("Đã copy " + item.label);
