@@ -493,7 +493,7 @@ const handlePaymentConfirmation = async () => {
                 const url = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `qr_chuyen_khoan.png`;
+                link.download = `qr_chuyen_khoan_${sepayData.transfer_content || "order"}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
