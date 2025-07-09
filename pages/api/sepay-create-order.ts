@@ -49,8 +49,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
    return res.status(500).json({ error: error?.message || "Cannot create order" })
   }
   const bank_code = "MB"
-  const bank_account = "058585186969"
-  const account_name = "VU NGOC DU"
+  const bank_account = "886989999"
+  const account_name = "CONG TY CO PHAN MINOVA GROUP"
   const transfer_content = `DH${data.orders_id}`
   const qr_url = `https://qr.sepay.vn/img?acc=${bank_account}&bank=${bank_code}&amount=${data.total}&des=${encodeURIComponent(transfer_content)}&template=compact`
 
